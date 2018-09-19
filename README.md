@@ -2,7 +2,7 @@
 Just have fun
 
 ## What it is / Motivation
-After browsing [r/GifSound](https://www.reddit.com/r/GifSound), [r/MusicGifStation](https://www.reddit.com/r/MusicGifStation) etc. for some time, I realized that the mobile version of https://gifsound.com is bad and cannot accurately represent the awesomeness of these subreddits' content. That and the fact that I wanted to practice/learn more of Kotlin led me to creating this app and ruining my productivity henceforth. 
+After browsing [r/GifSound](https://www.reddit.com/r/GifSound), [r/MusicGifStation](https://www.reddit.com/r/MusicGifStation) etc. for some time, I realized that the website https://gifsound.com is not meant to be displayed to mobile devices and thus cannot accurately represent the awesomeness of these subreddits' content. That and the fact that I wanted to practice/learn more of Kotlin led me to creating this app and ruining my productivity henceforth. 
 
 It substitutes the site functionally, meaning that you can use it to open gifsound.com links from anywhere. It also uses the reddit API to get the top/hot/new posts of r/GifSound so I can get more engagement :sunglasses: (Can add more subreddits in the future if it is requested)
 
@@ -32,3 +32,7 @@ Planning to incorporate/learn the following too:
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+
+## Acknowledgments
+
+* Hat tip to the folks that created the https://gifsound.com
