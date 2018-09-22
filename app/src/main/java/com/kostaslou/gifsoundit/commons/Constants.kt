@@ -14,12 +14,10 @@ object PostType {
 
 // some reddit related constants
 object RedditConstants {
-//    const val CLIENT_ID = "rR6ycz_KdFvt4g"
-    const val USER_AGENT = "GifSound It by loukwn"
-    const val TOKEN_TYPE = "access_token"
     const val NUM_OF_POSTS_PER_REQUEST = 25
 }
 
 object GeneralConstants {
     const val MINUTES_TO_REFRESH = 5
+    const val AMOUNT_OF_VIEWS_TO_INSTA_SCROLL = 60
 }

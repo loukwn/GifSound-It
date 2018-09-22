@@ -28,9 +28,9 @@ android {
 
             // keys
             buildConfigField 'String', "RedditClientId", GifSoundIt_RedditClientId
+            buildConfigField 'String', "RedditUserAgent", GifSoundIt_RedditUserAgent
             buildConfigField 'String', "YouTubeApiKey", GifSoundIt_YouTubeApiKey
         }
-
 
         debug {
             debuggable true
@@ -40,6 +40,7 @@ android {
 
             // keys
             buildConfigField 'String', "RedditClientId", GifSoundIt_RedditClientId
+            buildConfigField 'String', "RedditUserAgent", GifSoundIt_RedditUserAgent
             buildConfigField 'String', "YouTubeApiKey", GifSoundIt_YouTubeApiKey
         }
     }

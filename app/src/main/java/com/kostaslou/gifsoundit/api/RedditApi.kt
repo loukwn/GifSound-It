@@ -2,7 +2,6 @@ package com.kostaslou.gifsoundit.api
 
 import com.kostaslou.gifsoundit.BuildConfig
 import com.kostaslou.gifsoundit.commons.PostType
-import com.kostaslou.gifsoundit.commons.RedditConstants
 import com.kostaslou.gifsoundit.commons.RedditPostResponse
 import com.kostaslou.gifsoundit.commons.RedditTokenResponse
 import okhttp3.OkHttpClient
@@ -74,9 +73,9 @@ class RestAPI {
 
     fun getPosts(accessToken: String, deviceType: Int, after: String, topType: String = "all"): Call<RedditPostResponse>? {
         when(deviceType){
-            PostType.HOT -> return postApi.getHotGifSounds("bearer $accessToken", RedditConstants.USER_AGENT, after)
-            PostType.TOP -> return postApi.getTopGifSounds("bearer $accessToken", RedditConstants.USER_AGENT, after, topType)
-            PostType.NEW -> return postApi.getNewGifSounds("bearer $accessToken", RedditConstants.USER_AGENT, after)
+            PostType.HOT -> return postApi.getHotGifSounds("bearer $accessToken", BuildConfig.RedditUserAgent, after)
+            PostType.TOP -> return postApi.getTopGifSounds("bearer $accessToken", BuildConfig.RedditUserAgent, after, topType)
+            PostType.NEW -> return postApi.getNewGifSounds("bearer $accessToken", BuildConfig.RedditUserAgent, after)
 
         }
         return null

@@ -1,6 +1,5 @@
 package com.kostaslou.gifsoundit.adapter
 
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.support.v7.widget.RecyclerView
@@ -12,7 +11,6 @@ import com.kostaslou.gifsoundit.commons.PostModel
 import com.kostaslou.gifsoundit.commons.inflate
 import com.kostaslou.gifsoundit.commons.loadImg
 import kotlinx.android.synthetic.main.item_post.view.*
-import org.jetbrains.anko.defaultSharedPreferences
 import java.text.SimpleDateFormat
 import java.util.*
 
