@@ -6,9 +6,7 @@ import android.graphics.Typeface
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.View
-import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.gif.GifDrawable
 import com.bumptech.glide.request.RequestListener
@@ -77,7 +75,7 @@ class OpenGSActivity : YouTubeBaseActivity() {
 
             if (errorMess.isEmpty()) {
                 if (gifError) {
-                    statusText = "Could not fetch GIF..."
+                    statusText = "Could not fetch GIF."
                 } else {
                     if (!gifReady && vidReady)
                         statusText = "Fetching GIF..."
@@ -242,6 +240,7 @@ class OpenGSActivity : YouTubeBaseActivity() {
                     gifReady = true
                     setShowGifLabelStatus()
                     updateStatus()
+                    mp.setVideoScalingMode(MediaPlayer.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING)
                     mp.setVolume(0f,0f)
                 }
                 mp4View.setOnCompletionListener {
@@ -344,6 +343,11 @@ class OpenGSActivity : YouTubeBaseActivity() {
             }
         }
 
+        // gif label layout close button
+        gifLabelCloseButton.setOnClickListener {
+            playGIFLayout.visibility = View.GONE
+        }
+
         // offset tip
         offsetTip.setOnClickListener {
             offsetTip.visibility = View.GONE
@@ -362,7 +366,7 @@ class OpenGSActivity : YouTubeBaseActivity() {
     @Synchronized
     private fun setShowGifLabelStatus() {
         if (gifReady && vidError && !gifError) {
-            playGIFLabel.visibility = View.VISIBLE
+            playGIFLayout.visibility = View.VISIBLE
         }
     }
 
@@ -408,7 +412,7 @@ class OpenGSActivity : YouTubeBaseActivity() {
 
             // second offset
             if (arg.startsWith("s=")) {
-                seconds = arg.split("=")[1].toInt() + 1
+                seconds = arg.split("=")[1].toInt()
                 defaultSeconds = seconds
                 updateOffsetLabel()
                 continue
@@ -416,7 +420,7 @@ class OpenGSActivity : YouTubeBaseActivity() {
 
             // second offset #2
             if (arg.startsWith("start=")) {
-                seconds = arg.split("=")[1].toInt() + 1
+                seconds = arg.split("=")[1].toInt()
                 defaultSeconds = seconds
                 updateOffsetLabel()
                 continue

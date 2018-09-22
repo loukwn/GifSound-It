@@ -63,20 +63,40 @@
         android:layout_alignParentBottom="true"
         android:id="@+id/bottomLayout">
 
-        <TextView
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:gravity="center"
-            android:text="Having problems? Tap to play GIF"
-            android:visibility="gone"
-            android:id="@+id/playGIFLabel"/>
+            android:id="@+id/playGIFLayout"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="10dp"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/ic_close"
+                android:id="@+id/gifLabelCloseButton"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:gravity="center"
+                android:layout_toStartOf="@id/gifLabelCloseButton"
+                android:text="Having problems? Tap here to play GIF"
+                android:textColor="@android:color/white"
+                android:visibility="visible"
+                android:id="@+id/playGIFLabel"/>
+
+
+        </RelativeLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:background="@android:color/black"
-            android:layout_below="@id/playGIFLabel"
+            android:layout_below="@id/playGIFLayout"
             android:id="@+id/separator1"/>
 
 
@@ -223,7 +243,8 @@
 
         <VideoView
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
             android:visibility="invisible"
             android:id="@+id/mp4View"/>
 

@@ -24,12 +24,14 @@ class MainPresenter(private val sharedPreferences : SharedPreferences, private v
 
                 // update shared preferences
                 with (sharedPreferences.edit()) {
-                    putString("access_token", accessToken ?: "")
-                    if (expiresIn!=null) {
-                        val date = Date(Date().time + expiresIn.toLong() * 1000)
-                        putLong("expires_in_date", date.time)
-                    } else {
-                        putLong("expires_in_date", Date().time)
+                    if ((accessToken ?: "").isNotEmpty()) {
+                        putString("access_token", accessToken ?: "")
+                        if (expiresIn != null) {
+                            val date = Date(Date().time + expiresIn.toLong() * 1000)
+                            putLong("expires_in_date", date.time)
+                        } else {
+                            putLong("expires_in_date", Date().time)
+                        }
                     }
                     apply()
                 }
