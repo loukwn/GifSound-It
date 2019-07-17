@@ -1,7 +1,7 @@
 package com.kostaslou.gifsoundit.adapter
 
-import android.support.v4.util.SparseArrayCompat
-import android.support.v7.widget.RecyclerView
+import androidx.collection.SparseArrayCompat
+import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
 import com.kostaslou.gifsoundit.commons.AdapterConstants
 import com.kostaslou.gifsoundit.commons.PostModel
@@ -10,10 +10,10 @@ import com.kostaslou.gifsoundit.commons.RedditConstants
 
 // the main adapter for a fragment
 
-class MainPostAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MainPostAdapter : androidx.recyclerview.widget.RecyclerView.Adapter<androidx.recyclerview.widget.RecyclerView.ViewHolder>() {
 
     private var items: ArrayList<ViewType>  // list of items
-    private var delegateAdapters = SparseArrayCompat<ViewTypeDelegateAdapter>()   // the different adapters as a map with their viewtype as key
+    private var delegateAdapters = androidx.collection.SparseArrayCompat<ViewTypeDelegateAdapter>()   // the different adapters as a map with their viewtype as key
 
     // loading item is just an object that implements the viewtype interface
     private val loadingItem = object : ViewType {
@@ -34,13 +34,14 @@ class MainPostAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         return items.size
     }
 
+    // todo: TA THAYMASTIKA
     // based on which viewtype we have we select adapter and we perform the respective onCreateViewHolder and onBindViewHolder
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return delegateAdapters.get(viewType).onCreateViewHolder(parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): androidx.recyclerview.widget.RecyclerView.ViewHolder {
+        return delegateAdapters.get(viewType)!!.onCreateViewHolder(parent)
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        delegateAdapters.get(getItemViewType(position)).onBindViewHolder(holder, this.items[position])
+    override fun onBindViewHolder(holder: androidx.recyclerview.widget.RecyclerView.ViewHolder, position: Int) {
+        delegateAdapters.get(getItemViewType(position))!!.onBindViewHolder(holder, this.items[position])
     }
 
     // we get the viewtype

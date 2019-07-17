@@ -2,7 +2,7 @@ package com.kostaslou.gifsoundit.adapter
 
 import android.content.Intent
 import android.net.Uri
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import com.kostaslou.gifsoundit.OpenGSActivity
@@ -17,16 +17,16 @@ import java.util.*
 // the adapter for the actual posts
 class PostDelegateAdapter : ViewTypeDelegateAdapter {
 
-    override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup): androidx.recyclerview.widget.RecyclerView.ViewHolder {
         return PostsViewHolder(parent)
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, item: ViewType) {
+    override fun onBindViewHolder(holder: androidx.recyclerview.widget.RecyclerView.ViewHolder, item: ViewType) {
         holder as PostsViewHolder
         holder.bind(item as PostModel)
     }
 
-    class PostsViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(parent.inflate(R.layout.item_post)), View.OnClickListener  {
+    class PostsViewHolder(parent: ViewGroup) : androidx.recyclerview.widget.RecyclerView.ViewHolder(parent.inflate(R.layout.item_post)), View.OnClickListener  {
 
         private var postLink : String? = null
         private var postPerma : String? = null

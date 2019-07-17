@@ -1,12 +1,12 @@
 package com.kostaslou.gifsoundit
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Typeface
 import android.os.Bundle
-import android.support.design.widget.Snackbar
-import android.support.v4.content.ContextCompat
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
+import androidx.core.content.ContextCompat
+import androidx.appcompat.app.AppCompatActivity
 import android.text.TextUtils
 import android.view.Menu
 import android.view.MenuItem
@@ -17,42 +17,42 @@ import com.kostaslou.gifsoundit.commons.PostType
 import com.kostaslou.gifsoundit.util.InfiniteScrollListener
 import com.mikepenz.aboutlibraries.LibsBuilder
 import kotlinx.android.synthetic.main.activity_main.*
-import rx.android.schedulers.AndroidSchedulers
-import rx.schedulers.Schedulers
-import rx.subscriptions.CompositeSubscription
 import java.util.*
 import android.view.animation.AnimationUtils
-import com.crashlytics.android.Crashlytics
 import com.kostaslou.gifsoundit.commons.GeneralConstants
-import io.fabric.sdk.android.Fabric
+import com.kostaslou.gifsoundit.data.Repository
+import com.kostaslou.gifsoundit.data.disk.SharedPrefsHelper
+import com.kostaslou.gifsoundit.util.RxSchedulers
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 import org.jetbrains.anko.selector
 import org.jetbrains.anko.toast
 
 
 class MainActivity : AppCompatActivity() {
 
-    private var subscriptions = CompositeSubscription()
-    private val mainPresenter by lazy { MainPresenter(getSharedPreferences("reddit_stuff", Context.MODE_PRIVATE)) }
+    private var subscriptions = CompositeDisposable()
+    private val mainPresenter by lazy { HomeViewModel(Repository(), SharedPrefsHelper(getSharedPreferences("reddit_stuff", Context.MODE_PRIVATE)), RxSchedulers(Schedulers.io(), AndroidSchedulers.mainThread())) }
     private var localPosts : LocalPostData? = null
     private var accessToken : String? = null
     private var isRefreshing = false
+    private var performClear = false
     private var filterMenuVisible = false
     private var postType = 1  // 1 -> HOT, 2 -> TOP, 3 -> NEW
     private var topType = "all"   // hour, day, week etc
     private var stoppedAt : Long? = null
 
-    private var linearLayout: LinearLayoutManager? = null
+    private var linearLayout: androidx.recyclerview.widget.LinearLayoutManager? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Fabric init
-        Fabric.with(this, Crashlytics())
-
         // init
         setContentView(R.layout.activity_main)
         initUI()
+        listenToObservables()
 
         // retain the data during orientation change
         if (savedInstanceState != null && savedInstanceState.containsKey("posts")) {
@@ -63,7 +63,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        subscriptions = CompositeSubscription()
 
         // update the posts if 5 minutes, or more have passed
         stoppedAt?.let {
@@ -77,10 +76,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        if (!subscriptions.isUnsubscribed) {
-            subscriptions.unsubscribe()
-        }
-        subscriptions.clear()
+
+        mainPresenter.cancelNetworkConnections()
     }
 
     override fun onStop() {
@@ -125,6 +122,53 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("CheckResult")
+    private fun listenToObservables() {
+        mainPresenter.resultPostsObservable.subscribe {
+            // we have data
+            if (!performClear) {
+                // append data to list
+                (mainRecycler.adapter as MainPostAdapter).addPosts(it.list)
+                if (TextUtils.isEmpty(localPosts?.after ?: ""))
+                    mainRecycler.scrollToPosition(0)
+                localPosts = it
+
+            } else {
+                // clear and add
+                performClear = false
+
+                (mainRecycler.adapter as MainPostAdapter).clearAndAddPosts(it.list)
+                mainRecycler.scrollToPosition(0)
+                localPosts = it
+
+            }
+
+            mSwipe.isEnabled = true
+            mSwipe.isRefreshing = false
+            isRefreshing = false
+
+            if (linearLayout!=null) {
+                mainRecycler.clearOnScrollListeners()
+                mainRecycler.addOnScrollListener(InfiniteScrollListener({ requestPosts(false) }, linearLayout!!))
+            }
+        }
+
+        mainPresenter.resultTokenObservable.subscribe {
+            this.accessToken = it
+            val allOk = (!(TextUtils.isEmpty(accessToken ?: "")))
+
+            if (allOk) {
+                requestPosts(false, postType)
+            }
+        }
+
+        mainPresenter.resultErrorObservable.subscribe {
+            mSwipe.isRefreshing = false
+            isRefreshing = false
+            Snackbar.make(mainRecycler, it, Snackbar.LENGTH_LONG).show()
+        }
+    }
+
     // Util
     private fun initUI() {
 
@@ -136,7 +180,7 @@ class MainActivity : AppCompatActivity() {
         toolbarTitle.typeface = typeFace
         toolbarTitle.setOnClickListener {
             if (localPosts!=null)  {
-                val lManager = mainRecycler.layoutManager as LinearLayoutManager
+                val lManager = mainRecycler.layoutManager as androidx.recyclerview.widget.LinearLayoutManager
                 if (lManager.findFirstVisibleItemPosition() >= GeneralConstants.AMOUNT_OF_VIEWS_TO_INSTA_SCROLL)
                     mainRecycler.scrollToPosition(0)
                 else
@@ -156,7 +200,7 @@ class MainActivity : AppCompatActivity() {
 
         // recycler view
         mainRecycler.setHasFixedSize(true)
-        linearLayout = LinearLayoutManager(this)
+        linearLayout = androidx.recyclerview.widget.LinearLayoutManager(this)
         mainRecycler.layoutManager = linearLayout
         mainRecycler.clearOnScrollListeners()
         mainRecycler.addOnScrollListener(InfiniteScrollListener({ requestPosts(false) }, linearLayout!!))
@@ -239,92 +283,70 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    // Communicate with presentation layer
+    // Communicate with the ViewModel
     private fun reguestToken() {
 
         isRefreshing = true
         mSwipe.isRefreshing = true
 
-        val subscription = mainPresenter.getAccessToken()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe (
-                        // onNext()
-                        { accessToken ->
-                            this.accessToken = accessToken
-                            val allOk = (!(TextUtils.isEmpty(accessToken ?: "")))
-
-                            if (allOk) {
-                                requestPosts(false, postType)
-                            } else {
-                                isRefreshing = false
-                                mSwipe.isRefreshing = false
-                                Snackbar.make(mainRecycler, "Error communicating with Reddit. Try again", Snackbar.LENGTH_LONG).show()
-                            }
-                        },
-                        // onError()
-                        { e ->
-                            mSwipe.isRefreshing = false
-                            isRefreshing = false
-                            Snackbar.make(mainRecycler, e.message ?: "Error communicating with Reddit. Try again later.", Snackbar.LENGTH_LONG).show()
-                        }
-                )
-
-        // CompositeSubscription to handle onResume/onPause calls
-        subscriptions.add(subscription)
+        mainPresenter.getAccessToken()
     }
 
-    private fun requestPosts(fromRefresh: Boolean, postType: Int = PostType.HOT) {
+    private fun requestPosts(performClear: Boolean, postType: Int = PostType.HOT) {
+        this.performClear = performClear
+        isRefreshing = true
+        mSwipe.isRefreshing = true
 
-        // check if we need to update the access token first
-        val sharedPreferences = getSharedPreferences("reddit_stuff", Context.MODE_PRIVATE)
-        val expiresAtDate = Date(sharedPreferences?.getLong("expires_in_date", Date().time) ?: Date().time)
-        if (expiresAtDate.before(Date()) || expiresAtDate == Date() || TextUtils.isEmpty(sharedPreferences?.getString("access_token", "") ?: "")) {
-            // we need to update the access token
-            reguestToken()
-        } else {
-            isRefreshing = true
-            // if from refresh is true we will ignore the 'after' parameter
-            val subscription = mainPresenter.getPosts(if (fromRefresh) "" else localPosts?.after ?: "", postType, topType)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe (
-                            // onNext()
-                            { retrievedPosts ->
-                                if (!fromRefresh) {
-                                    mSwipe.isRefreshing = false
-                                    (mainRecycler.adapter as MainPostAdapter).addPosts(retrievedPosts.list)
-                                    if (TextUtils.isEmpty(localPosts?.after ?: ""))
-                                        mainRecycler.scrollToPosition(0)
-                                    localPosts = retrievedPosts
-                                    isRefreshing = false
-                                } else {
-                                    // onSwipeRefresh
-                                    mSwipe.isRefreshing = false
-                                    (mainRecycler.adapter as MainPostAdapter).clearAndAddPosts(retrievedPosts.list)
-                                    mainRecycler.scrollToPosition(0)
-                                    localPosts = retrievedPosts
-                                    isRefreshing = false
-                                }
-
-                                mSwipe.isEnabled = true
-
-                                if (linearLayout!=null) {
-                                    mainRecycler.clearOnScrollListeners()
-                                    mainRecycler.addOnScrollListener(InfiniteScrollListener({ requestPosts(false) }, linearLayout!!))
-                                }
-                            },
-                            // onError()
-                            { e ->
-                                mSwipe.isRefreshing = false
-                                isRefreshing = false
-                                Snackbar.make(mainRecycler, e.message ?: "Error during post fetch. Try again later.", Snackbar.LENGTH_LONG).show()
-                            }
-                    )
-
-            // CompositeSubscription to handle onResume/onPause calls
-            subscriptions.add(subscription)
-
-        }
+        mainPresenter.getPosts(if (performClear) "" else localPosts?.after ?: "", postType, topType)
     }
+
+//        // check if we need to update the access token first
+//        val sharedPreferences = getSharedPreferences("reddit_stuff", Context.MODE_PRIVATE)
+//        val expiresAtDate = Date(sharedPreferences?.getLong("expires_in_date", Date().time) ?: Date().time)
+//        if (expiresAtDate.before(Date()) || expiresAtDate == Date() || TextUtils.isEmpty(sharedPreferences?.getString("access_token", "") ?: "")) {
+//            // we need to update the access token
+//            reguestToken()
+//        } else {
+//            isRefreshing = true
+//            // if from refresh is true we will ignore the 'after' parameter
+//            val subscription = mainPresenter.getPosts(if (fromRefresh) "" else localPosts?.after ?: "", postType, topType)
+//                    .subscribeOn(Schedulers.io())
+//                    .observeOn(AndroidSchedulers.mainThread())
+//                    .subscribe (
+//                            // onNext()
+//                            { retrievedPosts ->
+//                                if (!fromRefresh) {
+//                                    mSwipe.isRefreshing = false
+//                                    (mainRecycler.adapter as MainPostAdapter).addPosts(retrievedPosts.list)
+//                                    if (TextUtils.isEmpty(localPosts?.after ?: ""))
+//                                        mainRecycler.scrollToPosition(0)
+//                                    localPosts = retrievedPosts
+//                                    isRefreshing = false
+//                                } else {
+//                                    // onSwipeRefresh
+//                                    mSwipe.isRefreshing = false
+//                                    (mainRecycler.adapter as MainPostAdapter).clearAndAddPosts(retrievedPosts.list)
+//                                    mainRecycler.scrollToPosition(0)
+//                                    localPosts = retrievedPosts
+//                                    isRefreshing = false
+//                                }
+//
+//                                mSwipe.isEnabled = true
+//
+//                                if (linearLayout!=null) {
+//                                    mainRecycler.clearOnScrollListeners()
+//                                    mainRecycler.addOnScrollListener(InfiniteScrollListener({ requestPosts(false) }, linearLayout!!))
+//                                }
+//                            },
+//                            // onError()
+//                            { e ->
+//                                mSwipe.isRefreshing = false
+//                                isRefreshing = false
+//                                Snackbar.make(mainRecycler, e.message ?: "Error during post fetch. Try again later.", Snackbar.LENGTH_LONG).show()
+//                            }
+//                    )
+//
+//            // CompositeSubscription to handle onResume/onPause calls
+//            subscriptions.add(subscription)
+
 }

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1047861221351",
+    "firebase_url": "https://gif-sound-it-42.firebaseio.com",
+    "project_id": "gif-sound-it-42",
+    "storage_bucket": "gif-sound-it-42.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1047861221351:android:8b3bf6424afc72e2",
+        "android_client_info": {
+          "package_name": "com.kostaslou.gifsoundit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1047861221351-t80q62kmh2bpb46q01fc33ekioo6bncp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmZ2w9WpJgcRah_pE2-_YwZ_aD9NpE2J8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1047861221351-t80q62kmh2bpb46q01fc33ekioo6bncp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
