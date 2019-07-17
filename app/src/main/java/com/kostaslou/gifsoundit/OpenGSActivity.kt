@@ -378,10 +378,11 @@ class OpenGSActivity : YouTubeBaseActivity() {
 
         if (intent?.extras?.containsKey("query") == true) {
             // if we come from a previous activity
-            setGifSoundArgs(intent.extras.getString("query"))
+            setGifSoundArgs(intent?.extras?.getString("query") ?: "")
         } else if (intent?.data?.query?.isNotEmpty() == true) {
             // if we come from another app with data
-            setGifSoundArgs(intent.data.query)
+            val q = intent?.data?.query
+            q?.let { setGifSoundArgs(it) }
         }
     }
 
