@@ -12,29 +12,19 @@ import io.reactivex.subjects.PublishSubject
 import retrofit2.HttpException
 import java.util.*
 
-class HomeViewModel() {
+class HomeViewModel(mRepository: Repository, sharedPreferences: SharedPrefsHelper, schedulers: RxSchedulers) {
 
-    private lateinit var repository: Repository
-    private lateinit var sharedPrefsHelper: SharedPrefsHelper
-    private lateinit var rxSchedulers: RxSchedulers
+    private var repository: Repository = mRepository
+    private var sharedPrefsHelper: SharedPrefsHelper = sharedPreferences
+    private var rxSchedulers: RxSchedulers = schedulers
 
     // observables for the view
-    lateinit var resultPostsObservable: PublishSubject<LocalPostData>
-    lateinit var resultTokenObservable: PublishSubject<String>
-    lateinit var resultErrorObservable: PublishSubject<String>
+    var resultPostsObservable: PublishSubject<LocalPostData> = PublishSubject.create()
+    var resultTokenObservable: PublishSubject<String> = PublishSubject.create()
+    var resultErrorObservable: PublishSubject<String> = PublishSubject.create()
 
     // for the cleanup
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
-
-    constructor(mRepository: Repository, sharedPreferences: SharedPrefsHelper, schedulers: RxSchedulers) : this() {
-        repository = mRepository
-        rxSchedulers = schedulers
-        sharedPrefsHelper = sharedPreferences
-
-        resultPostsObservable = PublishSubject.create()
-        resultTokenObservable = PublishSubject.create()
-        resultErrorObservable = PublishSubject.create()
-    }
 
     fun getPosts(after: String, postType: Int, topType: String = "all") {
 
