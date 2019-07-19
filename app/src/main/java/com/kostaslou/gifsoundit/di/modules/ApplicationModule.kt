@@ -1,5 +1,8 @@
 package com.kostaslou.gifsoundit.di.modules
 
+import android.app.Application
+import android.content.Context
+import android.content.SharedPreferences
 import com.kostaslou.gifsoundit.BuildConfig
 import com.kostaslou.gifsoundit.commons.RedditConstants
 import com.kostaslou.gifsoundit.data.api.AuthApi
@@ -51,4 +54,8 @@ class ApplicationModule {
 
     @Provides
     fun provideRxSchedulers() : RxSchedulers = RxSchedulers.default()
+
+    @Singleton
+    @Provides
+    fun provideSharedPreferences(application: Application): SharedPreferences =  application.getSharedPreferences("reddit_stuff", Context.MODE_PRIVATE)
 }
