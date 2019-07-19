@@ -1,10 +1,12 @@
 package com.kostaslou.gifsoundit.data.disk
 
 import android.content.SharedPreferences
+import javax.inject.Inject
 
 // Class that deals with the shared preferences operations
 
-class SharedPrefsHelper (private val mSharedPreferences: SharedPreferences) {
+
+class SharedPrefsHelper @Inject constructor(private val mSharedPreferences: SharedPreferences) {
 
     fun put(key: String, value: String) {
         mSharedPreferences.edit().putString(key, value).apply()

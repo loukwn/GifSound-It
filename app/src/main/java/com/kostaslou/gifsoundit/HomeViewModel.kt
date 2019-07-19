@@ -10,7 +10,6 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.subjects.PublishSubject
-import retrofit2.HttpException
 import java.util.*
 
 class HomeViewModel(mRepository: Repository, sharedPreferences: SharedPrefsHelper, schedulers: RxSchedulers) {
@@ -42,27 +41,27 @@ class HomeViewModel(mRepository: Repository, sharedPreferences: SharedPrefsHelpe
         }
 
         // communicate with repo
-        val disposable: Disposable = repository.getPosts(accessToken, postType, after, topType)
-            .subscribeOn(rxSchedulers.ioScheduler)
-            .observeOn(rxSchedulers.androidScheduler)
-            .subscribeWith(object : DisposableSingleObserver<RedditPostResponse>() {
-                override fun onSuccess(t: RedditPostResponse) {
-                    resultPostsObservable.onNext(transformResponseToAdapterType(t))
-                }
-
-                override fun onError(e: Throwable) {
-                    Log.v("onError", e.message ?: "unknown error i guess?")
-                    resultErrorObservable.onNext("error getting posts")
-                }
-            })
-        compositeDisposable.add(disposable)
+//        val disposable: Disposable = repository.getPostsFromNetwork(accessToken, postType, after, topType)
+//            .subscribeOn(rxSchedulers.ioScheduler)
+//            .observeOn(rxSchedulers.androidScheduler)
+//            .subscribeWith(object : DisposableSingleObserver<RedditPostResponse>() {
+//                override fun onSuccess(t: RedditPostResponse) {
+//                    resultPostsObservable.onNext(transformResponseToAdapterType(t))
+//                }
+//
+//                override fun onError(e: Throwable) {
+//                    Log.v("onError", e.message ?: "unknown error i guess?")
+//                    resultErrorObservable.onNext("error getting posts")
+//                }
+//            })
+//        compositeDisposable.add(disposable)
     }
 
     // access token
     fun getAccessToken() {
 
         // communicate with repo
-        val disposable: Disposable = repository.getAuthToken()
+        val disposable: Disposable = repository.getRedditAuthToken()
             .subscribeOn(rxSchedulers.ioScheduler)
             .observeOn(rxSchedulers.androidScheduler)
             .subscribeWith(object : DisposableSingleObserver<RedditTokenResponse>() {
