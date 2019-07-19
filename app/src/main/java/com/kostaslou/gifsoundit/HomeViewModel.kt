@@ -1,15 +1,13 @@
 package com.kostaslou.gifsoundit
 
 import android.text.TextUtils
-import android.util.Log
-import com.kostaslou.gifsoundit.util.commons.*
 import com.kostaslou.gifsoundit.data.Repository
-import com.kostaslou.gifsoundit.data.api.RedditPostResponse
-import com.kostaslou.gifsoundit.data.api.RedditTokenResponse
 import com.kostaslou.gifsoundit.data.disk.SharedPrefsHelper
-import com.kostaslou.gifsoundit.ui.home.LocalPostData
-import com.kostaslou.gifsoundit.ui.home.PostModel
 import com.kostaslou.gifsoundit.util.RxSchedulers
+import com.kostaslou.gifsoundit.util.commons.LocalPostData
+import com.kostaslou.gifsoundit.util.commons.PostModel
+import com.kostaslou.gifsoundit.util.commons.RedditPostResponse
+import com.kostaslou.gifsoundit.util.commons.RedditTokenResponse
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.observers.DisposableSingleObserver
@@ -39,7 +37,7 @@ class HomeViewModel(mRepository: Repository, sharedPreferences: SharedPrefsHelpe
         if (expiresAtDate.before(Date()) || expiresAtDate == Date() || TextUtils.isEmpty(accessToken)) {
             // we need to update the access token
 
-            resultErrorObservable.onNext(provideMessageFromException(TokenRequiredException("Token required")))
+//            resultErrorObservable.onNext(provideMessageFromException(TokenRequiredException("Token required")))
             getAccessToken()
             return
         }
@@ -62,7 +60,7 @@ class HomeViewModel(mRepository: Repository, sharedPreferences: SharedPrefsHelpe
     }
 
     // access token
-    fun getAccessToken() {
+    private fun getAccessToken() {
 
         // communicate with repo
         val disposable: Disposable = repository.getRedditAuthToken()
@@ -70,12 +68,10 @@ class HomeViewModel(mRepository: Repository, sharedPreferences: SharedPrefsHelpe
             .observeOn(rxSchedulers.androidScheduler)
             .subscribeWith(object : DisposableSingleObserver<RedditTokenResponse>() {
                 override fun onSuccess(t: RedditTokenResponse) {
-                    Log.v("onError", t.access_token)
                     resultTokenObservable.onNext(saveTokenToPrefsAndReturnName(t))
                 }
 
                 override fun onError(e: Throwable) {
-                    Log.v("onError", e.message ?: "unknown error i guess?")
                     resultErrorObservable.onNext("error getting token")
                 }
             })
@@ -111,17 +107,17 @@ class HomeViewModel(mRepository: Repository, sharedPreferences: SharedPrefsHelpe
         return LocalPostData(posts, r.data.before ?: "", r.data.after ?: "")
     }
 
-    // exception from retrofit -> error message
-    private fun provideMessageFromException(e: Exception): String {
-        // todo: translate the strings for the view
-
-        return when (e) {
-            is PostsHttpException -> "Could not fetch posts.. Code: " + e.httpException.code() + " Message: " + e.httpException.message()
-            is TokenHttpException -> "Could not get token.. Code: " + e.httpException.code() + " Message: " + e.httpException.message()
-            is TokenRequiredException -> "Refreshing access token.."
-            else -> "Error getting data..."
-        }
-    }
+//    // exception from retrofit -> error message
+//    private fun provideMessageFromException(e: Exception): String {
+//        // todo: translate the strings for the view
+//
+//        return when (e) {
+//            is PostsHttpException -> "Could not fetch posts.. Code: " + e.httpException.code() + " Message: " + e.httpException.message()
+//            is TokenHttpException -> "Could not get token.. Code: " + e.httpException.code() + " Message: " + e.httpException.message()
+//            is TokenRequiredException -> "Refreshing access token.."
+//            else -> "Error getting data..."
+//        }
+//    }
 
     fun cancelNetworkConnections() {
         compositeDisposable.clear()

@@ -225,8 +225,9 @@ class OpenGSActivity : YouTubeBaseActivity() {
                         MediaPlayer.MEDIA_ERROR_IO -> "IO Error"
                         MediaPlayer.MEDIA_ERROR_UNSUPPORTED -> "Not supported by Media framework"
                         MediaPlayer.MEDIA_ERROR_TIMED_OUT -> "Operation timed out"
-                        else -> "Unknown Error (" + extra.toString() + ")"
+                        else -> "Unknown Error ($extra)"
                     }
+
                     gifReady = true
                     gifError = true
                     updateStatus(statusText)

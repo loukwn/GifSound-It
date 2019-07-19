@@ -5,8 +5,8 @@ import com.kostaslou.gifsoundit.util.commons.PostType
 import com.kostaslou.gifsoundit.util.commons.RedditConstants
 import com.kostaslou.gifsoundit.data.api.AuthApi
 import com.kostaslou.gifsoundit.data.api.PostApi
-import com.kostaslou.gifsoundit.data.api.RedditPostResponse
-import com.kostaslou.gifsoundit.data.api.RedditTokenResponse
+import com.kostaslou.gifsoundit.util.commons.RedditPostResponse
+import com.kostaslou.gifsoundit.util.commons.RedditTokenResponse
 import io.reactivex.Single
 import java.util.*
 import javax.inject.Inject
@@ -18,8 +18,8 @@ class Repository @Inject constructor(private val authApi: AuthApi, private val p
         return authApi.getAuthToken(RedditConstants.REDDIT_GRANT_TYPE, UUID.randomUUID().toString())
     }
 
-    fun getPostsFromNetwork(accessToken: String, deviceType: PostType, after: String, topType: String = "all"): Single<RedditPostResponse> {
-        return when(deviceType){
+    fun getPostsFromNetwork(accessToken: String, postType: PostType, after: String, topType: String = "all"): Single<RedditPostResponse> {
+        return when(postType){
             PostType.TOP -> postApi.getTopGifSounds("bearer $accessToken", BuildConfig.RedditUserAgent, after, topType)
             PostType.NEW -> postApi.getNewGifSounds("bearer $accessToken", BuildConfig.RedditUserAgent, after)
             PostType.HOT -> postApi.getHotGifSounds("bearer $accessToken", BuildConfig.RedditUserAgent, after)
