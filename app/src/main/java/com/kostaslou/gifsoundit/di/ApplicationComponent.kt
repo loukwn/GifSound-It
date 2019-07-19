@@ -4,6 +4,7 @@ import android.app.Application
 import com.kostaslou.gifsoundit.GifSoundItApp
 import com.kostaslou.gifsoundit.di.modules.ActivityBindingModule
 import com.kostaslou.gifsoundit.di.modules.ApplicationModule
+import com.kostaslou.gifsoundit.di.modules.ViewModelModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector
@@ -13,7 +14,7 @@ import javax.inject.Singleton
 
 
 @Singleton
-@Component(modules = [ApplicationModule::class, AndroidSupportInjectionModule::class, ActivityBindingModule::class ])
+@Component(modules = [ApplicationModule::class, AndroidSupportInjectionModule::class, ActivityBindingModule::class, ViewModelModule::class])
 interface ApplicationComponent : AndroidInjector<DaggerApplication> {
 
     fun inject(application: GifSoundItApp)

@@ -1,7 +1,6 @@
-package com.kostaslou.gifsoundit.adapter
+package com.kostaslou.gifsoundit.ui.home.adapter
 
 import android.graphics.Color
-import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
 import com.kostaslou.gifsoundit.R
 import com.kostaslou.gifsoundit.commons.inflate

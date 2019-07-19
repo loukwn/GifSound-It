@@ -1,8 +1,7 @@
-package com.kostaslou.gifsoundit.adapter
+package com.kostaslou.gifsoundit.ui.home.adapter
 
 import android.content.Intent
 import android.net.Uri
-import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import com.kostaslou.gifsoundit.OpenGSActivity
@@ -59,7 +58,7 @@ class PostDelegateAdapter : ViewTypeDelegateAdapter {
 
             // date
             val date = Date(item.created)
-            val format = SimpleDateFormat("EEE, d MMM yyyy, HH:mm")
+            val format = SimpleDateFormat("EEE, d MMM yyyy, HH:mm", Locale.UK)
             postDate.text = format.format(date)
         }
 

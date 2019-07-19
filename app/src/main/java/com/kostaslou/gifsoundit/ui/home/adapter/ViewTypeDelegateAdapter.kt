@@ -1,6 +1,5 @@
-package com.kostaslou.gifsoundit.adapter
+package com.kostaslou.gifsoundit.ui.home.adapter
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
 
 // implemented by all adapters so that they can override their own methods

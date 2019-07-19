@@ -1,6 +1,7 @@
 package com.kostaslou.gifsoundit
 
 import android.text.TextUtils
+import android.util.Log
 import com.kostaslou.gifsoundit.commons.*
 import com.kostaslou.gifsoundit.data.Repository
 import com.kostaslou.gifsoundit.data.disk.SharedPrefsHelper
@@ -50,7 +51,8 @@ class HomeViewModel(mRepository: Repository, sharedPreferences: SharedPrefsHelpe
                 }
 
                 override fun onError(e: Throwable) {
-                    resultErrorObservable.onNext(provideMessageFromException(PostsHttpException(e as HttpException)))
+                    Log.v("onError", e.message ?: "unknown error i guess?")
+                    resultErrorObservable.onNext("error getting posts")
                 }
             })
         compositeDisposable.add(disposable)
@@ -65,11 +67,13 @@ class HomeViewModel(mRepository: Repository, sharedPreferences: SharedPrefsHelpe
             .observeOn(rxSchedulers.androidScheduler)
             .subscribeWith(object : DisposableSingleObserver<RedditTokenResponse>() {
                 override fun onSuccess(t: RedditTokenResponse) {
+                    Log.v("onError", t.access_token)
                     resultTokenObservable.onNext(saveTokenToPrefsAndReturnName(t))
                 }
 
                 override fun onError(e: Throwable) {
-                    resultErrorObservable.onNext(provideMessageFromException(TokenHttpException(e as HttpException)))
+                    Log.v("onError", e.message ?: "unknown error i guess?")
+                    resultErrorObservable.onNext("error getting token")
                 }
             })
         compositeDisposable.add(disposable)

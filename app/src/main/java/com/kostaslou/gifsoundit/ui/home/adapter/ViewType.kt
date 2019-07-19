@@ -1,4 +1,4 @@
-package com.kostaslou.gifsoundit.adapter
+package com.kostaslou.gifsoundit.ui.home.adapter
 
 // this interface will be implemented by every item of the recycler list so that we know whether
 // the item is a post or the loading one

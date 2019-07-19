@@ -20,5 +20,8 @@
 # hide the original source file name.
 -renamesourcefileattribute SourceFile
 
-
+# Fabric needs this to work
 -keepattributes *Annotation*
+
+# keep the model classes for the retrofit results
+-keep class com.kostaslou.gifsoundit.commons.** { *; }

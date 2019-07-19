@@ -118,7 +118,7 @@ dependencies {
     implementation "androidx.annotation:annotation:$annotation_version"
     implementation "androidx.constraintlayout:constraintlayout:$constraint_layout_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
-
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
     // anko
     implementation "org.jetbrains.anko:anko-commons:$anko_version"
 
@@ -162,6 +162,7 @@ dependencies {
 
     // youtube
     implementation files("libs/YouTubeAndroidPlayerApi.jar")
+
 }
 
 apply plugin: "com.google.gms.google-services"
