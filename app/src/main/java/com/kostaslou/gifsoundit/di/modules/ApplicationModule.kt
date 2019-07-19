@@ -4,7 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import com.kostaslou.gifsoundit.BuildConfig
-import com.kostaslou.gifsoundit.commons.RedditConstants
+import com.kostaslou.gifsoundit.util.commons.RedditConstants
 import com.kostaslou.gifsoundit.data.api.AuthApi
 import com.kostaslou.gifsoundit.data.api.BasicRedditAuthInterceptor
 import com.kostaslou.gifsoundit.data.api.PostApi

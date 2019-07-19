@@ -1,6 +1,6 @@
 @file:JvmName("ExtensionsUtils")
 
-package com.kostaslou.gifsoundit.commons
+package com.kostaslou.gifsoundit.util.commons
 
 import android.text.TextUtils
 import android.util.Patterns

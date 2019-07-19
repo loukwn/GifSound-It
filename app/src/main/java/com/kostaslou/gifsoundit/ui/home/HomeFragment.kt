@@ -9,9 +9,9 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kostaslou.gifsoundit.R
-import com.kostaslou.gifsoundit.base.BaseFragment
-import com.kostaslou.gifsoundit.commons.GeneralConstants
-import com.kostaslou.gifsoundit.commons.PostType
+import com.kostaslou.gifsoundit.ui.base.BaseFragment
+import com.kostaslou.gifsoundit.util.commons.GeneralConstants
+import com.kostaslou.gifsoundit.util.commons.PostType
 import com.kostaslou.gifsoundit.ui.home.adapter.MainPostAdapter
 import com.kostaslou.gifsoundit.util.InfiniteScrollListener
 import com.kostaslou.gifsoundit.util.ViewModelFactory
@@ -185,6 +185,7 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun restoreUI() {
+        // filter menu
         if (viewModel.filterMenuVisible) {
             activity?.let {
                 moreButton.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.rotate_180_normal))
@@ -192,6 +193,7 @@ class HomeFragment : BaseFragment() {
             }
         }
 
+        // filter selection
         changePostCategory(viewModel.postType, getBaseActivity(), false)
     }
 }

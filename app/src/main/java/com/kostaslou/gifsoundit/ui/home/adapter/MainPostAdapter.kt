@@ -1,14 +1,15 @@
 package com.kostaslou.gifsoundit.ui.home.adapter
 
 import android.view.ViewGroup
-import com.kostaslou.gifsoundit.commons.AdapterConstants
-import com.kostaslou.gifsoundit.commons.PostModel
-import com.kostaslou.gifsoundit.commons.RedditConstants
+import androidx.recyclerview.widget.RecyclerView
+import com.kostaslou.gifsoundit.ui.home.PostModel
+import com.kostaslou.gifsoundit.util.commons.AdapterConstants
+import com.kostaslou.gifsoundit.util.commons.RedditConstants
 
 
 // the main adapter for a fragment
 
-class MainPostAdapter : androidx.recyclerview.widget.RecyclerView.Adapter<androidx.recyclerview.widget.RecyclerView.ViewHolder>() {
+class MainPostAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var items: ArrayList<ViewType>  // list of items
     private var delegateAdapters = androidx.collection.SparseArrayCompat<ViewTypeDelegateAdapter>()   // the different adapters as a map with their viewtype as key
@@ -34,11 +35,11 @@ class MainPostAdapter : androidx.recyclerview.widget.RecyclerView.Adapter<androi
 
     // todo: TA THAYMASTIKA
     // based on which viewtype we have we select adapter and we perform the respective onCreateViewHolder and onBindViewHolder
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): androidx.recyclerview.widget.RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return delegateAdapters.get(viewType)!!.onCreateViewHolder(parent)
     }
 
-    override fun onBindViewHolder(holder: androidx.recyclerview.widget.RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         delegateAdapters.get(getItemViewType(position))!!.onBindViewHolder(holder, this.items[position])
     }
 

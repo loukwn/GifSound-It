@@ -24,4 +24,4 @@
 -keepattributes *Annotation*
 
 # keep the model classes for the retrofit results
--keep class com.kostaslou.gifsoundit.commons.** { *; }
+-keep class com.kostaslou.gifsoundit.util.commons.** { *; }

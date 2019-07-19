@@ -4,11 +4,12 @@ import android.content.Intent
 import android.net.Uri
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.kostaslou.gifsoundit.OpenGSActivity
 import com.kostaslou.gifsoundit.R
-import com.kostaslou.gifsoundit.commons.PostModel
-import com.kostaslou.gifsoundit.commons.inflate
-import com.kostaslou.gifsoundit.commons.loadImg
+import com.kostaslou.gifsoundit.ui.home.PostModel
+import com.kostaslou.gifsoundit.util.commons.inflate
+import com.kostaslou.gifsoundit.util.commons.loadImg
 import kotlinx.android.synthetic.main.item_post.view.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -16,16 +17,16 @@ import java.util.*
 // the adapter for the actual posts
 class PostDelegateAdapter : ViewTypeDelegateAdapter {
 
-    override fun onCreateViewHolder(parent: ViewGroup): androidx.recyclerview.widget.RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
         return PostsViewHolder(parent)
     }
 
-    override fun onBindViewHolder(holder: androidx.recyclerview.widget.RecyclerView.ViewHolder, item: ViewType) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, item: ViewType) {
         holder as PostsViewHolder
         holder.bind(item as PostModel)
     }
 
-    class PostsViewHolder(parent: ViewGroup) : androidx.recyclerview.widget.RecyclerView.ViewHolder(parent.inflate(R.layout.item_post)), View.OnClickListener  {
+    class PostsViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(parent.inflate(R.layout.item_post)), View.OnClickListener  {
 
         private var postLink : String? = null
         private var postPerma : String? = null

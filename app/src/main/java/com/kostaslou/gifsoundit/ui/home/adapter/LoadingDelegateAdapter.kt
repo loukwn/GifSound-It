@@ -3,7 +3,7 @@ package com.kostaslou.gifsoundit.ui.home.adapter
 import android.graphics.Color
 import android.view.ViewGroup
 import com.kostaslou.gifsoundit.R
-import com.kostaslou.gifsoundit.commons.inflate
+import com.kostaslou.gifsoundit.util.commons.inflate
 import kotlinx.android.synthetic.main.item_loading.view.*
 
 

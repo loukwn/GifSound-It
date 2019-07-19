@@ -1,7 +1,5 @@
 package com.kostaslou.gifsoundit.data.api
 
-import com.kostaslou.gifsoundit.commons.RedditPostResponse
-import com.kostaslou.gifsoundit.commons.RedditTokenResponse
 import io.reactivex.Single
 import retrofit2.http.*
 

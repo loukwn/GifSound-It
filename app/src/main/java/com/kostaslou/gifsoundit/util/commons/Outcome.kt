@@ -1,4 +1,4 @@
-package com.kostaslou.gifsoundit.util
+package com.kostaslou.gifsoundit.util.commons
 
 sealed class Outcome<T> {
     data class Progress<T>(var loading: Boolean) : Outcome<T>()

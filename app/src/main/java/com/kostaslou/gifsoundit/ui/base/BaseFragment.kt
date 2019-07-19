@@ -1,4 +1,4 @@
-package com.kostaslou.gifsoundit.base
+package com.kostaslou.gifsoundit.ui.base
 
 import android.content.Context
 import dagger.android.support.DaggerFragment

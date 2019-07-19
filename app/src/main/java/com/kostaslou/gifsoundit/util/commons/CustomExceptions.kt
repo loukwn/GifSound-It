@@ -1,4 +1,4 @@
-package com.kostaslou.gifsoundit.commons
+package com.kostaslou.gifsoundit.util.commons
 
 import retrofit2.HttpException
 
