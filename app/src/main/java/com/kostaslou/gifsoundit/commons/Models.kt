@@ -1,7 +1,7 @@
 package com.kostaslou.gifsoundit.commons
 
 import android.os.Parcelable
-import com.kostaslou.gifsoundit.adapter.ViewType
+import com.kostaslou.gifsoundit.ui.home.adapter.ViewType
 import kotlinx.android.parcel.Parcelize
 
 //======================== REDDIT PART ======================================//
