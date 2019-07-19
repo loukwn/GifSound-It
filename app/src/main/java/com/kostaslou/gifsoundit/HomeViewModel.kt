@@ -2,9 +2,13 @@ package com.kostaslou.gifsoundit
 
 import android.text.TextUtils
 import android.util.Log
-import com.kostaslou.gifsoundit.commons.*
+import com.kostaslou.gifsoundit.util.commons.*
 import com.kostaslou.gifsoundit.data.Repository
+import com.kostaslou.gifsoundit.data.api.RedditPostResponse
+import com.kostaslou.gifsoundit.data.api.RedditTokenResponse
 import com.kostaslou.gifsoundit.data.disk.SharedPrefsHelper
+import com.kostaslou.gifsoundit.ui.home.LocalPostData
+import com.kostaslou.gifsoundit.ui.home.PostModel
 import com.kostaslou.gifsoundit.util.RxSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable

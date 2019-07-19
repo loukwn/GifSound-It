@@ -4,4 +4,5 @@
     <string name="send_to">Send to</string>
     <string name="action_about">About</string>
     <string name="offset_label">Offset (s): %1$d</string>
+    <string name="about_libraries_description">A mobile version of the website gifsound.com! Posts are fetched from /r/GifSound. By Konstantinos Lountzis.</string>
 </resources>

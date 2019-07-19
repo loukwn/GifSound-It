@@ -1,7 +1,7 @@
 package com.kostaslou.gifsoundit.ui.home
 
 import androidx.lifecycle.ViewModel
-import com.kostaslou.gifsoundit.commons.PostType
+import com.kostaslou.gifsoundit.util.commons.PostType
 import com.kostaslou.gifsoundit.data.Repository
 import com.kostaslou.gifsoundit.data.disk.SharedPrefsHelper
 import io.reactivex.disposables.CompositeDisposable
@@ -45,7 +45,8 @@ class HomeViewModel @Inject constructor(private val repository: Repository,
 
         postType = newPostType
         topType = newTopType
-//        repository.getPostsFromNetwork(newPostType, topType)
+
+        getPosts()
     }
 
     override fun onCleared() {

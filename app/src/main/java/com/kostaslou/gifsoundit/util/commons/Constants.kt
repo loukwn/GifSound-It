@@ -1,4 +1,4 @@
-package com.kostaslou.gifsoundit.commons
+package com.kostaslou.gifsoundit.util.commons
 
 // whether a recycler row is post or a loading item, so that the appropriate adapter will be chosen
 object AdapterConstants {
@@ -19,6 +19,5 @@ object RedditConstants {
 }
 
 object GeneralConstants {
-    const val MINUTES_TO_REFRESH = 5
     const val AMOUNT_OF_VIEWS_TO_INSTA_SCROLL = 60
 }

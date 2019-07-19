@@ -32,11 +32,11 @@ class MainActivity : DaggerAppCompatActivity() {
 
                 // show about section
                 LibsBuilder()
-                        .withAboutAppName(getString(R.string.app_name))
-                        .withAboutIconShown(true)
-                        .withAboutVersionShown(true)
-                        .withAboutDescription("A mobile version of the website gifsound.com! Posts are fetched from /r/GifSound. By Konstantinos Lountzis.")
-                        .start(this)
+                    .withAboutAppName(getString(R.string.app_name))
+                    .withAboutIconShown(true)
+                    .withAboutVersionShown(true)
+                    .withAboutDescription(getString(R.string.about_libraries_description))
+                    .start(this)
                 return true
             }
         }

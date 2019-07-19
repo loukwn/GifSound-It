@@ -1,12 +1,12 @@
 package com.kostaslou.gifsoundit.data
 
 import com.kostaslou.gifsoundit.BuildConfig
-import com.kostaslou.gifsoundit.commons.PostType
-import com.kostaslou.gifsoundit.commons.RedditConstants
-import com.kostaslou.gifsoundit.commons.RedditPostResponse
-import com.kostaslou.gifsoundit.commons.RedditTokenResponse
+import com.kostaslou.gifsoundit.util.commons.PostType
+import com.kostaslou.gifsoundit.util.commons.RedditConstants
 import com.kostaslou.gifsoundit.data.api.AuthApi
 import com.kostaslou.gifsoundit.data.api.PostApi
+import com.kostaslou.gifsoundit.data.api.RedditPostResponse
+import com.kostaslou.gifsoundit.data.api.RedditTokenResponse
 import io.reactivex.Single
 import java.util.*
 import javax.inject.Inject
