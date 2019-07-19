@@ -1,9 +1,7 @@
 package com.kostaslou.gifsoundit.util.commons
 
-import retrofit2.HttpException
+class TokenHttpException(t: Throwable) : Throwable(t)
 
-class TokenHttpException(val httpException: HttpException) : Exception(httpException)
+class PostsHttpException(t: Throwable) : Throwable(t)
 
-class PostsHttpException(val httpException: HttpException) : Exception(httpException)
-
-class TokenRequiredException(message: String) : Exception(message)
+class TokenRequiredException(t: Throwable) : Throwable(t)

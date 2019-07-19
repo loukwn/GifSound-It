@@ -9,8 +9,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import com.kostaslou.gifsoundit.util.GlideApp
+import com.kostaslou.gifsoundit.util.RxSchedulers
+import io.reactivex.Single
 
 // extend the properties(functions) of some of our classes, so that our code is cleaner! God Bless! :3
+
+fun <T> Single<T>.schedulerSetup(rxSchedulers: RxSchedulers):
+        Single<T> {
+    return this.subscribeOn(rxSchedulers.ioScheduler)
+            .observeOn(rxSchedulers.androidScheduler)
+}
 
 fun ViewGroup.inflate(layoutId: Int, attachToRoot: Boolean = false): View {
     return LayoutInflater.from(context).inflate(layoutId, this, attachToRoot)

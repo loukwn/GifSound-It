@@ -1,11 +1,11 @@
-package com.kostaslou.gifsoundit.util
+package com.kostaslou.gifsoundit.ui.home.adapter
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 class InfiniteScrollListener(
         val func: () -> Unit,
-        val layoutManager: LinearLayoutManager) : RecyclerView.OnScrollListener() {
+        private val layoutManager: LinearLayoutManager) : RecyclerView.OnScrollListener() {
 
     private var previousTotal = 0
     private var loading = true
@@ -35,7 +35,7 @@ class InfiniteScrollListener(
                 loading = true
             }
         }
-
     }
 
+    fun allowLoading() { loading = false }
 }

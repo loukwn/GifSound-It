@@ -1,13 +1,12 @@
 package com.kostaslou.gifsoundit.di.modules
 
-import androidx.lifecycle.ViewModelProvider
-import dagger.Binds
 import androidx.lifecycle.ViewModel
-import com.kostaslou.gifsoundit.ui.home.HomeViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.kostaslou.gifsoundit.di.extras.ViewModelKey
-import com.kostaslou.gifsoundit.ui.open.OpenGSFragment
+import com.kostaslou.gifsoundit.ui.home.HomeViewModel
 import com.kostaslou.gifsoundit.ui.open.OpenGSViewModel
 import com.kostaslou.gifsoundit.util.ViewModelFactory
+import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
 

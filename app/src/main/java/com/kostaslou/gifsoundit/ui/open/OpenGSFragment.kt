@@ -15,7 +15,8 @@ class OpenGSFragment : BaseFragment() {
     lateinit var viewModelFactory: ViewModelFactory
     private lateinit var viewModel: OpenGSViewModel
 
-    // bind xml
+    // override properties
+    override fun name() = "OpenGS"
     override fun layoutRes() = R.layout.fragment_opengs
 
 

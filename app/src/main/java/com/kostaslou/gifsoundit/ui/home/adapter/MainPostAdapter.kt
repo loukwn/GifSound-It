@@ -2,14 +2,14 @@ package com.kostaslou.gifsoundit.ui.home.adapter
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.kostaslou.gifsoundit.ui.home.PostModel
 import com.kostaslou.gifsoundit.util.commons.AdapterConstants
+import com.kostaslou.gifsoundit.util.commons.PostModel
 import com.kostaslou.gifsoundit.util.commons.RedditConstants
 
 
 // the main adapter for a fragment
 
-class MainPostAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MainPostAdapter(itemListener: (PostModel) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var items: ArrayList<ViewType>  // list of items
     private var delegateAdapters = androidx.collection.SparseArrayCompat<ViewTypeDelegateAdapter>()   // the different adapters as a map with their viewtype as key
@@ -22,7 +22,7 @@ class MainPostAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     init {
         // we add the different adapters
         delegateAdapters.put(AdapterConstants.LOADING, LoadingDelegateAdapter())
-        delegateAdapters.put(AdapterConstants.POSTS, PostDelegateAdapter())
+        delegateAdapters.put(AdapterConstants.POSTS, PostDelegateAdapter(itemListener))
 
         // init arraylist and we add the loading item
         items = ArrayList()
@@ -33,7 +33,6 @@ class MainPostAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         return items.size
     }
 
-    // todo: TA THAYMASTIKA
     // based on which viewtype we have we select adapter and we perform the respective onCreateViewHolder and onBindViewHolder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return delegateAdapters.get(viewType)!!.onCreateViewHolder(parent)
@@ -49,26 +48,36 @@ class MainPostAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     // functions to interact with fragment
-    fun addPosts(posts: List<PostModel>) {
-
-        // add new posts
-        val initPosition = items.lastIndex
-        items.addAll(initPosition, posts)
-        notifyDataSetChanged()
-    }
+//    fun addPosts(posts: List<PostModel>) {
+//
+//        // add new posts
+//        val initPosition = items.lastIndex
+//        items.addAll(initPosition, posts)
+//        notifyDataSetChanged()
+//    }
 
     fun clearAndAddPosts(posts: List<PostModel>) {
         items.clear()
         items.addAll(posts)
         if (posts.size == RedditConstants.NUM_OF_POSTS_PER_REQUEST)
             items.add(loadingItem)
+
+        // TODO: CHANGE TO DIFFUTIL instead of notify
+//        val diffResult: DiffUtil.DiffResult = DiffUtil.calculateDiff(MyDiffCallback(this.items))
+//        diffResult.dispatchUpdatesTo(this)
         notifyDataSetChanged()
     }
 
+//    fun clearPosts() {
+//        items.clear()
+//        items.add(loadingItem)
+//        notifyDataSetChanged()
+//    }
+
     // it loops the items list and returns (casted) the ones that are posts
-    fun getPosts(): List<PostModel> =
-            items
-                    .filter { it.getViewType() == AdapterConstants.POSTS }
-                    .map { it as PostModel }
+//    fun getPosts(): List<PostModel> =
+//            items
+//                    .filter { it.getViewType() == AdapterConstants.POSTS }
+//                    .map { it as PostModel }
 
 }

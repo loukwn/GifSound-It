@@ -1,19 +1,21 @@
 package com.kostaslou.gifsoundit.ui.base
 
 import android.content.Context
-import dagger.android.support.DaggerFragment
-import androidx.annotation.LayoutRes
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.ViewGroup
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import androidx.annotation.LayoutRes
 import androidx.annotation.NonNull
+import androidx.appcompat.app.AppCompatActivity
+import dagger.android.support.DaggerFragment
 
 
 abstract class BaseFragment : DaggerFragment() {
 
     private var activity: AppCompatActivity? = null
+
+    protected abstract fun name(): String
 
     @LayoutRes
     protected abstract fun layoutRes(): Int
