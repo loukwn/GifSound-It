@@ -1,7 +1,7 @@
 package com.kostaslou.gifsoundit.util
 
 import androidx.recyclerview.widget.DiffUtil
-import com.kostaslou.gifsoundit.util.commons.PostModel
+import com.kostaslou.gifsoundit.ui.home.model.PostModel
 
 class MyDiffCallback(private val oldList: List<PostModel>, private val newList: List<PostModel>) : DiffUtil.Callback() {
 

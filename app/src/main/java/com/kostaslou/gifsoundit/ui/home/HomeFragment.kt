@@ -16,6 +16,8 @@ import com.kostaslou.gifsoundit.R
 import com.kostaslou.gifsoundit.ui.base.BaseFragment
 import com.kostaslou.gifsoundit.ui.home.adapter.InfiniteScrollListener
 import com.kostaslou.gifsoundit.ui.home.adapter.MainPostAdapter
+import com.kostaslou.gifsoundit.ui.home.model.PostModel
+import com.kostaslou.gifsoundit.ui.open.OpenGSFragment
 import com.kostaslou.gifsoundit.util.ViewModelFactory
 import com.kostaslou.gifsoundit.util.commons.*
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -63,6 +65,8 @@ class HomeFragment : BaseFragment() {
             val typeFace = Typeface.createFromAsset(it.assets, "fonts/pricedown.ttf")
             toolbarTitle.typeface = typeFace
         }
+
+        toolbarTitle.text = "eeeeeee2e"
 
         // toolbar name on click
         toolbarTitle.setOnClickListener {
@@ -256,6 +260,10 @@ class HomeFragment : BaseFragment() {
         })
     }
 
-//                getBaseActivity()?.supportFragmentManager?.beginTransaction()?.replace(R.id.fragContainer, OpenGSFragment())
-//                    ?.addToBackStack(null)?.commit()
+    private fun navigateToOpenGSFragment(query: String) {
+        getBaseActivity()?.supportFragmentManager
+                ?.beginTransaction()
+                ?.replace(R.id.fragContainer, OpenGSFragment())
+                ?.addToBackStack(null)?.commit()
+    }
 }

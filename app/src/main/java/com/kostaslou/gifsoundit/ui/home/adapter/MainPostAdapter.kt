@@ -3,7 +3,7 @@ package com.kostaslou.gifsoundit.ui.home.adapter
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.kostaslou.gifsoundit.util.commons.AdapterConstants
-import com.kostaslou.gifsoundit.util.commons.PostModel
+import com.kostaslou.gifsoundit.ui.home.model.PostModel
 import com.kostaslou.gifsoundit.util.commons.RedditConstants
 
 

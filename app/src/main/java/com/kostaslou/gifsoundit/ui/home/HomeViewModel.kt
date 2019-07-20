@@ -4,9 +4,16 @@ import android.text.TextUtils
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.kostaslou.gifsoundit.data.Repository
+import com.kostaslou.gifsoundit.data.api.model.RedditPostResponse
+import com.kostaslou.gifsoundit.data.api.model.RedditTokenResponse
 import com.kostaslou.gifsoundit.data.disk.SharedPrefsHelper
+import com.kostaslou.gifsoundit.ui.home.model.PostModel
 import com.kostaslou.gifsoundit.util.RxSchedulers
-import com.kostaslou.gifsoundit.util.commons.*
+import com.kostaslou.gifsoundit.util.commons.PostType
+import com.kostaslou.gifsoundit.util.commons.PostsHttpException
+import com.kostaslou.gifsoundit.util.commons.TokenHttpException
+import com.kostaslou.gifsoundit.util.commons.TokenRequiredException
+import com.kostaslou.gifsoundit.util.commons.schedulerSetup
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.observers.DisposableSingleObserver
@@ -44,36 +51,40 @@ class HomeViewModel @Inject constructor(private val repository: Repository,
             if (refresh) after = ""
 
             getAuthToken()?.let {
-                val disposable: Disposable = repository.getPostsFromNetwork(it, postType, after, topType)
-                        .schedulerSetup(rxSchedulers)
-                        .subscribeWith(object : DisposableSingleObserver<RedditPostResponse>() {
-                            override fun onSuccess(t: RedditPostResponse) {
-
-                                var clearData = false
-                                if (after == "") clearData = true
-
-                                after = t.data.after ?: ""
-                                before = t.data.before ?: ""
-
-                                val receivedData = transformResponseToAdapterType(t)
-
-                                postsLiveData.value = if (clearData)
-                                    receivedData
-                                else
-                                    postsLiveData.value?.plus(receivedData) ?: receivedData
-
-                                loadingLiveData.value = false
-                            }
-
-                            override fun onError(e: Throwable) {
-                                loadingLiveData.value = false
-                                errorLiveData.value = PostsHttpException(e)
-                            }
-                        })
-
-                compositeDisposable.add(disposable)
+                getPostsFromRepo(it, postType, after, topType)
             }
         }
+    }
+
+    private fun getPostsFromRepo(token: String, postType: PostType, postAfter: String, topType: String) {
+        val disposable: Disposable = repository.getPostsFromNetwork(token, postType, postAfter, topType)
+                .schedulerSetup(rxSchedulers)
+                .subscribeWith(object : DisposableSingleObserver<RedditPostResponse>() {
+                    override fun onSuccess(t: RedditPostResponse) {
+
+                        var clearData = false
+                        if (after == "") clearData = true
+
+                        after = t.data.after ?: ""
+                        before = t.data.before ?: ""
+
+                        val receivedData = transformResponseToAdapterType(t)
+
+                        postsLiveData.value = if (clearData)
+                            receivedData
+                        else
+                            postsLiveData.value?.plus(receivedData) ?: receivedData
+
+                        loadingLiveData.value = false
+                    }
+
+                    override fun onError(e: Throwable) {
+                        loadingLiveData.value = false
+                        errorLiveData.value = PostsHttpException(e)
+                    }
+                })
+
+        compositeDisposable.add(disposable)
     }
 
     private fun getAuthToken() : String? {
@@ -85,12 +96,13 @@ class HomeViewModel @Inject constructor(private val repository: Repository,
         if (expiresAtDate.before(today) || expiresAtDate == today || TextUtils.isEmpty(accessToken)) {
             // we need to update the access token
             loadingLiveData.value = true
+            errorLiveData.value = TokenRequiredException(Throwable())
 
             compositeDisposable.add(repository.getRedditAuthToken()
                     .schedulerSetup(rxSchedulers)
                     .subscribeWith(object : DisposableSingleObserver<RedditTokenResponse>() {
                         override fun onSuccess(t: RedditTokenResponse) {
-                            repository.getPostsFromNetwork(saveTokenToPrefsAndReturnIt(t), postType, after, topType)
+                            getPostsFromRepo(saveTokenToPrefsAndReturnIt(t), postType, after, topType)
                         }
 
                         override fun onError(e: Throwable) {
