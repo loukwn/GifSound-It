@@ -100,6 +100,9 @@ ext {
     anko_version = '0.10.4'
     firebase_core_version = '17.0.1'
     fabric_version = '2.10.1'
+    about_libraries_version = '7.0.1'
+    timber_version = '4.7.1'
+    bubbleview_version = '1.0.1'
 }
 
 
@@ -142,10 +145,13 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxjava:$rxJava2_version"
 
     // About libraries
-    implementation "com.mikepenz:aboutlibraries:7.0.1"
+    implementation "com.mikepenz:aboutlibraries:$about_libraries_version"
 
     // BubbleView
-    implementation "com.github.lguipeng:BubbleView:1.0.1"
+    implementation "com.github.lguipeng:BubbleView:$bubbleview_version"
+
+    // Timber
+    implementation "com.jakewharton.timber:timber:$timber_version"
 
     // Firebase
     implementation "com.google.firebase:firebase-core:$firebase_core_version"

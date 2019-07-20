@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.kostaslou.gifsoundit.R
-import com.kostaslou.gifsoundit.util.commons.PostModel
+import com.kostaslou.gifsoundit.ui.home.model.PostModel
 import com.kostaslou.gifsoundit.util.commons.inflate
 import com.kostaslou.gifsoundit.util.commons.loadImg
 import kotlinx.android.synthetic.main.item_post.view.*

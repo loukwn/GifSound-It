@@ -5,8 +5,8 @@ import com.kostaslou.gifsoundit.util.commons.PostType
 import com.kostaslou.gifsoundit.util.commons.RedditConstants
 import com.kostaslou.gifsoundit.data.api.AuthApi
 import com.kostaslou.gifsoundit.data.api.PostApi
-import com.kostaslou.gifsoundit.util.commons.RedditPostResponse
-import com.kostaslou.gifsoundit.util.commons.RedditTokenResponse
+import com.kostaslou.gifsoundit.data.api.model.RedditPostResponse
+import com.kostaslou.gifsoundit.data.api.model.RedditTokenResponse
 import io.reactivex.Single
 import java.util.*
 import javax.inject.Inject

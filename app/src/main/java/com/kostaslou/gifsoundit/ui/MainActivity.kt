@@ -4,15 +4,23 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import com.kostaslou.gifsoundit.R
+import com.kostaslou.gifsoundit.data.disk.SharedPrefsHelper
 import com.kostaslou.gifsoundit.ui.home.HomeFragment
 import com.mikepenz.aboutlibraries.LibsBuilder
 import dagger.android.support.DaggerAppCompatActivity
+import javax.inject.Inject
 
 class MainActivity : DaggerAppCompatActivity() {
+
+    @Inject
+    lateinit var sharedPrefsHelper: SharedPrefsHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        sharedPrefsHelper.deleteSavedData(SharedPrefsHelper.PREF_KEY_ACCESS_TOKEN)
+        sharedPrefsHelper.deleteSavedData(SharedPrefsHelper.PREF_KEY_EXPIRES_AT)
 
         if (savedInstanceState == null)
             supportFragmentManager.beginTransaction().add(R.id.fragContainer, HomeFragment()).commit()

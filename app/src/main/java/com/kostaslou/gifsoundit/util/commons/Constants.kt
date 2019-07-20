@@ -1,11 +1,15 @@
 package com.kostaslou.gifsoundit.util.commons
 
+import androidx.annotation.Keep
+
 // whether a recycler row is post or a loading item, so that the appropriate adapter will be chosen
+@Keep
 object AdapterConstants {
     const val POSTS = 1
     const val LOADING = 2
 }
 
+@Keep
 enum class PostType {
     HOT, TOP, NEW
 }
@@ -18,6 +22,7 @@ object RedditConstants {
     const val NUM_OF_POSTS_PER_REQUEST = 25
 }
 
+@Keep
 object GeneralConstants {
     const val AMOUNT_OF_VIEWS_TO_INSTA_SCROLL = 60
 }
