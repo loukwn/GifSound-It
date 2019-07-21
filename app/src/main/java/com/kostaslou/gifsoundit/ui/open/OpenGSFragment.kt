@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.kostaslou.gifsoundit.R
 import com.kostaslou.gifsoundit.ui.base.BaseFragment
 import com.kostaslou.gifsoundit.util.ViewModelFactory
+import kotlinx.android.synthetic.main.fragment_opengs.*
 import javax.inject.Inject
 
 class OpenGSFragment : BaseFragment() {
@@ -23,6 +24,11 @@ class OpenGSFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(OpenGSViewModel::class.java)
+
+
+        arguments?.let{
+            text.text = it.getString("query")
+        }
 
         initUI()
         restoreUI()

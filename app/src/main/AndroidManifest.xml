@@ -20,8 +20,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".OpenGSActivity" >
             <intent-filter android:label="@string/intent_filter_label">
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -30,6 +28,9 @@
                     android:host="*gifsound.com"
                     android:path="/"/>
             </intent-filter>
+        </activity>
+        <activity android:name=".OpenGSActivity" >
+
         </activity>
     </application>
 

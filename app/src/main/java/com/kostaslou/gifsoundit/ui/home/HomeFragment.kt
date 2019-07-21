@@ -1,6 +1,5 @@
 package com.kostaslou.gifsoundit.ui.home
 
-import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
 import android.view.View
@@ -11,7 +10,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
-import com.kostaslou.gifsoundit.OpenGSActivity
 import com.kostaslou.gifsoundit.R
 import com.kostaslou.gifsoundit.ui.base.BaseFragment
 import com.kostaslou.gifsoundit.ui.home.adapter.InfiniteScrollListener
@@ -66,8 +64,6 @@ class HomeFragment : BaseFragment() {
             toolbarTitle.typeface = typeFace
         }
 
-        toolbarTitle.text = "eeeeeee2e"
-
         // toolbar name on click
         toolbarTitle.setOnClickListener {
             if (mainRecycler.adapter != null) {
@@ -101,8 +97,6 @@ class HomeFragment : BaseFragment() {
                 mainRecycler.adapter = MainPostAdapter {
                     // when a list item is clicked...
 
-                    val intent = Intent(getBaseActivity(), OpenGSActivity::class.java)
-
                     // get the query part of the link
                     val partsOfLink = it.url.split("?")
                     val query = if (partsOfLink.size > 1) {
@@ -114,8 +108,8 @@ class HomeFragment : BaseFragment() {
                         null
                     }
 
-                    intent.putExtra("query", query)
-                    startActivity(intent)
+                    // open the gifsound...
+                    navigateToOpenGSFragment(query)
                 }
             }
         }
@@ -260,10 +254,17 @@ class HomeFragment : BaseFragment() {
         })
     }
 
-    private fun navigateToOpenGSFragment(query: String) {
+    private fun navigateToOpenGSFragment(query: String?) {
+
+        val args = Bundle()
+        args.putString("query", query)
+
+        val frag = OpenGSFragment()
+        frag.arguments = args
+
         getBaseActivity()?.supportFragmentManager
                 ?.beginTransaction()
-                ?.replace(R.id.fragContainer, OpenGSFragment())
+                ?.replace(R.id.fragContainer, frag)
                 ?.addToBackStack(null)?.commit()
     }
 }
