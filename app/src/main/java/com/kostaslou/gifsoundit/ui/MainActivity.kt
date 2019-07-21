@@ -3,27 +3,38 @@ package com.kostaslou.gifsoundit.ui
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.fragment.app.Fragment
 import com.kostaslou.gifsoundit.R
-import com.kostaslou.gifsoundit.data.disk.SharedPrefsHelper
 import com.kostaslou.gifsoundit.ui.home.HomeFragment
+import com.kostaslou.gifsoundit.ui.open.OpenGSFragment
 import com.mikepenz.aboutlibraries.LibsBuilder
 import dagger.android.support.DaggerAppCompatActivity
-import javax.inject.Inject
 
 class MainActivity : DaggerAppCompatActivity() {
-
-    @Inject
-    lateinit var sharedPrefsHelper: SharedPrefsHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        sharedPrefsHelper.deleteSavedData(SharedPrefsHelper.PREF_KEY_ACCESS_TOKEN)
-        sharedPrefsHelper.deleteSavedData(SharedPrefsHelper.PREF_KEY_EXPIRES_AT)
+        var destination: Fragment
+        val incomingAppIntentArg = intent?.data?.query
+
+        if (incomingAppIntentArg?.isNotEmpty() == true) {
+            // if we come from another app with data
+            incomingAppIntentArg.let {
+                val args = Bundle()
+                args.putString("query", it)
+
+                destination = OpenGSFragment()
+                destination.arguments = args
+            }
+        } else {
+            destination = HomeFragment()
+        }
+
 
         if (savedInstanceState == null)
-            supportFragmentManager.beginTransaction().add(R.id.fragContainer, HomeFragment()).commit()
+            supportFragmentManager.beginTransaction().add(R.id.fragContainer, destination).commit()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
