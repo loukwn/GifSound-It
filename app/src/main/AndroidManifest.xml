@@ -29,9 +29,6 @@
                     android:path="/"/>
             </intent-filter>
         </activity>
-        <activity android:name=".OpenGSActivity" >
-
-        </activity>
     </application>
 
 </manifest>

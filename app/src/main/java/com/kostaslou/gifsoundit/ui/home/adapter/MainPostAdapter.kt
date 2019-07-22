@@ -47,37 +47,12 @@ class MainPostAdapter(itemListener: (PostModel) -> Unit) : RecyclerView.Adapter<
         return this.items[position].getViewType()
     }
 
-    // functions to interact with fragment
-//    fun addPosts(posts: List<PostModel>) {
-//
-//        // add new posts
-//        val initPosition = items.lastIndex
-//        items.addAll(initPosition, posts)
-//        notifyDataSetChanged()
-//    }
-
     fun clearAndAddPosts(posts: List<PostModel>) {
         items.clear()
         items.addAll(posts)
         if (posts.size == RedditConstants.NUM_OF_POSTS_PER_REQUEST)
             items.add(loadingItem)
 
-        // TODO: CHANGE TO DIFFUTIL instead of notify
-//        val diffResult: DiffUtil.DiffResult = DiffUtil.calculateDiff(MyDiffCallback(this.items))
-//        diffResult.dispatchUpdatesTo(this)
         notifyDataSetChanged()
     }
-
-//    fun clearPosts() {
-//        items.clear()
-//        items.add(loadingItem)
-//        notifyDataSetChanged()
-//    }
-
-    // it loops the items list and returns (casted) the ones that are posts
-//    fun getPosts(): List<PostModel> =
-//            items
-//                    .filter { it.getViewType() == AdapterConstants.POSTS }
-//                    .map { it as PostModel }
-
 }
