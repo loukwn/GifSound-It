@@ -15,8 +15,6 @@ abstract class BaseFragment : DaggerFragment() {
 
     private var activity: AppCompatActivity? = null
 
-    protected abstract fun name(): String
-
     @LayoutRes
     protected abstract fun layoutRes(): Int
 
