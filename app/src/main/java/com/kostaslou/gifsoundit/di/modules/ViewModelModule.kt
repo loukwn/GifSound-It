@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.kostaslou.gifsoundit.di.extras.ViewModelKey
 import com.kostaslou.gifsoundit.ui.home.HomeViewModel
-import com.kostaslou.gifsoundit.ui.open.OpenGSViewModel
 import com.kostaslou.gifsoundit.util.ViewModelFactory
 import dagger.Binds
 import dagger.Module
@@ -18,10 +17,10 @@ abstract class ViewModelModule {
     @ViewModelKey(HomeViewModel::class)
     internal abstract fun bindHomeViewModel(listViewModel: HomeViewModel): ViewModel
 
-    @Binds
-    @IntoMap
-    @ViewModelKey(OpenGSViewModel::class)
-    internal abstract fun bindDetailsViewModel(detailsViewModel: OpenGSViewModel): ViewModel
+//    @Binds
+//    @IntoMap
+//    @ViewModelKey(OpenGSViewModel::class)
+//    internal abstract fun bindDetailsViewModel(detailsViewModel: OpenGSViewModel): ViewModel
 
 //    @Binds
 //    @IntoMap

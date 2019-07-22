@@ -25,7 +25,4 @@ class Repository @Inject constructor(private val authApi: AuthApi, private val p
             PostType.HOT -> postApi.getHotGifSounds("bearer $accessToken", BuildConfig.RedditUserAgent, after)
         }
     }
-
-    fun getPostsFromDB() {
-    }
 }

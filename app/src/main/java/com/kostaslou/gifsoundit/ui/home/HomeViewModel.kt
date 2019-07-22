@@ -17,6 +17,7 @@ import com.kostaslou.gifsoundit.util.commons.schedulerSetup
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.observers.DisposableSingleObserver
+import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 
@@ -95,7 +96,6 @@ class HomeViewModel @Inject constructor(private val repository: Repository,
 
         if (expiresAtDate.before(today) || expiresAtDate == today || TextUtils.isEmpty(accessToken)) {
             // we need to update the access token
-            loadingLiveData.value = true
             errorLiveData.value = TokenRequiredException(Throwable())
 
             compositeDisposable.add(repository.getRedditAuthToken()
@@ -162,6 +162,7 @@ class HomeViewModel @Inject constructor(private val repository: Repository,
 
     override fun onCleared() {
         super.onCleared()
+        Timber.d("cleared")
         compositeDisposable.clear()
      }
 }

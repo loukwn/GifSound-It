@@ -31,8 +31,7 @@ class HomeFragment : BaseFragment() {
     lateinit var viewModelFactory: ViewModelFactory
     private lateinit var viewModel: HomeViewModel
 
-    // fragment properties
-    override fun name(): String = "Home"
+    // setup ui
     override fun layoutRes() = R.layout.fragment_home
 
     private lateinit var infiniteScrollListener: InfiniteScrollListener

@@ -102,7 +102,6 @@ ext {
     fabric_version = '2.10.1'
     about_libraries_version = '7.0.1'
     timber_version = '4.7.1'
-    bubbleview_version = '1.0.1'
 }
 
 
@@ -146,9 +145,6 @@ dependencies {
 
     // About libraries
     implementation "com.mikepenz:aboutlibraries:$about_libraries_version"
-
-    // BubbleView
-    implementation "com.github.lguipeng:BubbleView:$bubbleview_version"
 
     // Timber
     implementation "com.jakewharton.timber:timber:$timber_version"

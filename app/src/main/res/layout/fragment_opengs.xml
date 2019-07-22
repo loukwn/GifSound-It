@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto" >
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:layout_marginTop="5dp"
@@ -16,7 +16,8 @@
             android:layout_centerVertical="true"
             android:background="?android:attr/selectableItemBackground"
             android:src="@drawable/ic_back"
-            android:id="@+id/backButton"/>
+            android:id="@+id/backButton"
+            android:contentDescription="@string/content_description_opengs_back" />
 
         <ImageView
             android:layout_width="32dp"
@@ -26,7 +27,8 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="10dp"
-            android:id="@+id/shareButton"/>
+            android:id="@+id/shareButton"
+            android:contentDescription="@string/content_description_opengs_share" />
 
         <ImageView
             android:layout_width="32dp"
@@ -37,7 +39,8 @@
             android:layout_marginEnd="10dp"
             android:layout_toStartOf="@id/shareButton"
             android:id="@+id/refreshButton"
-            android:visibility="invisible"/>
+            android:visibility="invisible"
+            android:contentDescription="@string/content_description_opengs_refresh" />
 
         <TextView
             android:layout_width="match_parent"
@@ -46,7 +49,7 @@
             android:layout_toEndOf="@id/backButton"
             android:layout_toStartOf="@id/refreshButton"
             android:gravity="center"
-            android:text="Gif"
+            android:text="@string/opengs_gif_title"
             android:maxLines="1"
             android:ellipsize="end"
             android:textSize="24sp"
@@ -75,7 +78,8 @@
                 android:layout_marginEnd="10dp"
                 android:layout_alignParentEnd="true"
                 android:src="@drawable/ic_close"
-                android:id="@+id/gifLabelCloseButton"/>
+                android:id="@+id/gifLabelCloseButton"
+                android:contentDescription="@string/content_description_opengs_close_gif_label" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -83,7 +87,7 @@
                 android:padding="8dp"
                 android:gravity="center"
                 android:layout_toStartOf="@id/gifLabelCloseButton"
-                android:text="Having problems? Tap here to play GIF"
+                android:text="@string/opengs_sound_error_label"
                 android:textColor="@android:color/white"
                 android:visibility="visible"
                 android:id="@+id/playGIFLabel"/>
@@ -109,7 +113,7 @@
             android:layout_marginStart="10dp"
             android:layout_below="@id/separator1"
             android:textColor="@android:color/white"
-            android:text="Sound"
+            android:text="@string/opengs_sound_title"
             android:id="@+id/soundLabel"/>
 
         <fragment
@@ -142,8 +146,8 @@
                 android:textSize="20sp"
                 android:layout_marginStart="10dp"
                 android:textColor="@android:color/white"
-                android:text="Offset (s)"
-                android:id="@+id/offsetLabel"/>
+                android:id="@+id/offsetLabel"
+                tools:ignore="RelativeOverlap" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -160,7 +164,8 @@
                     android:background="?android:attr/selectableItemBackground"
                     android:layout_gravity="center_vertical"
                     android:src="@drawable/ic_revert"
-                    android:id="@+id/revertButton"/>
+                    android:id="@+id/revertButton"
+                    android:contentDescription="@string/content_description_opengs_revert" />
 
                 <ImageView
                     android:layout_width="40dp"
@@ -169,7 +174,8 @@
                     android:background="?android:attr/selectableItemBackground"
                     android:layout_gravity="center_vertical"
                     android:src="@drawable/ic_add"
-                    android:id="@+id/addButton"/>
+                    android:id="@+id/addButton"
+                    android:contentDescription="@string/content_description_opengs_add" />
 
                 <ImageView
                     android:layout_width="40dp"
@@ -178,31 +184,13 @@
                     android:background="?android:attr/selectableItemBackground"
                     android:layout_gravity="center_vertical"
                     android:src="@drawable/ic_remove"
-                    android:id="@+id/removeButton"/>
+                    android:id="@+id/decreaseButton"
+                    android:contentDescription="@string/content_description_opengs_decrease" />
 
 
             </LinearLayout>
 
         </RelativeLayout>
-
-        <com.github.library.bubbleview.BubbleTextView
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:text="You need to tap the refresh button to apply the changes.   (Tap to dismiss)"
-            android:padding="10dp"
-            android:textColor="@android:color/white"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="10dp"
-            android:layout_above="@id/offsetLayout"
-            app:arrowWidth="8dp"
-            app:angle="8dp"
-            app:arrowHeight="10dp"
-            app:arrowPosition="14dp"
-            app:arrowLocation="bottom"
-            app:arrowCenter="true"
-            app:bubbleColor="@color/colorPrimaryDark"
-            android:visibility="gone"
-            android:id="@+id/offsetTip"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -216,7 +204,6 @@
                 android:gravity="center_vertical"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
-                android:text="Fetching GIF and Sound..."
                 android:singleLine="true"
                 android:marqueeRepeatLimit="marquee_forever"
                 android:ellipsize="marquee"
@@ -239,7 +226,8 @@
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:visibility="invisible"
-            android:id="@+id/gifView"/>
+            android:id="@+id/gifView"
+            android:contentDescription="@string/content_description_opengs_gif" />
 
         <VideoView
             android:layout_width="match_parent"
