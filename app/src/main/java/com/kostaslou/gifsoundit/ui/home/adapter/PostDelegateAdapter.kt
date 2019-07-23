@@ -57,7 +57,7 @@ class PostDelegateAdapter(val itemListener: (PostModel) -> Unit) : ViewTypeDeleg
             postScore.text = item.score.toString()
 
             // date
-            val date = Date(item.created)
+            val date = Date(item.created * 1000)
             val format = SimpleDateFormat("EEE, d MMM yyyy, HH:mm", Locale.UK)
             postDate.text = format.format(date)
         }

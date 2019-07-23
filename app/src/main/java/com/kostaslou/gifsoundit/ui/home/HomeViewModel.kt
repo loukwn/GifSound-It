@@ -26,7 +26,7 @@ class HomeViewModel @Inject constructor(private val repository: Repository,
                                         private val sharedPrefsHelper: SharedPrefsHelper,
                                         private val rxSchedulers: RxSchedulers) : ViewModel() {
 
-
+    // for the cleanup
     private val compositeDisposable = CompositeDisposable()
 
 

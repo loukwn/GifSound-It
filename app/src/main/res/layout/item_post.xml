@@ -31,7 +31,8 @@
                 android:src="@drawable/placeholder"
                 android:scaleType="centerCrop"
                 android:layout_marginBottom="5dp"
-                android:id="@+id/postThumb"/>
+                android:id="@+id/postThumb"
+                android:contentDescription="@string/home_item_thumbnail" />
 
             <TextView
                 android:layout_width="60dp"
@@ -40,7 +41,6 @@
                 android:gravity="center"
                 android:layout_gravity="center"
                 android:padding="3dp"
-                android:text="1000"
                 android:textSize="13sp"
                 android:id="@+id/postScore"/>
 
@@ -55,18 +55,18 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Title of GifSound"
                 android:layout_marginBottom="5dp"
-                android:textSize="16sp"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:textSize="17sp"
+                android:textStyle="bold"
                 android:id="@+id/postTitle"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="15dp"
-                android:text="Wed 12, 2018 "
                 android:id="@+id/postDate"
-                android:visibility="invisible"
                 android:textSize="12sp" />
 
             <LinearLayout
@@ -78,13 +78,10 @@
                     android:layout_height="32dp"
                     android:src="@drawable/ic_link"
                     android:background="?android:attr/selectableItemBackground"
-                    android:id="@+id/linkButton"/>
-
-
+                    android:id="@+id/linkButton"
+                    android:contentDescription="@string/home_item_button_link" />
 
             </LinearLayout>
-
-
 
         </LinearLayout>
 
