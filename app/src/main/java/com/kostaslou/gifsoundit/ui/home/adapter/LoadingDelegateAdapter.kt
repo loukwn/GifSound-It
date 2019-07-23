@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.view.ViewGroup
 import com.kostaslou.gifsoundit.R
 import com.kostaslou.gifsoundit.util.commons.inflate
+import com.kostaslou.gifsoundit.util.commons.setFilter
 import kotlinx.android.synthetic.main.item_loading.view.*
 
 
@@ -17,7 +18,7 @@ class LoadingDelegateAdapter : ViewTypeDelegateAdapter {
 
         // we change the color of the progressbar to black
         init {
-            itemView.progress.indeterminateDrawable.setColorFilter(Color.WHITE, android.graphics.PorterDuff.Mode.MULTIPLY)
+            itemView.progress.indeterminateDrawable.setFilter(Color.WHITE)
         }
     }
 }

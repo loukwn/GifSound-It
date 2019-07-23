@@ -2,6 +2,11 @@
 
 package com.kostaslou.gifsoundit.util.commons
 
+import android.graphics.BlendMode
+import android.graphics.BlendModeColorFilter
+import android.graphics.PorterDuff
+import android.graphics.drawable.Drawable
+import android.os.Build
 import android.text.TextUtils
 import android.util.Patterns
 import android.view.LayoutInflater
@@ -33,5 +38,14 @@ fun ImageView.loadImg(imageUrl: String, defDrawable: Int) {
         GlideApp.with(context)
                 .load(imageUrl)
                 .into(this)
+    }
+}
+
+fun Drawable.setFilter(color : Int) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        this.colorFilter = BlendModeColorFilter(color, BlendMode.MULTIPLY)
+    } else {
+        @Suppress("DEPRECATION")
+        this.setColorFilter(color, PorterDuff.Mode.MULTIPLY)
     }
 }
