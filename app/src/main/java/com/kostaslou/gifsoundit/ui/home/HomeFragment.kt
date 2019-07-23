@@ -2,6 +2,7 @@ package com.kostaslou.gifsoundit.ui.home
 
 import android.graphics.Typeface
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
@@ -162,14 +163,17 @@ class HomeFragment : BaseFragment() {
                     PostType.TOP -> {
 
                         // select type of Top posts
-                        val periods = listOf("Hour", "Day", "Week", "Month", "Year", "All")
-                        activity.selector("Select time period", periods) { _, i ->
+                        val periods = listOf(getString(R.string.home_top_hour), getString(R.string.home_top_day),
+                                getString(R.string.home_top_week), getString(R.string.home_top_month),
+                                getString(R.string.home_top_year), getString(R.string.home_top_all))
+
+                        activity.selector(getString(R.string.home_selector_title), periods) { _, i ->
                             val topType = periods[i].toLowerCase()
 
-                            if (topType != "all") {
-                                activity.toast("Showing top posts of this ${periods[i].toLowerCase()}.")
+                            if (!TextUtils.equals(topType, getString(R.string.home_top_all).toLowerCase())) {
+                                activity.toast(getString(R.string.home_selector_other_chosen, periods[i].toLowerCase()))
                             } else {
-                                activity.toast("Showing top posts of all time.")
+                                activity.toast(getString(R.string.home_selector_all_chosen))
                             }
 
                             changeFilterLabelColors(newPostType, activity)
@@ -189,26 +193,26 @@ class HomeFragment : BaseFragment() {
             PostType.HOT -> {
                 hotButton.setTextColor(ContextCompat.getColor(activity, R.color.colorOrange))
                 hotButton.setTypeface(null, Typeface.BOLD)
+                newButton.setTextColor(ContextCompat.getColor(activity, R.color.colorGrayDark))
+                newButton.setTypeface(null, Typeface.NORMAL)
                 topButton.setTextColor(ContextCompat.getColor(activity, R.color.colorGrayDark))
                 topButton.setTypeface(null, Typeface.NORMAL)
-                newButton.setTextColor(ContextCompat.getColor(activity, R.color.colorGrayDark))
-                newButton.setTypeface(null, Typeface.NORMAL)
-            }
-            PostType.TOP -> {
-                topButton.setTextColor(ContextCompat.getColor(activity, R.color.colorBlue))
-                topButton.setTypeface(null, Typeface.BOLD)
-                hotButton.setTextColor(ContextCompat.getColor(activity, R.color.colorGrayDark))
-                hotButton.setTypeface(null, Typeface.NORMAL)
-                newButton.setTextColor(ContextCompat.getColor(activity, R.color.colorGrayDark))
-                newButton.setTypeface(null, Typeface.NORMAL)
             }
             PostType.NEW -> {
-                newButton.setTextColor(ContextCompat.getColor(activity, R.color.colorGreen))
-                newButton.setTypeface(null, Typeface.BOLD)
                 hotButton.setTextColor(ContextCompat.getColor(activity, R.color.colorGrayDark))
                 hotButton.setTypeface(null, Typeface.NORMAL)
+                newButton.setTextColor(ContextCompat.getColor(activity, R.color.colorGreen))
+                newButton.setTypeface(null, Typeface.BOLD)
                 topButton.setTextColor(ContextCompat.getColor(activity, R.color.colorGrayDark))
                 topButton.setTypeface(null, Typeface.NORMAL)
+            }
+            PostType.TOP -> {
+                hotButton.setTextColor(ContextCompat.getColor(activity, R.color.colorGrayDark))
+                hotButton.setTypeface(null, Typeface.NORMAL)
+                newButton.setTextColor(ContextCompat.getColor(activity, R.color.colorGrayDark))
+                newButton.setTypeface(null, Typeface.NORMAL)
+                topButton.setTextColor(ContextCompat.getColor(activity, R.color.colorBlue))
+                topButton.setTypeface(null, Typeface.BOLD)
             }
         }
     }

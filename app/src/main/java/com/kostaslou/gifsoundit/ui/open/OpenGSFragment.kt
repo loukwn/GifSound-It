@@ -39,8 +39,8 @@ class OpenGSFragment : BaseFragment() {
 
         // init everything
         getArgsFromBundle()
-        listenToObservables()
         initUI()
+        listenToObservables()
     }
 
     @Synchronized
@@ -51,22 +51,22 @@ class OpenGSFragment : BaseFragment() {
         val soundState = gifSoundPlaybackState.soundState
 
         if (gifState==GifSoundPlaybackState.GifState.GIF_OK && soundState==GifSoundPlaybackState.SoundState.SOUND_OK) {
-            statusText = "Ready"
+            statusText = getString(R.string.opengs_all_ready)
         } else {
             // set gif part of message
             val gifPartOfMessage = when (gifState) {
-                GifSoundPlaybackState.GifState.GIF_OK -> "ready"
-                GifSoundPlaybackState.GifState.GIF_ERROR -> "error" +  if (!TextUtils.isEmpty(errorMess)) ": $errorMess" else ""
-                GifSoundPlaybackState.GifState.GIF_LOADING -> "loading"
-                GifSoundPlaybackState.GifState.GIF_INVALID -> "invalid"
+                GifSoundPlaybackState.GifState.GIF_OK -> getString(R.string.opengs_one_ready)
+                GifSoundPlaybackState.GifState.GIF_ERROR -> getString(R.string.opengs_one_error) + if (!TextUtils.isEmpty(errorMess)) ": $errorMess" else ""
+                GifSoundPlaybackState.GifState.GIF_LOADING -> getString(R.string.opengs_one_loading)
+                GifSoundPlaybackState.GifState.GIF_INVALID -> getString(R.string.opengs_one_invalid)
             }
 
             // set sound part of message
             val soundPartOfMessage = when (soundState) {
-                GifSoundPlaybackState.SoundState.SOUND_OK -> "ready"
-                GifSoundPlaybackState.SoundState.SOUND_ERROR -> "error"
-                GifSoundPlaybackState.SoundState.SOUND_LOADING -> "loading"
-                GifSoundPlaybackState.SoundState.SOUND_INVALID -> "invalid"
+                GifSoundPlaybackState.SoundState.SOUND_OK -> getString(R.string.opengs_one_ready)
+                GifSoundPlaybackState.SoundState.SOUND_ERROR -> getString(R.string.opengs_one_error)
+                GifSoundPlaybackState.SoundState.SOUND_LOADING -> getString(R.string.opengs_one_loading)
+                GifSoundPlaybackState.SoundState.SOUND_INVALID -> getString(R.string.opengs_one_invalid)
             }
 
             statusText = "GIF: $gifPartOfMessage | Sound: $soundPartOfMessage"
@@ -183,11 +183,11 @@ class OpenGSFragment : BaseFragment() {
                 mp4View.visibility = View.VISIBLE
                 mp4View.setOnErrorListener { _, _, extra ->
                     val statusText = when (extra) {
-                        MediaPlayer.MEDIA_ERROR_MALFORMED -> "Bitstream is not conforming to the related coding standard or file spec. "
-                        MediaPlayer.MEDIA_ERROR_IO -> "IO Error"
-                        MediaPlayer.MEDIA_ERROR_UNSUPPORTED -> "Not supported by Media framework"
-                        MediaPlayer.MEDIA_ERROR_TIMED_OUT -> "Operation timed out"
-                        else -> "Unknown Error ($extra)"
+                        MediaPlayer.MEDIA_ERROR_MALFORMED -> getString(R.string.opengs_error_gif_malformed)
+                        MediaPlayer.MEDIA_ERROR_IO -> getString(R.string.opengs_error_gif_io_error)
+                        MediaPlayer.MEDIA_ERROR_UNSUPPORTED -> getString(R.string.opengs_error_gif_unsupported)
+                        MediaPlayer.MEDIA_ERROR_TIMED_OUT -> getString(R.string.opengs_error_gif_timed_out)
+                        else -> getString(R.string.opengs_error_gif_unknown, extra.toString())
                     }
 
                     viewModel.setGifError(statusText)
@@ -236,7 +236,7 @@ class OpenGSFragment : BaseFragment() {
     }
 
     private fun updateOffsetLabel(seconds: Int) {
-        offsetLabel.text = resources.getString(R.string.offset_label, seconds)
+        offsetLabel.text = getString(R.string.opengs_label_offset, seconds)
     }
 
     private fun getArgsFromBundle() {
