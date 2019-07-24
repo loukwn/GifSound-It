@@ -27,6 +27,8 @@ import javax.inject.Inject
 
 class HomeFragment : BaseFragment() {
 
+    private var firstTime = true
+
     // ViewModel
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -45,10 +47,16 @@ class HomeFragment : BaseFragment() {
         // inits
         initUI()
         restoreUI()
+        resetViewModelMessage()
         observeLiveData()
 
         // get data for the first time
         viewModel.getPosts(true)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.homeResumed()
     }
 
     private fun initUI() {
@@ -231,27 +239,56 @@ class HomeFragment : BaseFragment() {
         }
     }
 
+    private fun resetViewModelMessage() {
+        viewModel.resetMessage()
+    }
+
     private fun observeLiveData() {
         viewModel.postsLiveData.observe(this, Observer<List<PostModel>> {
+            // viewmodel has some data for us
+
             (mainRecycler.adapter as MainPostAdapter).clearAndAddPosts(it)
             mSwipe.isEnabled = true
+            firstTime = false
             infiniteScrollListener.allowLoading()
         })
 
         viewModel.loadingLiveData.observe(this, Observer<Boolean> {
+            // viewmodel indicates that data is loading
+
             mSwipe.isRefreshing = it
         })
 
-        viewModel.errorLiveData.observe(this, Observer<Throwable> {
-            var errorText = getString(R.string.home_error_generic)
+        viewModel.messageLiveData.observe(this, Observer<Message> {
+            // viewmodel wants to convey a message to us
+
+            mSwipe.isEnabled = true
+
+            var errorText : String? = null
 
             when (it) {
-                is PostsHttpException -> errorText = getString(R.string.home_error_posts)
-                is TokenHttpException -> errorText = getString(R.string.home_error_token)
-                is TokenRequiredException -> errorText = getString(R.string.home_error_token_refresh)
+                is Message.Error -> {
+                    errorText = when (it.e) {
+                        is PostsHttpException -> getString(R.string.home_error_posts)
+                        is TokenHttpException -> getString(R.string.home_error_token)
+                        is TokenRequiredException -> getString(R.string.home_error_token_refresh)
+                        else -> getString(R.string.home_error_generic)
+                    }
+                }
+                is Message.Info -> {
+                    when (it.data) {
+                        MessageCodes.TOKEN_READY -> {
+                            errorText = getString(R.string.home_info_token_ready)
+                            if (firstTime) viewModel.getPosts(firstTime)
+                        }
+                        MessageCodes.RECREATED -> {
+                            firstTime = false
+                        }
+                    }
+                }
             }
 
-            Snackbar.make(mainRecycler, errorText, Snackbar.LENGTH_SHORT).show()
+            errorText?.let {Snackbar.make(mainRecycler, errorText, Snackbar.LENGTH_SHORT).show()}
 
             infiniteScrollListener.allowLoading()
         })
