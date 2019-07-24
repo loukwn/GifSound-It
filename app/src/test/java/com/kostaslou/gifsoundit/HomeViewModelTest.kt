@@ -16,12 +16,15 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
+import org.junit.runner.RunWith
 import org.mockito.Mockito
+import org.mockito.junit.MockitoJUnitRunner
 import kotlin.test.assertEquals
 
-
+@RunWith(MockitoJUnitRunner::class)
 class HomeViewModelTest {
 
+    // instant execution of livedata operations
     @get:Rule
     var rule: TestRule = InstantTaskExecutorRule()
 

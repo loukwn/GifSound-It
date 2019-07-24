@@ -3,22 +3,22 @@ package com.kostaslou.gifsoundit.ui.open
 import android.content.Intent
 import androidx.lifecycle.MutableLiveData
 import com.google.android.youtube.player.YouTubePlayer
+import com.kostaslou.gifsoundit.ui.open.util.GifSoundPlaybackState
+import com.kostaslou.gifsoundit.ui.open.util.GifUrl
+import com.kostaslou.gifsoundit.ui.open.util.GifsoundUrlParser
+import com.kostaslou.gifsoundit.ui.open.util.SoundUrl
 import timber.log.Timber
-import java.net.URLDecoder
 
-data class GifLinkState(val gifLink: String?,
-                        val gifIsMp4: Boolean?)
 
 // regular viewmodel since youtube + mp4view make it a pain in the ass to retain state
 
 class OpenGSViewModel {
 
     // local vars
-    private var gifLink : String? = null
-    private var soundLink: String? = null
+    private var gifUrl = GifUrl(null)
+    private var soundUrl = SoundUrl(null)
     private var seconds = 0
     private var defaultSeconds = 0
-    private var gifIsMP4 : Boolean? = null
     private lateinit var query : String
 
     // sound player
@@ -27,18 +27,54 @@ class OpenGSViewModel {
     // state
     private var gifSoundPlaybackState: GifSoundPlaybackState = GifSoundPlaybackState()
 
-    // livedata
+    // livedata for the view
     val secondOffsetLiveData: MutableLiveData<Int> = MutableLiveData()
-    val shareIntentLiveData: MutableLiveData<Intent> = MutableLiveData()
-    val gifLinkStateLiveData: MutableLiveData<GifLinkState> = MutableLiveData()
-    val soundStateLiveData: MutableLiveData<String?> = MutableLiveData()
+    val gifUrlLiveData: MutableLiveData<GifUrl> = MutableLiveData()
+    val soundUrlLiveData: MutableLiveData<SoundUrl> = MutableLiveData()
     val gifSoundStateLiveData: MutableLiveData<GifSoundPlaybackState> = MutableLiveData()
+    val shareIntentLiveData: MutableLiveData<Intent> = MutableLiveData()
     val startGifLiveData: MutableLiveData<Boolean> = MutableLiveData()
 
+    //
+    // constructor
+    //
 
     init {
         gifSoundStateLiveData.value = gifSoundPlaybackState
     }
+
+    //
+    // view sends the query to be parsed
+    //
+
+    fun setGifSoundArgs(query: String) {
+        // save the query so we can share it if we want
+        this.query = query
+        Timber.d(query)
+
+        // get the gif and sound arguments
+        val parser = GifsoundUrlParser(query)
+        soundUrl = parser.getSoundUrl()
+        gifUrl = parser.getGifUrl()
+        seconds = parser.getSeconds()
+        defaultSeconds = seconds
+
+        // inform view, so it can start inits
+        secondOffsetLiveData.value = defaultSeconds
+        soundUrlLiveData.value = soundUrl
+        gifUrlLiveData.value = gifUrl
+
+        // if any of them is null, the view should update the status
+        if (soundUrl.soundLink == null)
+            changeState(soundState = GifSoundPlaybackState.SoundState.SOUND_INVALID)
+
+        if (gifUrl.gifLink == null)
+            changeState(gifState = GifSoundPlaybackState.GifState.GIF_INVALID)
+    }
+
+    //
+    // set youtube player
+    //
 
     fun setYoutubePlayer(player: YouTubePlayer?) {
         youTubePlayer = player
@@ -69,8 +105,12 @@ class OpenGSViewModel {
                 youTubePlayer?.play()
             }
         })
-        youTubePlayer?.cueVideo(soundLink, seconds * 1000)
+        youTubePlayer?.cueVideo(soundUrl.soundLink, seconds * 1000)
     }
+
+    //
+    // change the gifsoundPlayback state
+    //
 
     @Synchronized
     private fun changeState(gifState: GifSoundPlaybackState.GifState? = null, soundState: GifSoundPlaybackState.SoundState? = null, errorMessage: String? = null) {
@@ -88,6 +128,10 @@ class OpenGSViewModel {
         gifSoundStateLiveData.value = gifSoundPlaybackState
     }
 
+    //
+    // view changes the state
+    //
+
     fun setSoundError() {
         changeState(soundState = GifSoundPlaybackState.SoundState.SOUND_ERROR)
     }
@@ -100,106 +144,6 @@ class OpenGSViewModel {
         changeState(gifState = GifSoundPlaybackState.GifState.GIF_ERROR, errorMessage = message)
     }
 
-    fun setGifSoundArgs(query: String) {
-        // save the query so we can share it if we want
-        this.query = query
-        Timber.d(query)
-
-        // loop query args and save them
-        val args = query.split("&")
-        for (arg in args) {
-
-            // youtube
-            if (arg.startsWith("v=")) {
-                soundLink = arg.split("=")[1]
-                continue
-            }
-
-            // youtube #2
-            if (arg.startsWith("sound=")) {
-                soundLink = URLDecoder.decode(arg, "UTF-8")
-
-                val temp = soundLink ?: return
-                soundLink = URLDecoder.decode(temp.split("=")[2], "UTF-8")
-
-                continue
-            }
-
-            // second offset
-            if (arg.startsWith("s=")) {
-                seconds = arg.split("=")[1].toInt()
-                defaultSeconds = seconds
-                secondOffsetLiveData.value = defaultSeconds
-                continue
-            }
-
-            // second offset #2
-            if (arg.startsWith("start=")) {
-                seconds = arg.split("=")[1].toInt()
-                defaultSeconds = seconds
-                secondOffsetLiveData.value = defaultSeconds
-                continue
-            }
-
-            // imgur gif #1
-            if (arg.startsWith("gifv=")) {
-                gifLink = "http://i.imgur.com/" + arg.split("=")[1] + ".mp4"
-                gifIsMP4 = true
-                continue
-            }
-
-            // imgur gif #2
-            if (arg.startsWith("mp4")) {
-                gifLink = arg.split("=")[1] + ".mp4"
-                gifIsMP4 = true
-                continue
-            }
-
-            // gfycat gif
-            if (arg.startsWith("gfycat")) {
-                gifLink = "https://giant.gfycat.com/" + arg.split("=")[1] + ".mp4"
-                gifIsMP4 = true
-                continue
-            }
-
-            // normal gif
-            if (arg.startsWith("gif=")) {
-                gifLink = URLDecoder.decode(arg.split("=")[1], "UTF-8")
-
-                val temp = gifLink ?: return
-                if (!temp.startsWith("http") && !temp.startsWith("https"))
-                    gifLink = "http://$temp"
-
-                gifIsMP4 = false
-                continue
-            }
-
-            // webm
-            if (arg.startsWith("webm=")) {
-                gifLink = URLDecoder.decode(arg.split("=")[1], "UTF-8") + ".webm"
-
-                val temp = gifLink ?: return
-                if (!temp.startsWith("http") && !temp.startsWith("https"))
-                    gifLink = "http://$temp"
-
-                gifIsMP4 = true
-                continue
-            }
-        }
-
-        // inform view, so it can start inits
-        soundStateLiveData.value = soundLink
-        gifLinkStateLiveData.value = GifLinkState(gifLink, gifIsMP4)
-
-
-        // if any of them is null, the view should update the status
-        if (soundLink == null)
-            changeState(soundState = GifSoundPlaybackState.SoundState.SOUND_INVALID)
-
-        if (gifLink == null)
-            changeState(gifState = GifSoundPlaybackState.GifState.GIF_INVALID)
-    }
-
     fun restartSound() {
         youTubePlayer?.pause()
         youTubePlayer?.seekToMillis(seconds * 1000)
@@ -210,8 +154,10 @@ class OpenGSViewModel {
         youTubePlayer?.play()
     }
 
+    //
+    // a button is clicked in the view
+    //
 
-    // button listeners
     fun shareButtonClicked() {
         if (!query.startsWith("?"))
             query = "?$query"
