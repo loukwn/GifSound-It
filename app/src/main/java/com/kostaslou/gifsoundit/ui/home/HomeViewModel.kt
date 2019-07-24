@@ -20,11 +20,11 @@ class HomeViewModel @Inject constructor(private val repository: Repository) : Vi
     private val compositeDisposable = CompositeDisposable()
 
     // state
-    var postType = PostType.HOT
-    var topType = "all"
-    var after = ""
-    var before = ""
-    var filterMenuVisible = false
+    private var postType = PostType.HOT
+    private var topType = "all"
+    private var after = ""
+    private var before = ""
+    private var filterMenuVisible = false
 
     // livedata objects
     val loadingLiveData: MutableLiveData<Boolean> = MutableLiveData()
@@ -34,6 +34,9 @@ class HomeViewModel @Inject constructor(private val repository: Repository) : Vi
     init {
         listenToRepoLiveData()
     }
+
+    fun getPostType() = postType
+    fun getFilterMenuVisible() = filterMenuVisible
 
     @SuppressLint("CheckResult")
     private fun listenToRepoLiveData() {

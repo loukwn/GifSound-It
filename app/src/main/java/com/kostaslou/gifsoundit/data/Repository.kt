@@ -1,6 +1,5 @@
 package com.kostaslou.gifsoundit.data
 
-import android.text.TextUtils
 import com.kostaslou.gifsoundit.BuildConfig
 import com.kostaslou.gifsoundit.data.api.AuthApi
 import com.kostaslou.gifsoundit.data.api.PostApi
@@ -18,7 +17,7 @@ import javax.inject.Inject
 
 // the main api with the initializer
 class Repository @Inject constructor(private val authApi: AuthApi,
-                                      val postApi: PostApi,
+                                     private val postApi: PostApi,
                                      private val sharedPrefsHelper: SharedPrefsHelper,
                                      private val rxSchedulers: RxSchedulers) {
 
@@ -68,7 +67,7 @@ class Repository @Inject constructor(private val authApi: AuthApi,
         val accessToken : String = sharedPrefsHelper[SharedPrefsHelper.PREF_KEY_ACCESS_TOKEN, ""] ?: ""
         val expiresAtDate = Date(sharedPrefsHelper[SharedPrefsHelper.PREF_KEY_EXPIRES_AT, today.time] ?: today.time)
 
-        if (expiresAtDate.before(today) || expiresAtDate == today || TextUtils.isEmpty(accessToken)) {
+        if (expiresAtDate.before(today) || expiresAtDate == today || accessToken.isEmpty()) {
             // we need to update the access token
 
             compositeDisposable.add(authApi.getAuthToken(RedditConstants.REDDIT_GRANT_TYPE, UUID.randomUUID().toString())

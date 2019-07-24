@@ -127,7 +127,7 @@ class HomeFragment : BaseFragment() {
             moreButton.setOnClickListener {
 
                 viewModel.moreClicked()
-                val filterMenuVisible = viewModel.filterMenuVisible
+                val filterMenuVisible = viewModel.getFilterMenuVisible()
 
                 if (filterMenuVisible) {
                     moreButton.startAnimation(AnimationUtils.loadAnimation(parentActivity, R.anim.rotate_180_normal))
@@ -229,13 +229,13 @@ class HomeFragment : BaseFragment() {
 
         getBaseActivity()?.let {
             // filter menu
-            if (viewModel.filterMenuVisible) {
+            if (viewModel.getFilterMenuVisible()) {
                 moreButton.startAnimation(AnimationUtils.loadAnimation(it, R.anim.rotate_180_normal))
                 filterMenu.visibility = View.VISIBLE
             }
 
             // filter selection
-            changeFilterLabelColors(viewModel.postType, it)
+            changeFilterLabelColors(viewModel.getPostType(), it)
         }
     }
 
