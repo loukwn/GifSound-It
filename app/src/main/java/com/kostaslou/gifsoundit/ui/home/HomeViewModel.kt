@@ -1,34 +1,23 @@
 package com.kostaslou.gifsoundit.ui.home
 
-import android.text.TextUtils
+import android.annotation.SuppressLint
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.kostaslou.gifsoundit.data.Repository
 import com.kostaslou.gifsoundit.data.api.model.RedditPostResponse
-import com.kostaslou.gifsoundit.data.api.model.RedditTokenResponse
-import com.kostaslou.gifsoundit.data.disk.SharedPrefsHelper
 import com.kostaslou.gifsoundit.ui.home.model.PostModel
-import com.kostaslou.gifsoundit.util.RxSchedulers
+import com.kostaslou.gifsoundit.util.commons.Message
+import com.kostaslou.gifsoundit.util.commons.MessageCodes
 import com.kostaslou.gifsoundit.util.commons.PostType
-import com.kostaslou.gifsoundit.util.commons.PostsHttpException
-import com.kostaslou.gifsoundit.util.commons.TokenHttpException
-import com.kostaslou.gifsoundit.util.commons.TokenRequiredException
-import com.kostaslou.gifsoundit.util.commons.schedulerSetup
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
-import io.reactivex.observers.DisposableSingleObserver
 import timber.log.Timber
-import java.util.*
 import javax.inject.Inject
 
 
-class HomeViewModel @Inject constructor(private val repository: Repository,
-                                        private val sharedPrefsHelper: SharedPrefsHelper,
-                                        private val rxSchedulers: RxSchedulers) : ViewModel() {
+class HomeViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
 
     // for the cleanup
     private val compositeDisposable = CompositeDisposable()
-
 
     // state
     var postType = PostType.HOT
@@ -40,7 +29,45 @@ class HomeViewModel @Inject constructor(private val repository: Repository,
     // livedata objects
     val loadingLiveData: MutableLiveData<Boolean> = MutableLiveData()
     val postsLiveData: MutableLiveData<List<PostModel>> = MutableLiveData()
-    val errorLiveData: MutableLiveData<Throwable> = MutableLiveData()
+    var messageLiveData: MutableLiveData<Message> = MutableLiveData()
+
+    init {
+        listenToRepoLiveData()
+    }
+
+    @SuppressLint("CheckResult")
+    private fun listenToRepoLiveData() {
+
+        // repo has refreshed token
+        repository.tokenIsReadyObservable.subscribe {
+            if (it) messageLiveData.value = Message.info(MessageCodes.TOKEN_READY)
+        }
+
+        // repo has post data for us
+        repository.postDataObservable.subscribe {
+
+            var clearData = false
+            if (after == "") clearData = true
+
+            after = it.data.after ?: ""
+            before = it.data.before ?: ""
+
+            val receivedData = transformResponseToAdapterType(it)
+
+            postsLiveData.value = if (clearData)
+                receivedData
+            else
+                postsLiveData.value?.plus(receivedData) ?: receivedData
+
+            loadingLiveData.value = false
+        }
+
+        // repo has error
+        repository.postErrorObservable.subscribe {
+            messageLiveData.value = Message.error(it)
+            loadingLiveData.value = false
+        }
+    }
 
 
     // communicate with repository
@@ -48,72 +75,13 @@ class HomeViewModel @Inject constructor(private val repository: Repository,
 
         if (postsLiveData.value==null || !firstTime) {
             if (postsLiveData.value!=null && showLoading) loadingLiveData.value = true
-
             if (refresh) after = ""
 
-            getAuthToken()?.let {
-                getPostsFromRepo(it, postType, after, topType)
-            }
+            repository.getPosts(postType, after, topType)
+        } else {
+            // first post requesting after config change
+            messageLiveData.value = Message.info(MessageCodes.RECREATED)
         }
-    }
-
-    private fun getPostsFromRepo(token: String, postType: PostType, postAfter: String, topType: String) {
-        val disposable: Disposable = repository.getPostsFromNetwork(token, postType, postAfter, topType)
-                .schedulerSetup(rxSchedulers)
-                .subscribeWith(object : DisposableSingleObserver<RedditPostResponse>() {
-                    override fun onSuccess(t: RedditPostResponse) {
-
-                        var clearData = false
-                        if (after == "") clearData = true
-
-                        after = t.data.after ?: ""
-                        before = t.data.before ?: ""
-
-                        val receivedData = transformResponseToAdapterType(t)
-
-                        postsLiveData.value = if (clearData)
-                            receivedData
-                        else
-                            postsLiveData.value?.plus(receivedData) ?: receivedData
-
-                        loadingLiveData.value = false
-                    }
-
-                    override fun onError(e: Throwable) {
-                        loadingLiveData.value = false
-                        errorLiveData.value = PostsHttpException(e)
-                    }
-                })
-
-        compositeDisposable.add(disposable)
-    }
-
-    private fun getAuthToken() : String? {
-        val today = Date()
-
-        val accessToken : String = sharedPrefsHelper[SharedPrefsHelper.PREF_KEY_ACCESS_TOKEN, ""] ?: ""
-        val expiresAtDate = Date(sharedPrefsHelper[SharedPrefsHelper.PREF_KEY_EXPIRES_AT, today.time] ?: today.time)
-
-        if (expiresAtDate.before(today) || expiresAtDate == today || TextUtils.isEmpty(accessToken)) {
-            // we need to update the access token
-            errorLiveData.value = TokenRequiredException(Throwable())
-
-            compositeDisposable.add(repository.getRedditAuthToken()
-                    .schedulerSetup(rxSchedulers)
-                    .subscribeWith(object : DisposableSingleObserver<RedditTokenResponse>() {
-                        override fun onSuccess(t: RedditTokenResponse) {
-                            getPostsFromRepo(saveTokenToPrefsAndReturnIt(t), postType, after, topType)
-                        }
-
-                        override fun onError(e: Throwable) {
-                            loadingLiveData.value = false
-                            errorLiveData.value = TokenHttpException(e)
-                        }
-                    }))
-            return null
-        }
-
-        return accessToken
     }
 
     // transform response to a type that the view understands
@@ -129,19 +97,6 @@ class HomeViewModel @Inject constructor(private val repository: Repository,
 
             PostModel(item.title, item.thumbnail, created, score, url, perma, isSelf)
         }
-    }
-
-
-    // save token to prefs
-    private fun saveTokenToPrefsAndReturnIt(r: RedditTokenResponse) : String {
-
-        // save token to prefs
-        val date = Date(Date().time + r.expires_in.toLong() * 1000)
-
-        sharedPrefsHelper.put(SharedPrefsHelper.PREF_KEY_ACCESS_TOKEN, r.access_token)
-        sharedPrefsHelper.put(SharedPrefsHelper.PREF_KEY_EXPIRES_AT, date.time)
-
-        return r.access_token
     }
 
     // button interactions
@@ -160,9 +115,21 @@ class HomeViewModel @Inject constructor(private val repository: Repository,
         getPosts()
     }
 
+    // lifecycle-based
+
+    fun resetMessage() {
+        messageLiveData = MutableLiveData()
+    }
+
+    fun homeResumed() {
+        repository.refreshAuthToken()
+    }
+
     override fun onCleared() {
         super.onCleared()
         Timber.d("cleared")
+
         compositeDisposable.clear()
+        repository.clearDisposables()
      }
 }

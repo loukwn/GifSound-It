@@ -19,10 +19,10 @@ import io.reactivex.Single
 
 // extend the properties(functions) of some of our classes, so that our code is cleaner! God Bless! :3
 
-fun <T> Single<T>.schedulerSetup(rxSchedulers: RxSchedulers):
+fun <T> Single<T>.schedulerSetup(rxSchedulers: RxSchedulers?):
         Single<T> {
-    return this.subscribeOn(rxSchedulers.ioScheduler)
-            .observeOn(rxSchedulers.androidScheduler)
+    return this.subscribeOn(rxSchedulers?.ioScheduler)
+            .observeOn(rxSchedulers?.androidScheduler)
 }
 
 fun ViewGroup.inflate(layoutId: Int, attachToRoot: Boolean = false): View {
