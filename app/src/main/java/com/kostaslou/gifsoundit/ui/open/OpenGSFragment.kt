@@ -18,13 +18,17 @@ import com.google.android.youtube.player.YouTubePlayerSupportFragment
 import com.kostaslou.gifsoundit.BuildConfig
 import com.kostaslou.gifsoundit.R
 import com.kostaslou.gifsoundit.ui.base.BaseFragment
+import com.kostaslou.gifsoundit.ui.open.util.GifSoundPlaybackState
+import com.kostaslou.gifsoundit.ui.open.util.GifUrl
+import com.kostaslou.gifsoundit.ui.open.util.SoundUrl
 import com.kostaslou.gifsoundit.util.GlideApp
 import kotlinx.android.synthetic.main.fragment_opengs.*
+
 
 class OpenGSFragment : BaseFragment() {
 
     // local vars
-    private var gifIsMP4 : Boolean? = null
+    private var gifType = GifUrl.GifType.GIF
     private var gifDrawable: GifDrawable? = null
 
     // ViewModel
@@ -50,7 +54,7 @@ class OpenGSFragment : BaseFragment() {
         val gifState = gifSoundPlaybackState.gifState
         val soundState = gifSoundPlaybackState.soundState
 
-        if (gifState==GifSoundPlaybackState.GifState.GIF_OK && soundState==GifSoundPlaybackState.SoundState.SOUND_OK) {
+        if (gifState== GifSoundPlaybackState.GifState.GIF_OK && soundState== GifSoundPlaybackState.SoundState.SOUND_OK) {
             statusText = getString(R.string.opengs_all_ready)
         } else {
             // set gif part of message
@@ -92,16 +96,16 @@ class OpenGSFragment : BaseFragment() {
             viewModel.restartSound()
 
             // restart gif
-            if (gifIsMP4 == true) {
-                // video view
-                mp4View.seekTo(0)
-                mp4View.start()
-
-            } else {
-                if (gifIsMP4!=null) {
+            when (gifType) {
+                GifUrl.GifType.GIF -> {
                     // gif
                     gifDrawable?.stop()
                     gifDrawable?.startFromFirstFrame()
+                }
+                GifUrl.GifType.MP4 -> {
+                    // video view
+                    mp4View.seekTo(0)
+                    mp4View.start()
                 }
             }
         }
@@ -123,17 +127,17 @@ class OpenGSFragment : BaseFragment() {
 
         // show GIF label
         playGIFLabel.setOnClickListener {
-            if (gifIsMP4 == true) {
-                // video view
-                mp4View.visibility = View.VISIBLE
-                mp4View.start()
-
-            } else {
-                if (gifIsMP4 != null) {
+            when (gifType) {
+                GifUrl.GifType.GIF -> {
                     // show the glide handled gif
                     gifView.visibility = View.VISIBLE
                     gifDrawable?.stop()
                     gifDrawable?.startFromFirstFrame()
+                }
+                GifUrl.GifType.MP4 -> {
+                    // video view
+                    mp4View.visibility = View.VISIBLE
+                    mp4View.start()
                 }
             }
         }
@@ -155,63 +159,71 @@ class OpenGSFragment : BaseFragment() {
         statusLabel.isSelected = true
     }
 
-    private fun initGif(gifLinkState: GifLinkState) {
-        val gifLink = gifLinkState.gifLink
-        val gifIsMP4 = gifLinkState.gifIsMp4
+    private fun initGif(gifUrl: GifUrl) {
+        val gifLink = gifUrl.gifLink
+        val gifType = gifUrl.gifType
 
-        if (gifLink!=null) {
-            if (gifIsMP4 == false) {
-                gifView.setOnClickListener { gifDrawable?.start() }
+        gifLink?.let {
 
-                GlideApp.with(this)
-                        .asGif()
-                        .load(gifLink)
-                        .listener(object : RequestListener<GifDrawable> {
-                            override fun onResourceReady(resource: GifDrawable?, model: Any?, target: Target<GifDrawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-                                gifDrawable = resource
-                                viewModel.setGifOK()
-                                return false
-                            }
+            when (gifType) {
+                GifUrl.GifType.GIF -> {
+                    // the gif is actually a gif, so we use glide
 
-                            override fun onLoadFailed(p0: GlideException?, p1: Any?, p2: Target<GifDrawable>?, p3: Boolean): Boolean {
-                                viewModel.setGifError()
-                                return false
-                            }
-                        })
-                        .into(gifView)
-            } else {
-                mp4View.visibility = View.VISIBLE
-                mp4View.setOnErrorListener { _, _, extra ->
-                    val statusText = when (extra) {
-                        MediaPlayer.MEDIA_ERROR_MALFORMED -> getString(R.string.opengs_error_gif_malformed)
-                        MediaPlayer.MEDIA_ERROR_IO -> getString(R.string.opengs_error_gif_io_error)
-                        MediaPlayer.MEDIA_ERROR_UNSUPPORTED -> getString(R.string.opengs_error_gif_unsupported)
-                        MediaPlayer.MEDIA_ERROR_TIMED_OUT -> getString(R.string.opengs_error_gif_timed_out)
-                        else -> getString(R.string.opengs_error_gif_unknown, extra.toString())
+                    gifView.setOnClickListener { gifDrawable?.start() }
+
+                    GlideApp.with(this)
+                            .asGif()
+                            .load(it)
+                            .listener(object : RequestListener<GifDrawable> {
+                                override fun onResourceReady(resource: GifDrawable?, model: Any?, target: Target<GifDrawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                                    gifDrawable = resource
+                                    viewModel.setGifOK()
+                                    return false
+                                }
+
+                                override fun onLoadFailed(p0: GlideException?, p1: Any?, p2: Target<GifDrawable>?, p3: Boolean): Boolean {
+                                    viewModel.setGifError()
+                                    return false
+                                }
+                            })
+                            .into(gifView)
+                }
+                GifUrl.GifType.MP4 -> {
+                    // the gif is actually an mp4, so we use mp4view
+
+                    mp4View.visibility = View.VISIBLE
+                    mp4View.setOnErrorListener { _, _, extra ->
+                        val statusText = when (extra) {
+                            MediaPlayer.MEDIA_ERROR_MALFORMED -> getString(R.string.opengs_error_gif_malformed)
+                            MediaPlayer.MEDIA_ERROR_IO -> getString(R.string.opengs_error_gif_io_error)
+                            MediaPlayer.MEDIA_ERROR_UNSUPPORTED -> getString(R.string.opengs_error_gif_unsupported)
+                            MediaPlayer.MEDIA_ERROR_TIMED_OUT -> getString(R.string.opengs_error_gif_timed_out)
+                            else -> getString(R.string.opengs_error_gif_unknown, extra.toString())
+                        }
+
+                        viewModel.setGifError(statusText)
+
+                        true
                     }
 
-                    viewModel.setGifError(statusText)
+                    mp4View.setVideoPath(it)
+                    mp4View.setOnPreparedListener { mp ->
+                        viewModel.setGifOK()
 
-                    true
-                }
-
-                mp4View.setVideoPath(gifLink)
-                mp4View.setOnPreparedListener { mp ->
-                    viewModel.setGifOK()
-
-                    mp.setVideoScalingMode(MediaPlayer.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING)
-                    mp.setVolume(0f,0f)
-                }
-                mp4View.setOnCompletionListener {
-                    mp4View.seekTo(0)
-                    mp4View.start()
+                        mp.setVideoScalingMode(MediaPlayer.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING)
+                        mp.setVolume(0f,0f)
+                    }
+                    mp4View.setOnCompletionListener {
+                        mp4View.seekTo(0)
+                        mp4View.start()
+                    }
                 }
             }
         }
     }
 
-    private fun initSound(soundLink: String?) {
-        if (soundLink!=null) {
+    private fun initSound(soundUrl: SoundUrl) {
+        soundUrl.soundLink?.let {
             val videoFrag = childFragmentManager.findFragmentById(R.id.videoView) as YouTubePlayerSupportFragment?
             videoFrag?.initialize(BuildConfig.YouTubeApiKey, object : YouTubePlayer.OnInitializedListener {
                 override fun onInitializationSuccess(p0: YouTubePlayer.Provider?, p1: YouTubePlayer?, p2: Boolean) {
@@ -261,13 +273,13 @@ class OpenGSFragment : BaseFragment() {
         })
 
         // gif link identified
-        viewModel.gifLinkStateLiveData.observe(this, Observer {
+        viewModel.gifUrlLiveData.observe(this, Observer {
             initGif(it)
-            gifIsMP4 = it.gifIsMp4
+            gifType = it.gifType
         })
 
         // sound link identified
-        viewModel.soundStateLiveData.observe(this, Observer {
+        viewModel.soundUrlLiveData.observe(this, Observer {
             initSound(it)
         })
 
@@ -288,21 +300,22 @@ class OpenGSFragment : BaseFragment() {
 
         // sound started so gif should start too
         viewModel.startGifLiveData.observe(this, Observer {
-            if (gifIsMP4 == true) {
-                // video view
-                mp4View.visibility = View.VISIBLE
-                mp4View.start()
-                refreshButton.visibility = View.VISIBLE
-
-            } else {
-                if (gifIsMP4 != null) {
+            when(gifType) {
+                GifUrl.GifType.GIF -> {
                     // show the glide handled gif
                     gifView.visibility = View.VISIBLE
                     gifDrawable?.stop()
                     gifDrawable?.startFromFirstFrame()
                     refreshButton.visibility = View.VISIBLE
                 }
+                GifUrl.GifType.MP4 -> {
+                    // video view
+                    mp4View.visibility = View.VISIBLE
+                    mp4View.start()
+                    refreshButton.visibility = View.VISIBLE
+                }
             }
+
             offsetLayout.visibility = View.VISIBLE
         })
     }

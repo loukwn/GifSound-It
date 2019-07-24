@@ -26,7 +26,7 @@
     <string name="home_selector_title">Select time period</string>
     <string name="home_selector_all_chosen">Showing top posts of all time.</string>
     <string name="home_selector_other_chosen">Showing top posts of this %1$s.</string>
-    <string name="home_info_token_ready">Token has been refreshed. You can get data now!</string>
+    <string name="home_info_token_ready">Authenticated with reddit! You can get data now!</string>
     <string name="content_description_home_more">Button to expand filter banner</string>
 
     <!--Open GifSound Fragment -->

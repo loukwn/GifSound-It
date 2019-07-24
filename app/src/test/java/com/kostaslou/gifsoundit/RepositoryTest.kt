@@ -13,17 +13,28 @@ import io.reactivex.Single
 import io.reactivex.observers.TestObserver
 import org.junit.Before
 import org.junit.Test
+import org.junit.runner.RunWith
 import org.mockito.ArgumentMatchers.anyLong
 import org.mockito.ArgumentMatchers.anyString
+import org.mockito.Mock
+import org.mockito.junit.MockitoJUnitRunner
 import java.util.*
 
+@RunWith(MockitoJUnitRunner::class)
 class RepositoryTest {
 
     // repo and its mock dependencies
     private lateinit var repo: Repository
+
+    @Mock
     private lateinit var authApi: AuthApi
+
+    @Mock
     private lateinit var postApi: PostApi
+
+    @Mock
     private lateinit var sharedPrefsHelper: SharedPrefsHelper
+
     private val rxSchedulers = RxSchedulers.test()
 
     // observable observers
@@ -38,10 +49,6 @@ class RepositoryTest {
     fun setup() {
         // init
 
-        authApi = mock()
-        postApi = mock()
-        sharedPrefsHelper = mock()
-
         repo = Repository(authApi, postApi, sharedPrefsHelper, rxSchedulers)
         repo.postDataObservable.subscribe(dataObserver)
         repo.tokenIsReadyObservable.subscribe(tokenIsReadyObserver)
@@ -51,21 +58,20 @@ class RepositoryTest {
     @Test
     fun `when posts are requested but there is no "access_token" saved`() {
 
-        // stub sharedPrefs
-        whenever(sharedPrefsHelper[SharedPrefsHelper.PREF_KEY_ACCESS_TOKEN, ""]).thenReturn(null)
-        whenever(sharedPrefsHelper[SharedPrefsHelper.PREF_KEY_EXPIRES_AT, today.time]).thenReturn(today.time)
+        // given that shared preferences have only the "expires_at" key saved...
+        whenever(sharedPrefsHelper[any(), anyLong()]).thenReturn(today.time + 1000000)
 
-        // stub auth api
+        // ...and authAPi on request will return the data successfully...
         whenever(authApi.getAuthToken(any(), any())).thenReturn(Single.just(RedditTokenResponse("token", "123")))
 
-        // get posts
+        // ...get posts...
         repo.getPosts(PostType.HOT, "", "all")
 
-        // verify that token and expired data has been saved to disk
+        // ...verify that token and expired data has been saved to disk...
         verify(sharedPrefsHelper).put(any(), anyString())
         verify(sharedPrefsHelper).put(any(), anyLong())
 
-        // assert the data in observables
+        // ...and assert the data in observables
         tokenIsReadyObserver.assertValueCount(1)
         tokenIsReadyObserver.assertValue(true)
         dataObserver.assertNoValues()
@@ -75,21 +81,20 @@ class RepositoryTest {
     @Test
     fun `when posts are requested but there is no "expires_at" saved`() {
 
-        // stub sharedPrefs
-        whenever(sharedPrefsHelper[SharedPrefsHelper.PREF_KEY_ACCESS_TOKEN, ""]).thenReturn(null)
-        whenever(sharedPrefsHelper[SharedPrefsHelper.PREF_KEY_EXPIRES_AT, today.time]).thenReturn(today.time)
+        // given that shared preferences have only the "access_token" key saved...
+        whenever(sharedPrefsHelper[any(), anyString()]).thenReturn("a keyy")
 
-        // stub auth api
+        // ...and authAPi on request will return the data successfully...
         whenever(authApi.getAuthToken(any(), any())).thenReturn(Single.just(RedditTokenResponse("token", "123")))
 
-        // get posts
+        // ...get posts...
         repo.getPosts(PostType.HOT, "", "all")
 
-        // verify that token and expired data has been saved to disk
+        // ...verify that token and expired data has been saved to disk...
         verify(sharedPrefsHelper).put(any(), anyString())
         verify(sharedPrefsHelper).put(any(), anyLong())
 
-        // assert the data in observables
+        // ...and assert the data in observables
         tokenIsReadyObserver.assertValueCount(1)
         tokenIsReadyObserver.assertValue(true)
         dataObserver.assertNoValues()
@@ -99,21 +104,17 @@ class RepositoryTest {
     @Test
     fun `when posts are requested but there is nothing saved`() {
 
-        // stub sharedPrefs
-        whenever(sharedPrefsHelper[SharedPrefsHelper.PREF_KEY_ACCESS_TOKEN, ""]).thenReturn(null)
-        whenever(sharedPrefsHelper[SharedPrefsHelper.PREF_KEY_EXPIRES_AT, today.time]).thenReturn(null)
-
-        // stub auth api
+        // given that shared preferences have nothing saved, and authApi returns successfully on request...
         whenever(authApi.getAuthToken(any(), any())).thenReturn(Single.just(RedditTokenResponse("token", "123")))
 
-        // get posts
+        // ...get posts...
         repo.getPosts(PostType.HOT, "", "all")
 
-        // verify that token and expired data has been saved to disk
+        // ...verify that token and expired data has been saved to disk...
         verify(sharedPrefsHelper).put(any(), anyString())
         verify(sharedPrefsHelper).put(any(), anyLong())
 
-        // assert the data in observables
+        // ...and assert the data in observables
         tokenIsReadyObserver.assertValueCount(1)
         tokenIsReadyObserver.assertValue(true)
         dataObserver.assertNoValues()
@@ -123,11 +124,7 @@ class RepositoryTest {
     @Test
     fun `when posts are requested but there is an error while fetching the token`() {
 
-        // given that shared prefs do not have the token...
-        whenever(sharedPrefsHelper[SharedPrefsHelper.PREF_KEY_ACCESS_TOKEN, ""]).thenReturn(null)
-        whenever(sharedPrefsHelper[SharedPrefsHelper.PREF_KEY_EXPIRES_AT, today.time]).thenReturn(null)
-
-        // ...and authApi returns an error during the execution of the query...
+        // given that shared preferences have nothing saved, and authApi returns successfully on request...
         whenever(authApi.getAuthToken(any(), any())).thenReturn(Single.error(Throwable("")))
 
         // ...get posts...
@@ -147,7 +144,7 @@ class RepositoryTest {
     fun `when posts are requested from different categories successfully`() {
 
         // given that shared prefs has everything correctly...
-        whenever(sharedPrefsHelper[SharedPrefsHelper.PREF_KEY_ACCESS_TOKEN, ""]).thenReturn("a key")
+        whenever(sharedPrefsHelper[any(), anyString()]).thenReturn("a key")
         whenever(sharedPrefsHelper[any(), anyLong()]).thenReturn(today.time + 10000000)
 
         // ...and postApi returns successfully...

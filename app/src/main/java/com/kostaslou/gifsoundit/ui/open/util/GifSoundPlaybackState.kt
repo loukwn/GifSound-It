@@ -1,4 +1,4 @@
-package com.kostaslou.gifsoundit.ui.open
+package com.kostaslou.gifsoundit.ui.open.util
 
 // the state of the gifsound that is being played
 class GifSoundPlaybackState {
