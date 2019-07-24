@@ -124,7 +124,7 @@ class HomeViewModelTest {
     fun `when view changes to same category but is top`() {
 
         // we are on top and change to top.. Fetch normally
-        viewModel.postType = PostType.TOP
+        viewModel.categoryChanged(PostType.TOP)
         val spy = Mockito.spy(viewModel)
         spy.categoryChanged(PostType.TOP)
         verify(spy).getPosts()
