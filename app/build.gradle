@@ -102,7 +102,6 @@ ext {
     firebase_core_version = '17.0.1'
     fabric_version = '2.10.1'
     about_libraries_version = '7.0.1'
-    timber_version = '4.7.1'
 }
 
 
