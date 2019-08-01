@@ -24,8 +24,10 @@ android {
         release {
             debuggable false
             minifyEnabled true
-            shrinkResources false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            shrinkResources true
+            //zipAlignEnabled true
+
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-release-rules.pro'
 
             // keys
             buildConfigField 'String', "RedditClientId", GifSoundIt_RedditClientId
@@ -36,8 +38,10 @@ android {
         debug {
             debuggable true
             minifyEnabled true
-            shrinkResources false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            shrinkResources true
+
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-debug-rules.pro'
+            testProguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-test-debug-rules.pro'
 
             // keys
             buildConfigField 'String', "RedditClientId", GifSoundIt_RedditClientId
@@ -75,11 +79,14 @@ ext {
     // testing
     espresso_version = '3.1.1'
     core_testing_version = '2.0.1'
+    androidx_test_core_version = '1.0.0'
     test_runner_version = '1.2.0'
+    test_rules_version = '1.2.0'
     junit_version = '4.12'
     mockito_verion = '2.23.0'
     mockitoKotlin_version = '2.1.0'
     mockitoInline_version = '2.8.47'
+    ext_junit_version = '1.1.1'
 
     // dagger
     dagger_version = '2.22'
@@ -155,9 +162,23 @@ dependencies {
     // Fabric
     implementation "com.crashlytics.sdk.android:crashlytics:$fabric_version"
 
-    // test
+    // Android testing
+    // Core library
+    androidTestImplementation "androidx.test:core:$androidx_test_core_version"
+
+    // AndroidJUnitRunner and JUnit Rules
     androidTestImplementation "androidx.test:runner:$test_runner_version"
+    androidTestImplementation "androidx.test:rules:$test_rules_version"
+
+    // Assertions
+    androidTestImplementation "androidx.test.ext:junit:$ext_junit_version"
+    androidTestImplementation "androidx.test.ext:junit-ktx:$ext_junit_version"
+
+    // Espresso dependencies
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$espresso_version"
+
+    // Unit testing / mockito stuff
     testImplementation "androidx.arch.core:core-testing:$core_testing_version"
     testImplementation "org.mockito:mockito-inline:$mockitoInline_version"
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockitoKotlin_version"
