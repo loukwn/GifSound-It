@@ -18,8 +18,6 @@ It basically is my fun test workspace for all things Kotlin and proper native An
 
 It is a single activity application that features a fragment for every screen and is organized in an [MVVM](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel) fashion. The primary reason that led me to choose a single activity architecture is really the performance benefit, since opening a different activity each time we want to navigate to a new screen, bears a much bigger performance toll than navigating with simple fragments. 
 
-When it comes to testing, the MVVM architecture makes things a lot easier, since it completely decouples the classes/layers. Since the connections are one-way (every layer listens only to the one ahead of it), unit testing becomes a breeze, since for every [SUT](https://en.wikipedia.org/wiki/System_under_test), we just have to mock the behaviour of the layer it listens to. 
-
 The layers of the architecture implemented in this app are the following:
 
 ### View / Presentation layer
@@ -34,11 +32,17 @@ Combining the [LiveData](https://developer.android.com/topic/libraries/architect
 
 This layer contains the classes/interfaces for the ```network``` access (Reddit API) and the ```disk``` I/O (SharedPreferences), as well as the ```Repository```. The Repository basically is responsible to respond to any request that a ViewModel might make, by first choosing from where it will get the data (network or disk) and then sending the fetched data (or the error messages) to the Observables that the ViewModel is listening on. 
 
+## Testing
+
+When it comes to testing, the MVVM architecture makes things a lot easier, since it completely decouples the classes/layers. The fact that the connections are one-way (every layer listens only to the one ahead of it), makes unit testing a breeze, since for every [SUT](https://en.wikipedia.org/wiki/System_under_test), we just have to mock (here i use Mockito/Mockito-kotlin) the behaviour of the layer it listens to. 
+
+As for the intrumentation/ui testing, the espresso library is utilized. Furthermore these tests are organized with the so called robot pattern, which was introduced at [this](https://jakewharton.com/testing-robots/) talk by Jake Wharton.
+
 ## Notes / Other techniques used
 
 ### Techniques
 
-* __Delegate RecyclerView Adapters__: This technique aims to eliminate the problem of maintaining a huge monolithic recyclerview adapter when you have multiple different ViewTypes. We basically split the main adapter into as many delegates as there are ViewTypes and during the onCreateViewHolder() and onBindViewHolder(), the respective ones from the right delegate are called. This adds modularity and extensibility to the RecyclerView adapter logic.
+* __Delegate RecyclerView Adapters__: This technique aims to eliminate the problem of maintaining a huge monolithic recyclerview adapter when you have multiple different ViewTypes. We basically split the main adapter into as many delegates as there are ViewTypes and during the ```onCreateViewHolder()``` and ```onBindViewHolder()```, the respective ones from the right delegate are called. This adds modularity and extensibility to the RecyclerView adapter logic.
 
 ## Libraries / Tools / Frameworks used
 
@@ -67,6 +71,8 @@ This layer contains the classes/interfaces for the ```network``` access (Reddit 
 * [YouTube Android Player API](https://developers.google.com/youtube/android/player) - For obvious reasons
 
 * [JUnit](https://github.com/junit-team/junit4) / [Mockito](https://github.com/mockito/mockito) - For the Unit tests. The library [mockito-kotlin](https://github.com/nhaarman/mockito-kotlin) was also used, in order to write mocks in a more kotlin-idiomatic way.
+
+* [Espresso](https://developer.android.com/training/testing/espresso) - For the instrumentation testing
  
 ## Author
 
