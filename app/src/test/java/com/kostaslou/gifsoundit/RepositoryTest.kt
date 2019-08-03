@@ -165,7 +165,6 @@ class RepositoryTest {
         repo.getPosts(PostType.TOP, "", "all")
         verify(postApi).getTopGifSounds(any(), any(), any(), any())
 
-
         // assert the data in observables
         tokenIsReadyObserver.assertNoValues()
         dataObserver.assertValueCount(3)
@@ -196,7 +195,6 @@ class RepositoryTest {
         // 3) top posts are requested, top posts are queried from the api
         repo.getPosts(PostType.TOP, "", "all")
         verify(postApi).getTopGifSounds(any(), any(), any(), any())
-
 
         // assert the data in observables
         tokenIsReadyObserver.assertNoValues()

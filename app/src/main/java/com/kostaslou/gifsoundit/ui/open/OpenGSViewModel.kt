@@ -9,7 +9,6 @@ import com.kostaslou.gifsoundit.ui.open.util.GifsoundUrlParser
 import com.kostaslou.gifsoundit.ui.open.util.SoundUrl
 import timber.log.Timber
 
-
 // regular viewmodel since youtube + mp4view make it a pain in the ass to retain state
 
 class OpenGSViewModel {
@@ -19,7 +18,7 @@ class OpenGSViewModel {
     private var soundUrl = SoundUrl(null)
     private var seconds = 0
     private var defaultSeconds = 0
-    private lateinit var query : String
+    private lateinit var query: String
 
     // sound player
     private var youTubePlayer: YouTubePlayer? = null
@@ -89,7 +88,6 @@ class OpenGSViewModel {
             }
             override fun onStopped() {}
             override fun onPaused() {}
-
         })
         youTubePlayer?.setPlayerStateChangeListener(object : YouTubePlayer.PlayerStateChangeListener {
             override fun onAdStarted() {}
@@ -137,7 +135,7 @@ class OpenGSViewModel {
     }
 
     fun setGifOK() {
-         changeState(gifState = GifSoundPlaybackState.GifState.GIF_OK)
+        changeState(gifState = GifSoundPlaybackState.GifState.GIF_OK)
     }
 
     fun setGifError(message: String? = null) {
@@ -184,7 +182,7 @@ class OpenGSViewModel {
     }
 
     fun decreaseButtonClicked() {
-        seconds = if (seconds>0) seconds -1 else 0
+        seconds = if (seconds> 0) seconds - 1 else 0
         secondOffsetLiveData.value = seconds
     }
 }

@@ -6,10 +6,12 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 import javax.inject.Named
 
-class RxSchedulers @Inject constructor(@Named("io") val ioScheduler: Scheduler,
-                                       @Named("android") val androidScheduler: Scheduler){
+class RxSchedulers @Inject constructor(
+    @Named("io") val ioScheduler: Scheduler,
+    @Named("android") val androidScheduler: Scheduler
+) {
     companion object {
-        fun test() : RxSchedulers {
+        fun test(): RxSchedulers {
             return RxSchedulers(Schedulers.trampoline(), Schedulers.trampoline())
         }
 

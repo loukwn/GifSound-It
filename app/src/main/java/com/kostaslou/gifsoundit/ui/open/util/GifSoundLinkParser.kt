@@ -2,10 +2,11 @@ package com.kostaslou.gifsoundit.ui.open.util
 
 import java.net.URLDecoder
 
-
 // represents the gif part of the initial url
-data class GifUrl(var gifLink: String?,
-                  var gifType: GifType = GifType.GIF) {
+data class GifUrl(
+    var gifLink: String?,
+    var gifType: GifType = GifType.GIF
+) {
 
     enum class GifType {
         GIF, MP4
@@ -18,7 +19,7 @@ data class SoundUrl(var soundLink: String?)
 // parses the initial url and returns the gif and sound parts + the seconds offset
 class GifsoundUrlParser(query: String) {
 
-    private var gifUrl= GifUrl(null)
+    private var gifUrl = GifUrl(null)
     private var soundUrl = SoundUrl(null)
     private var seconds = 0
 
@@ -36,10 +37,10 @@ class GifsoundUrlParser(query: String) {
             if (arg.startsWith("sound=")) {
                 soundUrl.soundLink = URLDecoder.decode(arg, "UTF-8")
 
-                soundUrl.soundLink?.let{
+                soundUrl.soundLink?.let {
                     soundUrl.soundLink = URLDecoder.decode(it.split("=")[2], "UTF-8")
                 }
-                
+
                 continue
             }
 
@@ -95,7 +96,7 @@ class GifsoundUrlParser(query: String) {
                 gifUrl.gifLink?.let {
                     if (!it.startsWith("http") && !it.startsWith("https"))
                         gifUrl.gifLink = "http://$it"
-                    
+
                     gifUrl.gifType = GifUrl.GifType.MP4
                 }
 
@@ -103,7 +104,7 @@ class GifsoundUrlParser(query: String) {
             }
         }
     }
-    
+
     fun getGifUrl() = gifUrl
     fun getSoundUrl() = soundUrl
     fun getSeconds() = seconds

@@ -13,7 +13,6 @@ import io.reactivex.disposables.CompositeDisposable
 import timber.log.Timber
 import javax.inject.Inject
 
-
 class HomeViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
 
     // for the cleanup
@@ -72,12 +71,11 @@ class HomeViewModel @Inject constructor(private val repository: Repository) : Vi
         }
     }
 
-
     // communicate with repository
     fun getPosts(firstTime: Boolean = false, refresh: Boolean = false, showLoading: Boolean = true) {
 
-        if (postsLiveData.value==null || !firstTime) {
-            if (postsLiveData.value!=null && showLoading) loadingLiveData.value = true
+        if (postsLiveData.value == null || !firstTime) {
+            if (postsLiveData.value != null && showLoading) loadingLiveData.value = true
             if (refresh) after = ""
 
             repository.getPosts(postType, after, topType)
@@ -88,12 +86,12 @@ class HomeViewModel @Inject constructor(private val repository: Repository) : Vi
     }
 
     // transform response to a type that the view understands
-    private fun transformResponseToAdapterType(r: RedditPostResponse) : List<PostModel> {
+    private fun transformResponseToAdapterType(r: RedditPostResponse): List<PostModel> {
         return r.data.children.map {
             val item = it.data
 
-            val url = if (item.url.startsWith("/r")) "http://www.reddit.com"+item.url else item.url
-            val perma = if (item.permalink.startsWith("/r")) "http://www.reddit.com"+item.permalink else item.permalink
+            val url = if (item.url.startsWith("/r")) "http://www.reddit.com" + item.url else item.url
+            val perma = if (item.permalink.startsWith("/r")) "http://www.reddit.com" + item.permalink else item.permalink
             val created = item.created_utc
             val score = item.score
             val isSelf = item.is_self
@@ -109,7 +107,7 @@ class HomeViewModel @Inject constructor(private val repository: Repository) : Vi
     }
 
     fun categoryChanged(newPostType: PostType, newTopType: String = "all") {
-        if (newPostType==postType && newPostType!=PostType.TOP) return
+        if (newPostType == postType && newPostType != PostType.TOP) return
 
         postType = newPostType
         topType = newTopType
@@ -134,5 +132,5 @@ class HomeViewModel @Inject constructor(private val repository: Repository) : Vi
 
         compositeDisposable.clear()
         repository.clearDisposables()
-     }
+    }
 }

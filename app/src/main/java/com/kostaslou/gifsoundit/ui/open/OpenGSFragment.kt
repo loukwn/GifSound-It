@@ -24,7 +24,6 @@ import com.kostaslou.gifsoundit.ui.open.util.SoundUrl
 import com.kostaslou.gifsoundit.util.GlideApp
 import kotlinx.android.synthetic.main.fragment_opengs.*
 
-
 class OpenGSFragment : BaseFragment() {
 
     // local vars
@@ -32,11 +31,10 @@ class OpenGSFragment : BaseFragment() {
     private var gifDrawable: GifDrawable? = null
 
     // ViewModel
-    private val viewModel: OpenGSViewModel by lazy {OpenGSViewModel()}
+    private val viewModel: OpenGSViewModel by lazy { OpenGSViewModel() }
 
     // setup ui
     override fun layoutRes() = R.layout.fragment_opengs
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -54,7 +52,7 @@ class OpenGSFragment : BaseFragment() {
         val gifState = gifSoundPlaybackState.gifState
         val soundState = gifSoundPlaybackState.soundState
 
-        if (gifState== GifSoundPlaybackState.GifState.GIF_OK && soundState== GifSoundPlaybackState.SoundState.SOUND_OK) {
+        if (gifState == GifSoundPlaybackState.GifState.GIF_OK && soundState == GifSoundPlaybackState.SoundState.SOUND_OK) {
             statusText = getString(R.string.opengs_all_ready)
         } else {
             // set gif part of message
@@ -82,10 +80,10 @@ class OpenGSFragment : BaseFragment() {
     private fun initUI() {
 
         // back
-        backButton.setOnClickListener{getBaseActivity()?.onBackPressed()}
+        backButton.setOnClickListener { getBaseActivity()?.onBackPressed() }
 
         // share
-        shareButton.setOnClickListener{
+        shareButton.setOnClickListener {
             viewModel.shareButtonClicked()
         }
 
@@ -211,7 +209,7 @@ class OpenGSFragment : BaseFragment() {
                         viewModel.setGifOK()
 
                         mp.setVideoScalingMode(MediaPlayer.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING)
-                        mp.setVolume(0f,0f)
+                        mp.setVolume(0f, 0f)
                     }
                     mp4View.setOnCompletionListener {
                         mp4View.seekTo(0)
@@ -264,7 +262,7 @@ class OpenGSFragment : BaseFragment() {
 
         // share gifsound
         viewModel.shareIntentLiveData.observe(this, Observer {
-            if (it!=null) startActivity(Intent.createChooser(it, resources.getText(R.string.send_to)))
+            if (it != null) startActivity(Intent.createChooser(it, resources.getText(R.string.send_to)))
         })
 
         // seconds offset changed
@@ -300,7 +298,7 @@ class OpenGSFragment : BaseFragment() {
 
         // sound started so gif should start too
         viewModel.startGifLiveData.observe(this, Observer {
-            when(gifType) {
+            when (gifType) {
                 GifUrl.GifType.GIF -> {
                     // show the glide handled gif
                     gifView.visibility = View.VISIBLE

@@ -5,7 +5,6 @@ import com.kostaslou.gifsoundit.ui.open.OpenGSFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
-
 @Module
 abstract class MainFragmentBindingModule {
 

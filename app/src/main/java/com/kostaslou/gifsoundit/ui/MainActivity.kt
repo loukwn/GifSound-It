@@ -32,7 +32,6 @@ class MainActivity : DaggerAppCompatActivity() {
             destination = HomeFragment()
         }
 
-
         if (savedInstanceState == null)
             supportFragmentManager.beginTransaction().add(R.id.fragContainer, destination).commit()
     }

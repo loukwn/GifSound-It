@@ -53,9 +53,9 @@ class ApplicationModule {
             retrofitBuilder.baseUrl(RedditConstants.REDDIT_POST_BASE_URL).client(postClient).build().create(PostApi::class.java)
 
     @Provides
-    fun provideRxSchedulers() : RxSchedulers = RxSchedulers.default()
+    fun provideRxSchedulers(): RxSchedulers = RxSchedulers.default()
 
     @Singleton
     @Provides
-    fun provideSharedPreferences(application: Application): SharedPreferences =  application.getSharedPreferences("reddit_stuff", Context.MODE_PRIVATE)
+    fun provideSharedPreferences(application: Application): SharedPreferences = application.getSharedPreferences("reddit_stuff", Context.MODE_PRIVATE)
 }

@@ -10,7 +10,6 @@ import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
 import dagger.android.support.DaggerFragment
 
-
 abstract class BaseFragment : DaggerFragment() {
 
     private var activity: AppCompatActivity? = null

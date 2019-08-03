@@ -9,7 +9,7 @@ import com.kostaslou.gifsoundit.util.commons.AdapterConstants
 // todo change to this instead of notifyDatasetChanged
 class MyDiffCallback(private val oldList: List<ViewType>, private val newList: List<ViewType>) : DiffUtil.Callback() {
 
-    override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) : Boolean {
+    override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
         val old = oldList[oldItemPosition]
         val new = newList[newItemPosition]
 
