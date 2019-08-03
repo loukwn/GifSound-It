@@ -5,7 +5,6 @@ import dagger.android.AndroidInjector
 import dagger.android.support.DaggerApplication
 import timber.log.Timber
 
-
 class GifSoundItApp : DaggerApplication() {
 
     override fun onCreate() {

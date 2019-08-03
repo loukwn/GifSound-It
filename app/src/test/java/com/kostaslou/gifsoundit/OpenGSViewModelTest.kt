@@ -10,7 +10,6 @@ import org.junit.Test
 import org.junit.rules.TestRule
 import kotlin.test.assertEquals
 
-
 class OpenGSViewModelTest {
 
     // instant execution of livedata operations
@@ -26,7 +25,7 @@ class OpenGSViewModelTest {
     }
 
     @Test
-    fun `when a gifsound with no second offset is opened`(){
+    fun `when a gifsound with no second offset is opened`() {
         // given that the gifsound is opened...
         val query = "mp4=https%3A%2F%2Fi.imgur.com%2F1rWYUyN&v=4sCXkpZsBRg"
         viewModel.setGifSoundArgs(query)

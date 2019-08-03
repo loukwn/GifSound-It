@@ -7,7 +7,6 @@ import com.kostaslou.gifsoundit.util.commons.inflate
 import com.kostaslou.gifsoundit.util.commons.setFilter
 import kotlinx.android.synthetic.main.item_loading.view.*
 
-
 // the adapter for the loading item
 class LoadingDelegateAdapter : ViewTypeDelegateAdapter {
 

@@ -9,7 +9,6 @@ import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.TypeSafeMatcher
 
-
 @Suppress("unused")
 class RecyclerViewTools(private val recyclerViewId: Int) {
 

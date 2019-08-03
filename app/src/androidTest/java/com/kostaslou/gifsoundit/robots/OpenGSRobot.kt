@@ -20,7 +20,6 @@ class OpenGSRobot : BaseRobot() {
     private fun getOffsetAsNumber(): Int =
         frag.offsetLabel.text.split(" ")[2].toInt()
 
-
     fun reduceSecondsAndCheck() {
         // get current offset
         val oldSeconds = getOffsetAsNumber()
@@ -29,8 +28,8 @@ class OpenGSRobot : BaseRobot() {
         clickButton(R.id.decreaseButton)
 
         // if the offset is zero, it should not decrease any more
-        if (oldSeconds>0) {
-            matchText(R.id.offsetLabel, frag.getString(R.string.opengs_label_offset, oldSeconds-1))
+        if (oldSeconds > 0) {
+            matchText(R.id.offsetLabel, frag.getString(R.string.opengs_label_offset, oldSeconds - 1))
         } else
             matchText(R.id.offsetLabel, frag.getString(R.string.opengs_label_offset, oldSeconds))
     }

@@ -31,7 +31,6 @@ class HomeViewModelTest {
     private lateinit var viewModel: HomeViewModel
     private lateinit var mockedRepo: Repository
 
-
     @Before
     fun setUp() {
         // mock repo and init ViewModel

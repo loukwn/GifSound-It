@@ -14,12 +14,13 @@ import io.reactivex.subjects.PublishSubject
 import java.util.*
 import javax.inject.Inject
 
-
 // the main api with the initializer
-class Repository @Inject constructor(private val authApi: AuthApi,
-                                     private val postApi: PostApi,
-                                     private val sharedPrefsHelper: SharedPrefsHelper,
-                                     private val rxSchedulers: RxSchedulers) {
+class Repository @Inject constructor(
+    private val authApi: AuthApi,
+    private val postApi: PostApi,
+    private val sharedPrefsHelper: SharedPrefsHelper,
+    private val rxSchedulers: RxSchedulers
+) {
 
     private val compositeDisposable = CompositeDisposable()
 
@@ -27,7 +28,6 @@ class Repository @Inject constructor(private val authApi: AuthApi,
     val postDataObservable: PublishSubject<RedditPostResponse> = PublishSubject.create()
     val postErrorObservable: PublishSubject<Throwable> = PublishSubject.create()
     val tokenIsReadyObservable: PublishSubject<Boolean> = PublishSubject.create()
-
 
     // if the token is ok, fetches the data from the api
     fun getPosts(postType: PostType, after: String, topType: String = "all") {
@@ -64,7 +64,7 @@ class Repository @Inject constructor(private val authApi: AuthApi,
 
         val today = Date()
 
-        val accessToken : String = sharedPrefsHelper[SharedPrefsHelper.PREF_KEY_ACCESS_TOKEN, ""] ?: ""
+        val accessToken: String = sharedPrefsHelper[SharedPrefsHelper.PREF_KEY_ACCESS_TOKEN, ""] ?: ""
         val expiresAtDate = Date(sharedPrefsHelper[SharedPrefsHelper.PREF_KEY_EXPIRES_AT, today.time] ?: today.time)
 
         if (expiresAtDate.before(today) || expiresAtDate == today || accessToken.isEmpty()) {

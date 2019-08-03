@@ -26,10 +26,10 @@ class PostDelegateAdapter(val itemListener: (PostModel) -> Unit) : ViewTypeDeleg
         holder.itemView.setOnClickListener { itemListener(item) }
     }
 
-    class PostsViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(parent.inflate(R.layout.item_post)), View.OnClickListener  {
+    class PostsViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(parent.inflate(R.layout.item_post)), View.OnClickListener {
 
-        private var postLink : String? = null
-        private var postPerma : String? = null
+        private var postLink: String? = null
+        private var postPerma: String? = null
         private var isSelf = false
 
         init {

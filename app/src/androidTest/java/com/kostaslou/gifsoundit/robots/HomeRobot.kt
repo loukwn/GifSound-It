@@ -12,7 +12,6 @@ import com.kostaslou.gifsoundit.util.RecyclerViewTools.Companion.withItemCount
 import com.kostaslou.gifsoundit.util.commons.PostType
 import org.hamcrest.Matchers.greaterThan
 
-
 fun home(func: HomeRobot.() -> Unit) = HomeRobot().apply { func() }
 
 enum class TopDialogButton {
@@ -87,6 +86,6 @@ class HomeRobot : BaseRobot() {
     infix fun openGS(func: OpenGSRobot.() -> Unit): OpenGSRobot {
         onRecyclerView(R.id.mainRecycler).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
 
-        return OpenGSRobot().apply( func )
+        return OpenGSRobot().apply { func() }
     }
 }

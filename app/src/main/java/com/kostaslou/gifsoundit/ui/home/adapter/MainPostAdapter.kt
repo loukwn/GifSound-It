@@ -6,13 +6,12 @@ import com.kostaslou.gifsoundit.util.commons.AdapterConstants
 import com.kostaslou.gifsoundit.ui.home.model.PostModel
 import com.kostaslou.gifsoundit.util.commons.RedditConstants
 
-
 // the main adapter for a fragment
 
 class MainPostAdapter(itemListener: (PostModel) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var items: ArrayList<ViewType>  // list of items
-    private var delegateAdapters = androidx.collection.SparseArrayCompat<ViewTypeDelegateAdapter>()   // the different adapters as a map with their viewtype as key
+    private var items: ArrayList<ViewType> // list of items
+    private var delegateAdapters = androidx.collection.SparseArrayCompat<ViewTypeDelegateAdapter>() // the different adapters as a map with their viewtype as key
 
     // loading item is just an object that implements the viewtype interface
     private val loadingItem = object : ViewType {

@@ -5,7 +5,6 @@ import javax.inject.Inject
 
 // Class that deals with the shared preferences operations
 
-
 @Suppress("unused")
 class SharedPrefsHelper @Inject constructor(private val mSharedPreferences: SharedPreferences) {
 
@@ -20,7 +19,6 @@ class SharedPrefsHelper @Inject constructor(private val mSharedPreferences: Shar
     fun put(key: String, value: Long) {
         mSharedPreferences.edit().putLong(key, value).apply()
     }
-
 
     fun put(key: String, value: Float) {
         mSharedPreferences.edit().putFloat(key, value).apply()

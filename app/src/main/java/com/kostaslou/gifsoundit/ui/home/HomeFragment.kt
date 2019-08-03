@@ -24,7 +24,6 @@ import org.jetbrains.anko.selector
 import org.jetbrains.anko.toast
 import javax.inject.Inject
 
-
 class HomeFragment : BaseFragment() {
 
     private var firstTime = true
@@ -38,7 +37,6 @@ class HomeFragment : BaseFragment() {
     override fun layoutRes() = R.layout.fragment_home
 
     private lateinit var infiniteScrollListener: InfiniteScrollListener
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -264,7 +262,7 @@ class HomeFragment : BaseFragment() {
 
             mSwipe.isEnabled = true
 
-            var errorText : String? = null
+            var errorText: String? = null
 
             when (it) {
                 is Message.Error -> {
@@ -288,7 +286,7 @@ class HomeFragment : BaseFragment() {
                 }
             }
 
-            errorText?.let {Snackbar.make(mainRecycler, errorText, Snackbar.LENGTH_SHORT).show()}
+            errorText?.let { Snackbar.make(mainRecycler, errorText, Snackbar.LENGTH_SHORT).show() }
 
             infiniteScrollListener.allowLoading()
         })

@@ -41,7 +41,7 @@ fun ImageView.loadImg(imageUrl: String, defDrawable: Int) {
     }
 }
 
-fun Drawable.setFilter(color : Int) {
+fun Drawable.setFilter(color: Int) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
         this.colorFilter = BlendModeColorFilter(color, BlendMode.MULTIPLY)
     } else {
