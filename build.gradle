@@ -22,6 +22,52 @@ buildscript {
     }
 }
 
+ext {
+    // androidx
+    appcompat_version = '1.0.2'
+    android_core_ktx_version = '1.0.2'
+    constraint_layout_version = '1.1.3'
+    cardview_version = '1.0.0'
+    recyclerview_version = '1.0.0'
+    annotation_version = '1.1.0'
+    material_version = '1.0.0'
+    lifecycle_version = '2.0.0'
+
+    // testing
+    espresso_version = '3.1.1'
+    core_testing_version = '2.0.1'
+    androidx_test_core_version = '1.0.0'
+    test_runner_version = '1.2.0'
+    test_rules_version = '1.2.0'
+    junit_version = '4.12'
+    mockito_verion = '2.23.0'
+    mockitoKotlin_version = '2.1.0'
+    mockitoInline_version = '2.8.47'
+    ext_junit_version = '1.1.1'
+
+    // dagger
+    dagger_version = '2.22'
+
+    // network
+    okHttp3_version = '3.12.0'
+    retrofit2_version = '2.5.0'
+    moshi_version = '2.0.0'
+
+    // rx
+    rxJava2_version = '2.2.3'
+    rxAndroid_version = '2.1.1'
+    rxRelay_version = '2.1.0'
+    rxExtensions_version = '0.20.4'
+
+    // other
+    glide_version = '4.9.0'
+    timber_version = '4.7.1'
+    anko_version = '0.10.4'
+    firebase_core_version = '17.0.1'
+    fabric_version = '2.10.1'
+    about_libraries_version = '7.0.1'
+}
+
 allprojects {
     repositories {
         google()
