@@ -67,124 +67,78 @@ allprojects {
     }
 }
 
-ext {
-    // androidx
-    appcompat_version = '1.0.2'
-    android_core_ktx_version = '1.0.2'
-    constraint_layout_version = '1.1.3'
-    cardview_version = '1.0.0'
-    recyclerview_version = '1.0.0'
-    annotation_version = '1.1.0'
-    material_version = '1.0.0'
-    lifecycle_version = '2.0.0'
-
-    // testing
-    espresso_version = '3.1.1'
-    core_testing_version = '2.0.1'
-    androidx_test_core_version = '1.0.0'
-    test_runner_version = '1.2.0'
-    test_rules_version = '1.2.0'
-    junit_version = '4.12'
-    mockito_verion = '2.23.0'
-    mockitoKotlin_version = '2.1.0'
-    mockitoInline_version = '2.8.47'
-    ext_junit_version = '1.1.1'
-
-    // dagger
-    dagger_version = '2.22'
-
-    // network
-    okHttp3_version = '3.12.0'
-    retrofit2_version = '2.5.0'
-    moshi_version = '2.0.0'
-
-    // rx
-    rxJava2_version = '2.2.3'
-    rxAndroid_version = '2.1.1'
-    rxRelay_version = '2.1.0'
-    rxExtensions_version = '0.20.4'
-
-    // other
-    glide_version = '4.9.0'
-    timber_version = '4.7.1'
-    anko_version = '0.10.4'
-    firebase_core_version = '17.0.1'
-    fabric_version = '2.10.1'
-    about_libraries_version = '7.0.1'
-}
-
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    testImplementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$rootProject.kotlin_version"
+    testImplementation "org.jetbrains.kotlin:kotlin-stdlib:$rootProject.kotlin_version"
+    testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$rootProject.kotlin_version"
 
     // android extensions
-    implementation "com.google.android.material:material:$material_version"
-    implementation "androidx.appcompat:appcompat:$appcompat_version"
-    implementation "androidx.cardview:cardview:$cardview_version"
-    implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
-    implementation "androidx.annotation:annotation:$annotation_version"
-    implementation "androidx.constraintlayout:constraintlayout:$constraint_layout_version"
-    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+    implementation "com.google.android.material:material:$rootProject.material_version"
+    implementation "androidx.appcompat:appcompat:$rootProject.appcompat_version"
+    implementation "androidx.cardview:cardview:$rootProject.cardview_version"
+    implementation "androidx.recyclerview:recyclerview:$rootProject.recyclerview_version"
+    implementation "androidx.annotation:annotation:$rootProject.annotation_version"
+    implementation "androidx.constraintlayout:constraintlayout:$rootProject.constraint_layout_version"
+    implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.lifecycle_version"
 
     // anko
-    implementation "org.jetbrains.anko:anko-commons:$anko_version"
+    implementation "org.jetbrains.anko:anko-commons:$rootProject.anko_version"
 
     // glide
-    implementation "com.github.bumptech.glide:glide:$glide_version"
-    kapt "com.github.bumptech.glide:compiler:$glide_version"
+    implementation "com.github.bumptech.glide:glide:$rootProject.glide_version"
+    kapt "com.github.bumptech.glide:compiler:$rootProject.glide_version"
 
     // network
-    implementation "com.squareup.retrofit2:retrofit:$retrofit2_version"
-    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit2_version"
-    implementation "com.squareup.retrofit2:converter-moshi:$moshi_version"
+    implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofit2_version"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$rootProject.retrofit2_version"
+    implementation "com.squareup.retrofit2:converter-moshi:$rootProject.moshi_version"
 
     // dagger2
-    implementation "com.google.dagger:dagger-android-support:$dagger_version"
-    implementation "com.google.dagger:dagger:$dagger_version"
-    kapt "com.google.dagger:dagger-compiler:$dagger_version"
-    kapt "com.google.dagger:dagger-android-processor:$dagger_version"
+    implementation "com.google.dagger:dagger-android-support:$rootProject.dagger_version"
+    implementation "com.google.dagger:dagger:$rootProject.dagger_version"
+    kapt "com.google.dagger:dagger-compiler:$rootProject.dagger_version"
+    kapt "com.google.dagger:dagger-android-processor:$rootProject.dagger_version"
 
     // rx
-    implementation "io.reactivex.rxjava2:rxandroid:$rxAndroid_version"
-    implementation "io.reactivex.rxjava2:rxjava:$rxJava2_version"
+    implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxAndroid_version"
+    implementation "io.reactivex.rxjava2:rxjava:$rootProject.rxJava2_version"
 
     // About libraries
-    implementation "com.mikepenz:aboutlibraries:$about_libraries_version"
+    implementation "com.mikepenz:aboutlibraries:$rootProject.about_libraries_version"
 
     // Timber
-    implementation "com.jakewharton.timber:timber:$timber_version"
+    implementation "com.jakewharton.timber:timber:$rootProject.timber_version"
 
     // Firebase
-    implementation "com.google.firebase:firebase-core:$firebase_core_version"
+    implementation "com.google.firebase:firebase-core:$rootProject.firebase_core_version"
 
     // Fabric
-    implementation "com.crashlytics.sdk.android:crashlytics:$fabric_version"
+    implementation "com.crashlytics.sdk.android:crashlytics:$rootProject.fabric_version"
 
     // Android testing
     // Core library
-    androidTestImplementation "androidx.test:core:$androidx_test_core_version"
+    androidTestImplementation "androidx.test:core:$rootProject.androidx_test_core_version"
 
     // AndroidJUnitRunner and JUnit Rules
-    androidTestImplementation "androidx.test:runner:$test_runner_version"
-    androidTestImplementation "androidx.test:rules:$test_rules_version"
+    androidTestImplementation "androidx.test:runner:$rootProject.test_runner_version"
+    androidTestImplementation "androidx.test:rules:$rootProject.test_rules_version"
 
     // Assertions
-    androidTestImplementation "androidx.test.ext:junit:$ext_junit_version"
-    androidTestImplementation "androidx.test.ext:junit-ktx:$ext_junit_version"
+    androidTestImplementation "androidx.test.ext:junit:$rootProject.ext_junit_version"
+    androidTestImplementation "androidx.test.ext:junit-ktx:$rootProject.ext_junit_version"
 
     // Espresso dependencies
-    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
-    androidTestImplementation "androidx.test.espresso:espresso-contrib:$espresso_version"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$rootProject.espresso_version"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$rootProject.espresso_version"
 
     // Unit testing / mockito stuff
-    testImplementation "androidx.arch.core:core-testing:$core_testing_version"
-    testImplementation "org.mockito:mockito-inline:$mockitoInline_version"
-    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockitoKotlin_version"
-    testImplementation "junit:junit:$junit_version"
+    testImplementation "androidx.arch.core:core-testing:$rootProject.core_testing_version"
+    testImplementation "org.mockito:mockito-inline:$rootProject.mockitoInline_version"
+    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$rootProject.mockitoKotlin_version"
+    testImplementation "junit:junit:$rootProject.junit_version"
 
     // youtube
     implementation files("libs/YouTubeAndroidPlayerApi.jar")
