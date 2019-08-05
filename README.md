@@ -32,6 +32,10 @@ Combining the [LiveData](https://developer.android.com/topic/libraries/architect
 
 This layer contains the classes/interfaces for the ```network``` access (Reddit API) and the ```disk``` I/O (SharedPreferences), as well as the ```Repository```. The Repository basically is responsible to respond to any request that a ViewModel might make, by first choosing from where it will get the data (network or disk) and then sending the fetched data (or the error messages) to the Observables that the ViewModel is listening on. 
 
+## Modularization
+
+Every view/fragment is placed in its own gradle library module. This is to further achieve separation of concerns and faster gradle build times. The app module (that contains the Activity and the Application) then loads these modules and is able to navigate between them using the [Navigation](https://developer.android.com/guide/navigation) component and its graph. To achieve navigation across the rest of the modules, the navigation IDs are stored in the ```common``` module. It can then be declared as a dependency for any module that may need to partake in the navigation.
+
 ## Testing
 
 When it comes to testing, the MVVM architecture makes things a lot easier, since it completely decouples the classes/layers. The fact that the connections are one-way (every layer listens only to the one ahead of it), makes unit testing a breeze, since for every [SUT](https://en.wikipedia.org/wiki/System_under_test), we just have to mock (here i use Mockito/Mockito-kotlin) the behaviour of the layer it listens to. 
@@ -59,6 +63,8 @@ As for the intrumentation/ui testing, the espresso library is utilized. Furtherm
 * [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) - Class that binds to the lifecycle of a Fragment or Activity and does not get destroyed/recreated during a configuration change. It only gets cleared when its Lifecycle Owner has normally finished. It can therefore retain state. (It was not used in the screen that plays the Gifsound, since youtube did not play well with it).
 
 * [LiveData](https://developer.android.com/topic/libraries/architecture/livedata) - Used in conjuction with the aforementioned ViewModel. It basically is a lifecycle-respecting data holder, that keeps its data during a configuration change and feeds it back to its Fragment or Activity after it has finished recreating. 
+
+* [Navigation](https://developer.android.com/guide/navigation) - Used to navigate between the fragment/modules in the app.
 
 * [Anko](https://github.com/Kotlin/anko) - Provides code simplicity by leveraging Kotlin idioms to reduce boilerplate in different scenarios/tasks (It was used to spawn toasts and snackbars)
 
