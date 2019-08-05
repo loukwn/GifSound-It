@@ -3,8 +3,8 @@ package com.kostaslou.gifsoundit.di.modules
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.kostaslou.gifsoundit.di.extras.ViewModelKey
-import com.kostaslou.gifsoundit.ui.home.HomeViewModel
-import com.kostaslou.gifsoundit.util.ViewModelFactory
+import com.kostaslou.gifsoundit.home.ui.HomeViewModel
+import com.kostaslou.gifsoundit.home.util.ViewModelFactory
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap

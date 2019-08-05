@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">OpenGS</string>
+
+    <!--Open GifSound Fragment -->
+    <string name="opengs_send_to">Send Gifsound to…</string>
+    <string name="opengs_gif_title">Gif</string>
+    <string name="opengs_sound_error_label">Sound problems? Tap here to play GIF anyway</string>
+    <string name="opengs_sound_title">Sound</string>
+    <string name="opengs_label_offset">Offset (s): %1$d</string>
+    <string name="content_description_opengs_close_gif_label">Button to close the play gif label</string>
+    <string name="content_description_opengs_refresh">Button to refresh gifsound playback</string>
+    <string name="content_description_opengs_back">Button to go leave GifSound screen</string>
+    <string name="content_description_opengs_share">Button to share gifsound</string>
+    <string name="content_description_opengs_revert">Revert seconds to default</string>
+    <string name="content_description_opengs_decrease">Button to decrease second offset</string>
+    <string name="content_description_opengs_add">Button to add seconds offset</string>
+    <string name="content_description_opengs_gif">Gif screen</string>
+    <string name="opengs_all_ready">Ready</string>
+    <string name="opengs_one_ready">ready</string>
+    <string name="opengs_one_error">error</string>
+    <string name="opengs_one_loading">loading…</string>
+    <string name="opengs_one_invalid">invalid</string>
+    <string name="opengs_error_gif_malformed">Bitstream is not conforming to the related coding standard or file spec.</string>
+    <string name="opengs_error_gif_io_error">IO Error</string>
+    <string name="opengs_error_gif_unsupported">Not supported by Media framework</string>
+    <string name="opengs_error_gif_timed_out">Operation timed out</string>
+    <string name="opengs_error_gif_unknown">Unknown Error (Code: %1$s)</string>
+</resources>

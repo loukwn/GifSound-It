@@ -1,0 +1,25 @@
+<resources>
+
+    <!--Home Fragment -->
+    <string name="home_error_generic">Error fetching data…</string>
+    <string name="home_error_posts">Error fetching posts…</string>
+    <string name="home_error_token">Error refreshing token…</string>
+    <string name="home_error_token_refresh">Refreshing token…</string>
+    <string name="home_button_hot">Hot</string>
+    <string name="home_button_new">New</string>
+    <string name="home_button_top">Top</string>
+    <string name="home_item_button_link">Button to open reddit post</string>
+    <string name="home_item_thumbnail">Post thumbnail</string>
+    <string name="home_top_hour">Hour</string>
+    <string name="home_top_day">Day</string>
+    <string name="home_top_week">Week</string>
+    <string name="home_top_month">Month</string>
+    <string name="home_top_year">Year</string>
+    <string name="home_top_all">All</string>
+    <string name="home_selector_title">Select time period</string>
+    <string name="home_selector_all_chosen">Showing top posts of all time.</string>
+    <string name="home_selector_other_chosen">Showing top posts of this %1$s.</string>
+    <string name="home_info_token_ready">Authenticated with reddit! You can get data now!</string>
+    <string name="content_description_home_more">Button to expand filter banner</string>
+
+</resources>

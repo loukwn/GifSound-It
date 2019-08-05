@@ -1,6 +1,6 @@
 package com.kostaslou.gifsoundit.di.modules
 
-import com.kostaslou.gifsoundit.ui.MainActivity
+import com.kostaslou.gifsoundit.MainActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
