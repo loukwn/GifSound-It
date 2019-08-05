@@ -38,7 +38,7 @@ class MainActivity : DaggerAppCompatActivity() {
 
         when (item.itemId) {
             R.id.action_about -> {
-                //todo add myown
+                // todo add myown
             }
         }
 

@@ -39,10 +39,6 @@ android {
     androidExtensions {
         experimental = true
     }
-
-    packagingOptions {
-        exclude 'META-INF/library-core_release.kotlin_module'
-    }
 }
 
 allprojects {

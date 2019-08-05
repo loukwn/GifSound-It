@@ -7,7 +7,7 @@ import kotlinx.android.parcel.Parcelize
 
 // the actual post and its data
 @Parcelize
-data class PostModel (
+data class PostModel(
     var title: String,
     var thumbnailUrl: String,
     var created: Long,

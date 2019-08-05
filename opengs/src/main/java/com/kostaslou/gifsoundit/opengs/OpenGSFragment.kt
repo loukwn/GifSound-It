@@ -25,7 +25,7 @@ import com.kostaslou.gifsoundit.opengs.util.SoundUrl
 import kotlinx.android.synthetic.main.fragment_opengs.*
 
 class OpenGSFragment : BaseFragment() {
-    
+
     // local vars
     private var gifType = GifUrl.GifType.GIF
     private var gifDrawable: GifDrawable? = null
@@ -35,7 +35,7 @@ class OpenGSFragment : BaseFragment() {
 
     // setup ui
     override fun layoutRes() = R.layout.fragment_opengs
-    
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
