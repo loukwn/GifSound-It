@@ -299,7 +299,6 @@ class HomeFragment : BaseFragment() {
         })
     }
 
-
     private fun navigateToOpenGSFragment(query: String?) {
         getBaseActivity()?.let {
             this.findNavController().navigate(R.id.action_navigate_to_opengs, Bundle().apply { putString("query", query) })

@@ -24,7 +24,6 @@ class OpenGSRobot(mActivityScenarioRule: ActivityScenarioRule<MainActivity>) : B
         } ?: return -1
     }
 
-
     fun reduceSecondsAndCheck() {
         frag?.let {
             // get current offset
