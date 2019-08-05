@@ -3,11 +3,5 @@
     <color name="colorPrimary">#303030</color>
     <color name="colorPrimaryDark">#212121</color>
     <color name="colorAccent">#ffffff</color>
-    <color name="about_libraries_title_description">#ffffff</color>
-
-    <color name="colorOrange">@android:color/holo_orange_dark</color>
-    <color name="colorBlue">@android:color/holo_blue_dark</color>
-    <color name="colorGreen">@android:color/holo_green_dark</color>
-    <color name="colorGrayDark">@android:color/darker_gray</color>
 
 </resources>
