@@ -1,15 +1,9 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
-
 apply plugin: 'kotlin-kapt'
-
 apply plugin: 'io.fabric'
-
 apply plugin: "org.jlleitschuh.gradle.ktlint"
-
 
 android {
     compileSdkVersion 29
@@ -30,11 +24,6 @@ android {
             //zipAlignEnabled true
 
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-release-rules.pro'
-
-            // keys
-            buildConfigField 'String', "RedditClientId", GifSoundIt_RedditClientId
-            buildConfigField 'String', "RedditUserAgent", GifSoundIt_RedditUserAgent
-            buildConfigField 'String', "YouTubeApiKey", GifSoundIt_YouTubeApiKey
         }
 
         debug {
@@ -44,11 +33,6 @@ android {
 
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-debug-rules.pro'
             testProguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-test-debug-rules.pro'
-
-            // keys
-            buildConfigField 'String', "RedditClientId", GifSoundIt_RedditClientId
-            buildConfigField 'String', "RedditUserAgent", GifSoundIt_RedditUserAgent
-            buildConfigField 'String', "YouTubeApiKey", GifSoundIt_YouTubeApiKey
         }
     }
 
@@ -71,33 +55,22 @@ allprojects {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
+    // submodules
     implementation project(":home")
     implementation project(":opengs")
     implementation project(":common")
 
+    // kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$rootProject.kotlin_version"
     testImplementation "org.jetbrains.kotlin:kotlin-stdlib:$rootProject.kotlin_version"
     testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$rootProject.kotlin_version"
 
     // android extensions
-    implementation "com.google.android.material:material:$rootProject.material_version"
     implementation "androidx.appcompat:appcompat:$rootProject.appcompat_version"
-    implementation "androidx.cardview:cardview:$rootProject.cardview_version"
-    implementation "androidx.recyclerview:recyclerview:$rootProject.recyclerview_version"
-    implementation "androidx.annotation:annotation:$rootProject.annotation_version"
-    implementation "androidx.constraintlayout:constraintlayout:$rootProject.constraint_layout_version"
-    implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.lifecycle_version"
     implementation "androidx.navigation:navigation-fragment-ktx:$rootProject.navigation_version"
     implementation "androidx.navigation:navigation-ui-ktx:$rootProject.navigation_version"
 
-    // anko
-    implementation "org.jetbrains.anko:anko-commons:$rootProject.anko_version"
-
-    // glide
-    implementation "com.github.bumptech.glide:glide:$rootProject.glide_version"
-    kapt "com.github.bumptech.glide:compiler:$rootProject.glide_version"
-
-    // network
+    // retrofit
     implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofit2_version"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$rootProject.retrofit2_version"
     implementation "com.squareup.retrofit2:converter-moshi:$rootProject.moshi_version"
@@ -107,13 +80,6 @@ dependencies {
     implementation "com.google.dagger:dagger:$rootProject.dagger_version"
     kapt "com.google.dagger:dagger-compiler:$rootProject.dagger_version"
     kapt "com.google.dagger:dagger-android-processor:$rootProject.dagger_version"
-
-    // rx
-    implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxAndroid_version"
-    implementation "io.reactivex.rxjava2:rxjava:$rootProject.rxJava2_version"
-
-    // About libraries
-    implementation "com.mikepenz:aboutlibraries:$rootProject.about_libraries_version"
 
     // Timber
     implementation "com.jakewharton.timber:timber:$rootProject.timber_version"
@@ -139,13 +105,6 @@ dependencies {
     // Espresso dependencies
     androidTestImplementation "androidx.test.espresso:espresso-core:$rootProject.espresso_version"
     androidTestImplementation "androidx.test.espresso:espresso-contrib:$rootProject.espresso_version"
-
-    // Unit testing / mockito stuff
-    testImplementation "androidx.arch.core:core-testing:$rootProject.core_testing_version"
-    testImplementation "org.mockito:mockito-inline:$rootProject.mockitoInline_version"
-    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$rootProject.mockitoKotlin_version"
-    testImplementation "junit:junit:$rootProject.junit_version"
-
 }
 
 apply plugin: "com.google.gms.google-services"

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.navigation.findNavController
-import com.mikepenz.aboutlibraries.LibsBuilder
 import dagger.android.support.DaggerAppCompatActivity
 
 class MainActivity : DaggerAppCompatActivity() {
@@ -39,15 +38,7 @@ class MainActivity : DaggerAppCompatActivity() {
 
         when (item.itemId) {
             R.id.action_about -> {
-
-                // show about section
-                LibsBuilder()
-                    .withAboutAppName(getString(R.string.app_name))
-                    .withAboutIconShown(true)
-                    .withAboutVersionShown(true)
-                    .withAboutDescription(getString(R.string.about_libraries_description))
-                    .start(this)
-                return true
+                //todo add myown
             }
         }
 
