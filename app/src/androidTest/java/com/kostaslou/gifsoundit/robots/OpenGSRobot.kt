@@ -1,36 +1,40 @@
 package com.kostaslou.gifsoundit.robots
 
 import androidx.test.ext.junit.rules.ActivityScenarioRule
+import com.kostaslou.gifsoundit.MainActivity
 import com.kostaslou.gifsoundit.R
-import com.kostaslou.gifsoundit.ui.MainActivity
-import com.kostaslou.gifsoundit.ui.open.OpenGSFragment
+import com.kostaslou.gifsoundit.opengs.OpenGSFragment
 import kotlinx.android.synthetic.main.fragment_opengs.*
 
-class OpenGSRobot : BaseRobot() {
+class OpenGSRobot(mActivityScenarioRule: ActivityScenarioRule<MainActivity>) : BaseRobot() {
 
-    private lateinit var frag: OpenGSFragment
+    private var frag: OpenGSFragment? = null
 
-    // fragment based
-    fun getFragmentInstance(mActivityScenarioRule: ActivityScenarioRule<MainActivity>) {
+    init {
         mActivityScenarioRule.scenario.onActivity {
-            frag = it.supportFragmentManager.findFragmentById(R.id.fragContainer) as OpenGSFragment
+            it.supportFragmentManager.findFragmentById(R.id.nav_host_fragment)?.let { navHost ->
+                frag = navHost.childFragmentManager.fragments[0] as OpenGSFragment
+            }
         }
     }
 
-    private fun getOffsetAsNumber(): Int =
-        frag.offsetLabel.text.split(" ")[2].toInt()
+    private fun getOffsetAsNumber(openFrag: OpenGSFragment): Int =
+        openFrag.offsetLabel.text.split(" ")[2].toInt()
+
 
     fun reduceSecondsAndCheck() {
-        // get current offset
-        val oldSeconds = getOffsetAsNumber()
+        frag?.let {
+            // get current offset
+            val oldSeconds = getOffsetAsNumber(it)
 
-        // decrease
-        clickButton(R.id.decreaseButton)
+            // decrease
+            clickButton(R.id.decreaseButton)
 
-        // if the offset is zero, it should not decrease any more
-        if (oldSeconds > 0) {
-            matchText(R.id.offsetLabel, frag.getString(R.string.opengs_label_offset, oldSeconds - 1))
-        } else
-            matchText(R.id.offsetLabel, frag.getString(R.string.opengs_label_offset, oldSeconds))
+            // if the offset is zero, it should not decrease any more
+            if (oldSeconds > 0) {
+                matchText(R.id.offsetLabel, it.getString(R.string.opengs_label_offset, oldSeconds - 1))
+            } else
+                matchText(R.id.offsetLabel, it.getString(R.string.opengs_label_offset, oldSeconds))
+        }
     }
 }

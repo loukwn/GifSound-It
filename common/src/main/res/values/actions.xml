@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Navigation actions -->
+    <item name="action_navigate_to_opengs" type="id" />
+</resources>

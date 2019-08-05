@@ -71,6 +71,10 @@ allprojects {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
+    implementation project(":home")
+    implementation project(":opengs")
+    implementation project(":common")
+
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$rootProject.kotlin_version"
     testImplementation "org.jetbrains.kotlin:kotlin-stdlib:$rootProject.kotlin_version"
     testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$rootProject.kotlin_version"
@@ -83,6 +87,8 @@ dependencies {
     implementation "androidx.annotation:annotation:$rootProject.annotation_version"
     implementation "androidx.constraintlayout:constraintlayout:$rootProject.constraint_layout_version"
     implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.lifecycle_version"
+    implementation "androidx.navigation:navigation-fragment-ktx:$rootProject.navigation_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$rootProject.navigation_version"
 
     // anko
     implementation "org.jetbrains.anko:anko-commons:$rootProject.anko_version"
@@ -139,9 +145,6 @@ dependencies {
     testImplementation "org.mockito:mockito-inline:$rootProject.mockitoInline_version"
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$rootProject.mockitoKotlin_version"
     testImplementation "junit:junit:$rootProject.junit_version"
-
-    // youtube
-    implementation files("libs/YouTubeAndroidPlayerApi.jar")
 
 }
 

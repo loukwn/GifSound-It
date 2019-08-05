@@ -1,0 +1,37 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.1"
+
+
+    defaultConfig {
+        minSdkVersion 19
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+
+    // dagger
+    implementation "com.google.dagger:dagger-android-support:$rootProject.dagger_version"
+    implementation "com.google.dagger:dagger:$rootProject.dagger_version"
+    kapt "com.google.dagger:dagger-compiler:$rootProject.dagger_version"
+    kapt "com.google.dagger:dagger-android-processor:$rootProject.dagger_version"
+}

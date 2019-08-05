@@ -7,9 +7,11 @@ import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.hasDescendant
 import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.ext.junit.rules.ActivityScenarioRule
+import com.kostaslou.gifsoundit.MainActivity
 import com.kostaslou.gifsoundit.R
+import com.kostaslou.gifsoundit.home.util.commons.PostType
 import com.kostaslou.gifsoundit.util.RecyclerViewTools.Companion.withItemCount
-import com.kostaslou.gifsoundit.util.commons.PostType
 import org.hamcrest.Matchers.greaterThan
 
 fun home(func: HomeRobot.() -> Unit) = HomeRobot().apply { func() }
@@ -83,9 +85,9 @@ class HomeRobot : BaseRobot() {
 //        onRecyclerViewPosition(R.id.mainRecycler, 0).check(matches(hasDescendant(withId(R.id.progress))))
 //    }
 
-    infix fun openGS(func: OpenGSRobot.() -> Unit): OpenGSRobot {
+    fun openGS(mActivityScenarioRule: ActivityScenarioRule<MainActivity>, func: OpenGSRobot.() -> Unit): OpenGSRobot {
         onRecyclerView(R.id.mainRecycler).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
 
-        return OpenGSRobot().apply { func() }
+        return OpenGSRobot(mActivityScenarioRule).apply { func() }
     }
 }

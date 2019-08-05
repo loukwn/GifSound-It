@@ -2,10 +2,9 @@ package com.kostaslou.gifsoundit
 
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.kostaslou.gifsoundit.home.util.commons.PostType
 import com.kostaslou.gifsoundit.robots.TopDialogButton
 import com.kostaslou.gifsoundit.robots.home
-import com.kostaslou.gifsoundit.ui.MainActivity
-import com.kostaslou.gifsoundit.util.commons.PostType
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -15,7 +14,7 @@ import org.junit.runner.RunWith
 class GifSoundItInstrumentationTests {
 
     @get:Rule
-    val mActivityTestRule = ActivityScenarioRule(MainActivity::class.java)
+    val mActivityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
 
     @Before
     fun moreEspressoLessDepresso() {
@@ -79,7 +78,7 @@ class GifSoundItInstrumentationTests {
     fun when_at_home_and_we_navigate_to_opengs() {
         home {
             listHasData()
-            openGS {}
+            openGS(mActivityScenarioRule) {}
         }
     }
 
@@ -87,8 +86,7 @@ class GifSoundItInstrumentationTests {
     fun when_at_opengs_and_we_reduce_the_seconds_offset() {
         home {
             listHasData()
-        } openGS {
-            getFragmentInstance(mActivityTestRule)
+        }.openGS(mActivityScenarioRule) {
             reduceSecondsAndCheck()
         }
     }

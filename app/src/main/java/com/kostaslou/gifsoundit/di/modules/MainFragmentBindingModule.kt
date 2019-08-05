@@ -1,7 +1,7 @@
 package com.kostaslou.gifsoundit.di.modules
 
-import com.kostaslou.gifsoundit.ui.home.HomeFragment
-import com.kostaslou.gifsoundit.ui.open.OpenGSFragment
+import com.kostaslou.gifsoundit.home.ui.HomeFragment
+import com.kostaslou.gifsoundit.opengs.OpenGSFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
