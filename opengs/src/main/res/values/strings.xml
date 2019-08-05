@@ -1,6 +1,4 @@
 <resources>
-    <string name="app_name">OpenGS</string>
-
     <!--Open GifSound Fragment -->
     <string name="opengs_send_to">Send Gifsound to…</string>
     <string name="opengs_gif_title">Gif</string>
@@ -25,4 +23,5 @@
     <string name="opengs_error_gif_unsupported">Not supported by Media framework</string>
     <string name="opengs_error_gif_timed_out">Operation timed out</string>
     <string name="opengs_error_gif_unknown">Unknown Error (Code: %1$s)</string>
+
 </resources>
