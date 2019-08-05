@@ -1,10 +1,10 @@
 package com.kostaslou.gifsoundit.robots
 
+import android.widget.TextView
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import com.kostaslou.gifsoundit.MainActivity
 import com.kostaslou.gifsoundit.R
 import com.kostaslou.gifsoundit.opengs.OpenGSFragment
-import kotlinx.android.synthetic.main.fragment_opengs.*
 
 class OpenGSRobot(mActivityScenarioRule: ActivityScenarioRule<MainActivity>) : BaseRobot() {
 
@@ -18,8 +18,11 @@ class OpenGSRobot(mActivityScenarioRule: ActivityScenarioRule<MainActivity>) : B
         }
     }
 
-    private fun getOffsetAsNumber(openFrag: OpenGSFragment): Int =
-        openFrag.offsetLabel.text.split(" ")[2].toInt()
+    private fun getOffsetAsNumber(openFrag: OpenGSFragment): Int {
+        openFrag.view?.findViewById<TextView>(R.id.offsetLabel)?.let {
+            return it.text.split(" ")[2].toInt()
+        } ?: return -1
+    }
 
 
     fun reduceSecondsAndCheck() {

@@ -1,5 +1,4 @@
 <resources>
-
     <!--Home Fragment -->
     <string name="home_error_generic">Error fetching data…</string>
     <string name="home_error_posts">Error fetching posts…</string>
