@@ -13,15 +13,14 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.gif.GifDrawable
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
-import com.gifsoundit.opengs.BuildConfig
 import com.gifsoundit.opengs.R
-import com.google.android.youtube.player.YouTubeInitializationResult
-import com.google.android.youtube.player.YouTubePlayer
-import com.google.android.youtube.player.YouTubePlayerSupportFragment
 import com.kostaslou.gifsoundit.common.BaseFragment
 import com.kostaslou.gifsoundit.opengs.util.GifSoundPlaybackState
 import com.kostaslou.gifsoundit.opengs.util.GifUrl
 import com.kostaslou.gifsoundit.opengs.util.SoundUrl
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import kotlinx.android.synthetic.main.fragment_opengs.*
 
 class OpenGSFragment : BaseFragment() {
@@ -222,13 +221,19 @@ class OpenGSFragment : BaseFragment() {
 
     private fun initSound(soundUrl: SoundUrl) {
         soundUrl.soundLink?.let {
-            val videoFrag = childFragmentManager.findFragmentById(R.id.videoView) as YouTubePlayerSupportFragment?
-            videoFrag?.initialize(BuildConfig.YouTubeApiKey, object : YouTubePlayer.OnInitializedListener {
-                override fun onInitializationSuccess(p0: YouTubePlayer.Provider?, p1: YouTubePlayer?, p2: Boolean) {
-                    viewModel.setYoutubePlayer(p1)
+            // setup android youtube player
+
+            val youTubePlayerView = soundView
+            lifecycle.addObserver(youTubePlayerView)
+
+            youTubePlayerView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
+                override fun onReady(youTubePlayer: YouTubePlayer) {
+                    super.onReady(youTubePlayer)
+                    viewModel.setYoutubePlayer(youTubePlayer)
                 }
 
-                override fun onInitializationFailure(p0: YouTubePlayer.Provider?, p1: YouTubeInitializationResult?) {
+                override fun onError(youTubePlayer: YouTubePlayer, error: PlayerConstants.PlayerError) {
+                    super.onError(youTubePlayer, error)
                     viewModel.setSoundError()
                 }
             })

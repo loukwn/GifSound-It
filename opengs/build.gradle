@@ -60,7 +60,7 @@ dependencies {
 
     // glide
     implementation "com.github.bumptech.glide:glide:$rootProject.glide_version"
-    kapt "com.github.bumptech.glide:compiler:$rootProject.glide_version"
+//    kapt "com.github.bumptech.glide:compiler:$rootProject.glide_version"
 
     // Timber
     implementation "com.jakewharton.timber:timber:$rootProject.timber_version"
@@ -72,5 +72,5 @@ dependencies {
     testImplementation "junit:junit:$rootProject.junit_version"
 
     // youtube
-    implementation files("libs/YouTubeAndroidPlayerApi.jar")
+    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.3'
 }
