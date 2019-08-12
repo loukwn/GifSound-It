@@ -4,13 +4,17 @@ import androidx.navigation.NavController
 
 class Navigator {
 
-    private var navController: NavController? = null
+    private var mNavController: NavController? = null
 
     fun bind(navController: NavController) {
-        this.navController = navController
+        if (mNavController != navController) {
+            this.mNavController = navController
+        }
     }
 
     fun unbind() {
-        navController = null
+        mNavController = null
     }
+
+    val navController get() = mNavController
 }
