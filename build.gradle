@@ -47,18 +47,15 @@ ext {
     ext_junit_version = '1.1.1'
 
     // dagger
-    dagger_version = '2.22'
+    dagger_version = '2.24'
 
     // network
-    okHttp3_version = '3.12.0'
-    retrofit2_version = '2.5.0'
+    retrofit2_version = '2.6.1'
     moshi_version = '2.0.0'
 
     // rx
     rxJava2_version = '2.2.3'
     rxAndroid_version = '2.1.1'
-    rxRelay_version = '2.1.0'
-    rxExtensions_version = '0.20.4'
 
     // other
     glide_version = '4.9.0'
