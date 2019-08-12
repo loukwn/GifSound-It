@@ -54,7 +54,7 @@ ext {
     moshi_version = '2.0.0'
 
     // rx
-    rxJava2_version = '2.2.3'
+    rxJava2_version = '2.2.11'
     rxAndroid_version = '2.1.1'
 
     // other
@@ -63,7 +63,6 @@ ext {
     anko_version = '0.10.4'
     firebase_core_version = '17.0.1'
     fabric_version = '2.10.1'
-    about_libraries_version = '7.0.1'
 }
 
 allprojects {
