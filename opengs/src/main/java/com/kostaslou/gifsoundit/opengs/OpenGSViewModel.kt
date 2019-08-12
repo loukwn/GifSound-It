@@ -2,11 +2,13 @@ package com.kostaslou.gifsoundit.opengs
 
 import android.content.Intent
 import androidx.lifecycle.MutableLiveData
-import com.google.android.youtube.player.YouTubePlayer
 import com.kostaslou.gifsoundit.opengs.util.GifSoundPlaybackState
 import com.kostaslou.gifsoundit.opengs.util.GifUrl
 import com.kostaslou.gifsoundit.opengs.util.GifsoundUrlParser
 import com.kostaslou.gifsoundit.opengs.util.SoundUrl
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import timber.log.Timber
 
 // regular viewmodel since youtube + mp4view make it a pain in the ass to retain state
@@ -77,33 +79,34 @@ class OpenGSViewModel {
 
     fun setYoutubePlayer(player: YouTubePlayer?) {
         youTubePlayer = player
-        youTubePlayer?.setPlayerStyle(YouTubePlayer.PlayerStyle.MINIMAL)
-        youTubePlayer?.setPlaybackEventListener(object : YouTubePlayer.PlaybackEventListener {
-            override fun onSeekTo(p0: Int) {}
-            override fun onBuffering(p0: Boolean) {}
-            override fun onPlaying() {
-                if (gifSoundPlaybackState.gifState != GifSoundPlaybackState.GifState.GIF_ERROR) {
-                    startGifLiveData.value = true
+
+        youTubePlayer?.addListener(object : AbstractYouTubePlayerListener() {
+            override fun onStateChange(youTubePlayer: YouTubePlayer, state: PlayerConstants.PlayerState) {
+                super.onStateChange(youTubePlayer, state)
+
+                when (state) {
+                    PlayerConstants.PlayerState.VIDEO_CUED -> {
+                        changeState(soundState = GifSoundPlaybackState.SoundState.SOUND_OK)
+                    }
+                    PlayerConstants.PlayerState.ENDED -> {
+                        youTubePlayer.play()
+                    }
+                    PlayerConstants.PlayerState.PLAYING -> {
+                        if (gifSoundPlaybackState.gifState != GifSoundPlaybackState.GifState.GIF_ERROR) {
+                            startGifLiveData.value = true
+                        }
+                    }
+                    else -> {}
                 }
             }
-            override fun onStopped() {}
-            override fun onPaused() {}
-        })
-        youTubePlayer?.setPlayerStateChangeListener(object : YouTubePlayer.PlayerStateChangeListener {
-            override fun onAdStarted() {}
-            override fun onLoading() {}
-            override fun onVideoStarted() {}
-            override fun onLoaded(p0: String?) {
-                changeState(soundState = GifSoundPlaybackState.SoundState.SOUND_OK)
-            }
-            override fun onError(p0: YouTubePlayer.ErrorReason?) {
+
+            override fun onError(youTubePlayer: YouTubePlayer, error: PlayerConstants.PlayerError) {
+                super.onError(youTubePlayer, error)
                 changeState(soundState = GifSoundPlaybackState.SoundState.SOUND_ERROR)
             }
-            override fun onVideoEnded() {
-                youTubePlayer?.play()
-            }
         })
-        youTubePlayer?.cueVideo(soundUrl.soundLink, seconds * 1000)
+
+        youTubePlayer?.cueVideo(soundUrl.soundLink?:"", seconds.toFloat())
     }
 
     //
@@ -144,7 +147,7 @@ class OpenGSViewModel {
 
     fun restartSound() {
         youTubePlayer?.pause()
-        youTubePlayer?.seekToMillis(seconds * 1000)
+        youTubePlayer?.seekTo(seconds.toFloat())
         youTubePlayer?.play()
     }
 
