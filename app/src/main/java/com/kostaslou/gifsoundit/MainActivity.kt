@@ -13,15 +13,27 @@ class MainActivity : DaggerAppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        // deep linking stuff
+        navigator.bind(findNavController(R.id.nav_host_fragment))
+
+        val externalIntentQuery = intent?.data?.query ?: ""
+        if (externalIntentQuery.isNotEmpty()) {
+            // if we come from another app with data
+
+            navigator.navController?.navigate(R.id.action_navigate_to_opengs, Bundle().apply { putString("query", externalIntentQuery) })
+        }
     }
 
     override fun onResume() {
         super.onResume()
+
         navigator.bind(findNavController(R.id.nav_host_fragment))
     }
 
     override fun onPause() {
         super.onPause()
+
         navigator.unbind()
     }
 
