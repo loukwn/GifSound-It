@@ -19,3 +19,5 @@
 -keep class androidx.recyclerview.widget.RecyclerView  {
     public androidx.recyclerview.widget.RecyclerView$ViewHolder findViewHolderForPosition(int);
 }
+
+-dontwarn kotlinx.coroutines.flow.**inlined**
