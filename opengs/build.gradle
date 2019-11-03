@@ -4,6 +4,9 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'org.jlleitschuh.gradle.ktlint'
 
+Properties properties = new Properties()
+properties.load(project.rootProject.file("local.properties").newDataInputStream())
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.1"
@@ -23,7 +26,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
             // keys
-            buildConfigField 'String', "YouTubeApiKey", GifSoundIt_YouTubeApiKey
+            buildConfigField 'String', "YouTubeApiKey", properties.getProperty("GifSoundIt_YouTubeApiKey")
         }
 
         debug {
@@ -33,7 +36,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
             // keys
-            buildConfigField 'String', "YouTubeApiKey", GifSoundIt_YouTubeApiKey
+            buildConfigField 'String', "YouTubeApiKey", properties.getProperty("GifSoundIt_YouTubeApiKey")
         }
     }
 }
@@ -50,7 +53,7 @@ dependencies {
     testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$rootProject.kotlin_version"
 
     // android extensions
-    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation "androidx.appcompat:appcompat:$rootProject.appcompat_version"
 
     // dagger2
     implementation "com.google.dagger:dagger-android-support:$rootProject.dagger_version"

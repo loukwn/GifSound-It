@@ -13,3 +13,6 @@
 
 # keep the model classes for the retrofit results
 -keep class com.kostaslou.gifsoundit.data.api.model.** { *; }
+
+# kotlin flow proguard bug: https://github.com/Kotlin/kotlinx.coroutines/issues/1270
+-dontwarn kotlinx.coroutines.flow.**inlined**

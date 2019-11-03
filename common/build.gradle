@@ -33,7 +33,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     // app compat
-    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation "androidx.appcompat:appcompat:$rootProject.appcompat_version"
 
     // dagger support (for BaseFragment)
     implementation "com.google.dagger:dagger-android-support:$rootProject.dagger_version"
