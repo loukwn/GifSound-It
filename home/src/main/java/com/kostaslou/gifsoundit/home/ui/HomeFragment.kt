@@ -8,7 +8,7 @@ import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
@@ -28,6 +28,7 @@ import com.kostaslou.gifsoundit.home.util.commons.TokenRequiredException
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.jetbrains.anko.selector
 import org.jetbrains.anko.toast
+import java.util.Locale
 import javax.inject.Inject
 
 class HomeFragment : BaseFragment() {
@@ -48,7 +49,7 @@ class HomeFragment : BaseFragment() {
     // lifecycle stuff
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(HomeViewModel::class.java)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(HomeViewModel::class.java)
 
         // inits
         initUI()
@@ -181,10 +182,10 @@ class HomeFragment : BaseFragment() {
                                 getString(R.string.home_top_year), getString(R.string.home_top_all))
 
                         it.selector(getString(R.string.home_selector_title), periods) { _, i ->
-                            val topType = periods[i].toLowerCase()
+                            val topType = periods[i].toLowerCase(Locale.ROOT)
 
-                            if (!TextUtils.equals(topType, getString(R.string.home_top_all).toLowerCase())) {
-                                it.toast(getString(R.string.home_selector_other_chosen, periods[i].toLowerCase()))
+                            if (!TextUtils.equals(topType, getString(R.string.home_top_all).toLowerCase(Locale.ROOT))) {
+                                it.toast(getString(R.string.home_selector_other_chosen, periods[i].toLowerCase(Locale.getDefault())))
                             } else {
                                 it.toast(getString(R.string.home_selector_all_chosen))
                             }
@@ -249,7 +250,7 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun observeLiveData() {
-        viewModel.postsLiveData.observe(this, Observer<List<PostModel>> {
+        viewModel.postsLiveData.observe(viewLifecycleOwner, Observer<List<PostModel>> {
             // viewmodel has some data for us
 
             (mainRecycler.adapter as MainPostAdapter).clearAndAddPosts(it)
@@ -258,13 +259,13 @@ class HomeFragment : BaseFragment() {
             infiniteScrollListener.allowLoading()
         })
 
-        viewModel.loadingLiveData.observe(this, Observer<Boolean> {
+        viewModel.loadingLiveData.observe(viewLifecycleOwner, Observer<Boolean> {
             // viewmodel indicates that data is loading
 
             mSwipe.isRefreshing = it
         })
 
-        viewModel.messageLiveData.observe(this, Observer<Message> {
+        viewModel.messageLiveData.observe(viewLifecycleOwner, Observer<Message> {
             // viewmodel wants to convey a message to us
 
             mSwipe.isEnabled = true

@@ -266,28 +266,28 @@ class OpenGSFragment : BaseFragment() {
     private fun listenToObservables() {
 
         // share gifsound
-        viewModel.shareIntentLiveData.observe(this, Observer {
+        viewModel.shareIntentLiveData.observe(viewLifecycleOwner, Observer {
             if (it != null) startActivity(Intent.createChooser(it, resources.getText(R.string.opengs_send_to)))
         })
 
         // seconds offset changed
-        viewModel.secondOffsetLiveData.observe(this, Observer {
+        viewModel.secondOffsetLiveData.observe(viewLifecycleOwner, Observer {
             updateOffsetLabel(it)
         })
 
         // gif link identified
-        viewModel.gifUrlLiveData.observe(this, Observer {
+        viewModel.gifUrlLiveData.observe(viewLifecycleOwner, Observer {
             initGif(it)
             gifType = it.gifType
         })
 
         // sound link identified
-        viewModel.soundUrlLiveData.observe(this, Observer {
+        viewModel.soundUrlLiveData.observe(viewLifecycleOwner, Observer {
             initSound(it)
         })
 
         // gifsound state changed
-        viewModel.gifSoundStateLiveData.observe(this, Observer {
+        viewModel.gifSoundStateLiveData.observe(viewLifecycleOwner, Observer {
             val gifState = it.gifState
             val soundState = it.soundState
 
@@ -302,7 +302,7 @@ class OpenGSFragment : BaseFragment() {
         })
 
         // sound started so gif should start too
-        viewModel.startGifLiveData.observe(this, Observer {
+        viewModel.startGifLiveData.observe(viewLifecycleOwner, Observer {
             when (gifType) {
                 GifUrl.GifType.GIF -> {
                     // show the glide handled gif
