@@ -22,6 +22,7 @@
     <string name="opengs_error_gif_io_error">IO Error</string>
     <string name="opengs_error_gif_unsupported">Not supported by Media framework</string>
     <string name="opengs_error_gif_timed_out">Operation timed out</string>
-    <string name="opengs_error_gif_unknown">Unknown Error (Code: %1$s)</string>
+    <string name="opengs_error_gif_unknown_with_code">Unknown Error (Code: %1$s)</string>
+    <string name="opengs_error_gif_unknown_with">Unknown Error</string>
 
 </resources>

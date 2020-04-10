@@ -3,7 +3,7 @@ package com.kostaslou.gifsoundit
 import android.os.Bundle
 import androidx.core.os.bundleOf
 import androidx.navigation.NavController
-import com.kostaslou.gifsoundit.opengs.OpenGSFragment.Companion.PARAM_QUERY
+import com.kostaslou.gifsoundit.opengs.controller.OpenGSFragment.Companion.PARAM_QUERY
 
 class Navigator {
 

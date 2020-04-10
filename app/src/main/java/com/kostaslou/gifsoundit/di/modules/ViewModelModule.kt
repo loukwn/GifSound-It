@@ -16,16 +16,6 @@ abstract class ViewModelModule {
     @ViewModelKey(HomeViewModel::class)
     internal abstract fun bindHomeViewModel(listViewModel: HomeViewModel): ViewModel
 
-//    @Binds
-//    @IntoMap
-//    @ViewModelKey(OpenGSViewModel::class)
-//    internal abstract fun bindDetailsViewModel(detailsViewModel: OpenGSViewModel): ViewModel
-
-//    @Binds
-//    @IntoMap
-//    @ViewModelKey(DetailsViewModel::class)
-//    internal abstract fun bindDetailsViewModel(detailsViewModel: DetailsViewModel): ViewModel
-
     @Binds
     internal abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
 }

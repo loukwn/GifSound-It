@@ -1,251 +1,271 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <RelativeLayout
-        android:layout_marginTop="5dp"
+        android:id="@+id/topLayout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:id="@+id/topLayout">
+        android:layout_marginTop="5dp">
 
         <ImageView
+            android:id="@+id/backButton"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
             android:background="?android:attr/selectableItemBackground"
-            android:src="@drawable/ic_back"
-            android:id="@+id/backButton"
-            android:contentDescription="@string/content_description_opengs_back" />
+            android:contentDescription="@string/content_description_opengs_back"
+            android:src="@drawable/ic_back" />
 
         <ImageView
+            android:id="@+id/shareButton"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:src="@drawable/ic_share"
-            android:background="?android:attr/selectableItemBackground"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="10dp"
-            android:id="@+id/shareButton"
-            android:contentDescription="@string/content_description_opengs_share" />
+            android:background="?android:attr/selectableItemBackground"
+            android:contentDescription="@string/content_description_opengs_share"
+            android:src="@drawable/ic_share" />
 
         <ImageView
+            android:id="@+id/refreshButton"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:src="@drawable/ic_refresh"
-            android:background="?android:attr/selectableItemBackground"
             android:layout_centerVertical="true"
             android:layout_marginEnd="10dp"
             android:layout_toStartOf="@id/shareButton"
-            android:id="@+id/refreshButton"
-            android:visibility="invisible"
-            android:contentDescription="@string/content_description_opengs_refresh" />
+            android:background="?android:attr/selectableItemBackground"
+            android:contentDescription="@string/content_description_opengs_refresh"
+            android:src="@drawable/ic_refresh"
+            android:visibility="invisible" />
 
         <TextView
+            android:id="@+id/gifLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toEndOf="@id/backButton"
-            android:layout_toStartOf="@id/refreshButton"
-            android:gravity="center"
-            android:text="@string/opengs_gif_title"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:textSize="24sp"
             android:layout_marginStart="10dp"
+            android:layout_toStartOf="@id/refreshButton"
+            android:layout_toEndOf="@id/backButton"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="@string/opengs_gif_title"
             android:textColor="@android:color/white"
-            android:id="@+id/gifLabel"/>
+            android:textSize="24sp" />
 
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/bottomLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:id="@+id/bottomLayout">
+        android:layout_alignParentBottom="true">
 
         <RelativeLayout
+            android:id="@+id/playGIFLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/playGIFLayout"
             android:visibility="gone">
 
             <ImageView
+                android:id="@+id/gifLabelCloseButton"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
+                android:layout_alignParentEnd="true"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="10dp"
-                android:layout_alignParentEnd="true"
-                android:src="@drawable/ic_close"
-                android:id="@+id/gifLabelCloseButton"
-                android:contentDescription="@string/content_description_opengs_close_gif_label" />
+                android:contentDescription="@string/content_description_opengs_close_gif_label"
+                android:src="@drawable/ic_close" />
 
             <TextView
+                android:id="@+id/playGIFLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:gravity="center"
                 android:layout_toStartOf="@id/gifLabelCloseButton"
+                android:gravity="center"
+                android:padding="8dp"
                 android:text="@string/opengs_sound_error_label"
                 android:textColor="@android:color/white"
-                android:visibility="visible"
-                android:id="@+id/playGIFLabel"/>
+                android:visibility="visible" />
 
 
         </RelativeLayout>
 
         <View
+            android:id="@+id/separator1"
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:background="@android:color/black"
             android:layout_below="@id/playGIFLayout"
-            android:id="@+id/separator1"/>
+            android:background="@android:color/black" />
 
 
         <TextView
+            android:id="@+id/soundLabel"
             android:layout_width="wrap_content"
             android:layout_height="110dp"
+            android:layout_below="@id/separator1"
+            android:layout_marginStart="10dp"
+            android:ellipsize="end"
             android:gravity="center_vertical"
             android:maxLines="1"
-            android:ellipsize="end"
-            android:textSize="24sp"
-            android:layout_marginStart="10dp"
-            android:layout_below="@id/separator1"
-            android:textColor="@android:color/white"
             android:text="@string/opengs_sound_title"
-            android:id="@+id/soundLabel"/>
-
-        <!--<fragment-->
-            <!--android:name="com.google.android.youtube.player.YouTubePlayerSupportFragment"-->
-            <!--android:layout_width="200dp"-->
-            <!--android:layout_height="110dp"-->
-            <!--android:layout_below="@id/separator1"-->
-            <!--android:layout_alignParentEnd="true"-->
-            <!--android:id="@+id/videoView" />-->
+            android:textColor="@android:color/white"
+            android:textSize="24sp" />
 
         <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+            android:id="@+id/soundView"
             android:layout_width="200dp"
             android:layout_height="110dp"
             android:layout_below="@id/separator1"
             android:layout_alignParentEnd="true"
             app:showFullScreenButton="false"
-            app:showVideoCurrentTime="false"
-            app:showVideoDuration="false"
             app:showSeekBar="false"
-            android:id="@+id/soundView" />
+            app:showVideoCurrentTime="false"
+            app:showVideoDuration="false" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:background="@android:color/black"
-            android:layout_below="@id/soundView"/>
+            android:layout_below="@id/soundView"
+            android:background="@android:color/black" />
 
         <RelativeLayout
+            android:id="@+id/offsetLayout"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_below="@id/soundView"
-            android:visibility="gone"
-            android:id="@+id/offsetLayout">
+            android:visibility="gone">
 
             <TextView
+                android:id="@+id/offsetLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="110dp"
+                android:layout_marginStart="10dp"
+                android:ellipsize="end"
                 android:gravity="center_vertical"
                 android:maxLines="1"
-                android:ellipsize="end"
-                android:textSize="20sp"
-                android:layout_marginStart="10dp"
                 android:textColor="@android:color/white"
-                android:id="@+id/offsetLabel"
+                android:textSize="20sp"
                 tools:ignore="RelativeOverlap" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"
+                android:layoutDirection="rtl"
                 android:paddingStart="5dp"
-                android:paddingEnd="5dp"
-                android:layoutDirection="rtl">
+                android:paddingEnd="5dp">
 
                 <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="5dp"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/ic_revert"
                     android:id="@+id/revertButton"
-                    android:contentDescription="@string/content_description_opengs_revert" />
-
-                <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginStart="5dp"
                     android:background="?android:attr/selectableItemBackground"
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/ic_add"
+                    android:contentDescription="@string/content_description_opengs_revert"
+                    android:src="@drawable/ic_revert" />
+
+                <ImageView
                     android:id="@+id/addButton"
-                    android:contentDescription="@string/content_description_opengs_add" />
-
-                <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginStart="5dp"
                     android:background="?android:attr/selectableItemBackground"
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/ic_remove"
+                    android:contentDescription="@string/content_description_opengs_add"
+                    android:src="@drawable/ic_add" />
+
+                <ImageView
                     android:id="@+id/decreaseButton"
-                    android:contentDescription="@string/content_description_opengs_decrease" />
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="5dp"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:contentDescription="@string/content_description_opengs_decrease"
+                    android:src="@drawable/ic_remove" />
 
 
             </LinearLayout>
 
         </RelativeLayout>
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_below="@id/offsetLayout"
-            android:background="@color/colorPrimaryDark">
+            android:background="@color/colorPrimaryDark"
+            android:weightSum="2">
 
             <TextView
-                android:layout_width="match_parent"
+                android:id="@+id/gifStatusLabel"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:singleLine="true"
-                android:marqueeRepeatLimit="marquee_forever"
+                android:layout_weight="1"
                 android:ellipsize="marquee"
-                android:textColor="@android:color/white"
-                android:id="@+id/statusLabel"/>
+                android:gravity="center"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:singleLine="true"
+                android:textColor="@android:color/white" />
 
-        </RelativeLayout>
+            <TextView
+                android:id="@+id/soundStatusLabel"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:ellipsize="marquee"
+                android:gravity="center"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:singleLine="true"
+                android:textColor="@android:color/white" />
+
+        </LinearLayout>
 
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_above="@id/bottomLayout"
         android:layout_below="@id/topLayout"
-        android:layout_above="@id/bottomLayout">
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
 
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:visibility="invisible"
             android:id="@+id/gifView"
-            android:contentDescription="@string/content_description_opengs_gif" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/content_description_opengs_gif"
+            android:scaleType="fitCenter"
+            android:visibility="invisible" />
 
         <VideoView
+            android:id="@+id/mp4View"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
-            android:visibility="invisible"
-            android:id="@+id/mp4View"/>
+            android:visibility="invisible" />
+
+        <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+            android:id="@+id/youtubeGifView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:visibility="gone"
+            app:showFullScreenButton="false"
+            app:showSeekBar="false"
+            app:showVideoCurrentTime="false"
+            app:showVideoDuration="false" />
 
     </RelativeLayout>
 

@@ -5,9 +5,10 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.navigation.findNavController
 import com.kostaslou.gifsoundit.home.ui.HomeFragment
+import com.kostaslou.gifsoundit.opengs.controller.OpenGSFragment
 import dagger.android.support.DaggerAppCompatActivity
 
-class MainActivity : DaggerAppCompatActivity(), HomeFragment.Callback {
+class MainActivity : DaggerAppCompatActivity(), HomeFragment.Callback, OpenGSFragment.Callback {
 
     private var navigator = Navigator()
 
@@ -60,5 +61,9 @@ class MainActivity : DaggerAppCompatActivity(), HomeFragment.Callback {
 
     override fun navigateToOpenGS(query: String?) {
         navigator.navigateToOpenGS(query)
+    }
+
+    override fun onOpenGSBackPressed() {
+        onBackPressed()
     }
 }

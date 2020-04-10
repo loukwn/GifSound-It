@@ -13,7 +13,7 @@
     </fragment>
     <fragment
         android:id="@id/action_navigate_to_opengs"
-        android:name="com.kostaslou.gifsoundit.opengs.OpenGSFragment"
+        android:name="com.kostaslou.gifsoundit.opengs.controller.OpenGSFragment"
         android:label="OpenGSFragment" />
 </navigation>
 

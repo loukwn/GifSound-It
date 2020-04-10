@@ -58,7 +58,7 @@ ext {
     rxAndroid_version = '2.1.1'
 
     // other
-    glide_version = '4.9.0'
+    glide_version = '4.11.0'
     timber_version = '4.7.1'
     anko_version = '0.10.4'
     firebase_core_version = '17.2.2'

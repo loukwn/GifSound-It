@@ -4,7 +4,7 @@ import android.widget.TextView
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import com.kostaslou.gifsoundit.MainActivity
 import com.kostaslou.gifsoundit.R
-import com.kostaslou.gifsoundit.opengs.OpenGSFragment
+import com.kostaslou.gifsoundit.opengs.controller.OpenGSFragment
 
 class OpenGSRobot(mActivityScenarioRule: ActivityScenarioRule<MainActivity>) : BaseRobot() {
 
