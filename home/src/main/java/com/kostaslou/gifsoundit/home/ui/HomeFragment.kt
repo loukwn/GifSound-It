@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.kostaslou.gifsoundit.common.BaseFragment
@@ -301,8 +300,10 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun navigateToOpenGSFragment(query: String?) {
-        getBaseActivity()?.let {
-            this.findNavController().navigate(R.id.action_navigate_to_opengs, Bundle().apply { putString("query", query) })
-        }
+        (activity as? Callback)?.navigateToOpenGS(query)
+    }
+
+    interface Callback {
+        fun navigateToOpenGS(query: String?)
     }
 }

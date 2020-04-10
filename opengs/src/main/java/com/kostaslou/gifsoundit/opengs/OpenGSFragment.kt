@@ -257,7 +257,7 @@ class OpenGSFragment : BaseFragment() {
     private fun getArgsFromBundle() {
 
         arguments?.let {
-            it.getString("query")?.let { q ->
+            it.getString(PARAM_QUERY)?.let { q ->
                 viewModel.setGifSoundArgs(q)
             }
         }
@@ -321,5 +321,9 @@ class OpenGSFragment : BaseFragment() {
 
             offsetLayout.visibility = View.VISIBLE
         })
+    }
+
+    companion object {
+        const val PARAM_QUERY = "QUERY"
     }
 }

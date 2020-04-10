@@ -4,9 +4,10 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.navigation.findNavController
+import com.kostaslou.gifsoundit.home.ui.HomeFragment
 import dagger.android.support.DaggerAppCompatActivity
 
-class MainActivity : DaggerAppCompatActivity() {
+class MainActivity : DaggerAppCompatActivity(), HomeFragment.Callback {
 
     private var navigator = Navigator()
 
@@ -21,7 +22,7 @@ class MainActivity : DaggerAppCompatActivity() {
         if (externalIntentQuery.isNotEmpty()) {
             // if we come from another app with data
 
-            navigator.navController?.navigate(R.id.action_navigate_to_opengs, Bundle().apply { putString("query", externalIntentQuery) })
+            navigator.navigateToOpenGS(externalIntentQuery)
         }
     }
 
@@ -55,5 +56,9 @@ class MainActivity : DaggerAppCompatActivity() {
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun navigateToOpenGS(query: String?) {
+        navigator.navigateToOpenGS(query)
     }
 }
