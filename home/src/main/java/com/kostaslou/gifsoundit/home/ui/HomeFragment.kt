@@ -70,12 +70,6 @@ class HomeFragment : BaseFragment() {
         // toolbar
         getBaseActivity()?.setSupportActionBar(toolbar_top)
 
-        // title font
-        getBaseActivity()?.let {
-            val typeFace = Typeface.createFromAsset(it.assets, "fonts/pricedown.ttf")
-            toolbarTitle.typeface = typeFace
-        }
-
         // toolbar name on click
         toolbarTitle.setOnClickListener {
             if (mainRecycler.adapter != null) {

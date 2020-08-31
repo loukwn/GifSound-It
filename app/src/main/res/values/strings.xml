@@ -1,7 +1,0 @@
-<resources>
-    <!--Application/MainActivity-->
-    <string name="app_name">GifSound It</string>
-    <string name="intent_filter_label">View GifSound</string>
-    <string name="action_menu_about">About</string>
-
-</resources>

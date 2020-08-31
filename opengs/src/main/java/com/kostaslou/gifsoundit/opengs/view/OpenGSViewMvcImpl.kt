@@ -43,12 +43,6 @@ class OpenGSViewMvcImpl(
 
     private fun setupViewAttributes() {
 
-        // change typeface of textviews
-        val typeFace = Typeface.createFromAsset(context.assets, "fonts/pricedown.ttf")
-        view.gifLabel.typeface = typeFace
-        view.soundLabel.typeface = typeFace
-        view.offsetLabel.typeface = typeFace
-
         // for the marquee
         view.gifStatusLabel.isSelected = true
         view.soundStatusLabel.isSelected = true
