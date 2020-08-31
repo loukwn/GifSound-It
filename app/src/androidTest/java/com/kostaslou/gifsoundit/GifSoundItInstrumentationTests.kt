@@ -5,6 +5,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.kostaslou.gifsoundit.home.util.commons.PostType
 import com.kostaslou.gifsoundit.robots.TopDialogButton
 import com.kostaslou.gifsoundit.robots.home
+import com.kostaslou.gifsoundit.screens.MainActivity
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test

@@ -1,9 +1,11 @@
-package com.kostaslou.gifsoundit
+package com.kostaslou.gifsoundit.screens
 
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.navigation.findNavController
+import com.kostaslou.gifsoundit.Navigator
+import com.kostaslou.gifsoundit.R
 import com.kostaslou.gifsoundit.home.ui.HomeFragment
 import com.kostaslou.gifsoundit.opengs.controller.OpenGSFragment
 import dagger.android.support.DaggerAppCompatActivity
@@ -52,7 +54,7 @@ class MainActivity : DaggerAppCompatActivity(), HomeFragment.Callback, OpenGSFra
 
         when (item.itemId) {
             R.id.action_about -> {
-                // todo add myown
+                navigator.navigateToSettings()
             }
         }
 
