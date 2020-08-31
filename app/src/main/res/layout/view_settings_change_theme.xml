@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp"
+    android:animateLayoutChanges="true"
+    app:cardCornerRadius="25dp"
+    app:cardElevation="6dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Theme"
+            android:layout_marginStart="10dp"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/settings_theme_more_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/settings_theme_more_button" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:text="Light"
+            app:layout_constraintBottom_toBottomOf="@id/settings_theme_more_button"
+            app:layout_constraintEnd_toStartOf="@id/settings_theme_more_button"
+            app:layout_constraintTop_toTopOf="@id/settings_theme_more_button" />
+
+        <ImageView
+            android:id="@+id/settings_theme_more_button"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:soundEffectsEnabled="false"
+            android:src="@drawable/ic_down"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/centerGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".5" />
+
+        <LinearLayout
+            android:id="@+id/settings_theme_light_option"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="20dp"
+            android:padding="15dp"
+            android:background="@drawable/background_rounded_default_color"
+            app:layout_constraintTop_toBottomOf="@id/settings_theme_more_button"
+            app:layout_constraintEnd_toStartOf="@id/centerGuideline"
+            android:layout_marginEnd="15dp">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:soundEffectsEnabled="false"
+                android:src="@drawable/ic_down" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Light" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/settings_theme_dark_option"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="20dp"
+            android:padding="15dp"
+            android:background="@drawable/background_rounded_default_color"
+            app:layout_constraintTop_toBottomOf="@id/settings_theme_more_button"
+            app:layout_constraintStart_toEndOf="@id/centerGuideline"
+            android:layout_marginStart="15dp">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:soundEffectsEnabled="false"
+                android:src="@drawable/ic_down" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Dark" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/settings_theme_system_default_option"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="20dp"
+            android:padding="15dp"
+            android:background="@drawable/background_rounded_default_color"
+            app:layout_constraintTop_toBottomOf="@id/settings_theme_light_option"
+            app:layout_constraintEnd_toStartOf="@id/centerGuideline"
+            android:layout_marginEnd="15dp">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:soundEffectsEnabled="false"
+                android:src="@drawable/ic_down" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="System default" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/settings_theme_battery_saver_option"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="20dp"
+            android:padding="15dp"
+            android:background="@drawable/background_rounded_default_color"
+            app:layout_constraintTop_toBottomOf="@id/settings_theme_light_option"
+            app:layout_constraintStart_toEndOf="@id/centerGuideline"
+            android:layout_marginStart="15dp">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:soundEffectsEnabled="false"
+                android:src="@drawable/ic_down" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Battery Saver" />
+
+        </LinearLayout>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

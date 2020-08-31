@@ -12,4 +12,4 @@
 -keepattributes *Annotation*
 
 # keep the model classes for the retrofit results
--keep class com.kostaslou.gifsoundit.home.data.api.model.** { *; }
+-keep class com.kostaslou.gifsoundit.data.api.model.** { *; }
