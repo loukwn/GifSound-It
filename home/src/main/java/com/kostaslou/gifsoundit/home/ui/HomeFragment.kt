@@ -27,6 +27,7 @@ import com.kostaslou.gifsoundit.home.util.commons.TokenRequiredException
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.jetbrains.anko.selector
 import org.jetbrains.anko.toast
+import java.lang.IllegalStateException
 import java.util.Locale
 import javax.inject.Inject
 
@@ -49,7 +50,6 @@ class HomeFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this, viewModelFactory).get(HomeViewModel::class.java)
-
         // inits
         initUI()
         restoreUI()

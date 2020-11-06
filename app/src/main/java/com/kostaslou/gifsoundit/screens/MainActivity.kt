@@ -9,6 +9,7 @@ import com.kostaslou.gifsoundit.R
 import com.kostaslou.gifsoundit.home.ui.HomeFragment
 import com.kostaslou.gifsoundit.opengs.controller.OpenGSFragment
 import dagger.android.support.DaggerAppCompatActivity
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : DaggerAppCompatActivity(), HomeFragment.Callback, OpenGSFragment.Callback {
 

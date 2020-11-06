@@ -2,16 +2,17 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-apply plugin: 'io.fabric'
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
 apply plugin: "org.jlleitschuh.gradle.ktlint"
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
 
     defaultConfig {
         applicationId "com.kostaslou.gifsoundit"
         minSdkVersion 21
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 2
         versionName "1.1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -28,8 +29,8 @@ android {
 
         debug {
             debuggable true
-            minifyEnabled true
-            shrinkResources true
+            minifyEnabled false
+            shrinkResources false
 
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-debug-rules.pro'
             testProguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-test-debug-rules.pro'
@@ -85,10 +86,9 @@ dependencies {
     implementation "com.jakewharton.timber:timber:$rootProject.timber_version"
 
     // Firebase
-    implementation "com.google.firebase:firebase-core:$rootProject.firebase_core_version"
-
-    // Fabric
-    implementation "com.crashlytics.sdk.android:crashlytics:$rootProject.fabric_version"
+    implementation platform("com.google.firebase:firebase-bom:$rootProject.firebase_core_version")
+    implementation "com.google.firebase:firebase-analytics"
+    implementation "com.google.firebase:firebase-crashlytics-ktx"
 
     // Android testing
     // Core library
@@ -106,5 +106,3 @@ dependencies {
     androidTestImplementation "androidx.test.espresso:espresso-core:$rootProject.espresso_version"
     androidTestImplementation "androidx.test.espresso:espresso-contrib:$rootProject.espresso_version"
 }
-
-apply plugin: "com.google.gms.google-services"
