@@ -1,6 +1,7 @@
 package com.kostaslou.gifsoundit.home.ui
 
 import android.annotation.SuppressLint
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.kostaslou.gifsoundit.home.data.Repository
@@ -13,7 +14,7 @@ import io.reactivex.disposables.CompositeDisposable
 import timber.log.Timber
 import javax.inject.Inject
 
-class HomeViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
+class HomeViewModel @ViewModelInject constructor(private val repository: Repository) : ViewModel() {
 
     // for the cleanup
     private val compositeDisposable = CompositeDisposable()

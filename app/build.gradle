@@ -2,17 +2,18 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
 apply plugin: "org.jlleitschuh.gradle.ktlint"
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion rootProject.ext.compileSdkVersion
 
     defaultConfig {
         applicationId "com.kostaslou.gifsoundit"
-        minSdkVersion 21
-        targetSdkVersion 30
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 2
         versionName "1.1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -22,7 +23,6 @@ android {
             debuggable false
             minifyEnabled true
             shrinkResources true
-            //zipAlignEnabled true
 
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-release-rules.pro'
         }
@@ -70,17 +70,18 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$rootProject.navigation_version"
     implementation "androidx.navigation:navigation-ui-ktx:$rootProject.navigation_version"
     implementation "androidx.constraintlayout:constraintlayout:$rootProject.constraintlayout_version"
+    implementation 'com.google.android.material:material:1.2.0-alpha03'
 
     // retrofit
     implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofit2_version"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$rootProject.retrofit2_version"
     implementation "com.squareup.retrofit2:converter-moshi:$rootProject.moshi_version"
 
-    // dagger2
-    implementation "com.google.dagger:dagger-android-support:$rootProject.dagger_version"
-    implementation "com.google.dagger:dagger:$rootProject.dagger_version"
-    kapt "com.google.dagger:dagger-compiler:$rootProject.dagger_version"
-    kapt "com.google.dagger:dagger-android-processor:$rootProject.dagger_version"
+    // hilt
+    implementation "com.google.dagger:hilt-android:$rootProject.hilt_version"
+    kapt "com.google.dagger:hilt-android-compiler:$rootProject.hilt_version"
+    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$rootProject.hilt_viewmodel_version"
+    kapt "androidx.hilt:hilt-compiler:$rootProject.hilt_compiler_version"
 
     // Timber
     implementation "com.jakewharton.timber:timber:$rootProject.timber_version"

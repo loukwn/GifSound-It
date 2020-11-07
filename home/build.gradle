@@ -2,6 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
 apply plugin: 'org.jlleitschuh.gradle.ktlint'
 
 // Reads the local properties for the App secrets and if it cannot find them, it will get them from
@@ -14,14 +15,12 @@ try {
 }
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.3"
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 29
-        versionCode 2
-        versionName "1.1.0"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
     }
 
     buildTypes {
@@ -38,7 +37,7 @@ android {
 
         debug {
             debuggable true
-            minifyEnabled true
+            minifyEnabled false
 
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
@@ -46,6 +45,15 @@ android {
             buildConfigField 'String', "RedditClientId", properties.getProperty("GifSoundIt_RedditClientId")
             buildConfigField 'String', "RedditUserAgent", properties.getProperty("GifSoundIt_RedditUserAgent")
         }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
     }
 
     androidExtensions {
@@ -85,11 +93,11 @@ dependencies {
     implementation "com.squareup.retrofit2:adapter-rxjava2:$rootProject.retrofit2_version"
     implementation "com.squareup.retrofit2:converter-moshi:$rootProject.moshi_version"
 
-    // dagger2
-    implementation "com.google.dagger:dagger-android-support:$rootProject.dagger_version"
-    implementation "com.google.dagger:dagger:$rootProject.dagger_version"
-    kapt "com.google.dagger:dagger-compiler:$rootProject.dagger_version"
-    kapt "com.google.dagger:dagger-android-processor:$rootProject.dagger_version"
+    // hilt
+    implementation "com.google.dagger:hilt-android:$rootProject.hilt_version"
+    kapt "com.google.dagger:hilt-android-compiler:$rootProject.hilt_version"
+    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$rootProject.hilt_viewmodel_version"
+    kapt "androidx.hilt:hilt-compiler:$rootProject.hilt_compiler_version"
 
     // rx
     implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxAndroid_version"

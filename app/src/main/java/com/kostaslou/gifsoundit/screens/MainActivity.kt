@@ -3,17 +3,20 @@ package com.kostaslou.gifsoundit.screens
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import com.kostaslou.gifsoundit.Navigator
 import com.kostaslou.gifsoundit.R
 import com.kostaslou.gifsoundit.home.ui.HomeFragment
 import com.kostaslou.gifsoundit.opengs.controller.OpenGSFragment
-import dagger.android.support.DaggerAppCompatActivity
-import kotlinx.android.synthetic.main.activity_main.*
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-class MainActivity : DaggerAppCompatActivity(), HomeFragment.Callback, OpenGSFragment.Callback {
+@AndroidEntryPoint
+class MainActivity : AppCompatActivity(), HomeFragment.Callback, OpenGSFragment.Callback {
 
-    private var navigator = Navigator()
+    @Inject
+    lateinit var navigator: Navigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

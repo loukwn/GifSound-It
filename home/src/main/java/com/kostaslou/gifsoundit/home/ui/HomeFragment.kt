@@ -3,19 +3,20 @@ package com.kostaslou.gifsoundit.home.ui
 import android.graphics.Typeface
 import android.os.Bundle
 import android.text.TextUtils
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.Observer
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
-import com.kostaslou.gifsoundit.common.BaseFragment
 import com.kostaslou.gifsoundit.home.R
 import com.kostaslou.gifsoundit.home.ui.adapter.InfiniteScrollListener
 import com.kostaslou.gifsoundit.home.ui.adapter.MainPostAdapter
-import com.kostaslou.gifsoundit.home.ui.model.PostModel
 import com.kostaslou.gifsoundit.home.util.ViewModelFactory
 import com.kostaslou.gifsoundit.home.util.commons.GeneralConstants
 import com.kostaslou.gifsoundit.home.util.commons.Message
@@ -24,32 +25,38 @@ import com.kostaslou.gifsoundit.home.util.commons.PostType
 import com.kostaslou.gifsoundit.home.util.commons.PostsHttpException
 import com.kostaslou.gifsoundit.home.util.commons.TokenHttpException
 import com.kostaslou.gifsoundit.home.util.commons.TokenRequiredException
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.jetbrains.anko.selector
 import org.jetbrains.anko.toast
-import java.lang.IllegalStateException
 import java.util.Locale
 import javax.inject.Inject
 
-class HomeFragment : BaseFragment() {
+@AndroidEntryPoint
+class HomeFragment : Fragment() {
 
     private var firstTime = true
 
     // ViewModel
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-    private lateinit var viewModel: HomeViewModel
+    private val viewModel: HomeViewModel by viewModels()
+    // private val viewModel: HomeViewModel by navGraphViewModels(R.id.) {
+    //     defaultViewModelProviderFactory
+    // }
 
     // custom scroller for the infinite recyclerview
     private lateinit var infiniteScrollListener: InfiniteScrollListener
 
-    // setup ui
-    override fun layoutRes() = R.layout.fragment_home
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_home, container, false)
+    }
 
     // lifecycle stuff
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(HomeViewModel::class.java)
         // inits
         initUI()
         restoreUI()
@@ -68,7 +75,7 @@ class HomeFragment : BaseFragment() {
     private fun initUI() {
 
         // toolbar
-        getBaseActivity()?.setSupportActionBar(toolbar_top)
+        // activity?.setSupportActionBar(toolbar_top)
 
         // toolbar name on click
         toolbarTitle.setOnClickListener {
@@ -89,7 +96,7 @@ class HomeFragment : BaseFragment() {
         mSwipe.setProgressViewOffset(false, 0, 180)
 
         // setup recycler view
-        getBaseActivity()?.let { act ->
+        activity?.let { act ->
             mainRecycler.setHasFixedSize(true)
 
             val linearLayout = LinearLayoutManager(act)
@@ -122,7 +129,7 @@ class HomeFragment : BaseFragment() {
         }
 
         // more button on click
-        getBaseActivity()?.let {
+        activity?.let {
             moreButton.setOnClickListener { view ->
 
                 viewModel.moreClicked()
@@ -140,31 +147,31 @@ class HomeFragment : BaseFragment() {
 
         // post category change
         hotButton.setOnClickListener {
-            changePostCategory(PostType.HOT, getBaseActivity())
+            changePostCategory(PostType.HOT)
         }
 
         topButton.setOnClickListener {
-            changePostCategory(PostType.TOP, getBaseActivity())
+            changePostCategory(PostType.TOP)
         }
 
         newButton.setOnClickListener {
-            changePostCategory(PostType.NEW, getBaseActivity())
+            changePostCategory(PostType.NEW)
         }
     }
 
-    private fun changePostCategory(newPostType: PostType, activity: AppCompatActivity?, clickMore: Boolean = true) {
+    private fun changePostCategory(newPostType: PostType, clickMore: Boolean = true) {
 
         if (!mSwipe.isRefreshing) {
-            activity?.let {
+            context?.let {
                 when (newPostType) {
                     PostType.HOT -> {
 
-                        changeFilterLabelColors(newPostType, it)
+                        changeFilterLabelColors(newPostType)
                         viewModel.categoryChanged(newPostType)
                     }
                     PostType.NEW -> {
 
-                        changeFilterLabelColors(newPostType, it)
+                        changeFilterLabelColors(newPostType)
                         viewModel.categoryChanged(newPostType)
                     }
                     PostType.TOP -> {
@@ -183,7 +190,7 @@ class HomeFragment : BaseFragment() {
                                 it.toast(getString(R.string.home_selector_all_chosen))
                             }
 
-                            changeFilterLabelColors(newPostType, it)
+                            changeFilterLabelColors(newPostType)
                             viewModel.categoryChanged(newPostType, topType)
                         }
                     }
@@ -195,38 +202,40 @@ class HomeFragment : BaseFragment() {
         }
     }
 
-    private fun changeFilterLabelColors(postType: PostType, activity: AppCompatActivity) {
-        when (postType) {
-            PostType.HOT -> {
-                hotButton.setTextColor(ContextCompat.getColor(activity, R.color.colorOrange))
-                hotButton.setTypeface(null, Typeface.BOLD)
-                newButton.setTextColor(ContextCompat.getColor(activity, R.color.colorGrayDark))
-                newButton.setTypeface(null, Typeface.NORMAL)
-                topButton.setTextColor(ContextCompat.getColor(activity, R.color.colorGrayDark))
-                topButton.setTypeface(null, Typeface.NORMAL)
-            }
-            PostType.NEW -> {
-                hotButton.setTextColor(ContextCompat.getColor(activity, R.color.colorGrayDark))
-                hotButton.setTypeface(null, Typeface.NORMAL)
-                newButton.setTextColor(ContextCompat.getColor(activity, R.color.colorGreen))
-                newButton.setTypeface(null, Typeface.BOLD)
-                topButton.setTextColor(ContextCompat.getColor(activity, R.color.colorGrayDark))
-                topButton.setTypeface(null, Typeface.NORMAL)
-            }
-            PostType.TOP -> {
-                hotButton.setTextColor(ContextCompat.getColor(activity, R.color.colorGrayDark))
-                hotButton.setTypeface(null, Typeface.NORMAL)
-                newButton.setTextColor(ContextCompat.getColor(activity, R.color.colorGrayDark))
-                newButton.setTypeface(null, Typeface.NORMAL)
-                topButton.setTextColor(ContextCompat.getColor(activity, R.color.colorBlue))
-                topButton.setTypeface(null, Typeface.BOLD)
+    private fun changeFilterLabelColors(postType: PostType) {
+        context?.let { ctx ->
+            when (postType) {
+                PostType.HOT -> {
+                    hotButton.setTextColor(ContextCompat.getColor(ctx, R.color.colorOrange))
+                    hotButton.setTypeface(null, Typeface.BOLD)
+                    newButton.setTextColor(ContextCompat.getColor(ctx, R.color.colorGrayDark))
+                    newButton.setTypeface(null, Typeface.NORMAL)
+                    topButton.setTextColor(ContextCompat.getColor(ctx, R.color.colorGrayDark))
+                    topButton.setTypeface(null, Typeface.NORMAL)
+                }
+                PostType.NEW -> {
+                    hotButton.setTextColor(ContextCompat.getColor(ctx, R.color.colorGrayDark))
+                    hotButton.setTypeface(null, Typeface.NORMAL)
+                    newButton.setTextColor(ContextCompat.getColor(ctx, R.color.colorGreen))
+                    newButton.setTypeface(null, Typeface.BOLD)
+                    topButton.setTextColor(ContextCompat.getColor(ctx, R.color.colorGrayDark))
+                    topButton.setTypeface(null, Typeface.NORMAL)
+                }
+                PostType.TOP -> {
+                    hotButton.setTextColor(ContextCompat.getColor(ctx, R.color.colorGrayDark))
+                    hotButton.setTypeface(null, Typeface.NORMAL)
+                    newButton.setTextColor(ContextCompat.getColor(ctx, R.color.colorGrayDark))
+                    newButton.setTypeface(null, Typeface.NORMAL)
+                    topButton.setTextColor(ContextCompat.getColor(ctx, R.color.colorBlue))
+                    topButton.setTypeface(null, Typeface.BOLD)
+                }
             }
         }
     }
 
     private fun restoreUI() {
 
-        getBaseActivity()?.let {
+        activity?.let {
             // filter menu
             if (viewModel.getFilterMenuVisible()) {
                 moreButton.startAnimation(AnimationUtils.loadAnimation(it, R.anim.rotate_180_normal))
@@ -234,7 +243,7 @@ class HomeFragment : BaseFragment() {
             }
 
             // filter selection
-            changeFilterLabelColors(viewModel.getPostType(), it)
+            changeFilterLabelColors(viewModel.getPostType())
         }
     }
 
@@ -243,7 +252,7 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun observeLiveData() {
-        viewModel.postsLiveData.observe(viewLifecycleOwner, Observer<List<PostModel>> {
+        viewModel.postsLiveData.observe(viewLifecycleOwner, {
             // viewmodel has some data for us
 
             (mainRecycler.adapter as MainPostAdapter).clearAndAddPosts(it)
@@ -252,13 +261,13 @@ class HomeFragment : BaseFragment() {
             infiniteScrollListener.allowLoading()
         })
 
-        viewModel.loadingLiveData.observe(viewLifecycleOwner, Observer<Boolean> {
+        viewModel.loadingLiveData.observe(viewLifecycleOwner, {
             // viewmodel indicates that data is loading
 
             mSwipe.isRefreshing = it
         })
 
-        viewModel.messageLiveData.observe(viewLifecycleOwner, Observer<Message> {
+        viewModel.messageLiveData.observe(viewLifecycleOwner, {
             // viewmodel wants to convey a message to us
 
             mSwipe.isEnabled = true
