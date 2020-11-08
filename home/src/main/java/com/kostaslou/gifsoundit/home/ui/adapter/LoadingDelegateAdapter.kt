@@ -1,6 +1,7 @@
 package com.kostaslou.gifsoundit.home.ui.adapter
 
 import android.graphics.Color
+import android.graphics.PorterDuff
 import android.view.ViewGroup
 import com.kostaslou.gifsoundit.home.R
 import com.kostaslou.gifsoundit.home.util.commons.inflate
@@ -18,7 +19,7 @@ class LoadingDelegateAdapter : ViewTypeDelegateAdapter {
 
         // we change the color of the progressbar to black
         init {
-            itemView.progress.indeterminateDrawable.setFilter(Color.WHITE)
+            itemView.progress.indeterminateDrawable.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN)
         }
     }
 }

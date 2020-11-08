@@ -17,7 +17,7 @@ enum class PostType {
 // some reddit related constants
 object RedditConstants {
     const val REDDIT_AUTH_BASE_URL = "https://www.reddit.com/"
-    const val REDDIT_POST_BASE_URL = "https://www.oauth.reddit.com/"
+    const val REDDIT_POST_BASE_URL = "https://oauth.reddit.com/"
     const val REDDIT_GRANT_TYPE = "https://oauth.reddit.com/grants/installed_client"
     const val NUM_OF_POSTS_PER_REQUEST = 25
 }

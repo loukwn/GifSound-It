@@ -62,6 +62,7 @@ ext {
 
     // network
     retrofit2_version = '2.9.0'
+    retrofit_logging_interceptor_version = '4.9.0'
     moshi_version = '2.0.0'
 
     // rx

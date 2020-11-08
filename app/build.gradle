@@ -76,6 +76,7 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofit2_version"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$rootProject.retrofit2_version"
     implementation "com.squareup.retrofit2:converter-moshi:$rootProject.moshi_version"
+    implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.retrofit_logging_interceptor_version"
 
     // hilt
     implementation "com.google.dagger:hilt-android:$rootProject.hilt_version"
