@@ -24,7 +24,7 @@ Thumbs.db
 # Android Studio
 *.iml
 .idea/
-.idea/caches/
+.idea/caches/build_file_checksums.ser
 #.idea/workspace.xml - remove # and delete .idea if it better suit your needs.
 .gradle
 build/
