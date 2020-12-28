@@ -2,10 +2,10 @@ package com.kostaslou.gifsoundit
 
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.kostaslou.gifsoundit.home.util.commons.PostType
 import com.kostaslou.gifsoundit.robots.TopDialogButton
 import com.kostaslou.gifsoundit.robots.home
 import com.kostaslou.gifsoundit.screens.MainActivity
+import com.loukwn.postdata.FilterType
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -31,13 +31,13 @@ class GifSoundItInstrumentationTests {
             // the default is hot
             more()
             hot()
-            textColorsOkWhenPostTypeIs(PostType.HOT)
+            textColorsOkWhenPostTypeIs(FilterType.HOT)
             filterMenuIsGone()
 
             // hot is ok, let's try with new also
             more()
             new()
-            textColorsOkWhenPostTypeIs(PostType.NEW)
+            textColorsOkWhenPostTypeIs(FilterType.NEW)
             filterMenuIsGone()
         }
     }
@@ -48,7 +48,7 @@ class GifSoundItInstrumentationTests {
             // hot to new
             more()
             new()
-            textColorsOkWhenPostTypeIs(PostType.NEW)
+            textColorsOkWhenPostTypeIs(FilterType.NEW)
             filterMenuIsGone()
 
             // sometimes there is a delay during data fetch
@@ -58,7 +58,7 @@ class GifSoundItInstrumentationTests {
             more()
             top()
             clickDialogButton(TopDialogButton.ALL)
-            textColorsOkWhenPostTypeIs(PostType.TOP)
+            textColorsOkWhenPostTypeIs(FilterType.TOP)
             filterMenuIsGone()
 
             // sometimes there is a delay during data fetch
@@ -67,7 +67,7 @@ class GifSoundItInstrumentationTests {
             // top to hot
             more()
             hot()
-            textColorsOkWhenPostTypeIs(PostType.HOT)
+            textColorsOkWhenPostTypeIs(FilterType.HOT)
             filterMenuIsGone()
 
             // sometimes there is a delay during data fetch

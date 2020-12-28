@@ -1,9 +1,9 @@
 package com.kostaslou.gifsoundit.screens.settings.view
 
-import com.kostaslou.gifsoundit.common.ActionableViewMvc
+import com.kostaslou.gifsoundit.common.contract.ActionableViewContract
 import com.kostaslou.gifsoundit.screens.settings.controller.SettingsUiModel
 
-interface SettingsViewMvc: ActionableViewMvc<SettingsViewMvc.Listener> {
+interface SettingsViewMvc: ActionableViewContract<SettingsViewMvc.Listener> {
 
     interface Listener {
         fun onBackButtonPressed()

@@ -1,1 +1,2 @@
-include ':app', ':opengs', ':home', ':common'
+include ':postdata'
+include ':app', ':opengs', ':list', ':common'

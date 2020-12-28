@@ -1,7 +1,6 @@
 package com.kostaslou.gifsoundit.opengs.view
 
 import android.content.Context
-import android.graphics.Typeface
 import android.media.MediaPlayer
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -15,6 +14,7 @@ import com.bumptech.glide.load.resource.gif.GifDrawable
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.gifsoundit.opengs.R
+import com.kostaslou.gifsoundit.opengs.OpenGSMvc
 import com.kostaslou.gifsoundit.opengs.controller.GifSource
 import com.kostaslou.gifsoundit.opengs.controller.GifState
 import com.kostaslou.gifsoundit.opengs.controller.OpenGSUIModel
@@ -30,9 +30,9 @@ class OpenGSViewMvcImpl(
     val context: Context,
     inflater: LayoutInflater,
     container: ViewGroup?
-) : OpenGSViewMvc {
+) : OpenGSMvc.View {
 
-    private var listener: OpenGSViewMvc.Listener? = null
+    private var listener: OpenGSMvc.Listener? = null
     private val view = inflater.inflate(R.layout.fragment_opengs, container, false)
     private var gifDrawable: GifDrawable? = null
 
@@ -272,11 +272,11 @@ class OpenGSViewMvcImpl(
         setSoundStatusText(soundState = uiModel.soundState)
     }
 
-    override fun setListener(listener: OpenGSViewMvc.Listener) {
+    override fun setListener(listener: OpenGSMvc.Listener) {
         this.listener = listener
     }
 
-    override fun removeListener(listener: OpenGSViewMvc.Listener) {
+    override fun removeListener(listener: OpenGSMvc.Listener) {
         if (this.listener == listener) {
             this.listener = null
         }

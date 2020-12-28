@@ -10,8 +10,8 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import com.kostaslou.gifsoundit.screens.MainActivity
 import com.kostaslou.gifsoundit.R
-import com.kostaslou.gifsoundit.home.util.commons.PostType
 import com.kostaslou.gifsoundit.util.RecyclerViewTools.Companion.withItemCount
+import com.loukwn.postdata.FilterType
 import org.hamcrest.Matchers.greaterThan
 
 fun home(func: HomeRobot.() -> Unit) = HomeRobot().apply { func() }
@@ -51,19 +51,19 @@ class HomeRobot : BaseRobot() {
         clickButton(buttonText)
     }
 
-    fun textColorsOkWhenPostTypeIs(postType: PostType) {
-        when (postType) {
-            PostType.HOT -> {
+    fun textColorsOkWhenPostTypeIs(filterType: FilterType) {
+        when (filterType) {
+            FilterType.HOT -> {
                 matchTextColor(onTextView(R.id.hotButton), R.color.colorOrange)
                 matchTextColor(onTextView(R.id.newButton), R.color.colorGrayDark)
                 matchTextColor(onTextView(R.id.topButton), R.color.colorGrayDark)
             }
-            PostType.NEW -> {
+            FilterType.NEW -> {
                 matchTextColor(onTextView(R.id.hotButton), R.color.colorGrayDark)
                 matchTextColor(onTextView(R.id.newButton), R.color.colorGreen)
                 matchTextColor(onTextView(R.id.topButton), R.color.colorGrayDark)
             }
-            PostType.TOP -> {
+            FilterType.TOP -> {
                 matchTextColor(onTextView(R.id.hotButton), R.color.colorGrayDark)
                 matchTextColor(onTextView(R.id.newButton), R.color.colorGrayDark)
                 matchTextColor(onTextView(R.id.topButton), R.color.colorBlue)

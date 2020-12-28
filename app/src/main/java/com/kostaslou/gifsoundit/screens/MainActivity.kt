@@ -7,13 +7,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import com.kostaslou.gifsoundit.Navigator
 import com.kostaslou.gifsoundit.R
-import com.kostaslou.gifsoundit.home.ui.HomeFragment
+import com.kostaslou.gifsoundit.list.controller.ListFragment
 import com.kostaslou.gifsoundit.opengs.controller.OpenGSFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(), HomeFragment.Callback, OpenGSFragment.Callback {
+class MainActivity : AppCompatActivity(), ListFragment.Callback, OpenGSFragment.Callback {
 
     @Inject
     lateinit var navigator: Navigator

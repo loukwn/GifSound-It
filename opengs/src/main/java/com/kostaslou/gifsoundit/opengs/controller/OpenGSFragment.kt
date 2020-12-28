@@ -8,17 +8,17 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.gifsoundit.opengs.R
 import com.kostaslou.gifsoundit.opengs.mappers.QueryToUIModelMapper
-import com.kostaslou.gifsoundit.opengs.view.OpenGSViewMvc
+import com.kostaslou.gifsoundit.opengs.OpenGSMvc
 import com.kostaslou.gifsoundit.opengs.view.OpenGSViewMvcImpl
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import timber.log.Timber
 
-class OpenGSFragment : Fragment(), OpenGSViewMvc.Listener {
+class OpenGSFragment : Fragment(), OpenGSMvc.Listener {
 
     // view
-    private var viewMvc: OpenGSViewMvc? = null
+    private var viewMvc: OpenGSMvc.View? = null
     private lateinit var uiModel: OpenGSUIModel
 
     // state
@@ -58,9 +58,10 @@ class OpenGSFragment : Fragment(), OpenGSViewMvc.Listener {
     // Android lifecycle
     //
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        viewMvc = OpenGSViewMvcImpl(requireContext(), inflater, container)
-        return viewMvc?.getRootView()
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        return OpenGSViewMvcImpl(requireContext(), inflater, container).also {
+            viewMvc = it
+        }.getRootView()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

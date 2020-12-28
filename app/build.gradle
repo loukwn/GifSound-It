@@ -7,6 +7,15 @@ apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
 apply plugin: "org.jlleitschuh.gradle.ktlint"
 
+// Reads the local properties for the App secrets and if it cannot find them, it will get them from
+// the empty ones
+Properties properties = new Properties()
+try {
+    properties.load(project.rootProject.file("local.properties").newDataInputStream())
+} catch(Exception ignored) {
+    properties.load(project.rootProject.file("empty.properties").newDataInputStream())
+}
+
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
 
@@ -25,6 +34,10 @@ android {
             shrinkResources true
 
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-release-rules.pro'
+
+            // keys
+            buildConfigField 'String', "RedditClientId", properties.getProperty("GifSoundIt_RedditClientId")
+            buildConfigField 'String', "RedditUserAgent", properties.getProperty("GifSoundIt_RedditUserAgent")
         }
 
         debug {
@@ -34,6 +47,10 @@ android {
 
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-debug-rules.pro'
             testProguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-test-debug-rules.pro'
+
+            // keys
+            buildConfigField 'String', "RedditClientId", properties.getProperty("GifSoundIt_RedditClientId")
+            buildConfigField 'String', "RedditUserAgent", properties.getProperty("GifSoundIt_RedditUserAgent")
         }
     }
 
@@ -56,9 +73,10 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
     // submodules
-    implementation project(":home")
+    implementation project(':list')
     implementation project(":opengs")
     implementation project(":common")
+    implementation project(":postdata")
 
     // kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$rootProject.kotlin_version"
@@ -91,6 +109,10 @@ dependencies {
     implementation platform("com.google.firebase:firebase-bom:$rootProject.firebase_core_version")
     implementation "com.google.firebase:firebase-analytics"
     implementation "com.google.firebase:firebase-crashlytics-ktx"
+
+    // rx
+    implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxAndroid_version"
+    implementation "io.reactivex.rxjava2:rxjava:$rootProject.rxJava2_version"
 
     // Android testing
     // Core library

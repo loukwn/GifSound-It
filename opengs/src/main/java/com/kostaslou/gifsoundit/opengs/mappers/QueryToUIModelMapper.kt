@@ -20,7 +20,18 @@ class QueryToUIModelMapper {
         var gifType: GifType = GifType.GIF
         var seconds = 0
 
-        val args = query.split("&")
+        // get the query part of the link
+        val partsOfLink = query.split("?")
+        val finalQuery = if (partsOfLink.size > 1) {
+            var temp = ""
+            for (i in 1 until partsOfLink.size)
+                temp += "?" + partsOfLink[i]
+            temp.substring(1)
+        } else {
+            null
+        }
+
+        val args = finalQuery!!.split("&")
         for (arg in args) {
 
             // youtube

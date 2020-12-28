@@ -1,0 +1,80 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
+apply plugin: 'org.jlleitschuh.gradle.ktlint'
+
+// Reads the local properties for the App secrets and if it cannot find them, it will get them from
+// the empty ones
+Properties properties = new Properties()
+try {
+    properties.load(project.rootProject.file("local.properties").newDataInputStream())
+} catch(Exception ignored) {
+    properties.load(project.rootProject.file("empty.properties").newDataInputStream())
+}
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+    }
+
+    buildTypes {
+        release {
+            debuggable false
+            minifyEnabled true
+
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            // keys
+            buildConfigField 'String', "RedditClientId", properties.getProperty("GifSoundIt_RedditClientId")
+            buildConfigField 'String', "RedditUserAgent", properties.getProperty("GifSoundIt_RedditUserAgent")
+        }
+
+        debug {
+            debuggable true
+            minifyEnabled false
+
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            // keys
+            buildConfigField 'String', "RedditClientId", properties.getProperty("GifSoundIt_RedditClientId")
+            buildConfigField 'String', "RedditUserAgent", properties.getProperty("GifSoundIt_RedditUserAgent")
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // common module
+    implementation project(":common")
+
+    // network
+    implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofit2_version"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$rootProject.retrofit2_version"
+    implementation "com.squareup.retrofit2:converter-moshi:$rootProject.moshi_version"
+
+    // hilt
+    implementation "com.google.dagger:hilt-android:$rootProject.hilt_version"
+    kapt "com.google.dagger:hilt-android-compiler:$rootProject.hilt_version"
+    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$rootProject.hilt_viewmodel_version"
+    kapt "androidx.hilt:hilt-compiler:$rootProject.hilt_compiler_version"
+
+    // rx
+    implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxAndroid_version"
+    implementation "io.reactivex.rxjava2:rxjava:$rootProject.rxJava2_version"
+
+    // Timber
+    implementation "com.jakewharton.timber:timber:$rootProject.timber_version"
+
+    // Unit testing / mockito stuff
+    testImplementation "androidx.arch.core:core-testing:$rootProject.core_testing_version"
+    testImplementation "org.mockito:mockito-inline:$rootProject.mockitoInline_version"
+    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$rootProject.mockitoKotlin_version"
+    testImplementation "junit:junit:$rootProject.junit_version"
+}

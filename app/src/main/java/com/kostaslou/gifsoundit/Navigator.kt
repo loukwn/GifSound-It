@@ -1,7 +1,6 @@
 package com.kostaslou.gifsoundit
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.bundleOf
 import androidx.navigation.NavController
 import com.kostaslou.gifsoundit.opengs.controller.OpenGSFragment.Companion.PARAM_QUERY
@@ -9,7 +8,7 @@ import com.kostaslou.gifsoundit.opengs.controller.OpenGSFragment.Companion.PARAM
 class Navigator {
 
     private var navController: NavController? = null
-    private var currentScreen = Destination.HOME
+    private var currentScreen = Destination.LIST
 
     fun bind(navController: NavController) {
         if (this.navController != navController) {
@@ -19,6 +18,10 @@ class Navigator {
 
     fun unbind() {
         navController = null
+    }
+
+    fun navigateToList(subreddit: String) {
+        navigateTo(Destination.LIST, null)
     }
 
     fun navigateToOpenGS(query: String?) {
@@ -35,7 +38,7 @@ class Navigator {
     }
 
     enum class Destination(val id: Int) {
-        HOME(R.id.fragment_home_id),
+        LIST(R.id.fragment_list_id),
         OPENGS(R.id.action_home_to_opengs),
         SETTINGS(R.id.fragment_settings_id),
     }

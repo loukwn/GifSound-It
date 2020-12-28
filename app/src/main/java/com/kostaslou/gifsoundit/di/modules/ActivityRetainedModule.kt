@@ -1,15 +1,17 @@
 package com.kostaslou.gifsoundit.di.modules
 
-import com.kostaslou.gifsoundit.home.BuildConfig
-import com.kostaslou.gifsoundit.home.data.api.AuthApi
-import com.kostaslou.gifsoundit.home.data.api.BasicRedditAuthInterceptor
-import com.kostaslou.gifsoundit.home.data.api.PostApi
-import com.kostaslou.gifsoundit.home.util.RxSchedulers
-import com.kostaslou.gifsoundit.home.util.commons.RedditConstants
+import com.kostaslou.gifsoundit.BuildConfig
+import com.loukwn.postdata.RedditConstants
+import com.loukwn.postdata.network.AuthApi
+import com.loukwn.postdata.network.BasicRedditAuthInterceptor
+import com.loukwn.postdata.network.PostApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityRetainedComponent
+import io.reactivex.Scheduler
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -61,9 +63,7 @@ class ActivityRetainedModule {
             .baseUrl(RedditConstants.REDDIT_AUTH_BASE_URL)
             .client(authClient)
             .build()
-            .create(
-                AuthApi::class.java
-            )
+            .create(AuthApi::class.java)
 
     @Provides
     fun providePostApi(
@@ -74,10 +74,13 @@ class ActivityRetainedModule {
             .baseUrl(RedditConstants.REDDIT_POST_BASE_URL)
             .client(postClient)
             .build()
-            .create(
-                PostApi::class.java
-            )
+            .create(PostApi::class.java)
 
     @Provides
-    fun provideRxSchedulers(): RxSchedulers = RxSchedulers.default()
+    @Named("io")
+    fun provideIOScheduler(): Scheduler = Schedulers.io()
+
+    @Provides
+    @Named("ui")
+    fun provideUIScheduler(): Scheduler = AndroidSchedulers.mainThread()
 }
