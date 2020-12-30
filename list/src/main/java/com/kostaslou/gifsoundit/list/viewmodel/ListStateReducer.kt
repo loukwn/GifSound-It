@@ -1,34 +1,34 @@
 package com.kostaslou.gifsoundit.list.viewmodel
 
 import com.kostaslou.gifsoundit.common.util.DataState
+import com.kostaslou.gifsoundit.common.util.Event
+import com.kostaslou.gifsoundit.list.Action
+import com.kostaslou.gifsoundit.list.State
 import com.kostaslou.gifsoundit.list.view.adapter.ListAdapterModel
 import com.kostaslou.gifsoundit.list.view.adapter.toAdapterModel
 import com.loukwn.postdata.FilterType
 import com.loukwn.postdata.RedditConstants
 
 object ListStateReducer {
-    fun map(oldState: ListViewModel.State, action: ListViewModel.Action): ListViewModel.State {
+    fun map(oldState: State, action: Action): State {
         return when (action) {
-            is ListViewModel.Action.DataChanged -> {
+            is Action.DataChanged -> {
                 when (action.postResponse) {
                     is DataState.Loading -> {
                         if (oldState.adapterData.isEmpty()) {
                             oldState.copy(
                                 adapterData = listOf(ListAdapterModel.Loading),
-                                isErrored = false
+                                errorMessage = null
                             )
                         } else {
-                            oldState.copy(isErrored = false)
+                            oldState.copy(errorMessage = null)
                         }
                     }
                     is DataState.Data -> {
                         action.postResponse()?.let { response ->
-                            var reachedTheEnd = false
                             val newData = response.postData.map { it.toAdapterModel() }.apply {
                                 if (this.size == RedditConstants.NUM_OF_POSTS_PER_REQUEST) {
                                     plus(ListAdapterModel.Loading)
-                                } else {
-                                    reachedTheEnd = true
                                 }
                             }
 
@@ -38,48 +38,49 @@ object ListStateReducer {
 
                             oldState.copy(
                                 adapterData = finalData,
-                                isErrored = false,
+                                errorMessage = null,
                                 isLoading = false,
-                                reachedTheEnd = reachedTheEnd,
                                 fetchAfter = response.after
                             )
                         } ?: oldState
                     }
                     is DataState.Error -> oldState.copy(
-                        adapterData = emptyList(),
-                        isErrored = true,
+                        errorMessage = Event(action.postResponse.formattedError),
                         isLoading = false
                     )
                 }
             }
-            ListViewModel.Action.HotFilterSelected -> oldState.copy(
+            Action.HotFilterSelected -> oldState.copy(
                 adapterData = listOf(ListAdapterModel.Loading),
-                filterType = FilterType.Hot,
+                filterType = Event(FilterType.Hot),
                 isLoading = true,
-                isErrored = false,
-                filterMenuIsVisible = false
+                errorMessage = null,
+                filterMenuIsVisible = Event(false)
             )
-            ListViewModel.Action.NewFilterSelected -> oldState.copy(
+            Action.NewFilterSelected -> oldState.copy(
                 adapterData = listOf(ListAdapterModel.Loading),
-                filterType = FilterType.New,
+                filterType = Event(FilterType.New),
                 isLoading = true,
-                isErrored = false,
-                filterMenuIsVisible = false
+                errorMessage = null,
+                filterMenuIsVisible = Event(false)
             )
-            is ListViewModel.Action.TopFilterSelected -> oldState.copy(
+            is Action.TopFilterSelected -> oldState.copy(
                 adapterData = listOf(ListAdapterModel.Loading),
-                filterType = FilterType.Top(action.topPeriod),
+                filterType = Event(FilterType.Top(action.topPeriod)),
                 isLoading = true,
-                isErrored = false,
-                filterMenuIsVisible = false
+                errorMessage = null,
+                filterMenuIsVisible = Event(false)
             )
-            ListViewModel.Action.MoreFilterButtonClicked -> oldState.copy(
-                filterMenuIsVisible = !oldState.filterMenuIsVisible
+            Action.MoreFilterButtonClicked -> oldState.copy(
+                filterMenuIsVisible = Event(!oldState.filterMenuIsVisible.peekContent())
             )
-            ListViewModel.Action.SwipedToRefresh -> oldState.copy(
+            Action.SwipedToRefresh -> oldState.copy(
                 adapterData = listOf(ListAdapterModel.Loading),
-                isLoading = true,
-                reachedTheEnd = false
+                isLoading = true
+            )
+            Action.FragmentCreated -> oldState.copy(
+                filterMenuIsVisible = Event(oldState.filterMenuIsVisible.peekContent()),
+                filterType = Event(oldState.filterType.peekContent())
             )
         }
     }

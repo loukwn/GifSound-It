@@ -9,6 +9,7 @@ import android.view.animation.AnimationUtils
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.kostaslou.gifsoundit.common.util.selector
 import com.kostaslou.gifsoundit.common.util.toast
 import com.kostaslou.gifsoundit.list.ListContract
@@ -17,7 +18,6 @@ import com.kostaslou.gifsoundit.list.databinding.FragmentListBinding
 import com.kostaslou.gifsoundit.list.view.adapter.ListAdapterModel
 import com.kostaslou.gifsoundit.list.view.adapter.ListPostAdapter
 import com.loukwn.postdata.TopFilterType
-import timber.log.Timber
 
 class ListContractViewImpl(
     private val context: Context,
@@ -98,6 +98,10 @@ class ListContractViewImpl(
         }
 
         adapter = ListPostAdapter { listener?.onListItemClicked(it) }
+        // This will wait until the adapter has data and set the saved state after that
+        adapter?.stateRestorationPolicy =
+            RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+
         binding.mainRecycler.adapter = adapter
     }
 
@@ -170,8 +174,8 @@ class ListContractViewImpl(
         binding.topButton.setTypeface(null, Typeface.BOLD)
     }
 
-    override fun showErrorToast() {
-        context.toast(context.getString(R.string.home_error_posts))
+    override fun showErrorToast(errorMessage: String) {
+        context.toast(errorMessage)
     }
 
     override fun setListener(listener: ListContract.Listener) {

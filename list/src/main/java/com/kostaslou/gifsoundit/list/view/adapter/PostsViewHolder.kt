@@ -2,18 +2,15 @@ package com.kostaslou.gifsoundit.list.view.adapter
 
 import android.content.Intent
 import android.net.Uri
+import android.text.TextUtils
+import android.util.Patterns
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.kostaslou.gifsoundit.list.R
 import com.kostaslou.gifsoundit.list.databinding.ItemPostBinding
-import com.loukwn.postdata.model.domain.PostModel
-import com.kostaslou.gifsoundit.list.util.inflate
-import com.kostaslou.gifsoundit.list.util.loadImg
-import kotlinx.android.synthetic.main.item_post.view.*
-import java.text.SimpleDateFormat
-import java.util.*
 
 class PostsViewHolder(
     private val binding: ItemPostBinding,
@@ -51,5 +48,17 @@ class PostsViewHolder(
 
         // date
         postDate.text = item.dateString
+    }
+}
+
+fun ImageView.loadImg(imageUrl: String, defDrawable: Int) {
+    if (TextUtils.isEmpty(imageUrl) || !Patterns.WEB_URL.matcher(imageUrl).matches()) {
+        Glide.with(context)
+            .load(defDrawable)
+            .into(this)
+    } else {
+        Glide.with(context)
+            .load(imageUrl)
+            .into(this)
     }
 }

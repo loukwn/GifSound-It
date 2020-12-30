@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.kostaslou.gifsoundit.list.NavigationTarget
 import com.kostaslou.gifsoundit.list.view.ListContractViewImpl
 import com.kostaslou.gifsoundit.list.viewmodel.ListViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,7 +32,7 @@ class ListFragment : Fragment() {
         viewModel.navigationEvents.observe(viewLifecycleOwner, {
             it?.getContentIfNotHandled()?.let { navTarget ->
                 when (navTarget) {
-                    is ListViewModel.NavigationTarget.OpenGs -> {
+                    is NavigationTarget.OpenGs -> {
                         (activity as? Callback)?.navigateToOpenGS(navTarget.gsQuery)
                     }
                 }

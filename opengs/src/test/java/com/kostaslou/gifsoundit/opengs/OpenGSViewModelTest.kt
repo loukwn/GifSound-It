@@ -10,7 +10,7 @@ class OpenGSViewModelTest {
     @Test
     fun `when a gifsound with no second offset is opened`() {
         // given that the gifsound is opened...
-        val query = "mp4=https%3A%2F%2Fi.imgur.com%2F1rWYUyN&v=4sCXkpZsBRg"
+        val query = "?mp4=https%3A%2F%2Fi.imgur.com%2F1rWYUyN&v=4sCXkpZsBRg"
         val uiModel = QueryToUIModelMapper()
             .getUIModel(query)
 
@@ -22,7 +22,7 @@ class OpenGSViewModelTest {
     fun `when an imgur mp4 gifsound is opened`() {
 
         // given that the gifsound is opened...
-        val query = "mp4=https%3A%2F%2Fi.imgur.com%2F1rWYUyN&v=4sCXkpZsBRg&s=175"
+        val query = "?mp4=https%3A%2F%2Fi.imgur.com%2F1rWYUyN&v=4sCXkpZsBRg&s=175"
         val uiModel = QueryToUIModelMapper()
             .getUIModel(query)
 
@@ -36,7 +36,7 @@ class OpenGSViewModelTest {
     fun `when a giphy gif gifsound is opened`() {
 
         // given that the gifsound is opened...
-        val query = "gif=https%3A%2F%2Fmedia.giphy.com%2Fmedia%2F3o6gDWzmAzrpi5DQU8%2Fgiphy.gif&v=zoP4h3Hv4Uk&s=38"
+        val query = "?gif=https%3A%2F%2Fmedia.giphy.com%2Fmedia%2F3o6gDWzmAzrpi5DQU8%2Fgiphy.gif&v=zoP4h3Hv4Uk&s=38"
         val uiModel = QueryToUIModelMapper()
             .getUIModel(query)
 
@@ -50,7 +50,7 @@ class OpenGSViewModelTest {
     fun `when a gfycat webm gifsound is opened`() {
 
         // given that the gifsound is opened...
-        val query = "webm=https%3A%2F%2Fgiant.gfycat.com%2FFarflungFewIndri&v=zHalXjs0cDA&s=286"
+        val query = "?webm=https%3A%2F%2Fgiant.gfycat.com%2FFarflungFewIndri&v=zHalXjs0cDA&s=286"
         val uiModel = QueryToUIModelMapper()
             .getUIModel(query)
 
@@ -64,7 +64,7 @@ class OpenGSViewModelTest {
     fun `when an imgur gifv gifsound is opened`() {
 
         // given that the gifsound is opened...
-        val query = "gifv=ZefKQD3&v=VYPsoxpt0BU&s=9"
+        val query = "?gifv=ZefKQD3&v=VYPsoxpt0BU&s=9"
         val uiModel = QueryToUIModelMapper()
             .getUIModel(query)
 

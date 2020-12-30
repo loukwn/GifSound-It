@@ -4,12 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/fragment_list_id">
+
     <fragment
         android:id="@+id/fragment_list_id"
         android:name="com.kostaslou.gifsoundit.list.controller.ListFragment"
-
         android:label="HomeFragment"
         tools:layout="@layout/fragment_list">
+
         <action
             android:id="@+id/action_home_to_opengs"
             app:destination="@id/fragment_opengs_id"
@@ -37,4 +38,3 @@
         tools:layout="@layout/fragment_settings" />
 
 </navigation>
-

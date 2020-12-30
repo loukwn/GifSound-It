@@ -66,8 +66,8 @@ dependencies {
     kapt "androidx.hilt:hilt-compiler:$rootProject.hilt_compiler_version"
 
     // rx
-    implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxAndroid_version"
     implementation "io.reactivex.rxjava2:rxjava:$rootProject.rxJava2_version"
+    implementation "io.reactivex.rxjava2:rxkotlin:$rootProject.rxKotlin_version"
 
     // Timber
     implementation "com.jakewharton.timber:timber:$rootProject.timber_version"

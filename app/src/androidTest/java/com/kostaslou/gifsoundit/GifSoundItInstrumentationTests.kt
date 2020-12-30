@@ -6,6 +6,7 @@ import com.kostaslou.gifsoundit.robots.TopDialogButton
 import com.kostaslou.gifsoundit.robots.home
 import com.kostaslou.gifsoundit.screens.MainActivity
 import com.loukwn.postdata.FilterType
+import com.loukwn.postdata.TopFilterType
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -31,13 +32,13 @@ class GifSoundItInstrumentationTests {
             // the default is hot
             more()
             hot()
-            textColorsOkWhenPostTypeIs(FilterType.HOT)
+            textColorsOkWhenPostTypeIs(FilterType.Hot)
             filterMenuIsGone()
 
             // hot is ok, let's try with new also
             more()
             new()
-            textColorsOkWhenPostTypeIs(FilterType.NEW)
+            textColorsOkWhenPostTypeIs(FilterType.New)
             filterMenuIsGone()
         }
     }
@@ -48,7 +49,7 @@ class GifSoundItInstrumentationTests {
             // hot to new
             more()
             new()
-            textColorsOkWhenPostTypeIs(FilterType.NEW)
+            textColorsOkWhenPostTypeIs(FilterType.New)
             filterMenuIsGone()
 
             // sometimes there is a delay during data fetch
@@ -58,7 +59,7 @@ class GifSoundItInstrumentationTests {
             more()
             top()
             clickDialogButton(TopDialogButton.ALL)
-            textColorsOkWhenPostTypeIs(FilterType.TOP)
+            textColorsOkWhenPostTypeIs(FilterType.Top(TopFilterType.ALL))
             filterMenuIsGone()
 
             // sometimes there is a delay during data fetch
@@ -67,7 +68,7 @@ class GifSoundItInstrumentationTests {
             // top to hot
             more()
             hot()
-            textColorsOkWhenPostTypeIs(FilterType.HOT)
+            textColorsOkWhenPostTypeIs(FilterType.Hot)
             filterMenuIsGone()
 
             // sometimes there is a delay during data fetch

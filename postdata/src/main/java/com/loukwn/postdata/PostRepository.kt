@@ -1,5 +1,6 @@
 package com.loukwn.postdata
 
+import android.app.Application
 import androidx.annotation.StringRes
 import com.kostaslou.gifsoundit.common.disk.SharedPrefsHelper
 import com.kostaslou.gifsoundit.common.util.DataState
@@ -12,6 +13,7 @@ import com.loukwn.postdata.network.PostApi
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.Disposable
+import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.subjects.PublishSubject
 import java.util.Date
 import java.util.UUID
@@ -20,27 +22,35 @@ import javax.inject.Named
 
 // TODO make Singleton?
 class PostRepository @Inject constructor(
+    private val context: Application,
     private val authApi: AuthApi,
     private val postApi: PostApi,
     private val sharedPrefsHelper: SharedPrefsHelper,
     @Named("io") private val ioScheduler: Scheduler
 ) {
+    private val postErrorMessage by lazy {
+        context.resources.getString(R.string.home_error_posts)
+    }
 
     private var postFetchDisposable: Disposable? = null
     private var authTokenDisposable: Disposable? = null
 
     val postDataObservable: PublishSubject<DataState<PostResponse>> = PublishSubject.create()
-    private val postErrorObservable: PublishSubject<Throwable> = PublishSubject.create()
 
     fun getPosts(filterType: FilterType, after: String) {
 
         postFetchDisposable?.dispose()
         postFetchDisposable = if (authTokenIsValid()) {
-            getPostsFromReddit(filterType, after).subscribe()
+            getPostsFromReddit(filterType, after)
+                .subscribeBy(onError = {
+                    postDataObservable.onNext(DataState.Error(it, postErrorMessage))
+                })
         } else {
             getNewAuthTokenObservable()
                 .flatMap { getPostsFromReddit(filterType, after) }
-                .subscribe()
+                .subscribeBy(onError = {
+                    postDataObservable.onNext(DataState.Error(it, postErrorMessage))
+                })
         }
     }
 
@@ -90,7 +100,6 @@ class PostRepository @Inject constructor(
         return request
             .subscribeOn(ioScheduler)
             .doOnSuccess { postDataObservable.onNext(DataState.Data(it.toDomainData())) }
-            .doOnError { postErrorObservable.onNext(TokenHttpException(PostsHttpException(it))) }
     }
 
     private fun getNewAuthTokenObservable(): Single<RedditTokenResponse> {
@@ -100,7 +109,6 @@ class PostRepository @Inject constructor(
         )
             .subscribeOn(ioScheduler)
             .doOnSuccess { saveTokenToPrefs(it) }
-            .doOnError { postErrorObservable.onNext(TokenHttpException(it)) }
     }
 
     private fun saveTokenToPrefs(r: RedditTokenResponse) {
@@ -141,6 +149,4 @@ enum class TopFilterType(val apiLabel: String, @StringRes val uiLabelRes: Int) {
     ALL("all", uiLabelRes = R.string.home_top_all),
 }
 
-class TokenHttpException(t: Throwable) : Throwable(t)
-class PostsHttpException(t: Throwable) : Throwable(t)
 
