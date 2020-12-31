@@ -2,7 +2,7 @@ package com.kostaslou.gifsoundit.robots
 
 import android.widget.TextView
 import androidx.test.ext.junit.rules.ActivityScenarioRule
-import com.kostaslou.gifsoundit.screens.MainActivity
+import com.kostaslou.gifsoundit.MainActivity
 import com.kostaslou.gifsoundit.R
 import com.kostaslou.gifsoundit.opengs.controller.OpenGSFragment
 

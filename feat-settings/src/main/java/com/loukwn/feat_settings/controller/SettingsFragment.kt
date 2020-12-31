@@ -1,12 +1,12 @@
-package com.kostaslou.gifsoundit.screens.settings.controller
+package com.loukwn.feat_settings.controller
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.kostaslou.gifsoundit.screens.settings.view.SettingsViewMvc
-import com.kostaslou.gifsoundit.screens.settings.view.SettingsViewMvcImpl
+import com.loukwn.feat_settings.SettingsViewMvc
+import com.loukwn.feat_settings.view.SettingsViewMvcImpl
 
 class SettingsFragment : Fragment(), SettingsViewMvc.Listener {
 

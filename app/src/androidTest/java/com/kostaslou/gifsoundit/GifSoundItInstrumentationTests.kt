@@ -4,7 +4,6 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.kostaslou.gifsoundit.robots.TopDialogButton
 import com.kostaslou.gifsoundit.robots.home
-import com.kostaslou.gifsoundit.screens.MainActivity
 import com.loukwn.postdata.FilterType
 import com.loukwn.postdata.TopFilterType
 import org.junit.Before
