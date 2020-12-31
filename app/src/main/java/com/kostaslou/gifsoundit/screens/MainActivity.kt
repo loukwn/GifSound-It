@@ -5,7 +5,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
-import com.kostaslou.gifsoundit.Navigator
+import com.loukwn.navigation.Navigator
 import com.kostaslou.gifsoundit.R
 import com.kostaslou.gifsoundit.list.controller.ListFragment
 import com.kostaslou.gifsoundit.opengs.controller.OpenGSFragment
@@ -13,7 +13,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(), ListFragment.Callback, OpenGSFragment.Callback {
+class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var navigator: Navigator
@@ -45,6 +45,11 @@ class MainActivity : AppCompatActivity(), ListFragment.Callback, OpenGSFragment.
         navigator.unbind()
     }
 
+    override fun onDestroy() {
+        navigator.reset()
+        super.onDestroy()
+    }
+
     override fun onSupportNavigateUp(): Boolean =
         findNavController(R.id.nav_host_fragment).navigateUp()
 
@@ -64,13 +69,5 @@ class MainActivity : AppCompatActivity(), ListFragment.Callback, OpenGSFragment.
         }
 
         return super.onOptionsItemSelected(item)
-    }
-
-    override fun navigateToOpenGS(query: String?) {
-        navigator.navigateToOpenGS(query)
-    }
-
-    override fun onOpenGSBackPressed() {
-        onBackPressed()
     }
 }

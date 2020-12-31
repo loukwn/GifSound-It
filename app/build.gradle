@@ -73,10 +73,11 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
     // submodules
-    implementation project(':list')
-    implementation project(":opengs")
+    implementation project(':feat-list')
+    implementation project(':feat-opengs')
     implementation project(":common")
     implementation project(":postdata")
+    implementation project(":navigation")
 
     // kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$rootProject.kotlin_version"
