@@ -37,8 +37,6 @@ android {
             isDebuggable = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
 
-
-
             buildConfigField(Config.Types.STRING, Config.BuildConfigFields.REDDIT_CLIENT_ID, properties.getProperty(Config.BuildConfigFields.REDDIT_CLIENT_ID_PROP))
             buildConfigField(Config.Types.STRING, Config.BuildConfigFields.REDDIT_USER_AGENT, properties.getProperty(Config.BuildConfigFields.REDDIT_USER_AGENT_PROP))
         }
@@ -76,10 +74,6 @@ dependencies {
     implementation(project(Config.Modules.common))
     implementation(project(Config.Modules.postData))
     implementation(project(Config.Modules.navigation))
-
-    implementation(Config.Libs.kotlinStdLibJdk7)
-    testImplementation(Config.TestLibs.kotlinStdLib)
-    testImplementation(Config.TestLibs.kotlinTestJUnit)
 
     implementation(Config.Libs.Android.appcompat)
     implementation(Config.Libs.Android.Navigation.navigationFragmentKtx)

@@ -77,7 +77,6 @@ object Config {
     }
 
     object Libs {
-        const val kotlinStdLibJdk7 = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlinVersion}"
         const val timber = "com.jakewharton.timber:timber:${Versions.timberVersion}"
         const val glide = "com.github.bumptech.glide:glide:${Versions.glideVersion}"
         const val youtubePlayer = "com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.3"
@@ -127,8 +126,6 @@ object Config {
     }
 
     object TestLibs {
-        const val kotlinStdLib = "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlinVersion}"
-        const val kotlinTestJUnit = "org.jetbrains.kotlin:kotlin-test-junit:${Versions.kotlinVersion}"
         const val archCoreTesting = "androidx.arch.core:core-testing:${Versions.core_testingVersion}"
         const val jUnit = "junit:junit:${Versions.junitVersion}"
 

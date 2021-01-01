@@ -50,10 +50,6 @@ dependencies {
     implementation(project(Config.Modules.common))
     implementation(project(Config.Modules.navigation))
 
-    implementation(Config.Libs.kotlinStdLibJdk7)
-    testImplementation(Config.TestLibs.kotlinStdLib)
-    testImplementation(Config.TestLibs.kotlinTestJUnit)
-
     implementation(Config.Libs.Android.appcompat)
 
     implementation(Config.Libs.glide)
