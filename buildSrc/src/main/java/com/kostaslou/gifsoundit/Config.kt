@@ -41,6 +41,7 @@ object Config {
         const val glideVersion = "4.11.0"
         const val timberVersion = "4.7.1"
         const val firebase_coreVersion = "26.2.0"
+        const val leakCanaryVersion = "2.6"
     }
 
     object Types {
@@ -80,6 +81,7 @@ object Config {
         const val timber = "com.jakewharton.timber:timber:${Versions.timberVersion}"
         const val glide = "com.github.bumptech.glide:glide:${Versions.glideVersion}"
         const val youtubePlayer = "com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.3"
+        const val leakCanary = "com.squareup.leakcanary:leakcanary-android:${Versions.leakCanaryVersion}"
 
         object Android {
             const val appcompat = "androidx.appcompat:appcompat:${Versions.appcompatVersion}"

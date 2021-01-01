@@ -35,6 +35,8 @@ class ListViewModel @ViewModelInject constructor(
     private var view: ListContract.View? = null
 
     override fun onCleared() {
+        disposable?.dispose()
+        disposable = null
         view = null
         repository.clear()
         super.onCleared()

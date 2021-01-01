@@ -1,4 +1,4 @@
-package com.kostaslou.gifsoundit.list.controller
+package com.kostaslou.gifsoundit.list
 
 import android.os.Bundle
 import android.view.LayoutInflater

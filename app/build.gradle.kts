@@ -113,6 +113,8 @@ dependencies {
 
     implementation(Config.Libs.timber)
 
+    debugImplementation(Config.Libs.leakCanary)
+
     implementation(Config.Libs.Firebase.bom)
     implementation(Config.Libs.Firebase.analytics)
     implementation(Config.Libs.Firebase.crashlyticsKtx)

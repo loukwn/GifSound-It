@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/fragment_list_id"
-        android:name="com.kostaslou.gifsoundit.list.controller.ListFragment"
+        android:name="com.kostaslou.gifsoundit.list.ListFragment"
         android:label="HomeFragment">
 
         <action
