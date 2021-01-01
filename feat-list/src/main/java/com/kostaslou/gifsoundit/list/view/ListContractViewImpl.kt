@@ -149,29 +149,29 @@ class ListContractViewImpl(
     }
 
     override fun setFilterMenuToHot() {
-        binding.hotButton.setTextColor(ContextCompat.getColor(context, R.color.colorOrange))
+        binding.hotButton.setTextColor(ContextCompat.getColor(context, R.color.list_menu_hot))
         binding.hotButton.setTypeface(null, Typeface.BOLD)
-        binding.newButton.setTextColor(ContextCompat.getColor(context, R.color.colorGrayDark))
+        binding.newButton.setTextColor(ContextCompat.getColor(context, R.color.list_menu_inactive))
         binding.newButton.setTypeface(null, Typeface.NORMAL)
-        binding.topButton.setTextColor(ContextCompat.getColor(context, R.color.colorGrayDark))
+        binding.topButton.setTextColor(ContextCompat.getColor(context, R.color.list_menu_inactive))
         binding.topButton.setTypeface(null, Typeface.NORMAL)
     }
 
     override fun setFilterMenuToNew() {
-        binding.hotButton.setTextColor(ContextCompat.getColor(context, R.color.colorGrayDark))
+        binding.hotButton.setTextColor(ContextCompat.getColor(context, R.color.list_menu_inactive))
         binding.hotButton.setTypeface(null, Typeface.NORMAL)
-        binding.newButton.setTextColor(ContextCompat.getColor(context, R.color.colorGreen))
+        binding.newButton.setTextColor(ContextCompat.getColor(context, R.color.list_menu_new))
         binding.newButton.setTypeface(null, Typeface.BOLD)
-        binding.topButton.setTextColor(ContextCompat.getColor(context, R.color.colorGrayDark))
+        binding.topButton.setTextColor(ContextCompat.getColor(context, R.color.list_menu_inactive))
         binding.topButton.setTypeface(null, Typeface.NORMAL)
     }
 
     override fun setFilterMenuToTop() {
-        binding.hotButton.setTextColor(ContextCompat.getColor(context, R.color.colorGrayDark))
+        binding.hotButton.setTextColor(ContextCompat.getColor(context, R.color.list_menu_inactive))
         binding.hotButton.setTypeface(null, Typeface.NORMAL)
-        binding.newButton.setTextColor(ContextCompat.getColor(context, R.color.colorGrayDark))
+        binding.newButton.setTextColor(ContextCompat.getColor(context, R.color.list_menu_inactive))
         binding.newButton.setTypeface(null, Typeface.NORMAL)
-        binding.topButton.setTextColor(ContextCompat.getColor(context, R.color.colorBlue))
+        binding.topButton.setTextColor(ContextCompat.getColor(context, R.color.list_menu_top))
         binding.topButton.setTypeface(null, Typeface.BOLD)
     }
 

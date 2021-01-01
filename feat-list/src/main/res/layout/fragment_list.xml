@@ -68,7 +68,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="15dp"
                     android:text="@string/home_button_hot"
-                    android:textColor="@color/colorOrange"
+                    android:textColor="@color/list_menu_hot"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -78,7 +78,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="15dp"
                     android:text="@string/home_button_new"
-                    android:textColor="@color/colorGrayDark"
+                    android:textColor="@color/list_menu_inactive"
                     android:textSize="16sp" />
 
                 <TextView
@@ -87,7 +87,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
                     android:text="@string/home_button_top"
-                    android:textColor="@color/colorGrayDark"
+                    android:textColor="@color/list_menu_inactive"
                     android:textSize="16sp" />
             </LinearLayout>
 
@@ -113,6 +113,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/mainRecycler"
+            android:background="@color/bg_screen"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"

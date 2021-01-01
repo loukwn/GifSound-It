@@ -14,7 +14,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
+        android:background="@color/bg_item"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
         android:padding="10dp">
 
         <LinearLayout
@@ -41,6 +42,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:background="@drawable/rounded_corner"
+                android:textColor="@color/score_text"
+                tools:text="1"
                 android:gravity="center"
                 android:padding="3dp"
                 android:textSize="13sp" />
@@ -63,6 +66,7 @@
                 android:maxLines="2"
                 tools:text="A something something"
                 android:textSize="17sp"
+                android:textColor="@color/text_primary"
                 android:textStyle="bold" />
 
             <TextView
@@ -70,6 +74,7 @@
                 android:fontFamily="@font/hindsiliguri_regular"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/text_additional"
                 android:layout_marginBottom="15dp"
                 tools:text="Somewhere in 2019"
                 android:textSize="12sp" />
@@ -78,11 +83,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-                <ImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/linkButton"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:background="?android:attr/selectableItemBackground"
+                    android:tint="@color/text_additional"
                     android:contentDescription="@string/home_item_button_link"
                     android:src="@drawable/ic_link" />
 

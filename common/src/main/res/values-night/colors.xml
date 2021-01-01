@@ -8,13 +8,14 @@
     <color name="list_menu_top">@android:color/holo_blue_dark</color>
     <color name="list_menu_inactive">@android:color/darker_gray</color>
 
-    <color name="text_primary">#000000</color>
-    <color name="text_additional">#303030</color>
+    <color name="text_primary">#ffffff</color>
+    <color name="text_additional">@android:color/darker_gray</color>
 
     <color name="score_border">@color/colorPrimaryDark</color>
     <color name="score_bg">@color/colorPrimary</color>
     <color name="score_text">#ffffff</color>
 
-    <color name="bg_item">#ffffff</color>
-    <color name="bg_screen">@android:color/darker_gray</color>
+    <color name="bg_item">#303030</color>
+    <color name="bg_screen">#212121</color>
+
 </resources>

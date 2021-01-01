@@ -54,19 +54,19 @@ class HomeRobot : BaseRobot() {
     fun textColorsOkWhenPostTypeIs(filterType: FilterType) {
         when (filterType) {
             FilterType.HOT -> {
-                matchTextColor(onTextView(R.id.hotButton), R.color.colorOrange)
-                matchTextColor(onTextView(R.id.newButton), R.color.colorGrayDark)
-                matchTextColor(onTextView(R.id.topButton), R.color.colorGrayDark)
+                matchTextColor(onTextView(R.id.hotButton), R.color.list_menu_hot)
+                matchTextColor(onTextView(R.id.newButton), R.color.list_menu_inactive)
+                matchTextColor(onTextView(R.id.topButton), R.color.list_menu_inactive)
             }
             FilterType.NEW -> {
-                matchTextColor(onTextView(R.id.hotButton), R.color.colorGrayDark)
-                matchTextColor(onTextView(R.id.newButton), R.color.colorGreen)
-                matchTextColor(onTextView(R.id.topButton), R.color.colorGrayDark)
+                matchTextColor(onTextView(R.id.hotButton), R.color.list_menu_inactive)
+                matchTextColor(onTextView(R.id.newButton), R.color.list_menu_new)
+                matchTextColor(onTextView(R.id.topButton), R.color.list_menu_inactive)
             }
             FilterType.TOP -> {
-                matchTextColor(onTextView(R.id.hotButton), R.color.colorGrayDark)
-                matchTextColor(onTextView(R.id.newButton), R.color.colorGrayDark)
-                matchTextColor(onTextView(R.id.topButton), R.color.colorBlue)
+                matchTextColor(onTextView(R.id.hotButton), R.color.list_menu_inactive)
+                matchTextColor(onTextView(R.id.newButton), R.color.list_menu_inactive)
+                matchTextColor(onTextView(R.id.topButton), R.color.list_menu_top)
             }
         }
     }
