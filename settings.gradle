@@ -1,2 +1,0 @@
-include ':app', ':feat-opengs', ':feat-list', ':common', ':postdata', ':navigation'
-include ':feat-settings'

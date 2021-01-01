@@ -5,13 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.loukwn.feat_settings.SettingsViewMvc
+import com.loukwn.feat_settings.SettingsContract
 import com.loukwn.feat_settings.view.SettingsViewMvcImpl
 
-class SettingsFragment : Fragment(), SettingsViewMvc.Listener {
+class SettingsFragment : Fragment(), SettingsContract.Listener {
 
     // view
-    private var viewMvc: SettingsViewMvc? = null
+    private var viewMvc: SettingsContract.View? = null
     private lateinit var uiModel: SettingsUiModel
 
     override fun onCreateView(
