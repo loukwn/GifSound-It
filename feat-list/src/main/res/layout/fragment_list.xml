@@ -1,111 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_top"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:elevation="6dp"
+        android:minHeight="?attr/actionBarSize"
+        app:contentInsetEnd="0dp"
+        app:contentInsetLeft="0dp"
+        app:contentInsetRight="0dp"
+        app:contentInsetStart="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-
-        <androidx.appcompat.widget.Toolbar
-            android:layout_height="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:minHeight="?attr/actionBarSize"
-            android:background="@color/colorPrimary"
-            app:contentInsetLeft="0dp"
-            app:contentInsetStart="0dp"
-            app:contentInsetRight="0dp"
-            app:contentInsetEnd="0dp"
-            android:id="@+id/toolbar_top">
+            android:layout_height="match_parent">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/moreButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="8dp"
+                android:contentDescription="@string/content_description_home_more"
+                android:soundEffectsEnabled="false"
+                android:src="@drawable/ic_down"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@drawable/ic_down"
-                    android:soundEffectsEnabled="false"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginStart="10dp"
-                    android:id="@+id/moreButton"
-                    android:contentDescription="@string/content_description_home_more" />
+            <TextView
+                android:id="@+id/toolbarTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/overlock_black"
+                android:text="@string/app_name"
+                android:textColor="@android:color/white"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@id/moreButton"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/filterMenu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/moreButton"
+                app:layout_constraintTop_toBottomOf="@id/toolbarTitle">
 
                 <TextView
+                    android:id="@+id/hotButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/app_name"
-                    android:layout_marginTop="13dp"
-                    android:fontFamily="@font/overlock_black"
-                    android:layout_marginStart="10dp"
-                    android:layout_toEndOf="@id/moreButton"
-                    android:textSize="22sp"
-                    android:textStyle="bold"
-                    android:textColor="@android:color/white"
-                    android:id="@+id/toolbarTitle"/>
+                    android:layout_marginEnd="15dp"
+                    android:text="@string/home_button_hot"
+                    android:textColor="@color/colorOrange"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/newButton"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:visibility="gone"
-                    android:layout_marginBottom="10dp"
-                    android:layout_below="@id/toolbarTitle"
-                    android:layout_toEndOf="@id/moreButton"
-                    android:id="@+id/filterMenu" >
+                    android:layout_marginEnd="15dp"
+                    android:text="@string/home_button_new"
+                    android:textColor="@color/colorGrayDark"
+                    android:textSize="16sp" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/home_button_hot"
-                        android:layout_marginEnd="15dp"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/colorOrange"
-                        android:id="@+id/hotButton"/>
+                <TextView
+                    android:id="@+id/topButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:text="@string/home_button_top"
+                    android:textColor="@color/colorGrayDark"
+                    android:textSize="16sp" />
+            </LinearLayout>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/home_button_new"
-                        android:layout_marginEnd="15dp"
-                        android:textSize="16sp"
-                        android:textColor="@color/colorGrayDark"
-                        android:id="@+id/newButton" />
+            <Button
+                android:id="@+id/settingsBt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Settings"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/home_button_top"
-                        android:layout_marginEnd="5dp"
-                        android:textSize="16sp"
-                        android:textColor="@color/colorGrayDark"
-                        android:id="@+id/topButton"/>
-                </LinearLayout>
-            </RelativeLayout>
-        </androidx.appcompat.widget.Toolbar>
-
-
-    </com.google.android.material.appbar.AppBarLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.appcompat.widget.Toolbar>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/mSwipe">
+        android:id="@+id/mSwipe"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/mainRecycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingTop="60dp"
-            android:paddingBottom="20dp"
             android:clipToPadding="false"
-            android:id="@+id/mainRecycler"/>
+            android:paddingTop="60dp"
+            android:paddingBottom="40dp" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

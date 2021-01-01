@@ -31,6 +31,7 @@ interface ListContract {
         fun onNewFilterSelected()
         fun onTopFilterSelected(type: TopFilterType)
         fun onMoreMenuButtonClicked()
+        fun onSettingsButtonClicked()
     }
 
     interface ViewModel {

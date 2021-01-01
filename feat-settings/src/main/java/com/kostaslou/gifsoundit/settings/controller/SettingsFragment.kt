@@ -1,12 +1,12 @@
-package com.loukwn.feat_settings.controller
+package com.kostaslou.gifsoundit.settings.controller
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.loukwn.feat_settings.SettingsContract
-import com.loukwn.feat_settings.view.SettingsViewMvcImpl
+import com.kostaslou.gifsoundit.settings.SettingsContract
+import com.kostaslou.gifsoundit.settings.view.SettingsViewMvcImpl
 
 class SettingsFragment : Fragment(), SettingsContract.Listener {
 

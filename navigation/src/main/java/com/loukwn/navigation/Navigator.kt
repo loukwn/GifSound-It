@@ -5,7 +5,6 @@ import androidx.core.os.bundleOf
 import androidx.navigation.NavController
 import dagger.hilt.android.scopes.ActivityScoped
 import javax.inject.Inject
-import javax.inject.Singleton
 
 @ActivityScoped
 class Navigator @Inject constructor() {
@@ -41,7 +40,7 @@ class Navigator @Inject constructor() {
     }
 
     fun navigateToSettings() {
-        navigateTo(Destination.SETTINGS, null)
+        navigateTo(Destination.SETTINGS, bundleOf(PARAM_OPENGS_QUERY to "query"))
     }
 
     private fun navigateTo(dest: Destination, bundle: Bundle?) {
@@ -52,7 +51,7 @@ class Navigator @Inject constructor() {
     enum class Destination(val id: Int) {
         LIST(R.id.fragment_list_id),
         OPENGS(R.id.action_home_to_opengs),
-        SETTINGS(R.id.fragment_settings_id),
+        SETTINGS(R.id.action_home_to_settings),
     }
 
     companion object {

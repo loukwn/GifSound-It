@@ -63,6 +63,7 @@ class ListContractViewImpl(
         binding.hotButton.setOnClickListener { listener?.onHotFilterSelected() }
         binding.newButton.setOnClickListener { listener?.onNewFilterSelected() }
         binding.topButton.setOnClickListener { showSelectorForTypeOptions() }
+        binding.settingsBt.setOnClickListener { listener?.onSettingsButtonClicked() }
     }
 
     private fun showSelectorForTypeOptions() {

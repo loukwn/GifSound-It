@@ -1,3 +1,3 @@
-package com.loukwn.feat_settings.controller
+package com.kostaslou.gifsoundit.settings.controller
 
 data class SettingsUiModel(val themeModeIndex: Int)

@@ -30,16 +30,27 @@ android {
         getByName("release") {
             isMinifyEnabled = true
             isDebuggable = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
 
-            buildConfigField(Config.Types.STRING, Config.BuildConfigFields.YOUTUBE_API_KEY, properties.getProperty(Config.BuildConfigFields.YOUTUBE_API_KEY_PROP))
+            buildConfigField(
+                Config.Types.STRING,
+                Config.BuildConfigFields.YOUTUBE_API_KEY,
+                properties.getProperty(Config.BuildConfigFields.YOUTUBE_API_KEY_PROP)
+            )
         }
 
         getByName("debug") {
             isMinifyEnabled = false
             isDebuggable = true
 
-            buildConfigField(Config.Types.STRING, Config.BuildConfigFields.YOUTUBE_API_KEY, properties.getProperty(Config.BuildConfigFields.YOUTUBE_API_KEY_PROP))
+            buildConfigField(
+                Config.Types.STRING,
+                Config.BuildConfigFields.YOUTUBE_API_KEY,
+                properties.getProperty(Config.BuildConfigFields.YOUTUBE_API_KEY_PROP)
+            )
         }
     }
 }
@@ -61,10 +72,10 @@ dependencies {
     implementation(Config.Libs.Hilt.hiltLifecycleViewModel)
     kapt(Config.Libs.Hilt.hiltCompiler)
 
+    api(Config.Libs.youtubePlayer)
+
     testImplementation(Config.TestLibs.archCoreTesting)
     testImplementation(Config.TestLibs.Mockito.mockitoInline)
     testImplementation(Config.TestLibs.Mockito.mockitoKotlin)
     testImplementation(Config.TestLibs.jUnit)
-
-    api(Config.Libs.youtubePlayer)
 }

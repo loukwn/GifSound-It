@@ -35,10 +35,21 @@ android {
             isMinifyEnabled = true
             isShrinkResources = true
             isDebuggable = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
 
-            buildConfigField(Config.Types.STRING, Config.BuildConfigFields.REDDIT_CLIENT_ID, properties.getProperty(Config.BuildConfigFields.REDDIT_CLIENT_ID_PROP))
-            buildConfigField(Config.Types.STRING, Config.BuildConfigFields.REDDIT_USER_AGENT, properties.getProperty(Config.BuildConfigFields.REDDIT_USER_AGENT_PROP))
+            buildConfigField(
+                Config.Types.STRING,
+                Config.BuildConfigFields.REDDIT_CLIENT_ID,
+                properties.getProperty(Config.BuildConfigFields.REDDIT_CLIENT_ID_PROP)
+            )
+            buildConfigField(
+                Config.Types.STRING,
+                Config.BuildConfigFields.REDDIT_USER_AGENT,
+                properties.getProperty(Config.BuildConfigFields.REDDIT_USER_AGENT_PROP)
+            )
         }
 
         getByName("debug") {
@@ -46,8 +57,16 @@ android {
             isShrinkResources = false
             isDebuggable = true
 
-            buildConfigField(Config.Types.STRING, Config.BuildConfigFields.REDDIT_CLIENT_ID, properties.getProperty(Config.BuildConfigFields.REDDIT_CLIENT_ID_PROP))
-            buildConfigField(Config.Types.STRING, Config.BuildConfigFields.REDDIT_USER_AGENT, properties.getProperty(Config.BuildConfigFields.REDDIT_USER_AGENT_PROP))
+            buildConfigField(
+                Config.Types.STRING,
+                Config.BuildConfigFields.REDDIT_CLIENT_ID,
+                properties.getProperty(Config.BuildConfigFields.REDDIT_CLIENT_ID_PROP)
+            )
+            buildConfigField(
+                Config.Types.STRING,
+                Config.BuildConfigFields.REDDIT_USER_AGENT,
+                properties.getProperty(Config.BuildConfigFields.REDDIT_USER_AGENT_PROP)
+            )
         }
     }
 
@@ -71,6 +90,7 @@ dependencies {
 
     implementation(project(Config.Modules.featList))
     implementation(project(Config.Modules.featOpenGs))
+    implementation(project(Config.Modules.featSettings))
     implementation(project(Config.Modules.common))
     implementation(project(Config.Modules.postData))
     implementation(project(Config.Modules.navigation))

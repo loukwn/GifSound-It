@@ -30,18 +30,37 @@ android {
         getByName("release") {
             isMinifyEnabled = true
             isDebuggable = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
 
-            buildConfigField(Config.Types.STRING, Config.BuildConfigFields.REDDIT_CLIENT_ID, properties.getProperty(Config.BuildConfigFields.REDDIT_CLIENT_ID_PROP))
-            buildConfigField(Config.Types.STRING, Config.BuildConfigFields.REDDIT_USER_AGENT, properties.getProperty(Config.BuildConfigFields.REDDIT_USER_AGENT_PROP))
+            buildConfigField(
+                Config.Types.STRING,
+                Config.BuildConfigFields.REDDIT_CLIENT_ID,
+                properties.getProperty(Config.BuildConfigFields.REDDIT_CLIENT_ID_PROP)
+            )
+            buildConfigField(
+                Config.Types.STRING,
+                Config.BuildConfigFields.REDDIT_USER_AGENT,
+                properties.getProperty(Config.BuildConfigFields.REDDIT_USER_AGENT_PROP)
+            )
         }
 
         getByName("debug") {
             isMinifyEnabled = false
             isDebuggable = true
 
-            buildConfigField(Config.Types.STRING, Config.BuildConfigFields.REDDIT_CLIENT_ID, properties.getProperty(Config.BuildConfigFields.REDDIT_CLIENT_ID_PROP))
-            buildConfigField(Config.Types.STRING, Config.BuildConfigFields.REDDIT_USER_AGENT, properties.getProperty(Config.BuildConfigFields.REDDIT_USER_AGENT_PROP))
+            buildConfigField(
+                Config.Types.STRING,
+                Config.BuildConfigFields.REDDIT_CLIENT_ID,
+                properties.getProperty(Config.BuildConfigFields.REDDIT_CLIENT_ID_PROP)
+            )
+            buildConfigField(
+                Config.Types.STRING,
+                Config.BuildConfigFields.REDDIT_USER_AGENT,
+                properties.getProperty(Config.BuildConfigFields.REDDIT_USER_AGENT_PROP)
+            )
         }
     }
 }

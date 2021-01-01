@@ -1,7 +1,7 @@
-package com.loukwn.feat_settings
+package com.kostaslou.gifsoundit.settings
 
+import com.kostaslou.gifsoundit.settings.controller.SettingsUiModel
 import com.kostaslou.gifsoundit.common.contract.ActionableViewContract
-import com.loukwn.feat_settings.controller.SettingsUiModel
 
 interface SettingsContract {
 

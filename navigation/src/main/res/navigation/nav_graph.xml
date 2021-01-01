@@ -30,7 +30,7 @@
         android:label="OpenGSFragment" />
     <fragment
         android:id="@+id/fragment_settings_id"
-        android:name="com.loukwn.feat_settings.controller.SettingsFragment"
+        android:name="com.kostaslou.gifsoundit.settings.controller.SettingsFragment"
         android:label="SettingsFragment" />
 
 </navigation>

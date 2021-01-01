@@ -3,16 +3,14 @@ package com.kostaslou.gifsoundit.list.viewmodel
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.ViewModel
 import com.kostaslou.gifsoundit.common.util.Event
 import com.kostaslou.gifsoundit.list.Action
 import com.kostaslou.gifsoundit.list.ListContract
-import com.kostaslou.gifsoundit.list.NavigationTarget
 import com.kostaslou.gifsoundit.list.State
 import com.kostaslou.gifsoundit.list.view.adapter.ListAdapterModel
+import com.loukwn.navigation.Navigator
 import com.loukwn.postdata.FilterType
 import com.loukwn.postdata.PostRepository
 import com.loukwn.postdata.TopFilterType
@@ -25,15 +23,13 @@ import javax.inject.Named
 
 class ListViewModel @ViewModelInject constructor(
     private val repository: PostRepository,
+    private val navigator: Navigator,
     @Named("io") ioScheduler: Scheduler,
     @Named("ui") uiScheduler: Scheduler,
 ) : ViewModel(), LifecycleObserver, ListContract.Listener, ListContract.ViewModel {
 
     private var disposable: Disposable? = null
     private val actionSubject = PublishSubject.create<Action>()
-
-    private val _navigationEvents = MutableLiveData<Event<NavigationTarget>>()
-    val navigationEvents: LiveData<Event<NavigationTarget>> = _navigationEvents
 
     private var currentState = State.default()
     private var view: ListContract.View? = null
@@ -85,7 +81,7 @@ class ListViewModel @ViewModelInject constructor(
     }
 
     override fun onListItemClicked(post: ListAdapterModel.Post) {
-        _navigationEvents.postValue(Event(NavigationTarget.OpenGs(gsQuery = post.url)))
+        navigator.navigateToOpenGS(query = post.url)
     }
 
     override fun onHotFilterSelected() {
@@ -112,6 +108,10 @@ class ListViewModel @ViewModelInject constructor(
 
     override fun onMoreMenuButtonClicked() {
         actionSubject.onNext(Action.MoreFilterButtonClicked)
+    }
+
+    override fun onSettingsButtonClicked() {
+        navigator.navigateToSettings()
     }
 
     override fun setView(view: ListContract.View) {

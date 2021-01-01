@@ -15,11 +15,15 @@ android {
         minSdkVersion(Config.Android.minSdkVersion)
         targetSdkVersion(Config.Android.targetSdkVersion)
     }
+
     buildTypes {
         getByName("release") {
             isMinifyEnabled = true
             isDebuggable = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
 
         getByName("debug") {
@@ -55,6 +59,7 @@ dependencies {
 
     implementation(Config.Libs.Android.appcompat)
     implementation(Config.Libs.Android.cardView)
+    implementation(Config.Libs.Android.constraintLayout)
     implementation(Config.Libs.Android.recyclerView)
     implementation(Config.Libs.Android.annotation)
     implementation(Config.Libs.Android.lifecycleExtensions)

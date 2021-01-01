@@ -1,12 +1,12 @@
-package com.loukwn.feat_settings.view
+package com.kostaslou.gifsoundit.settings.view
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.kostaslou.gifsoundit.settings.SettingsContract
+import com.kostaslou.gifsoundit.settings.controller.SettingsUiModel
 import com.loukwn.feat_settings.R
-import com.loukwn.feat_settings.SettingsContract
-import com.loukwn.feat_settings.controller.SettingsUiModel
 
 class SettingsViewMvcImpl(
     val context: Context,
