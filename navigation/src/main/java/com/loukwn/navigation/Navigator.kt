@@ -3,10 +3,10 @@ package com.loukwn.navigation
 import android.os.Bundle
 import androidx.core.os.bundleOf
 import androidx.navigation.NavController
-import dagger.hilt.android.scopes.ActivityScoped
+import dagger.hilt.android.scopes.ActivityRetainedScoped
 import javax.inject.Inject
 
-@ActivityScoped
+@ActivityRetainedScoped
 class Navigator @Inject constructor() {
 
     private var navController: NavController? = null
@@ -40,7 +40,7 @@ class Navigator @Inject constructor() {
     }
 
     fun navigateToSettings() {
-        navigateTo(Destination.SETTINGS, bundleOf(PARAM_OPENGS_QUERY to "query"))
+        navigateTo(Destination.SETTINGS, null)
     }
 
     private fun navigateTo(dest: Destination, bundle: Bundle?) {

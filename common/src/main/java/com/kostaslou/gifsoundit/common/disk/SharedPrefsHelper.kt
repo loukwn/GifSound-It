@@ -1,6 +1,7 @@
 package com.kostaslou.gifsoundit.common.disk
 
 import android.content.SharedPreferences
+import androidx.appcompat.app.AppCompatDelegate
 import javax.inject.Inject
 
 // Class that deals with the shared preferences operations
@@ -9,8 +10,13 @@ class SharedPrefsHelper @Inject constructor(private val mSharedPreferences: Shar
     fun put(key: String, value: String) {
         mSharedPreferences.edit().putString(key, value).apply()
     }
+
     fun put(key: String, value: Long) {
         mSharedPreferences.edit().putLong(key, value).apply()
+    }
+
+    fun put(key: String, value: Int) {
+        mSharedPreferences.edit().putInt(key, value).apply()
     }
 
     operator fun get(key: String, defaultValue: String): String? {
@@ -33,10 +39,12 @@ class SharedPrefsHelper @Inject constructor(private val mSharedPreferences: Shar
         return mSharedPreferences.getLong(key, defaultValue)
     }
 
-    // keys
     companion object {
-
         const val PREF_KEY_ACCESS_TOKEN = "access_token"
         const val PREF_KEY_EXPIRES_AT = "expires_at_date"
+        const val PREF_KEY_DAYNIGHT_MODE = "daynight_mode"
     }
 }
+
+fun SharedPrefsHelper.getDayNightMode(): Int =
+    this[SharedPrefsHelper.PREF_KEY_DAYNIGHT_MODE, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM]

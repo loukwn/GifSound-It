@@ -16,5 +16,5 @@
     <color name="score_text">#ffffff</color>
 
     <color name="bg_item">#ffffff</color>
-    <color name="bg_screen">@android:color/darker_gray</color>
+    <color name="bg_screen">#E6E5E5</color>
 </resources>

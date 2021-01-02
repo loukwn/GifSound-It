@@ -1,6 +1,8 @@
 plugins {
     id("com.android.library")
     kotlin("android")
+    kotlin("kapt")
+    id("dagger.hilt.android.plugin")
     id("org.jlleitschuh.gradle.ktlint")
 }
 
@@ -37,6 +39,10 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -44,6 +50,16 @@ dependencies {
 
     implementation(project(Config.Modules.common))
     implementation(project(Config.Modules.navigation))
+
+    implementation(Config.Libs.Hilt.hiltAndroid)
+    kapt(Config.Libs.Hilt.hiltAndroidCompiler)
+    implementation(Config.Libs.Hilt.hiltLifecycleViewModel)
+    kapt(Config.Libs.Hilt.hiltCompiler)
+
+    implementation(Config.Libs.Rx.rxJava2)
+    implementation(Config.Libs.Rx.rxAndroid)
+
+    implementation(Config.Libs.timber)
 
     implementation(Config.Libs.Android.appcompat)
     implementation(Config.Libs.Android.Navigation.navigationFragmentKtx)

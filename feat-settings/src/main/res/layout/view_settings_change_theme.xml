@@ -1,44 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
+    android:layout_margin="16dp"
     android:animateLayoutChanges="true"
+    android:background="@color/bg_item"
     app:cardCornerRadius="25dp"
     app:cardElevation="6dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp">
+        android:foreground="?attr/selectableItemBackgroundBorderless"
+        android:padding="16dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Theme"
             android:layout_marginStart="10dp"
-            android:textSize="18dp"
-            android:textStyle="bold"
+            android:fontFamily="@font/hindsiliguri_bold"
+            android:text="@string/settings_theme_mode_title"
+            android:textColor="@color/text_primary"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@id/settings_theme_more_button"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/settings_theme_more_button" />
 
         <TextView
+            android:id="@+id/selectedModeLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
-            android:text="Light"
+            android:fontFamily="@font/hindsiliguri_medium"
+            android:textColor="@color/text_additional"
             app:layout_constraintBottom_toBottomOf="@id/settings_theme_more_button"
             app:layout_constraintEnd_toStartOf="@id/settings_theme_more_button"
-            app:layout_constraintTop_toTopOf="@id/settings_theme_more_button" />
+            app:layout_constraintTop_toTopOf="@id/settings_theme_more_button"
+            tools:text="Light" />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/settings_theme_more_button"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:soundEffectsEnabled="false"
-            android:src="@drawable/ic_down"
+            android:src="@drawable/ic_down_24"
+            android:tint="@color/text_additional"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -49,114 +58,49 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent=".5" />
 
-        <LinearLayout
-            android:id="@+id/settings_theme_light_option"
+        <com.kostaslou.gifsoundit.settings.view.custom.SelectableOptionView
+            android:id="@+id/lightOption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="20dp"
-            android:padding="15dp"
-            android:background="@drawable/background_rounded_default_color"
-            app:layout_constraintTop_toBottomOf="@id/settings_theme_more_button"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toStartOf="@id/centerGuideline"
-            android:layout_marginEnd="15dp">
-
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center_horizontal"
-                android:soundEffectsEnabled="false"
-                android:src="@drawable/ic_down" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="Light" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/settings_theme_dark_option"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="20dp"
-            android:padding="15dp"
-            android:background="@drawable/background_rounded_default_color"
             app:layout_constraintTop_toBottomOf="@id/settings_theme_more_button"
-            app:layout_constraintStart_toEndOf="@id/centerGuideline"
-            android:layout_marginStart="15dp">
+            app:sov_icon="@drawable/ic_sun_24"
+            app:sov_text="@string/settings_theme_mode_light" />
 
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center_horizontal"
-                android:soundEffectsEnabled="false"
-                android:src="@drawable/ic_down" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="Dark" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/settings_theme_system_default_option"
+        <com.kostaslou.gifsoundit.settings.view.custom.SelectableOptionView
+            android:id="@+id/darkOption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="20dp"
-            android:padding="15dp"
-            android:background="@drawable/background_rounded_default_color"
-            app:layout_constraintTop_toBottomOf="@id/settings_theme_light_option"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintStart_toEndOf="@id/centerGuideline"
+            app:layout_constraintTop_toBottomOf="@id/settings_theme_more_button"
+            app:sov_icon="@drawable/ic_moon_24"
+            app:sov_text="@string/settings_theme_mode_dark" />
+
+        <com.kostaslou.gifsoundit.settings.view.custom.SelectableOptionView
+            android:id="@+id/systemOption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toStartOf="@id/centerGuideline"
-            android:layout_marginEnd="15dp">
+            app:layout_constraintTop_toBottomOf="@id/lightOption"
+            app:sov_icon="@drawable/ic_device_24"
+            app:sov_text="@string/settings_theme_mode_system" />
 
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center_horizontal"
-                android:soundEffectsEnabled="false"
-                android:src="@drawable/ic_down" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="System default" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/settings_theme_battery_saver_option"
+        <com.kostaslou.gifsoundit.settings.view.custom.SelectableOptionView
+            android:id="@+id/batteryOption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="20dp"
-            android:padding="15dp"
-            android:background="@drawable/background_rounded_default_color"
-            app:layout_constraintTop_toBottomOf="@id/settings_theme_light_option"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
             app:layout_constraintStart_toEndOf="@id/centerGuideline"
-            android:layout_marginStart="15dp">
-
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center_horizontal"
-                android:soundEffectsEnabled="false"
-                android:src="@drawable/ic_down" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="Battery Saver" />
-
-        </LinearLayout>
-
+            app:layout_constraintTop_toBottomOf="@id/lightOption"
+            app:sov_icon="@drawable/ic_battery_24"
+            app:sov_text="@string/settings_theme_mode_battery" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

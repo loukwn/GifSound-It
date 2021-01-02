@@ -1,6 +1,7 @@
 package com.kostaslou.gifsoundit.di.modules
 
 import com.kostaslou.gifsoundit.BuildConfig
+import com.loukwn.navigation.Navigator
 import com.loukwn.postdata.RedditConstants
 import com.loukwn.postdata.network.AuthApi
 import com.loukwn.postdata.network.BasicRedditAuthInterceptor
@@ -9,6 +10,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityRetainedComponent
+import dagger.hilt.android.scopes.ActivityRetainedScoped
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -83,4 +85,8 @@ class ActivityRetainedModule {
     @Provides
     @Named("ui")
     fun provideUIScheduler(): Scheduler = AndroidSchedulers.mainThread()
+
+    @ActivityRetainedScoped
+    @Provides
+    fun provideNavigator(): Navigator = Navigator()
 }

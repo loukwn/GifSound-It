@@ -84,6 +84,7 @@ class ListViewModel @ViewModelInject constructor(
 
     override fun onListItemClicked(post: ListAdapterModel.Post) {
         navigator.navigateToOpenGS(query = post.url)
+        view = null
     }
 
     override fun onHotFilterSelected() {
@@ -114,6 +115,7 @@ class ListViewModel @ViewModelInject constructor(
 
     override fun onSettingsButtonClicked() {
         navigator.navigateToSettings()
+        view = null
     }
 
     override fun setView(view: ListContract.View) {

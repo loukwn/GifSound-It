@@ -52,4 +52,12 @@
     <string name="opengs_error_gif_unknown_with_code">Unknown Error (Code: %1$s)</string>
     <string name="opengs_error_gif_unknown_with">Unknown Error</string>
 
+    <!--Settings Fragment-->
+    <string name="settings_theme_mode_title">Theme</string>
+    <string name="settings_theme_mode_light">Light</string>
+    <string name="settings_theme_mode_dark">Dark</string>
+    <string name="settings_theme_mode_system">System default</string>
+    <string name="settings_theme_mode_battery">Battery Saver</string>
+    <string name="settings_title">Settings</string>
+
 </resources>
