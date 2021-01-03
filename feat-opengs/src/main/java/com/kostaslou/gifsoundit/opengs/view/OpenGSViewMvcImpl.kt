@@ -20,8 +20,6 @@ import com.kostaslou.gifsoundit.opengs.controller.GifState
 import com.kostaslou.gifsoundit.opengs.controller.OpenGSUIModel
 import com.kostaslou.gifsoundit.opengs.controller.SoundSource
 import com.kostaslou.gifsoundit.opengs.controller.SoundState
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 import kotlinx.android.synthetic.main.fragment_opengs.view.*
@@ -44,8 +42,7 @@ class OpenGSViewMvcImpl(
     private fun setupViewAttributes() {
 
         // for the marquee
-        view.gifStatusLabel.isSelected = true
-        view.soundStatusLabel.isSelected = true
+        view.statusLabel.isSelected = true
     }
 
     private fun setupClickListeners() {
@@ -84,17 +81,16 @@ class OpenGSViewMvcImpl(
 
     override fun initView(
         uiModel: OpenGSUIModel,
-        gifYouTubeListener: AbstractYouTubePlayerListener,
         soundYouTubeListener: AbstractYouTubePlayerListener
     ) {
         setGifStatusText(uiModel.gifState)
         setSoundStatusText(uiModel.soundState)
 
-        initGif(uiModel.gifSource, gifYouTubeListener)
+        initGif(uiModel.gifSource)
         initSound(uiModel.soundSource, soundYouTubeListener)
     }
 
-    private fun initGif(gifSource: GifSource, gifYouTubeListener: AbstractYouTubePlayerListener) {
+    private fun initGif(gifSource: GifSource) {
         val gifLink = gifSource.gifLink
         val gifType = gifSource.gifType
 
@@ -102,7 +98,6 @@ class OpenGSViewMvcImpl(
 
             view.gifView.visibility = View.INVISIBLE
             view.mp4View.visibility = View.INVISIBLE
-            view.youtubeGifView.visibility = View.INVISIBLE
 
             when (gifType) {
                 GifSource.GifType.GIF -> {
@@ -175,28 +170,6 @@ class OpenGSViewMvcImpl(
                         view.mp4View.start()
                     }
                 }
-                GifSource.GifType.YOUTUBE -> {
-                    // the gif is from youtube, so another player will be instantiated
-
-                    view.youtubeGifView.visibility = View.VISIBLE
-
-                    view.youtubeGifView.addYouTubePlayerListener(gifYouTubeListener)
-                    view.youtubeGifView.addYouTubePlayerListener(object :
-                        AbstractYouTubePlayerListener() {
-                        override fun onReady(youTubePlayer: YouTubePlayer) {
-                            super.onReady(youTubePlayer)
-                            setGifStatusText(GifState.GIF_OK)
-                        }
-
-                        override fun onError(
-                            youTubePlayer: YouTubePlayer,
-                            error: PlayerConstants.PlayerError
-                        ) {
-                            super.onError(youTubePlayer, error)
-                            setGifStatusText(GifState.GIF_ERROR)
-                        }
-                    })
-                }
             }
         }
     }
@@ -223,7 +196,7 @@ class OpenGSViewMvcImpl(
             GifState.GIF_LOADING -> getString(R.string.opengs_one_loading)
             GifState.GIF_INVALID -> getString(R.string.opengs_one_invalid)
         }
-        view.gifStatusLabel.text = statusMessage
+        view.statusLabel.text = statusMessage
     }
 
     private fun setSoundStatusText(soundState: SoundState) {
@@ -234,7 +207,7 @@ class OpenGSViewMvcImpl(
             SoundState.SOUND_INVALID -> getString(R.string.opengs_one_invalid)
         }
 
-        view.soundStatusLabel.text = statusMessage
+        view.statusLabel.text = statusMessage
     }
 
     override fun startGifFromTheStart(uiModel: OpenGSUIModel) {
@@ -249,18 +222,13 @@ class OpenGSViewMvcImpl(
                 view.mp4View.seekTo(0)
                 view.mp4View.start()
             }
-            GifSource.GifType.YOUTUBE -> {
-                view.youtubeGifView.visibility = View.VISIBLE
-            }
         }
 
         // show refresh button
         view.refreshButton.visibility = View.VISIBLE
 
         // set offset seconds
-        view.offsetLayout.visibility = View.VISIBLE
-        view.offsetLabel.text =
-            getString(R.string.opengs_label_offset, uiModel.secondsVideoOffset)
+        view.offsetLabel.text = uiModel.secondsVideoOffset.toString()
     }
 
     override fun showGIFPlayLayout() {
@@ -280,10 +248,6 @@ class OpenGSViewMvcImpl(
         if (this.listener == listener) {
             this.listener = null
         }
-    }
-
-    override fun getYoutubeGifView(): YouTubePlayerView {
-        return view.youtubeGifView
     }
 
     override fun getSoundGifView(): YouTubePlayerView {

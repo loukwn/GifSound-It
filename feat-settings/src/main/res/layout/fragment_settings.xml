@@ -27,7 +27,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="@string/content_description_home_more"
+                android:contentDescription="Button to go back"
                 android:padding="8dp"
                 android:soundEffectsEnabled="false"
                 android:src="@drawable/ic_arrow_back_24"
@@ -40,12 +40,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
-                android:layout_marginTop="12dp"
                 android:fontFamily="@font/overlock_black"
                 android:text="@string/settings_title"
                 android:textColor="@android:color/white"
                 android:textSize="22sp"
                 android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/backButton"
                 app:layout_constraintTop_toTopOf="parent" />
 

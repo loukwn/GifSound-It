@@ -24,11 +24,9 @@ interface OpenGSMvc {
     interface View : ActionableViewContract<Listener> {
         fun initView(
             uiModel: OpenGSUIModel,
-            gifYouTubeListener: AbstractYouTubePlayerListener,
             soundYouTubeListener: AbstractYouTubePlayerListener
         )
 
-        fun getYoutubeGifView(): YouTubePlayerView
         fun getSoundGifView(): YouTubePlayerView
         fun startGifFromTheStart(uiModel: OpenGSUIModel)
         fun showGIFPlayLayout()

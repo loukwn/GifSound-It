@@ -16,7 +16,7 @@ data class GifSource(
     var gifType: GifType = GifType.GIF
 ) {
     enum class GifType {
-        GIF, MP4, YOUTUBE
+        GIF, MP4
     }
 }
 

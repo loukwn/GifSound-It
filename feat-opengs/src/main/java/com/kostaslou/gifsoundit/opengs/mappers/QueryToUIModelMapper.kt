@@ -91,8 +91,7 @@ class QueryToUIModelMapper {
                 gifLink?.let {
 
                     if (it.contains("youtu")) {
-                        gifType = GifType.YOUTUBE
-                        gifLink = it.removePrefix("youtu.be/")
+                        throw IllegalStateException("Youtube as gif not supported")
                     } else {
                         gifLink = if (it.startsWith("http://")) {
                             "https://${it.removePrefix("http://")}"

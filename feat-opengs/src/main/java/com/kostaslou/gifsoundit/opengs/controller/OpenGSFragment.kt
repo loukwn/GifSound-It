@@ -31,21 +31,7 @@ class OpenGSFragment : Fragment(), OpenGSMvc.Listener {
     @Inject
     lateinit var navigator: Navigator
 
-    // youtube listeners
-    private val gifYouTubePlayerListener by lazy {
-        object : AbstractYouTubePlayerListener() {
-            override fun onReady(youTubePlayer: YouTubePlayer) {
-                super.onReady(youTubePlayer)
-                setYoutubePlayer(youTubePlayer, true)
-                updateUIModel(gifState = GifState.GIF_OK)
-            }
-
-            override fun onError(youTubePlayer: YouTubePlayer, error: PlayerConstants.PlayerError) {
-                super.onError(youTubePlayer, error)
-                updateUIModel(gifState = GifState.GIF_ERROR)
-            }
-        }
-    }
+    // youtube listener
     private val soundYouTubePlayerListener by lazy {
         object : AbstractYouTubePlayerListener() {
             override fun onReady(youTubePlayer: YouTubePlayer) {
@@ -88,12 +74,9 @@ class OpenGSFragment : Fragment(), OpenGSMvc.Listener {
         // Parse query and setup view
         Timber.d("GifSound Url: $query")
         uiModel = QueryToUIModelMapper().getUIModel(query)
-        viewMvc?.initView(uiModel, gifYouTubePlayerListener, soundYouTubePlayerListener)
+        viewMvc?.initView(uiModel, soundYouTubePlayerListener)
 
         // YoutubeViews need to be bound to the lifecycle of the Fragment
-        if (uiModel.gifSource.gifType == GifSource.GifType.YOUTUBE) {
-            lifecycle.addObserver(viewMvc?.getYoutubeGifView()!!)
-        }
         lifecycle.addObserver(viewMvc?.getSoundGifView()!!)
     }
 
@@ -159,9 +142,6 @@ class OpenGSFragment : Fragment(), OpenGSMvc.Listener {
                         if (!forGif) {
                             if (uiModel.gifState != GifState.GIF_ERROR) {
                                 viewMvc?.startGifFromTheStart(uiModel)
-                                if (uiModel.gifSource.gifType == GifSource.GifType.YOUTUBE) {
-                                    startYoutubeGifFromTheStart()
-                                }
                             }
                         }
                     }
@@ -213,9 +193,6 @@ class OpenGSFragment : Fragment(), OpenGSMvc.Listener {
 
         // restart gif
         viewMvc?.startGifFromTheStart(uiModel)
-        if (uiModel.gifSource.gifType == GifSource.GifType.YOUTUBE) {
-            startYoutubeGifFromTheStart()
-        }
     }
 
     @Synchronized
