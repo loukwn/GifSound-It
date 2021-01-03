@@ -11,8 +11,8 @@
     <color name="text_primary">#ffffff</color>
     <color name="text_additional">@android:color/darker_gray</color>
 
-    <color name="score_border">@color/colorPrimaryDark</color>
-    <color name="score_bg">@color/colorPrimary</color>
+    <color name="score_border">#212121</color>
+    <color name="score_bg">#212121</color>
     <color name="score_text">#ffffff</color>
 
     <color name="bg_item">#303030</color>

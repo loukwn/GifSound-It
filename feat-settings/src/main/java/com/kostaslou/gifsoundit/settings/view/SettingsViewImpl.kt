@@ -5,14 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.kostaslou.gifsoundit.settings.SettingsContract
-import com.loukwn.feat_settings.R
 import com.loukwn.feat_settings.databinding.FragmentSettingsBinding
 
 class SettingsViewMvcImpl(
-    val context: Context,
     inflater: LayoutInflater,
     container: ViewGroup?
 ) : SettingsContract.View {
@@ -46,6 +43,8 @@ class SettingsViewMvcImpl(
         binding.modeSelector.darkOption.isVisible = false
         binding.modeSelector.systemOption.isVisible = false
         binding.modeSelector.batteryOption.isVisible = false
+
+        binding.modeSelector.settingsThemeMoreButton.rotation = 0f
     }
 
     override fun expandModeSelector() {
@@ -53,6 +52,8 @@ class SettingsViewMvcImpl(
         binding.modeSelector.darkOption.isVisible = true
         binding.modeSelector.systemOption.isVisible = true
         binding.modeSelector.batteryOption.isVisible = true
+
+        binding.modeSelector.settingsThemeMoreButton.rotation = 180f
     }
 
     override fun selectLightMode() {

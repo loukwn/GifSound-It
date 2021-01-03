@@ -21,7 +21,7 @@ class SettingsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         lifecycle.addObserver(viewModel)
-        return SettingsViewMvcImpl(requireContext(), inflater, container)
+        return SettingsViewMvcImpl(inflater, container)
             .also { viewModel.setView(it) }
             .getRootView()
     }
