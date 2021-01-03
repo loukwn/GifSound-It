@@ -62,6 +62,7 @@ dependencies {
     implementation(project(Config.Modules.navigation))
 
     implementation(Config.Libs.Android.appcompat)
+    implementation(Config.Libs.Android.constraintLayout)
 
     implementation(Config.Libs.glide)
 

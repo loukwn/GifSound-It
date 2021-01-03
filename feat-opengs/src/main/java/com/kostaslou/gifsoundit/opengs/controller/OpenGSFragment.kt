@@ -292,11 +292,11 @@ class OpenGSFragment : Fragment(), OpenGSMvc.Listener {
         refreshGifSound()
     }
 
-    override fun setGifState(gifState: GifState) {
+    override fun onGifStateChanged(gifState: GifState) {
         updateUIModel(gifState = gifState)
     }
 
-    override fun setSoundState(soundState: SoundState) {
+    override fun onSoundStateChanged(soundState: SoundState) {
         updateUIModel(soundState = soundState)
     }
 }

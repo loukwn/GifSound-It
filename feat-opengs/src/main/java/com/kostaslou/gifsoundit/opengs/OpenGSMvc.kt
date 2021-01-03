@@ -17,8 +17,8 @@ interface OpenGSMvc {
         fun onOffsetIncreaseButtonPressed()
         fun onOffsetDecreaseButtonPressed()
         fun onOffsetResetButtonPressed()
-        fun setGifState(gifState: GifState)
-        fun setSoundState(soundState: SoundState)
+        fun onGifStateChanged(gifState: GifState)
+        fun onSoundStateChanged(soundState: SoundState)
     }
 
     interface View : ActionableViewContract<Listener> {

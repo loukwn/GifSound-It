@@ -26,22 +26,21 @@
             android:orientation="vertical"
             android:padding="5dp">
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/postThumb"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_gravity="center"
                 android:layout_marginBottom="5dp"
                 android:contentDescription="@string/home_item_thumbnail"
-                android:scaleType="centerCrop"
-                android:src="@drawable/placeholder" />
+                android:scaleType="centerCrop" />
 
             <TextView
                 android:id="@+id/postScore"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="@drawable/rounded_corner"
+                android:background="@drawable/background_rounded_theme_controlled"
                 android:textColor="@color/score_text"
                 tools:text="1"
                 android:gravity="center"
@@ -89,7 +88,7 @@
                     android:layout_height="32dp"
                     android:tint="@color/text_additional"
                     android:contentDescription="@string/home_item_button_link"
-                    android:src="@drawable/ic_link" />
+                    android:src="@drawable/ic_comment_24" />
 
             </LinearLayout>
 

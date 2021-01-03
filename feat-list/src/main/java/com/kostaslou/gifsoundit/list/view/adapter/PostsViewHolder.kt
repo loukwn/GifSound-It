@@ -7,8 +7,10 @@ import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.kostaslou.gifsoundit.list.R
 import com.kostaslou.gifsoundit.list.databinding.ItemPostBinding
 
@@ -38,7 +40,8 @@ class PostsViewHolder(
         } else {
             item.thumbnailUrl
         }
-        postThumb.loadImg(imageUrl, R.drawable.placeholder)
+        postThumb.loadImg(imageUrl, R.drawable.ic_placeholder_24)
+
 
         // title
         postTitle.text = item.title
@@ -53,9 +56,7 @@ class PostsViewHolder(
 
 fun ImageView.loadImg(imageUrl: String, defDrawable: Int) {
     if (TextUtils.isEmpty(imageUrl) || !Patterns.WEB_URL.matcher(imageUrl).matches()) {
-        Glide.with(context)
-            .load(defDrawable)
-            .into(this)
+        setImageDrawable(ContextCompat.getDrawable(context, defDrawable))
     } else {
         Glide.with(context)
             .load(imageUrl)

@@ -32,7 +32,7 @@
                 android:layout_marginTop="8dp"
                 android:contentDescription="@string/content_description_home_more"
                 android:soundEffectsEnabled="false"
-                android:src="@drawable/ic_down"
+                android:src="@drawable/ic_down_24"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

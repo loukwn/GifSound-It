@@ -122,7 +122,7 @@ class OpenGSViewMvcImpl(
                                 isFirstResource: Boolean
                             ): Boolean {
                                 gifDrawable = resource
-                                listener?.setGifState(GifState.GIF_OK)
+                                listener?.onGifStateChanged(GifState.GIF_OK)
                                 setGifStatusText(GifState.GIF_OK)
                                 return false
                             }
@@ -133,7 +133,7 @@ class OpenGSViewMvcImpl(
                                 p2: Target<GifDrawable>?,
                                 p3: Boolean
                             ): Boolean {
-                                listener?.setGifState(GifState.GIF_ERROR)
+                                listener?.onGifStateChanged(GifState.GIF_ERROR)
                                 setGifStatusText(GifState.GIF_ERROR)
                                 return false
                             }
@@ -156,7 +156,7 @@ class OpenGSViewMvcImpl(
                             )
                         }
 
-                        listener?.setGifState(GifState.GIF_ERROR)
+                        listener?.onGifStateChanged(GifState.GIF_ERROR)
                         setGifStatusText(GifState.GIF_ERROR, statusText)
 
                         true
@@ -164,7 +164,7 @@ class OpenGSViewMvcImpl(
 
                     view.mp4View.setVideoPath(it)
                     view.mp4View.setOnPreparedListener { mp ->
-                        listener?.setGifState(GifState.GIF_OK)
+                        listener?.onGifStateChanged(GifState.GIF_OK)
                         setGifStatusText(GifState.GIF_OK)
 
                         mp.setVideoScalingMode(MediaPlayer.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING)
