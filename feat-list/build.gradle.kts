@@ -1,7 +1,6 @@
 plugins {
     id("com.android.library")
     kotlin("android")
-    kotlin("android.extensions")
     kotlin("kapt")
     id("dagger.hilt.android.plugin")
     id("org.jlleitschuh.gradle.ktlint")
@@ -41,10 +40,6 @@ android {
         jvmTarget = "1.8"
     }
 
-    androidExtensions {
-        isExperimental = true
-    }
-
     buildFeatures {
         viewBinding = true
     }
@@ -76,7 +71,6 @@ dependencies {
 
     implementation(Config.Libs.timber)
 
-    testImplementation(Config.TestLibs.archCoreTesting)
     testImplementation(Config.TestLibs.Mockito.mockitoInline)
     testImplementation(Config.TestLibs.Mockito.mockitoKotlin)
     testImplementation(Config.TestLibs.jUnit)
