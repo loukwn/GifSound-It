@@ -1,4 +1,4 @@
-# PROGUARD RULES FOR THE DEBUG VERSION
+# PROGUARD RULES FOR THE RELEASE VERSION
 
 # Uncomment this to preserve the line number information for
 # debugging stack traces.
@@ -12,12 +12,7 @@
 -keepattributes *Annotation*
 
 # keep the model classes for the retrofit results
--keep class com.kostaslou.gifsoundit.data.api.model.** { *; }
+#-keep class com.kostaslou.gifsoundit.data.api.model.** { *; }
 
-# these are needed for the android instrumentation tests
--dontobfuscate
--keep class androidx.recyclerview.widget.RecyclerView  {
-    public androidx.recyclerview.widget.RecyclerView$ViewHolder findViewHolderForPosition(int);
-}
-
+# kotlin flow proguard bug: https://github.com/Kotlin/kotlinx.coroutines/issues/1270
 -dontwarn kotlinx.coroutines.flow.**inlined**
