@@ -35,7 +35,6 @@ android {
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
-    implementation(Config.Libs.Android.Navigation.navigationFragmentKtx)
     implementation(Config.Libs.Android.Navigation.navigationUiKtx)
 
     implementation(Config.Libs.Hilt.hiltAndroid)

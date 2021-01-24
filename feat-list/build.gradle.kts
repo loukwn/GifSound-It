@@ -61,10 +61,7 @@ dependencies {
     implementation(Config.Libs.Android.cardView)
     implementation(Config.Libs.Android.constraintLayout)
     implementation(Config.Libs.Android.recyclerView)
-    implementation(Config.Libs.Android.annotation)
-    implementation(Config.Libs.Android.lifecycleExtensions)
     implementation(Config.Libs.Android.Navigation.navigationFragmentKtx)
-    implementation(Config.Libs.Android.Navigation.navigationUiKtx)
     implementation(Config.Libs.Android.swipeRefreshLayout)
 
     implementation(Config.Libs.glide)

@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import com.loukwn.navigation.Navigator
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -20,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        navigator.bind(findNavController(R.id.nav_host_fragment))
+        navigator.bind(getNavController())
         navigateIfDeepLinked(intent)
     }
 
@@ -29,6 +31,10 @@ class MainActivity : AppCompatActivity() {
             if (it.isNotEmpty()) navigator.navigateToOpenGS(query = it)
         }
     }
+
+    private fun getNavController(): NavController =
+        (supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment)
+            .navController
 
     override fun onResume() {
         super.onResume()

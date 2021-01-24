@@ -98,8 +98,6 @@ dependencies {
     implementation(Config.Libs.Android.appcompat)
     implementation(Config.Libs.Android.Navigation.navigationFragmentKtx)
     implementation(Config.Libs.Android.Navigation.navigationUiKtx)
-    implementation(Config.Libs.Android.constraintLayout)
-    implementation(Config.Libs.Android.material)
 
     implementation(Config.Libs.Retrofit.retrofit)
     implementation(Config.Libs.Retrofit.adapterRxJava2)
