@@ -11,7 +11,7 @@ import android.view.View
 interface ViewContract {
 
     // The root view that will be inflated for this particular screen
-    fun getRootView(): View
+    fun getRoot(): View
 
     /**
      * Get/Set The state of the view. This can be useful in cases that we need to persist the ui

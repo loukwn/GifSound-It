@@ -85,8 +85,4 @@ class ActivityRetainedModule {
     @Provides
     @Named("ui")
     fun provideUIScheduler(): Scheduler = AndroidSchedulers.mainThread()
-
-    @ActivityRetainedScoped
-    @Provides
-    fun provideNavigator(): Navigator = Navigator()
 }

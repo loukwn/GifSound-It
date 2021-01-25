@@ -23,6 +23,6 @@ class ListFragment : Fragment() {
         viewLifecycleOwner.lifecycle.addObserver(viewModel)
         return ListViewImpl(requireContext(), inflater, container)
             .also { viewModel.setView(it) }
-            .getRootView()
+            .getRoot()
     }
 }

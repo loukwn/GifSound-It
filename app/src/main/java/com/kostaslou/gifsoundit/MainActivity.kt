@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun navigateIfDeepLinked(intent: Intent?) {
         intent?.data?.query?.let {
-            if (it.isNotEmpty()) navigator.navigateToOpenGS(query = it)
+            if (it.isNotEmpty()) navigator.navigateToOpenGS(query = it, fromDeepLink = true)
         }
     }
 

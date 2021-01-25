@@ -53,6 +53,15 @@ android {
         }
     }
 
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
     buildFeatures {
         viewBinding = true
     }
@@ -65,6 +74,8 @@ dependencies {
     implementation(project(Config.Modules.navigation))
 
     implementation(Config.Libs.Android.appcompat)
+    implementation(Config.Libs.Android.coreKtx)
+    implementation(Config.Libs.Android.Navigation.navigationFragmentKtx)
     implementation(Config.Libs.Android.constraintLayout)
 
     implementation(Config.Libs.glide)
@@ -75,6 +86,9 @@ dependencies {
     kapt(Config.Libs.Hilt.hiltAndroidCompiler)
     implementation(Config.Libs.Hilt.hiltLifecycleViewModel)
     kapt(Config.Libs.Hilt.hiltCompiler)
+
+    implementation(Config.Libs.Rx.rxJava2)
+    implementation(Config.Libs.Rx.rxAndroid)
 
     api(Config.Libs.youtubePlayer)
 

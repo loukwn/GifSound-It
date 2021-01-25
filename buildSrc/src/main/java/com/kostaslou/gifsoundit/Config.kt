@@ -41,6 +41,7 @@ object Config {
 
         object Android {
             const val appcompat = "androidx.appcompat:appcompat:_"
+            const val coreKtx = "androidx.core:core-ktx:_"
             const val constraintLayout = "androidx.constraintlayout:constraintlayout:_"
             const val material = "com.google.android.material:material:_"
             const val cardView = "androidx.cardview:cardview:_"

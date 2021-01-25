@@ -1,13 +1,18 @@
 package com.loukwn.navigation
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.core.os.bundleOf
 import androidx.navigation.NavController
-import dagger.hilt.android.scopes.ActivityRetainedScoped
+import dagger.hilt.android.qualifiers.ActivityContext
+import dagger.hilt.android.scopes.ActivityScoped
 import javax.inject.Inject
 
-@ActivityRetainedScoped
-class Navigator @Inject constructor() {
+@ActivityScoped
+class Navigator @Inject constructor(
+    @ActivityContext private val context: Context
+) {
 
     private var navController: NavController? = null
     private var currentScreen = initialDestination
@@ -31,12 +36,33 @@ class Navigator @Inject constructor() {
         navController?.navigateUp()
     }
 
-    fun navigateToList(subreddit: String) {
+    fun openShareScreen(query: String) {
+        val sendIntent: Intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, query)
+            type = "text/plain"
+        }
+
+        context.startActivity(
+            Intent.createChooser(
+                sendIntent,
+                "asd"
+            )
+        )
+    }
+
+    fun navigateToList() {
         navigateTo(Destination.LIST, null)
     }
 
-    fun navigateToOpenGS(query: String?) {
-        navigateTo(Destination.OPENGS, bundleOf(PARAM_OPENGS_QUERY to query))
+    fun navigateToOpenGS(query: String?, fromDeepLink: Boolean) {
+        navigateTo(
+            Destination.OPENGS,
+            bundleOf(
+                PARAM_OPENGS_QUERY to query,
+                PARAM_OPENGS_FROM_DEEP_LINK to fromDeepLink
+            )
+        )
     }
 
     fun navigateToSettings() {
@@ -58,6 +84,7 @@ class Navigator @Inject constructor() {
         private val initialDestination = Destination.LIST
 
         const val PARAM_OPENGS_QUERY = "PARAM_OPENGS_QUERY"
+        const val PARAM_OPENGS_FROM_DEEP_LINK = "PARAM_OPENGS_FROM_DEEP_LINK"
     }
 }
 

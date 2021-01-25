@@ -23,6 +23,6 @@ class SettingsFragment : Fragment() {
         lifecycle.addObserver(viewModel)
         return SettingsViewMvcImpl(inflater, container)
             .also { viewModel.setView(it) }
-            .getRootView()
+            .getRoot()
     }
 }

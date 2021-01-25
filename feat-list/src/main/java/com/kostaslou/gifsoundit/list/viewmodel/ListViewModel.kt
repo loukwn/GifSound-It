@@ -83,7 +83,7 @@ class ListViewModel @ViewModelInject constructor(
     }
 
     override fun onListItemClicked(post: ListAdapterModel.Post) {
-        navigator.navigateToOpenGS(query = post.url)
+        navigator.navigateToOpenGS(query = post.url, fromDeepLink = false)
         view = null
     }
 

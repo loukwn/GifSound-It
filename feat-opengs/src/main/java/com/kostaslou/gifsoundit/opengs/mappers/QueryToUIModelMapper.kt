@@ -1,20 +1,23 @@
 package com.kostaslou.gifsoundit.opengs.mappers
 
-import com.kostaslou.gifsoundit.opengs.controller.GifSource
-import com.kostaslou.gifsoundit.opengs.controller.GifSource.GifType
-import com.kostaslou.gifsoundit.opengs.controller.GifState
-import com.kostaslou.gifsoundit.opengs.controller.OpenGSUIModel
-import com.kostaslou.gifsoundit.opengs.controller.SoundSource
-import com.kostaslou.gifsoundit.opengs.controller.SoundState
+import com.kostaslou.gifsoundit.common.util.Event
+import com.kostaslou.gifsoundit.opengs.GifSource
+import com.kostaslou.gifsoundit.opengs.GifState
+import com.kostaslou.gifsoundit.opengs.GifType
+import com.kostaslou.gifsoundit.opengs.PlaybackAction
+import com.kostaslou.gifsoundit.opengs.SoundSource
+import com.kostaslou.gifsoundit.opengs.SoundState
+import com.kostaslou.gifsoundit.opengs.State
 import timber.log.Timber
 import java.net.URLDecoder
+import javax.inject.Inject
 
 /**
  * Maps the input query url to the data ready for displaying to the UI (UI model)
  */
-class QueryToUIModelMapper {
+internal class QueryToStateMapper @Inject constructor(){
 
-    fun getUIModel(query: String): OpenGSUIModel {
+    fun getState(query: String, isFromDeepLink: Boolean): State {
         var soundLink: String? = null
         var gifLink: String? = null
         var gifType: GifType = GifType.GIF
@@ -86,12 +89,13 @@ class QueryToUIModelMapper {
 
             // normal gif
             if (arg.startsWith("gif=")) {
-                gifLink = URLDecoder.decode(arg.split("=")[1], "UTF-8")
+                val decoded = URLDecoder.decode(arg.split("=")[1], "UTF-8")
 
-                gifLink?.let {
+                decoded?.let {
 
                     if (it.contains("youtu")) {
-                        throw IllegalStateException("Youtube as gif not supported")
+                        gifLink = it
+                        gifType = GifType.YOUTUBE
                     } else {
                         gifLink = if (it.startsWith("http://")) {
                             "https://${it.removePrefix("http://")}"
@@ -100,6 +104,7 @@ class QueryToUIModelMapper {
                         else {
                             it
                         }
+                        gifType = GifType.GIF
                     }
                 }
 
@@ -108,11 +113,12 @@ class QueryToUIModelMapper {
 
             // webm
             if (arg.startsWith("webm=")) {
-                gifLink = URLDecoder.decode(arg.split("=")[1], "UTF-8") + ".webm"
+                val decoded = URLDecoder.decode(arg.split("=")[1], "UTF-8")
 
-                gifLink?.let {
-                    if (!it.startsWith("http") && !it.startsWith("https"))
-                        gifLink = "https://$it"
+                decoded?.let {
+                    if (!it.startsWith("http") && !it.startsWith("https")) {
+                        gifLink = "https://$it.webm"
+                    }
 
                     gifType = GifType.MP4
                 }
@@ -121,21 +127,26 @@ class QueryToUIModelMapper {
             }
         }
 
-        val gifState = if (gifLink == null) GifState.GIF_INVALID else GifState.GIF_LOADING
+        val gifState = when {
+            gifLink == null -> GifState.GIF_INVALID
+            gifType == GifType.YOUTUBE -> GifState.GIF_INVALID
+            else -> GifState.GIF_LOADING
+        }
         val soundState =
             if (soundLink == null) SoundState.SOUND_INVALID else SoundState.SOUND_LOADING
 
         Timber.d("Parsed Gif Link: $gifLink")
         Timber.d("Parsed Sound Link: $soundLink")
 
-        return OpenGSUIModel(
+        return State(
             gifSource = GifSource(gifLink, gifType),
-            soundSource = SoundSource(soundLink),
-            secondsVideoDefaultOffset = seconds,
-            secondsVideoOffset = seconds,
+            soundSource = SoundSource(soundLink, seconds),
             gifState = gifState,
             soundState = soundState,
-            errorMessage = null
+            currentSecondsOffset = seconds,
+            gifAction = Event(PlaybackAction.PREPARE),
+            soundAction = Event(PlaybackAction.PREPARE),
+            isFromDeepLink = isFromDeepLink,
         )
     }
 }

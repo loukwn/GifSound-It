@@ -96,7 +96,7 @@ class SettingsViewMvcImpl(
         if (this.listener == listener) this.listener = null
     }
 
-    override fun getRootView(): View = binding.root
+    override fun getRoot(): View = binding.root
 }
 
 

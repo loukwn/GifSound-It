@@ -81,6 +81,3 @@ sealed class Action {
     object FragmentCreated: Action()
 }
 
-sealed class NavigationTarget {
-    data class OpenGs(val gsQuery: String) : NavigationTarget()
-}
