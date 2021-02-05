@@ -3,7 +3,7 @@ package com.kostaslou.gifsoundit.settings
 import androidx.annotation.StringRes
 import com.kostaslou.gifsoundit.common.contract.ActionableViewContract
 
-interface SettingsContract {
+internal interface SettingsContract {
 
     interface View : ActionableViewContract<Listener> {
         fun collapseModeSelector()
@@ -26,12 +26,12 @@ interface SettingsContract {
     }
 }
 
-data class State(
+internal data class State(
     val modeSelectorCollapsed: Boolean,
     val currentMode: Int
 )
 
-sealed class Action {
+internal sealed class Action {
     data class ModeSelected(val mode: Int): Action()
     object ModeBgClicked: Action()
     object Created: Action()

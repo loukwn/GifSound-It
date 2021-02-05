@@ -60,7 +60,9 @@ internal data class State(
     val soundAction: Event<PlaybackAction>,
     val currentSecondsOffset: Int,
     val isFromDeepLink: Boolean,
-)
+) {
+    companion object
+}
 
 internal enum class PlaybackAction {
     PREPARE, PLAY, RESTART
@@ -71,7 +73,7 @@ internal enum class GifState {
 }
 
 internal enum class SoundState {
-    SOUND_INVALID, SOUND_ERROR, SOUND_LOADING, SOUND_OK, SOUND_ENDED, SOUND_STARTED
+    SOUND_INVALID, SOUND_ERROR, SOUND_LOADING, SOUND_OK, SOUND_STARTED
 }
 
 internal data class GifSource(val gifUrl: String?, val gifType: GifType)

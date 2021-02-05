@@ -1,6 +1,5 @@
 package com.kostaslou.gifsoundit.settings.view
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +8,7 @@ import androidx.core.view.isVisible
 import com.kostaslou.gifsoundit.settings.SettingsContract
 import com.loukwn.feat_settings.databinding.FragmentSettingsBinding
 
-class SettingsViewMvcImpl(
+internal class SettingsViewMvcImpl(
     inflater: LayoutInflater,
     container: ViewGroup?
 ) : SettingsContract.View {

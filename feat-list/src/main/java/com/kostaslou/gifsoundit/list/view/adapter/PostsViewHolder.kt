@@ -10,7 +10,6 @@ import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.kostaslou.gifsoundit.list.R
 import com.kostaslou.gifsoundit.list.databinding.ItemPostBinding
 

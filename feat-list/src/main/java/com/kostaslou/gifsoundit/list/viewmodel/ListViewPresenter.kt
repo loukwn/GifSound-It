@@ -3,8 +3,9 @@ package com.kostaslou.gifsoundit.list.viewmodel
 import com.kostaslou.gifsoundit.list.ListContract
 import com.kostaslou.gifsoundit.list.State
 import com.loukwn.postdata.FilterType
+import javax.inject.Inject
 
-object ListViewPresenter {
+internal class ListViewPresenter @Inject constructor() {
     fun updateView(
         view: ListContract.View,
         state: State

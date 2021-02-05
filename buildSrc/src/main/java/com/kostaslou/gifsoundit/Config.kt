@@ -84,6 +84,7 @@ object Config {
 
     object TestLibs {
         const val jUnit = "junit:junit:_"
+        const val mockk = "io.mockk:mockk:_"
 
         object Mockito {
             const val mockitoInline = "org.mockito:mockito-inline:_"

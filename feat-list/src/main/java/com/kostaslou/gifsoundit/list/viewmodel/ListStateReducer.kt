@@ -8,8 +8,9 @@ import com.kostaslou.gifsoundit.list.view.adapter.ListAdapterModel
 import com.kostaslou.gifsoundit.list.view.adapter.toAdapterModel
 import com.loukwn.postdata.FilterType
 import com.loukwn.postdata.RedditConstants
+import javax.inject.Inject
 
-object ListStateReducer {
+internal class ListStateReducer @Inject constructor() {
     fun map(oldState: State, action: Action): State {
         return when (action) {
             is Action.DataChanged -> {
@@ -26,11 +27,12 @@ object ListStateReducer {
                     }
                     is DataState.Data -> {
                         action.postResponse()?.let { response ->
-                            val newData = response.postData.map { it.toAdapterModel() }.apply {
-                                if (this.size == RedditConstants.NUM_OF_POSTS_PER_REQUEST) {
-                                    plus(ListAdapterModel.Loading)
+                            val newData =
+                                ArrayList<ListAdapterModel>(response.postData.map { it.toAdapterModel() }).apply {
+                                    if (this.size == RedditConstants.NUM_OF_POSTS_PER_REQUEST) {
+                                        add(ListAdapterModel.Loading)
+                                    }
                                 }
-                            }
 
                             val finalData = oldState.adapterData
                                 .minus(ListAdapterModel.Loading)

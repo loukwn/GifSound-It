@@ -2,8 +2,6 @@ package com.kostaslou.gifsoundit
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -22,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        navigator.bind(getNavController())
+        navigator.bind(context = this, navController = getNavController())
         navigateIfDeepLinked(intent)
     }
 
@@ -38,7 +36,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        navigator.bind(findNavController(R.id.nav_host_fragment))
+        navigator.bind(context = this, navController = findNavController(R.id.nav_host_fragment))
     }
 
     override fun onPause() {

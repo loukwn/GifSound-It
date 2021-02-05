@@ -15,7 +15,6 @@ import com.kostaslou.gifsoundit.opengs.mappers.QueryToStateMapper
 import com.loukwn.navigation.Navigator
 import io.reactivex.Scheduler
 import io.reactivex.disposables.Disposable
-import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.PublishSubject
 import timber.log.Timber
 import javax.inject.Named

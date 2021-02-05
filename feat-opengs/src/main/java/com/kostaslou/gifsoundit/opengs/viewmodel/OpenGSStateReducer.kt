@@ -44,7 +44,6 @@ internal class OpenGSStateReducer @Inject constructor() {
 
                         state.copy(soundState = action.soundState, soundAction = soundAction)
                     }
-                    SoundState.SOUND_ENDED -> state //TODO? why do i need this?
                     SoundState.SOUND_STARTED -> {
                         state.copy(
                             soundState = action.soundState,
@@ -66,13 +65,19 @@ internal class OpenGSStateReducer @Inject constructor() {
                     }
                     UserAction.ON_OFFSET_DECREASE -> {
                         state.copy(
-                            currentSecondsOffset = state.currentSecondsOffset.coerceAtLeast(0),
+                            currentSecondsOffset = (state.currentSecondsOffset - 1).coerceAtLeast(0),
                             soundAction = Event(PlaybackAction.RESTART)
                         )
                     }
-                    UserAction.ON_OFFSET_RESET, UserAction.ON_REFRESH -> {
+                    UserAction.ON_OFFSET_RESET -> {
                         state.copy(
                             currentSecondsOffset = state.soundSource.defaultSecondsOffset,
+                            soundAction = Event(PlaybackAction.RESTART)
+                        )
+                    }
+                    UserAction.ON_REFRESH -> {
+                        state.copy(
+                            currentSecondsOffset = state.currentSecondsOffset,
                             soundAction = Event(PlaybackAction.RESTART)
                         )
                     }

@@ -11,7 +11,7 @@ import androidx.core.widget.ImageViewCompat
 import com.loukwn.feat_settings.R
 import com.loukwn.feat_settings.databinding.ViewSelectableOptionViewBinding
 
-class SelectableOptionView @JvmOverloads constructor(
+internal class SelectableOptionView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,

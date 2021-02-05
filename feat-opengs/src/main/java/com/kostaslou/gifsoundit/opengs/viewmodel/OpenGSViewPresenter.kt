@@ -10,6 +10,68 @@ import javax.inject.Inject
 
 internal class OpenGSViewPresenter @Inject constructor() {
     fun updateView(view: OpenGSContract.View, state: State) {
+        handleGifEvent(state, view)
+        handleSoundEvent(state, view)
+        handleUiControlsState(state, view)
+        handlePlayGifLabelVisibility(state, view)
+        updateStatusLabel(view = view, gifState = state.gifState, soundState = state.soundState)
+    }
+
+    private fun handleUiControlsState(
+        state: State,
+        view: OpenGSContract.View
+    ) {
+        if (state.gifState == GifState.GIF_OK && state.soundState == SoundState.SOUND_STARTED) {
+            view.setVideoOffsetControlsEnabled(true)
+            view.showRefreshButton()
+            view.showOffsetSeconds(seconds = state.currentSecondsOffset)
+        } else {
+            view.setVideoOffsetControlsEnabled(false)
+        }
+    }
+
+    private fun handlePlayGifLabelVisibility(
+        state: State,
+        view: OpenGSContract.View
+    ) {
+        if (state.gifState == GifState.GIF_OK &&
+            (state.soundState == SoundState.SOUND_ERROR ||
+                state.soundState == SoundState.SOUND_INVALID)
+        ) {
+            view.setShowGIFLayoutVisibitity(true)
+        } else {
+            view.setShowGIFLayoutVisibitity(false)
+        }
+    }
+
+    private fun handleSoundEvent(
+        state: State,
+        view: OpenGSContract.View
+    ) {
+        state.soundAction.getContentIfNotHandled()?.let { soundAction ->
+            val soundUrl = state.soundSource.soundUrl
+            val defaultSecondsOffset = state.soundSource.defaultSecondsOffset.toFloat()
+            when (soundAction) {
+                PlaybackAction.PREPARE -> {
+                    if (soundUrl != null && state.gifSource.gifType != GifType.YOUTUBE) {
+                        view.prepareSoundYoutubeView(
+                            soundUrl = soundUrl,
+                            startSeconds = defaultSecondsOffset
+                        )
+                    }
+                }
+                PlaybackAction.PLAY -> view.startSound()
+                PlaybackAction.RESTART -> view.seekAndRestartSound(
+                    seekSeconds = state.currentSecondsOffset
+                )
+            }
+        }
+    }
+
+    private fun handleGifEvent(
+        state: State,
+        view: OpenGSContract.View
+    ) {
         state.gifAction.getContentIfNotHandled()?.let { gifAction ->
             val gifType = state.gifSource.gifType
             val gifUrl = state.gifSource.gifUrl
@@ -41,45 +103,6 @@ internal class OpenGSViewPresenter @Inject constructor() {
                 }
             }
         }
-
-        state.soundAction.getContentIfNotHandled()?.let { soundAction ->
-            val soundUrl = state.soundSource.soundUrl
-            val defaultSecondsOffset = state.soundSource.defaultSecondsOffset.toFloat()
-            when (soundAction) {
-                PlaybackAction.PREPARE -> {
-                    if (soundUrl != null && state.gifSource.gifType != GifType.YOUTUBE) {
-                        view.prepareSoundYoutubeView(
-                            soundUrl = soundUrl,
-                            startSeconds = defaultSecondsOffset
-                        )
-                    }
-                }
-                PlaybackAction.PLAY -> view.startSound()
-                PlaybackAction.RESTART -> view.seekAndRestartSound(
-                    seekSeconds = state.currentSecondsOffset
-                )
-            }
-        }
-
-
-        if (state.gifState == GifState.GIF_OK && state.soundState == SoundState.SOUND_STARTED) {
-            view.setVideoOffsetControlsEnabled(true)
-            view.showRefreshButton()
-            view.showOffsetSeconds(seconds = state.currentSecondsOffset)
-        } else {
-            view.setVideoOffsetControlsEnabled(false)
-        }
-
-        if (state.gifState == GifState.GIF_OK &&
-            (state.soundState == SoundState.SOUND_ERROR ||
-                state.soundState == SoundState.SOUND_INVALID)
-        ) {
-            view.setShowGIFLayoutVisibitity(true)
-        } else {
-            view.setShowGIFLayoutVisibitity(false)
-        }
-
-        updateStatusLabel(view = view, gifState = state.gifState, soundState = state.soundState)
     }
 
     private fun updateStatusLabel(
@@ -99,7 +122,6 @@ internal class OpenGSViewPresenter @Inject constructor() {
             SoundState.SOUND_ERROR -> "errored"
             SoundState.SOUND_LOADING -> "loading"
             SoundState.SOUND_OK,
-            SoundState.SOUND_ENDED,
             SoundState.SOUND_STARTED -> "ready"
         }
 

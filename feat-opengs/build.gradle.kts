@@ -92,7 +92,6 @@ dependencies {
 
     api(Config.Libs.youtubePlayer)
 
-    testImplementation(Config.TestLibs.Mockito.mockitoInline)
-    testImplementation(Config.TestLibs.Mockito.mockitoKotlin)
+    testImplementation(Config.TestLibs.mockk)
     testImplementation(Config.TestLibs.jUnit)
 }

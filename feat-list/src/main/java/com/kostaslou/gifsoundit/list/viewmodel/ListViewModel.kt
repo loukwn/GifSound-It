@@ -1,5 +1,6 @@
 package com.kostaslou.gifsoundit.list.viewmodel
 
+import androidx.annotation.RestrictTo
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
@@ -21,9 +22,11 @@ import io.reactivex.subjects.PublishSubject
 import timber.log.Timber
 import javax.inject.Named
 
-class ListViewModel @ViewModelInject constructor(
+internal class ListViewModel @ViewModelInject constructor(
     private val repository: PostRepository,
     private val navigator: Navigator,
+    private val listStateReducer: ListStateReducer,
+    private val listViewPresenter: ListViewPresenter,
     @Named("io") ioScheduler: Scheduler,
     @Named("ui") uiScheduler: Scheduler,
 ) : ViewModel(), LifecycleObserver, ListContract.Listener, ListContract.ViewModel {
@@ -34,7 +37,8 @@ class ListViewModel @ViewModelInject constructor(
     private var currentState = State.default()
     private var view: ListContract.View? = null
 
-    override fun onCleared() {
+    @RestrictTo(RestrictTo.Scope.TESTS)
+    public override fun onCleared() {
         disposable?.dispose()
         disposable = null
         view = null
@@ -49,7 +53,7 @@ class ListViewModel @ViewModelInject constructor(
             onDataChangedEvent(),
             actionSubject
         ).scan(State.default()) { state, event ->
-            val newState = ListStateReducer.map(state, event)
+            val newState = listStateReducer.map(state, event)
             Timber.d("$state + $event = $newState")
             newState
         }
@@ -63,7 +67,7 @@ class ListViewModel @ViewModelInject constructor(
     }
 
     private fun updateView(state: State) {
-        view?.let { ListViewPresenter.updateView(it, state) }
+        view?.let { listViewPresenter.updateView(it, state) }
     }
 
     private fun onDataChangedEvent() = repository.postDataObservable.map { Action.DataChanged(it) }

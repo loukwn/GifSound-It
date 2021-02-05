@@ -19,7 +19,7 @@ import com.kostaslou.gifsoundit.list.view.adapter.ListAdapterModel
 import com.kostaslou.gifsoundit.list.view.adapter.ListPostAdapter
 import com.loukwn.postdata.TopFilterType
 
-class ListViewImpl(
+internal class ListViewImpl(
     private val context: Context,
     inflater: LayoutInflater,
     container: ViewGroup?

@@ -1,4 +1,4 @@
-package com.kostaslou.gifsoundit.opengs.controller
+package com.kostaslou.gifsoundit.opengs
 
 import android.os.Bundle
 import android.view.LayoutInflater

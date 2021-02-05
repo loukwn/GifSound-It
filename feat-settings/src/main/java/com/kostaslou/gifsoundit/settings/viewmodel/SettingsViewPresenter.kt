@@ -4,8 +4,9 @@ import androidx.appcompat.app.AppCompatDelegate
 import com.kostaslou.gifsoundit.settings.SettingsContract
 import com.kostaslou.gifsoundit.settings.State
 import com.loukwn.feat_settings.R
+import javax.inject.Inject
 
-object SettingsViewPresenter {
+internal class SettingsViewPresenter @Inject constructor() {
     fun updateView(view: SettingsContract.View, state: State) {
         if (state.modeSelectorCollapsed) view.collapseModeSelector() else view.expandModeSelector()
 

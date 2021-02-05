@@ -1,5 +1,6 @@
 package com.kostaslou.gifsoundit.settings.viewmodel
 
+import androidx.annotation.RestrictTo
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.Lifecycle
@@ -17,9 +18,11 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.subjects.PublishSubject
 import javax.inject.Named
 
-class SettingsViewModel @ViewModelInject constructor(
+internal class SettingsViewModel @ViewModelInject constructor(
     private val sharedPrefsHelper: SharedPrefsHelper,
     private val navigator: Navigator,
+    private val settingsStateReducer: SettingsStateReducer,
+    private val settingsViewPresenter: SettingsViewPresenter,
     @Named("io") ioScheduler: Scheduler,
     @Named("ui") uiScheduler: Scheduler,
 ) : ViewModel(), SettingsContract.Listener, SettingsContract.ViewModel, LifecycleObserver {
@@ -29,7 +32,8 @@ class SettingsViewModel @ViewModelInject constructor(
     private val actionSubject = PublishSubject.create<Action>()
     private var currentMode = sharedPrefsHelper.getDayNightMode()
 
-    override fun onCleared() {
+    @RestrictTo(RestrictTo.Scope.TESTS)
+    public override fun onCleared() {
         view = null
         disposable?.dispose()
         disposable = null
@@ -39,7 +43,7 @@ class SettingsViewModel @ViewModelInject constructor(
     init {
         disposable = actionSubject
             .scan(getDefaultState()) { state, event ->
-                SettingsStateReducer.map(state, event)
+                settingsStateReducer.map(state, event)
             }
             .subscribeOn(ioScheduler)
             .observeOn(uiScheduler)
@@ -51,7 +55,7 @@ class SettingsViewModel @ViewModelInject constructor(
     }
 
     private fun updateView(state: State) {
-        view?.let { SettingsViewPresenter.updateView(it, state) }
+        view?.let { settingsViewPresenter.updateView(it, state) }
     }
 
     private fun updateModeIfNeeded(newMode: Int) {

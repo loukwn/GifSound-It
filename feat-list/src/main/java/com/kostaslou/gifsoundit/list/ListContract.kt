@@ -8,7 +8,7 @@ import com.loukwn.postdata.FilterType
 import com.loukwn.postdata.TopFilterType
 import com.loukwn.postdata.model.domain.PostResponse
 
-interface ListContract {
+internal interface ListContract {
 
     interface View : ActionableViewContract<Listener> {
         fun allowOrNotSwipeToRefresh(allow: Boolean)
@@ -39,7 +39,7 @@ interface ListContract {
     }
 }
 
-data class State(
+internal data class State(
     val adapterData: List<ListAdapterModel>,
     val fetchAfter: String?,
     val errorMessage: Event<String?>?,
@@ -65,7 +65,7 @@ data class State(
     }
 }
 
-sealed class Action {
+internal sealed class Action {
     data class DataChanged(val postResponse: DataState<PostResponse>) : Action() {
         override fun toString(): String {
             return if (postResponse is DataState.Data) {

@@ -66,4 +66,7 @@ dependencies {
     implementation(Config.Libs.Android.Navigation.navigationUiKtx)
     implementation(Config.Libs.Android.constraintLayout)
     implementation(Config.Libs.Android.material)
+
+    testImplementation(Config.TestLibs.jUnit)
+    testImplementation(Config.TestLibs.mockk)
 }

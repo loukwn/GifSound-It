@@ -5,31 +5,26 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.core.os.bundleOf
 import androidx.navigation.NavController
-import dagger.hilt.android.qualifiers.ActivityContext
-import dagger.hilt.android.scopes.ActivityScoped
 import javax.inject.Inject
+import javax.inject.Singleton
 
-@ActivityScoped
-class Navigator @Inject constructor(
-    @ActivityContext private val context: Context
-) {
+@Singleton
+class Navigator @Inject constructor() {
 
     private var navController: NavController? = null
+    private var context: Context? = null
     private var currentScreen = initialDestination
 
-    fun bind(navController: NavController) {
+    fun bind(context: Context, navController: NavController) {
+        this.context = context
         if (this.navController != navController) {
             this.navController = navController
         }
     }
 
     fun unbind() {
+        context = null
         navController = null
-    }
-
-    fun reset() {
-        currentScreen = initialDestination
-        unbind()
     }
 
     fun goBack() {
@@ -37,22 +32,20 @@ class Navigator @Inject constructor(
     }
 
     fun openShareScreen(query: String) {
-        val sendIntent: Intent = Intent().apply {
-            action = Intent.ACTION_SEND
-            putExtra(Intent.EXTRA_TEXT, query)
-            type = "text/plain"
-        }
+        context?.let {
+            val sendIntent: Intent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, query)
+                type = "text/plain"
+            }
 
-        context.startActivity(
-            Intent.createChooser(
-                sendIntent,
-                "asd"
+            it.startActivity(
+                Intent.createChooser(
+                    sendIntent,
+                    "asd"
+                )
             )
-        )
-    }
-
-    fun navigateToList() {
-        navigateTo(Destination.LIST, null)
+        }
     }
 
     fun navigateToOpenGS(query: String?, fromDeepLink: Boolean) {

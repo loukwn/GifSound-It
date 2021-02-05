@@ -159,9 +159,6 @@ internal class OpenGSViewImpl(
                             PlayerConstants.PlayerState.VIDEO_CUED -> {
                                 listener?.onSoundStateChanged(SoundState.SOUND_OK)
                             }
-                            PlayerConstants.PlayerState.ENDED -> {
-                                listener?.onSoundStateChanged(SoundState.SOUND_ENDED)
-                            }
                             PlayerConstants.PlayerState.PLAYING -> {
                                 listener?.onSoundStateChanged(SoundState.SOUND_STARTED)
                             }
