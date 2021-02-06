@@ -38,7 +38,7 @@ android {
                     type = Config.Types.STRING,
                     name = Config.BuildConfigFields.YOUTUBE_API_KEY,
                     value = properties.getProperty(Config.BuildConfigFields.YOUTUBE_API_KEY_PROP)
-                            ?: "default_youtube_api_key_for_ci"
+                            ?: "\"default_youtube_api_key_for_ci\""
             )
         }
 
@@ -50,7 +50,7 @@ android {
                     type = Config.Types.STRING,
                     name = Config.BuildConfigFields.YOUTUBE_API_KEY,
                     value = properties.getProperty(Config.BuildConfigFields.YOUTUBE_API_KEY_PROP)
-                            ?: "default_youtube_api_key_for_ci"
+                            ?: "\"default_youtube_api_key_for_ci\""
             )
         }
     }
