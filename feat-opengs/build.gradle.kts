@@ -30,14 +30,15 @@ android {
             isMinifyEnabled = true
             isDebuggable = false
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                    getDefaultProguardFile("proguard-android-optimize.txt"),
+                    "proguard-rules.pro"
             )
 
             buildConfigField(
-                Config.Types.STRING,
-                Config.BuildConfigFields.YOUTUBE_API_KEY,
-                properties.getProperty(Config.BuildConfigFields.YOUTUBE_API_KEY_PROP)
+                    type = Config.Types.STRING,
+                    name = Config.BuildConfigFields.YOUTUBE_API_KEY,
+                    value = properties.getProperty(Config.BuildConfigFields.YOUTUBE_API_KEY_PROP)
+                            ?: ""
             )
         }
 
@@ -46,9 +47,10 @@ android {
             isDebuggable = true
 
             buildConfigField(
-                Config.Types.STRING,
-                Config.BuildConfigFields.YOUTUBE_API_KEY,
-                properties.getProperty(Config.BuildConfigFields.YOUTUBE_API_KEY_PROP)
+                    type = Config.Types.STRING,
+                    name = Config.BuildConfigFields.YOUTUBE_API_KEY,
+                    value = properties.getProperty(Config.BuildConfigFields.YOUTUBE_API_KEY_PROP)
+                            ?: ""
             )
         }
     }

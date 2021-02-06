@@ -31,19 +31,21 @@ android {
             isMinifyEnabled = true
             isDebuggable = false
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                    getDefaultProguardFile("proguard-android-optimize.txt"),
+                    "proguard-rules.pro"
             )
 
             buildConfigField(
-                Config.Types.STRING,
-                Config.BuildConfigFields.REDDIT_CLIENT_ID,
-                properties.getProperty(Config.BuildConfigFields.REDDIT_CLIENT_ID_PROP)
+                    type = Config.Types.STRING,
+                    name = Config.BuildConfigFields.REDDIT_CLIENT_ID,
+                    value = properties.getProperty(Config.BuildConfigFields.REDDIT_CLIENT_ID_PROP)
+                            ?: ""
             )
             buildConfigField(
-                Config.Types.STRING,
-                Config.BuildConfigFields.REDDIT_USER_AGENT,
-                properties.getProperty(Config.BuildConfigFields.REDDIT_USER_AGENT_PROP)
+                    type = Config.Types.STRING,
+                    name = Config.BuildConfigFields.REDDIT_USER_AGENT,
+                    value = properties.getProperty(Config.BuildConfigFields.REDDIT_USER_AGENT_PROP)
+                            ?: ""
             )
         }
 
@@ -52,14 +54,16 @@ android {
             isDebuggable = true
 
             buildConfigField(
-                Config.Types.STRING,
-                Config.BuildConfigFields.REDDIT_CLIENT_ID,
-                properties.getProperty(Config.BuildConfigFields.REDDIT_CLIENT_ID_PROP)
+                    type = Config.Types.STRING,
+                    name = Config.BuildConfigFields.REDDIT_CLIENT_ID,
+                    value = properties.getProperty(Config.BuildConfigFields.REDDIT_CLIENT_ID_PROP)
+                            ?: ""
             )
             buildConfigField(
-                Config.Types.STRING,
-                Config.BuildConfigFields.REDDIT_USER_AGENT,
-                properties.getProperty(Config.BuildConfigFields.REDDIT_USER_AGENT_PROP)
+                    type = Config.Types.STRING,
+                    name = Config.BuildConfigFields.REDDIT_USER_AGENT,
+                    value = properties.getProperty(Config.BuildConfigFields.REDDIT_USER_AGENT_PROP)
+                            ?: ""
             )
         }
     }
