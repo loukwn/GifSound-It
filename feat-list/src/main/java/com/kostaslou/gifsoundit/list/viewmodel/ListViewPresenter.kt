@@ -34,6 +34,7 @@ internal class ListViewPresenter @Inject constructor() {
             view.allowOrNotScrollToBottomLoading(allow = true)
         }
 
+        view.setLoadingScreenVisibility(isVisible = state.isLoading && state.adapterData.isEmpty())
         view.showList(state.adapterData)
     }
 }

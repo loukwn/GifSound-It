@@ -5,6 +5,8 @@ import android.graphics.PorterDuff
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.kostaslou.gifsoundit.common.util.tintWithColorRes
+import com.kostaslou.gifsoundit.list.R
 import com.kostaslou.gifsoundit.list.databinding.ItemLoadingBinding
 
 class LoadingViewHolder(
@@ -16,8 +18,7 @@ class LoadingViewHolder(
     ) : this(ItemLoadingBinding.inflate(inflater, parent, false))
 
     init {
-        // We change the color of the progressbar to black
-        binding.progress.indeterminateDrawable.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN)
+        binding.progress.tintWithColorRes(itemView.context, R.color.text_primary)
     }
 }
 

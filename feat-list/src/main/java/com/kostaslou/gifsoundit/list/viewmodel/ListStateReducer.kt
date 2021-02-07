@@ -15,16 +15,7 @@ internal class ListStateReducer @Inject constructor() {
         return when (action) {
             is Action.DataChanged -> {
                 when (action.postResponse) {
-                    is DataState.Loading -> {
-                        if (oldState.adapterData.isEmpty()) {
-                            oldState.copy(
-                                adapterData = listOf(ListAdapterModel.Loading),
-                                errorMessage = null
-                            )
-                        } else {
-                            oldState.copy(errorMessage = null)
-                        }
-                    }
+                    is DataState.Loading -> oldState.copy(errorMessage = null)
                     is DataState.Data -> {
                         action.postResponse()?.let { response ->
                             val newData =
@@ -53,21 +44,21 @@ internal class ListStateReducer @Inject constructor() {
                 }
             }
             Action.HotFilterSelected -> oldState.copy(
-                adapterData = listOf(ListAdapterModel.Loading),
+                adapterData = emptyList(),
                 filterType = Event(FilterType.Hot),
                 isLoading = true,
                 errorMessage = null,
                 filterMenuIsVisible = Event(false)
             )
             Action.NewFilterSelected -> oldState.copy(
-                adapterData = listOf(ListAdapterModel.Loading),
+                adapterData = emptyList(),
                 filterType = Event(FilterType.New),
                 isLoading = true,
                 errorMessage = null,
                 filterMenuIsVisible = Event(false)
             )
             is Action.TopFilterSelected -> oldState.copy(
-                adapterData = listOf(ListAdapterModel.Loading),
+                adapterData = emptyList(),
                 filterType = Event(FilterType.Top(action.topPeriod)),
                 isLoading = true,
                 errorMessage = null,
@@ -77,7 +68,7 @@ internal class ListStateReducer @Inject constructor() {
                 filterMenuIsVisible = Event(!oldState.filterMenuIsVisible.peekContent())
             )
             Action.SwipedToRefresh -> oldState.copy(
-                adapterData = listOf(ListAdapterModel.Loading),
+                adapterData = emptyList(),
                 isLoading = true
             )
             Action.FragmentCreated -> oldState.copy(

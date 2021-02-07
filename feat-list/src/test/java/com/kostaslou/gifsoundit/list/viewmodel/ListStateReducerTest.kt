@@ -27,7 +27,7 @@ internal class ListStateReducerTest {
         assertEquals(
             newState,
             oldState.copy(
-                adapterData = listOf(ListAdapterModel.Loading),
+                adapterData = listOf(),
                 errorMessage = null
             )
         )
@@ -67,7 +67,7 @@ internal class ListStateReducerTest {
     }
 
     @Test
-    fun `GIVEN action is DataChanged_Data AND response is less than the max num of posts per request WHEN map THEN add a loading item at the end`() {
+    fun `GIVEN action is DataChanged_Data AND response is less than the max num of posts per request WHEN map THEN do not add a loading item at the end`() {
         val oldState = State.default().copy(adapterData = listOf(ListAdapterModel.Loading))
         val postData = arrayListOf<PostModel>().apply {
             for (i in 0 until RedditConstants.NUM_OF_POSTS_PER_REQUEST - 1) {
@@ -115,7 +115,7 @@ internal class ListStateReducerTest {
         assertEquals(
             newState,
             oldState.copy(
-                adapterData = listOf(ListAdapterModel.Loading),
+                adapterData = emptyList(),
                 filterType = Event(FilterType.Hot),
                 isLoading = true,
                 errorMessage = null,
@@ -134,7 +134,7 @@ internal class ListStateReducerTest {
         assertEquals(
             newState,
             oldState.copy(
-                adapterData = listOf(ListAdapterModel.Loading),
+                adapterData = emptyList(),
                 filterType = Event(FilterType.New),
                 isLoading = true,
                 errorMessage = null,
@@ -153,7 +153,7 @@ internal class ListStateReducerTest {
         assertEquals(
             newState,
             oldState.copy(
-                adapterData = listOf(ListAdapterModel.Loading),
+                adapterData = emptyList(),
                 filterType = Event(FilterType.Top(action.topPeriod)),
                 isLoading = true,
                 errorMessage = null,
@@ -187,7 +187,7 @@ internal class ListStateReducerTest {
         assertEquals(
             newState,
             oldState.copy(
-                adapterData = listOf(ListAdapterModel.Loading),
+                adapterData = emptyList(),
                 isLoading = true
             )
         )

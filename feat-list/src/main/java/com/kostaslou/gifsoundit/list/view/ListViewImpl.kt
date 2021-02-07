@@ -1,6 +1,8 @@
 package com.kostaslou.gifsoundit.list.view
 
 import android.content.Context
+import android.graphics.Color
+import android.graphics.PorterDuff
 import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +13,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kostaslou.gifsoundit.common.util.selector
+import com.kostaslou.gifsoundit.common.util.tintWithColorRes
 import com.kostaslou.gifsoundit.common.util.toast
 import com.kostaslou.gifsoundit.list.ListContract
 import com.kostaslou.gifsoundit.list.R
@@ -38,6 +41,7 @@ internal class ListViewImpl(
 
         }
         binding.mSwipe.setProgressViewOffset(false, 0, 180)
+        binding.loadingScreen.progress.tintWithColorRes(context, R.color.text_primary)
 
         setupRecyclerView()
         setupClickListeners()
@@ -123,9 +127,8 @@ internal class ListViewImpl(
         adapter?.submitList(data)
     }
 
-    override fun showEmptyScreen() {
-        binding.mainRecycler.isVisible = false
-        // TODO: come up with a good empty screen
+    override fun setLoadingScreenVisibility(isVisible: Boolean) {
+        binding.loadingScreen.loadingScreenContainer.isVisible = isVisible
     }
 
     override fun showFilterMenu() {

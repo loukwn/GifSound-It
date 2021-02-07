@@ -14,7 +14,7 @@ internal interface ListContract {
         fun allowOrNotSwipeToRefresh(allow: Boolean)
         fun allowOrNotScrollToBottomLoading(allow: Boolean)
         fun showList(data: List<ListAdapterModel>)
-        fun showEmptyScreen()
+        fun setLoadingScreenVisibility(isVisible: Boolean)
         fun showFilterMenu()
         fun hideFilterMenu()
         fun setFilterMenuToHot()
@@ -49,7 +49,7 @@ internal data class State(
 ) {
     companion object {
         fun default() = State(
-            adapterData = listOf(ListAdapterModel.Loading),
+            adapterData = emptyList(),
             fetchAfter = null,
             errorMessage = null,
             isLoading = true,
