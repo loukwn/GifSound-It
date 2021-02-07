@@ -116,8 +116,9 @@ internal class QueryToStateMapper @Inject constructor(){
                 val decoded = URLDecoder.decode(arg.split("=")[1], "UTF-8")
 
                 decoded?.let {
+                    gifLink = "$it.webm"
                     if (!it.startsWith("http") && !it.startsWith("https")) {
-                        gifLink = "https://$it.webm"
+                        gifLink = "https://$gifLink"
                     }
 
                     gifType = GifType.MP4

@@ -126,4 +126,6 @@ dependencies {
     androidTestImplementation(Config.AndroidTestLibs.extJunitKtx)
     androidTestImplementation(Config.AndroidTestLibs.Espresso.core)
     androidTestImplementation(Config.AndroidTestLibs.Espresso.contrib)
+
+    testImplementation(Config.TestLibs.mockk)
 }
