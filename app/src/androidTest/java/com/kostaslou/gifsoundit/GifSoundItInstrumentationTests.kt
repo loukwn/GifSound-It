@@ -32,10 +32,6 @@ class GifSoundItInstrumentationTests {
             more()
             hot()
             textColorsOkWhenPostTypeIs(FilterType.Hot)
-            filterMenuIsGone()
-
-            // hot is ok, let's try with new also
-            more()
             new()
             textColorsOkWhenPostTypeIs(FilterType.New)
             filterMenuIsGone()
@@ -72,23 +68,6 @@ class GifSoundItInstrumentationTests {
 
             // sometimes there is a delay during data fetch
             sleep(TIME_TO_WAIT_FOR_DATA_FETCH)
-        }
-    }
-
-    @Test
-    fun when_at_home_and_we_navigate_to_opengs() {
-        home {
-            listHasData()
-            openGS(mActivityScenarioRule) {}
-        }
-    }
-
-    @Test
-    fun when_at_opengs_and_we_reduce_the_seconds_offset() {
-        home {
-            listHasData()
-        }.openGS(mActivityScenarioRule) {
-            reduceSecondsAndCheck()
         }
     }
 

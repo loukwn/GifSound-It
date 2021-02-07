@@ -1,18 +1,8 @@
 package com.kostaslou.gifsoundit.robots
 
-import androidx.recyclerview.widget.RecyclerView
-import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers
-import androidx.test.espresso.matcher.ViewMatchers.hasDescendant
-import androidx.test.espresso.matcher.ViewMatchers.withId
-import androidx.test.ext.junit.rules.ActivityScenarioRule
-import com.kostaslou.gifsoundit.MainActivity
 import com.kostaslou.gifsoundit.R
-import com.kostaslou.gifsoundit.util.RecyclerViewTools.Companion.withItemCount
 import com.loukwn.postdata.FilterType
-import org.hamcrest.Matchers.greaterThan
 
 fun home(func: HomeRobot.() -> Unit) = HomeRobot().apply { func() }
 
@@ -53,17 +43,17 @@ class HomeRobot : BaseRobot() {
 
     fun textColorsOkWhenPostTypeIs(filterType: FilterType) {
         when (filterType) {
-            FilterType.HOT -> {
+            is FilterType.Hot -> {
                 matchTextColor(onTextView(R.id.hotButton), R.color.list_menu_hot)
                 matchTextColor(onTextView(R.id.newButton), R.color.list_menu_inactive)
                 matchTextColor(onTextView(R.id.topButton), R.color.list_menu_inactive)
             }
-            FilterType.NEW -> {
+            is FilterType.New -> {
                 matchTextColor(onTextView(R.id.hotButton), R.color.list_menu_inactive)
                 matchTextColor(onTextView(R.id.newButton), R.color.list_menu_new)
                 matchTextColor(onTextView(R.id.topButton), R.color.list_menu_inactive)
             }
-            FilterType.TOP -> {
+            is FilterType.Top -> {
                 matchTextColor(onTextView(R.id.hotButton), R.color.list_menu_inactive)
                 matchTextColor(onTextView(R.id.newButton), R.color.list_menu_inactive)
                 matchTextColor(onTextView(R.id.topButton), R.color.list_menu_top)
@@ -75,19 +65,4 @@ class HomeRobot : BaseRobot() {
         checkVisibility(R.id.filterMenu, ViewMatchers.Visibility.GONE)
     }
 
-    fun listHasData() {
-        onRecyclerView(R.id.mainRecycler).check(withItemCount(greaterThan(0)))
-        onRecyclerViewPosition(R.id.mainRecycler, 0).check(matches(hasDescendant(withId(R.id.postTitle))))
-    }
-
-//    fun listIsLoading() {
-//        onRecyclerView(R.id.mainRecycler).check(withItemCount(greaterThan(0)))
-//        onRecyclerViewPosition(R.id.mainRecycler, 0).check(matches(hasDescendant(withId(R.id.progress))))
-//    }
-
-    fun openGS(mActivityScenarioRule: ActivityScenarioRule<MainActivity>, func: OpenGSRobot.() -> Unit): OpenGSRobot {
-        onRecyclerView(R.id.mainRecycler).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
-
-        return OpenGSRobot(mActivityScenarioRule).apply { func() }
-    }
 }

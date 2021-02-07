@@ -1,3 +1,5 @@
+@file:Suppress("PackageDirectoryMismatch")
+
 object Config {
 
     object Types {

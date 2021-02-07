@@ -21,23 +21,11 @@ open class BaseRobot {
     fun onTextView(resId: Int): ViewInteraction =
             onView(withId(resId))
 
-    fun onRecyclerView(resId: Int): ViewInteraction =
-            onView(withId(resId))
-
     private fun withRecyclerView(resId: Int): RecyclerViewTools =
             RecyclerViewTools(resId)
 
-    fun onRecyclerViewPosition(resId: Int, position: Int): ViewInteraction =
-            onView(withRecyclerView(resId).atPosition(position))
-
     fun matchTextColor(viewInteraction: ViewInteraction, color: Int): ViewInteraction =
             viewInteraction.check(matches(hasTextColor(color)))
-
-    private fun matchText(viewInteraction: ViewInteraction, text: String): ViewInteraction =
-            viewInteraction.check(matches(withText(text)))
-
-    fun matchText(resId: Int, text: String): ViewInteraction =
-            matchText(onTextView(resId), text)
 
     fun sleep(millis: Long = 500) = apply { Thread.sleep(millis) }
 }

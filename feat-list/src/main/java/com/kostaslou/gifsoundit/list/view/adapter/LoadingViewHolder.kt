@@ -1,7 +1,5 @@
 package com.kostaslou.gifsoundit.list.view.adapter
 
-import android.graphics.Color
-import android.graphics.PorterDuff
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView

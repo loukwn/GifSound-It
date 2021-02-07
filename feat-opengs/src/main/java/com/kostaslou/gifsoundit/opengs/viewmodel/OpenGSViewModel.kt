@@ -19,6 +19,7 @@ import io.reactivex.subjects.PublishSubject
 import timber.log.Timber
 import javax.inject.Named
 
+@Suppress("unused")
 internal class OpenGSViewModel @ViewModelInject constructor(
     private val navigator: Navigator,
     private val queryToStateMapper: QueryToStateMapper,
