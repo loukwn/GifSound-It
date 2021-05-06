@@ -15,14 +15,17 @@ import com.loukwn.navigation.Navigator
 import com.loukwn.postdata.FilterType
 import com.loukwn.postdata.PostRepository
 import com.loukwn.postdata.TopFilterType
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.Disposable
 import io.reactivex.subjects.PublishSubject
 import timber.log.Timber
+import javax.inject.Inject
 import javax.inject.Named
 
-internal class ListViewModel @ViewModelInject constructor(
+@HiltViewModel
+internal class ListViewModel @Inject constructor(
     private val repository: PostRepository,
     private val navigator: Navigator,
     private val listStateReducer: ListStateReducer,

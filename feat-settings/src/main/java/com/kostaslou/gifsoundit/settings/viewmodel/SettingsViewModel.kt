@@ -13,12 +13,15 @@ import com.kostaslou.gifsoundit.settings.Action
 import com.kostaslou.gifsoundit.settings.SettingsContract
 import com.kostaslou.gifsoundit.settings.State
 import com.loukwn.navigation.Navigator
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Scheduler
 import io.reactivex.disposables.Disposable
 import io.reactivex.subjects.PublishSubject
+import javax.inject.Inject
 import javax.inject.Named
 
-internal class SettingsViewModel @ViewModelInject constructor(
+@HiltViewModel
+internal class SettingsViewModel @Inject constructor(
     private val sharedPrefsHelper: SharedPrefsHelper,
     private val navigator: Navigator,
     private val settingsStateReducer: SettingsStateReducer,

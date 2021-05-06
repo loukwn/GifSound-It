@@ -13,14 +13,17 @@ import com.kostaslou.gifsoundit.opengs.State
 import com.kostaslou.gifsoundit.opengs.UserAction
 import com.kostaslou.gifsoundit.opengs.mappers.QueryToStateMapper
 import com.loukwn.navigation.Navigator
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Scheduler
 import io.reactivex.disposables.Disposable
 import io.reactivex.subjects.PublishSubject
 import timber.log.Timber
+import javax.inject.Inject
 import javax.inject.Named
 
 @Suppress("unused")
-internal class OpenGSViewModel @ViewModelInject constructor(
+@HiltViewModel
+internal class OpenGSViewModel @Inject constructor(
     private val navigator: Navigator,
     private val queryToStateMapper: QueryToStateMapper,
     @Named("io") private val ioScheduler: Scheduler,
