@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.google.android.material.transition.MaterialSharedAxis
 import com.kostaslou.gifsoundit.settings.view.SettingsViewMvcImpl
 import com.kostaslou.gifsoundit.settings.viewmodel.SettingsViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -14,6 +15,12 @@ import dagger.hilt.android.AndroidEntryPoint
 class SettingsFragment : Fragment() {
 
     private val viewModel: SettingsViewModel by viewModels()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enterTransition = MaterialSharedAxis(MaterialSharedAxis.X, /* forward= */ true)
+        returnTransition = MaterialSharedAxis(MaterialSharedAxis.X, /* forward= */ false)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
