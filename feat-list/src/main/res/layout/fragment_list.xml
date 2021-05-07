@@ -30,7 +30,7 @@
                 android:layout_height="40dp"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="8dp"
-                android:contentDescription="@string/content_description_home_more"
+                android:contentDescription="@string/content_description_list_more"
                 android:soundEffectsEnabled="false"
                 android:src="@drawable/ic_down_24"
                 app:layout_constraintStart_toStartOf="parent"
@@ -67,7 +67,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="15dp"
-                    android:text="@string/home_button_hot"
+                    android:text="@string/list_button_hot"
                     android:textColor="@color/list_menu_hot"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -77,7 +77,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="15dp"
-                    android:text="@string/home_button_new"
+                    android:text="@string/list_button_new"
                     android:textColor="@color/list_menu_inactive"
                     android:textSize="16sp" />
 
@@ -86,7 +86,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
-                    android:text="@string/home_button_top"
+                    android:text="@string/list_button_top"
                     android:textColor="@color/list_menu_inactive"
                     android:textSize="16sp" />
             </LinearLayout>
@@ -97,6 +97,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/content_description_list_settings_button"
                 android:padding="6dp"
                 android:src="@drawable/ic_settings_24"
                 app:layout_constraintBottom_toBottomOf="@id/toolbarTitle"

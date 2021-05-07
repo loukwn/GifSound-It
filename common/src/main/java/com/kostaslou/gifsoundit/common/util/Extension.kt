@@ -1,9 +1,7 @@
 package com.kostaslou.gifsoundit.common.util
 
-import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
-import android.content.ContextWrapper
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.annotation.ColorRes
@@ -30,11 +28,3 @@ fun ProgressBar.tintWithColorRes(context: Context, @ColorRes colorRes: Int) {
         )
 }
 
-val Context.activityContext: Activity?
-    get() {
-        var c: Context? = this
-        while (c != null && c !is Activity && c is ContextWrapper) {
-            c = c.baseContext
-        }
-        return c as? Activity
-    }

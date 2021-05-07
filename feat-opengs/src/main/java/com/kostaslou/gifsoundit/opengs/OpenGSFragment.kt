@@ -1,6 +1,5 @@
 package com.kostaslou.gifsoundit.opengs
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -28,9 +27,6 @@ class OpenGSFragment : Fragment() {
         super.onCreate(savedInstanceState)
         sharedElementEnterTransition = MaterialContainerTransform().apply {
             duration = 300L
-            // Set the color of the scrim to transparent as we also want to animate the
-            // list fragment out of view
-            scrimColor = Color.TRANSPARENT
         }
     }
 

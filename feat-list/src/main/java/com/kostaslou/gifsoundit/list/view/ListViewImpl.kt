@@ -80,7 +80,7 @@ internal class ListViewImpl(
         )
 
         context.selector(
-            title = context.getString(R.string.home_selector_title),
+            title = context.getString(R.string.list_selector_title),
             options = options.map { context.getString(it.uiLabelRes) }.toTypedArray()
         ) {
             // TODO show a toast as well later

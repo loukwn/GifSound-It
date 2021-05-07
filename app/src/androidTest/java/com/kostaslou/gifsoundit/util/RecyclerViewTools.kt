@@ -17,7 +17,7 @@ class RecyclerViewTools(private val recyclerViewId: Int) {
             return withItemCount(`is`(expectedCount))
         }
 
-        fun withItemCount(matcher: Matcher<Int>): ViewAssertion {
+        private fun withItemCount(matcher: Matcher<Int>): ViewAssertion {
             return ViewAssertion { view, noViewFoundException ->
                 if (noViewFoundException != null) {
                     throw noViewFoundException

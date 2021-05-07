@@ -29,7 +29,7 @@ class PostRepository @Inject constructor(
     @Named("io") private val ioScheduler: Scheduler
 ) {
     private val postErrorMessage by lazy {
-        context.resources.getString(R.string.home_error_posts)
+        context.resources.getString(R.string.list_error_posts)
     }
 
     private var postFetchDisposable: Disposable? = null
@@ -141,12 +141,12 @@ sealed class FilterType {
 }
 
 enum class TopFilterType(val apiLabel: String, @StringRes val uiLabelRes: Int) {
-    HOUR(apiLabel = "hour", uiLabelRes = R.string.home_top_hour),
-    DAY(apiLabel = "day", uiLabelRes = R.string.home_top_day),
-    WEEK("week", uiLabelRes = R.string.home_top_week),
-    MONTH("month", uiLabelRes = R.string.home_top_month),
-    YEAR("year", uiLabelRes = R.string.home_top_year),
-    ALL("all", uiLabelRes = R.string.home_top_all),
+    HOUR(apiLabel = "hour", uiLabelRes = R.string.list_top_hour),
+    DAY(apiLabel = "day", uiLabelRes = R.string.list_top_day),
+    WEEK("week", uiLabelRes = R.string.list_top_week),
+    MONTH("month", uiLabelRes = R.string.list_top_month),
+    YEAR("year", uiLabelRes = R.string.list_top_year),
+    ALL("all", uiLabelRes = R.string.list_top_all),
 }
 
 

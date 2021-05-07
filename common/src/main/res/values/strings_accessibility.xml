@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- List -->
+    <string name="content_description_list_more">Button to expand filter banner</string>
+    <string name="content_description_list_settings_button">Button to go to Settings</string>
+
+    <!-- OpenGS -->
+    <string name="content_description_opengs_close_gif_label">Button to close the play gif label</string>
+    <string name="content_description_opengs_refresh">Button to refresh gifsound playback</string>
+    <string name="content_description_opengs_share">Button to share gifsound</string>
+    <string name="content_description_opengs_revert">Revert seconds to default</string>
+    <string name="content_description_opengs_decrease">Button to decrease second offset</string>
+    <string name="content_description_opengs_add">Button to add seconds offset</string>
+    <string name="content_description_opengs_gif">Gif screen</string>
+    <string name="content_description_opengs_back_button">Button to go back</string>
+
+    <!-- Settings -->
+    <string name="content_description_settings_back">Button to go back</string>
+
+</resources>

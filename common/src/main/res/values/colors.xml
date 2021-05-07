@@ -2,6 +2,7 @@
 <resources>
     <color name="colorPrimary">#491505</color>
     <color name="colorPrimaryDark">#2B0C03</color>
+    <color name="colorPrimaryRipple">#44AF5F46</color>
 
     <color name="list_menu_hot">@android:color/holo_orange_dark</color>
     <color name="list_menu_new">@android:color/holo_green_dark</color>

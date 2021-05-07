@@ -2,7 +2,6 @@ package com.kostaslou.gifsoundit.settings.viewmodel
 
 import androidx.annotation.RestrictTo
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent

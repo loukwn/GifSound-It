@@ -5,7 +5,6 @@ import androidx.test.espresso.ViewInteraction
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
-import com.kostaslou.gifsoundit.util.RecyclerViewTools
 
 open class BaseRobot {
 
@@ -20,9 +19,6 @@ open class BaseRobot {
 
     fun onTextView(resId: Int): ViewInteraction =
             onView(withId(resId))
-
-    private fun withRecyclerView(resId: Int): RecyclerViewTools =
-            RecyclerViewTools(resId)
 
     fun matchTextColor(viewInteraction: ViewInteraction, color: Int): ViewInteraction =
             viewInteraction.check(matches(hasTextColor(color)))
