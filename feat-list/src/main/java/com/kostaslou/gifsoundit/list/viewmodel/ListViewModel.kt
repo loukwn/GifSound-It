@@ -1,7 +1,7 @@
 package com.kostaslou.gifsoundit.list.viewmodel
 
+import android.view.View
 import androidx.annotation.RestrictTo
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
@@ -89,8 +89,15 @@ internal class ListViewModel @Inject constructor(
         }
     }
 
-    override fun onListItemClicked(post: ListAdapterModel.Post) {
-        navigator.navigateToOpenGS(query = post.url, fromDeepLink = false)
+    override fun onListItemClicked(
+        post: ListAdapterModel.Post,
+        containerTransitionView: Pair<View, String>
+    ) {
+        navigator.navigateToOpenGS(
+            query = post.url,
+            fromDeepLink = false,
+            containerTransitionView = containerTransitionView
+        )
         view = null
     }
 

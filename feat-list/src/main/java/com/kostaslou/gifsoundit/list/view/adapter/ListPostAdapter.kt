@@ -1,13 +1,14 @@
 package com.kostaslou.gifsoundit.list.view.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
 class ListPostAdapter(
-    private val onItemClicked: (ListAdapterModel.Post) -> Unit
+    private val onItemClicked: (ListAdapterModel.Post, Pair<View, String>) -> Unit
 ) : ListAdapter<ListAdapterModel, RecyclerView.ViewHolder>(Differ) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {

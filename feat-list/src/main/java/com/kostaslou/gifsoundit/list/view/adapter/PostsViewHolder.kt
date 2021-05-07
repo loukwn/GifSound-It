@@ -5,6 +5,7 @@ import android.net.Uri
 import android.text.TextUtils
 import android.util.Patterns
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
@@ -15,23 +16,25 @@ import com.kostaslou.gifsoundit.list.databinding.ItemPostBinding
 
 class PostsViewHolder(
     private val binding: ItemPostBinding,
-    private val onItemClicked: (item: ListAdapterModel.Post) -> Unit,
+    private val onItemClicked: (item: ListAdapterModel.Post, Pair<View, String>) -> Unit,
 ) : RecyclerView.ViewHolder(binding.root) {
     constructor(
         inflater: LayoutInflater,
         parent: ViewGroup?,
-        onItemClicked: (item: ListAdapterModel.Post) -> Unit,
+        onItemClicked: (item: ListAdapterModel.Post, Pair<View, String>) -> Unit,
     ) : this(ItemPostBinding.inflate(inflater, parent, false), onItemClicked)
 
     fun bind(item: ListAdapterModel.Post) = with(binding) {
         // click listeners
-        root.setOnClickListener { onItemClicked(item) }
+        root.setOnClickListener { onItemClicked(item, Pair(it, it.transitionName)) }
         linkButton.setOnClickListener {
             it.context?.let { ctx ->
                 val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(item.permalink))
                 ctx.startActivity(browserIntent)
             }
         }
+
+        root.transitionName = "transition${item.permalink}"
 
         // load image
         val imageUrl = if (item.isSelf) {

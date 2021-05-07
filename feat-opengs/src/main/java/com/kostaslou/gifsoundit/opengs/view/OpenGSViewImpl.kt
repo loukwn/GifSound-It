@@ -1,10 +1,14 @@
 package com.kostaslou.gifsoundit.opengs.view
 
+import android.app.Activity
 import android.content.Context
 import android.media.MediaPlayer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ActivityCompat.postponeEnterTransition
+import androidx.core.app.ActivityCompat.startPostponedEnterTransition
+import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -13,6 +17,7 @@ import com.bumptech.glide.load.resource.gif.GifDrawable
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.gifsoundit.opengs.databinding.FragmentOpengsBinding
+import com.kostaslou.gifsoundit.common.util.activityContext
 import com.kostaslou.gifsoundit.opengs.GifState
 import com.kostaslou.gifsoundit.opengs.OpenGSContract
 import com.kostaslou.gifsoundit.opengs.SoundState
@@ -24,7 +29,8 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTube
 internal class OpenGSViewImpl(
     private val context: Context,
     inflater: LayoutInflater,
-    container: ViewGroup?
+    container: ViewGroup?,
+    transitionName: String?,
 ) : OpenGSContract.View {
 
     private var listener: OpenGSContract.Listener? = null
@@ -34,7 +40,11 @@ internal class OpenGSViewImpl(
 
     init {
         // This is for the marquee setting to work
+        if (transitionName != null) {
+            binding.root.transitionName = transitionName
+        }
         binding.statusLabel.isSelected = true
+
         setupClickListeners()
     }
 

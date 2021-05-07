@@ -11,10 +11,7 @@
 
         <action
             android:id="@+id/action_home_to_opengs"
-            app:destination="@id/fragment_opengs_id"
-            app:enterAnim="@anim/slide_in_up"
-            app:popEnterAnim="@anim/slide_in_up"
-            app:popExitAnim="@anim/slide_out_down" />
+            app:destination="@id/fragment_opengs_id" />
 
         <action
             android:id="@+id/action_home_to_settings"

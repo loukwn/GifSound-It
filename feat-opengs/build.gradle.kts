@@ -76,6 +76,7 @@ dependencies {
     implementation(project(Config.Modules.navigation))
 
     implementation(Config.Libs.Android.appcompat)
+    implementation(Config.Libs.Android.material)
     implementation(Config.Libs.Android.coreKtx)
     implementation(Config.Libs.Android.Navigation.navigationFragmentKtx)
     implementation(Config.Libs.Android.constraintLayout)

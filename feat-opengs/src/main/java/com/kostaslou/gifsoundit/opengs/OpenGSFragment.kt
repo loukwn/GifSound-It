@@ -1,11 +1,13 @@
 package com.kostaslou.gifsoundit.opengs
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.google.android.material.transition.MaterialContainerTransform
 import com.kostaslou.gifsoundit.opengs.view.OpenGSViewImpl
 import com.kostaslou.gifsoundit.opengs.viewmodel.OpenGSViewModel
 import com.loukwn.navigation.Navigator
@@ -16,13 +18,24 @@ class OpenGSFragment : Fragment() {
 
     private val viewModel: OpenGSViewModel by viewModels()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        sharedElementEnterTransition = MaterialContainerTransform().apply {
+            duration = 300L
+            // Set the color of the scrim to transparent as we also want to animate the
+            // list fragment out of view
+            scrimColor = Color.TRANSPARENT
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         viewLifecycleOwner.lifecycle.addObserver(viewModel)
-        return OpenGSViewImpl(requireContext(), inflater, container).also {
+        val transitionName = requireArguments().getString(Navigator.PARAM_OPENGS_TRANSITION_NAME)
+        return OpenGSViewImpl(requireContext(), inflater, container, transitionName).also {
             viewModel.setView(it)
             setupViewModel()
             lifecycle.addObserver(it.getSoundYoutubePlayerView())
@@ -30,8 +43,8 @@ class OpenGSFragment : Fragment() {
     }
 
     private fun setupViewModel() {
-        val query = arguments?.getString(Navigator.PARAM_OPENGS_QUERY) ?: return
-        val fromDeepLink = arguments?.getBoolean(Navigator.PARAM_OPENGS_FROM_DEEP_LINK) ?: return
+        val query = requireNotNull(requireArguments().getString(Navigator.PARAM_OPENGS_QUERY))
+        val fromDeepLink = requireArguments().getBoolean(Navigator.PARAM_OPENGS_FROM_DEEP_LINK)
 
         viewModel.setup(query = query, isFromDeepLink = fromDeepLink)
     }

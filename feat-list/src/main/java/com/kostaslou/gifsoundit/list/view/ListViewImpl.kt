@@ -6,10 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.kostaslou.gifsoundit.common.util.activityContext
 import com.kostaslou.gifsoundit.common.util.selector
 import com.kostaslou.gifsoundit.common.util.tintWithColorRes
 import com.kostaslou.gifsoundit.common.util.toast
@@ -100,7 +103,7 @@ internal class ListViewImpl(
                 }
         }
 
-        adapter = ListPostAdapter { listener?.onListItemClicked(it) }
+        adapter = ListPostAdapter { post, containerTransitionView -> listener?.onListItemClicked(post, containerTransitionView) }
         // This will wait until the adapter has data and set the saved state after that
         adapter?.stateRestorationPolicy =
             RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY

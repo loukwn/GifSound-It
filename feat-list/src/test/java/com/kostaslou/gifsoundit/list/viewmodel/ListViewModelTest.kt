@@ -100,7 +100,7 @@ internal class ListViewModelTest {
     fun `WHEN onListItemClicked THEN navigateToOpenGS`() {
         sut.onListItemClicked(mockk(relaxed = true))
 
-        verify(exactly = 1) { navigator.navigateToOpenGS(any(), any()) }
+        verify(exactly = 1) { navigator.navigateToOpenGS(any(), any(), any()) }
     }
 
     @Test

@@ -26,7 +26,11 @@ internal interface ListContract {
     interface Listener {
         fun onSwipeToRefresh()
         fun onScrolledToBottom()
-        fun onListItemClicked(post: ListAdapterModel.Post)
+        fun onListItemClicked(
+            post: ListAdapterModel.Post,
+            containerTransitionView: Pair<android.view.View, String>
+        )
+
         fun onHotFilterSelected()
         fun onNewFilterSelected()
         fun onTopFilterSelected(type: TopFilterType)
@@ -73,11 +77,12 @@ internal sealed class Action {
             } else super.toString()
         }
     }
+
     object HotFilterSelected : Action()
     object NewFilterSelected : Action()
     data class TopFilterSelected(val topPeriod: TopFilterType) : Action()
     object MoreFilterButtonClicked : Action()
-    object SwipedToRefresh: Action()
-    object FragmentCreated: Action()
+    object SwipedToRefresh : Action()
+    object FragmentCreated : Action()
 }
 
