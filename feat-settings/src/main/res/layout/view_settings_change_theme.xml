@@ -14,26 +14,28 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/ripple_on_item"
-        android:padding="16dp">
+        android:paddingTop="16dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="32dp">
 
         <TextView
+            style="@style/TextStyle.HindSiliguri.18.Bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:fontFamily="@font/hindsiliguri_bold"
             android:text="@string/settings_theme_mode_title"
             android:textColor="@color/text_primary"
-            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@id/settings_theme_more_button"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/settings_theme_more_button" />
 
         <TextView
             android:id="@+id/selectedModeLabel"
+            style="@style/TextStyle.HindSiliguri.14.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
-            android:fontFamily="@font/hindsiliguri_medium"
             android:textColor="@color/text_additional"
             app:layout_constraintBottom_toBottomOf="@id/settings_theme_more_button"
             app:layout_constraintEnd_toStartOf="@id/settings_theme_more_button"
@@ -72,8 +74,8 @@
             android:id="@+id/darkOption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
             app:layout_constraintStart_toEndOf="@id/centerGuideline"
             app:layout_constraintTop_toBottomOf="@id/settings_theme_more_button"
             app:sov_icon="@drawable/ic_moon_24"
@@ -94,8 +96,8 @@
             android:id="@+id/batteryOption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
             app:layout_constraintStart_toEndOf="@id/centerGuideline"
             app:layout_constraintTop_toBottomOf="@id/lightOption"
             app:sov_icon="@drawable/ic_battery_24"

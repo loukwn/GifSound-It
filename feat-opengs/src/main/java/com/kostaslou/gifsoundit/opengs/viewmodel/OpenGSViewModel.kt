@@ -15,7 +15,6 @@ import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Named
 
-@Suppress("unused")
 @HiltViewModel
 internal class OpenGSViewModel @Inject constructor(
     private val navigator: Navigator,
@@ -107,16 +106,19 @@ internal class OpenGSViewModel @Inject constructor(
         this.view = view
     }
 
+    @Suppress("unused")
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     fun doOnStart() {
         view?.setListener(this)
     }
 
+    @Suppress("unused")
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     fun doOnStop() {
         view?.removeListener(this)
     }
 
+    @Suppress("unused")
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     fun doOnDestroy() {
         view?.release()

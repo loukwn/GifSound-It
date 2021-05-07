@@ -18,12 +18,12 @@
             tools:src="@drawable/ic_sun_24" />
 
         <TextView
+            style="@style/TextStyle.HindSiliguri.14.Medium"
             android:id="@+id/text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="4dp"
-            android:fontFamily="@font/hindsiliguri_medium"
             android:textColor="@color/text_additional"
             tools:text="Light" />
 

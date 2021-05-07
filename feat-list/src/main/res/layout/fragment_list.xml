@@ -38,15 +38,13 @@
 
             <TextView
                 android:id="@+id/toolbarTitle"
+                style="@style/TextStyle.Overlock.22.Black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="12dp"
-                android:fontFamily="@font/overlock_black"
                 android:text="@string/app_name"
                 android:textColor="@android:color/white"
-                android:textSize="22sp"
-                android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@id/moreButton"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -64,31 +62,31 @@
 
                 <TextView
                     android:id="@+id/hotButton"
+                    style="@style/TextStyle.HindSiliguri.18.Bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="15dp"
                     android:text="@string/list_button_hot"
                     android:textColor="@color/list_menu_hot"
-                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/newButton"
+                    style="@style/TextStyle.HindSiliguri.18.Bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="15dp"
                     android:text="@string/list_button_new"
-                    android:textColor="@color/list_menu_inactive"
-                    android:textSize="16sp" />
+                    android:textColor="@color/list_menu_inactive" />
 
                 <TextView
                     android:id="@+id/topButton"
+                    style="@style/TextStyle.HindSiliguri.18.Bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
                     android:text="@string/list_button_top"
-                    android:textColor="@color/list_menu_inactive"
-                    android:textSize="16sp" />
+                    android:textColor="@color/list_menu_inactive" />
             </LinearLayout>
 
             <ImageView

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TextStyle.Overlock" parent="TextAppearance.MaterialComponents.Headline4">
+        <item name="android:fontFamily">@font/overlock_regular</item>
+        <item name="fontFamily">@font/overlock_regular</item>
+    </style>
+
+    <style name="TextStyle.Overlock.20">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="TextStyle.Overlock.22">
+        <item name="android:textSize">22sp</item>
+    </style>
+
+    <style name="TextStyle.Overlock.20.Black">
+        <item name="android:fontFamily">@font/overlock_black</item>
+        <item name="fontFamily">@font/overlock_black</item>
+    </style>
+
+    <style name="TextStyle.Overlock.22.Black">
+        <item name="android:fontFamily">@font/overlock_black</item>
+        <item name="fontFamily">@font/overlock_black</item>
+    </style>
+
+    <style name="TextStyle.HindSiliguri" parent="TextAppearance.MaterialComponents.Headline4">
+        <item name="android:fontFamily">@font/hindsiliguri_regular</item>
+        <item name="fontFamily">@font/hindsiliguri_regular</item>
+    </style>
+
+    <style name="TextStyle.HindSiliguri.12">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="TextStyle.HindSiliguri.14">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="TextStyle.HindSiliguri.16">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TextStyle.HindSiliguri.18">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="TextStyle.HindSiliguri.20">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="TextStyle.HindSiliguri.14.Medium">
+        <item name="android:fontFamily">@font/hindsiliguri_medium</item>
+        <item name="fontFamily">@font/hindsiliguri_medium</item>
+    </style>
+
+    <style name="TextStyle.HindSiliguri.14.Bold">
+        <item name="android:fontFamily">@font/hindsiliguri_bold</item>
+        <item name="fontFamily">@font/hindsiliguri_bold</item>
+    </style>
+
+    <style name="TextStyle.HindSiliguri.16.Bold">
+        <item name="android:fontFamily">@font/hindsiliguri_bold</item>
+        <item name="fontFamily">@font/hindsiliguri_bold</item>
+    </style>
+
+    <style name="TextStyle.HindSiliguri.18.Bold">
+        <item name="android:fontFamily">@font/hindsiliguri_bold</item>
+        <item name="fontFamily">@font/hindsiliguri_bold</item>
+    </style>
+
+    <style name="TextStyle.HindSiliguri.20.Light">
+        <item name="android:fontFamily">@font/hindsiliguri_light</item>
+        <item name="fontFamily">@font/hindsiliguri_light</item>
+    </style>
+</resources>

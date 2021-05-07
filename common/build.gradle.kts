@@ -36,6 +36,7 @@ dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
     implementation(Config.Libs.Android.appcompat)
+    implementation(Config.Libs.Android.material)
 
     implementation(Config.Libs.Hilt.hiltAndroid)
     kapt(Config.Libs.Hilt.hiltAndroidCompiler)
