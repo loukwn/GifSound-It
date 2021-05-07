@@ -6,13 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.kostaslou.gifsoundit.common.util.activityContext
 import com.kostaslou.gifsoundit.common.util.selector
 import com.kostaslou.gifsoundit.common.util.tintWithColorRes
 import com.kostaslou.gifsoundit.common.util.toast
@@ -26,7 +23,8 @@ import com.loukwn.postdata.TopFilterType
 internal class ListViewImpl(
     private val context: Context,
     inflater: LayoutInflater,
-    container: ViewGroup?
+    container: ViewGroup?,
+    private val onRecyclerViewPopulated: () -> Unit,
 ) : ListContract.View {
 
     private val binding = FragmentListBinding.inflate(inflater, container, false)
@@ -125,7 +123,7 @@ internal class ListViewImpl(
 
     override fun showList(data: List<ListAdapterModel>) {
         binding.mainRecycler.isVisible = true
-        adapter?.submitList(data)
+        adapter?.submitList(data, onRecyclerViewPopulated)
     }
 
     override fun setLoadingScreenVisibility(isVisible: Boolean) {

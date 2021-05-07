@@ -22,14 +22,14 @@ class ListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         viewLifecycleOwner.lifecycle.addObserver(viewModel)
-        return ListViewImpl(requireContext(), inflater, container)
+        postponeEnterTransition()
+        return ListViewImpl(
+            context = requireContext(),
+            inflater = inflater,
+            container = container,
+            onRecyclerViewPopulated = { startPostponedEnterTransition() }
+        )
             .also { viewModel.setView(it) }
             .getRoot()
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        postponeEnterTransition()
-        view.doOnPreDraw { startPostponedEnterTransition() }
     }
 }
