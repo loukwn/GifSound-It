@@ -102,6 +102,10 @@ internal class OpenGSViewModel @Inject constructor(
         actionSubject.onNext(Action.SoundStateChanged(soundState))
     }
 
+    override fun onViewWebsiteButtonPressed() {
+        navigator.goToOgWebsite(url = query)
+    }
+
     override fun setView(view: OpenGSContract.View) {
         this.view = view
     }

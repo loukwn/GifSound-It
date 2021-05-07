@@ -207,7 +207,9 @@ internal class OpenGSViewImpl(
     }
 
     override fun showYoutubeErrorScreen() {
-        // TODO
+        binding.youtubeErrorScreen.root.isVisible = true
+        binding.youtubeErrorScreen.backBtn.setOnClickListener { listener?.onBackButtonPressed() }
+        binding.youtubeErrorScreen.viewBtn.setOnClickListener { listener?.onViewWebsiteButtonPressed() }
     }
 
     override fun setStatusMessage(message: String) {

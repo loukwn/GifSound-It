@@ -23,6 +23,10 @@
     <string name="opengs_sound_error_label">Sound problems? Tap here to play GIF anyway</string>
     <string name="opengs_title">GifSound</string>
     <string name="opengs_sound_offset_label">Sound Offset (sec)</string>
+    <string name="opengs_youtube_error_title">Whoops!</string>
+    <string name="opengs_youtube_error_description">It seems like the GIF part of the current GifSound is a video from YouTube. \n\nUnfortunately this is currently not supported as playback of two videos simultaneously cannot be done using the official Android YouTube client.</string>
+    <string name="opengs_youtube_gif_error_back">Go Back</string>
+    <string name="opengs_youtube_gif_error_view">View on the Website</string>
 
     <!--Settings Fragment-->
     <string name="settings_theme_mode_title">Theme</string>

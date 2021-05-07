@@ -4,8 +4,10 @@ import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.ContextCompat.startActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import com.loukwn.navigation.Navigator.Companion.PARAM_OPENGS_FROM_DEEP_LINK
@@ -13,6 +15,7 @@ import com.loukwn.navigation.Navigator.Companion.PARAM_OPENGS_QUERY
 import com.loukwn.navigation.Navigator.Companion.PARAM_OPENGS_TRANSITION_NAME
 import javax.inject.Inject
 import javax.inject.Singleton
+
 
 @Singleton
 internal class NavigatorImpl @Inject constructor() : Navigator {
@@ -74,6 +77,14 @@ internal class NavigatorImpl @Inject constructor() : Navigator {
 
     override fun navigateToSettings() {
         navigateTo(dest = Destination.SETTINGS)
+    }
+
+    override fun goToOgWebsite(url: String) {
+        context?.let {
+            startActivity(it, Intent(Intent.ACTION_VIEW).apply {
+                data = Uri.parse(url)
+            }, null)
+        }
     }
 
     private fun navigateTo(

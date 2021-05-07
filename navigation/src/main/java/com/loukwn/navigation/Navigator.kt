@@ -16,6 +16,7 @@ interface Navigator {
         containerTransitionView: Pair<View, String>? = null
     )
     fun navigateToSettings()
+    fun goToOgWebsite(url: String)
 
     companion object {
         const val PARAM_OPENGS_QUERY = "Navigator.PARAM_OPENGS_QUERY"

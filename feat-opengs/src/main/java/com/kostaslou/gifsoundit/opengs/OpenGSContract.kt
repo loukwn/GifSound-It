@@ -34,6 +34,7 @@ internal interface OpenGSContract {
         fun onOffsetResetButtonPressed()
         fun onGifStateChanged(gifState: GifState)
         fun onSoundStateChanged(soundState: SoundState)
+        fun onViewWebsiteButtonPressed()
     }
 
     interface ViewModel {
