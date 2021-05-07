@@ -1,16 +1,10 @@
 package com.kostaslou.gifsoundit.opengs.viewmodel
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.ViewModel
-import com.kostaslou.gifsoundit.opengs.Action
-import com.kostaslou.gifsoundit.opengs.GifState
-import com.kostaslou.gifsoundit.opengs.OpenGSContract
-import com.kostaslou.gifsoundit.opengs.SoundState
-import com.kostaslou.gifsoundit.opengs.State
-import com.kostaslou.gifsoundit.opengs.UserAction
+import com.kostaslou.gifsoundit.opengs.*
 import com.kostaslou.gifsoundit.opengs.mappers.QueryToStateMapper
 import com.loukwn.navigation.Navigator
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -121,5 +115,10 @@ internal class OpenGSViewModel @Inject constructor(
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     fun doOnStop() {
         view?.removeListener(this)
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    fun doOnDestroy() {
+        view?.release()
     }
 }

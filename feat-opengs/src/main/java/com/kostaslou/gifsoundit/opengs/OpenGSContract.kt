@@ -21,6 +21,7 @@ internal interface OpenGSContract {
         fun showRefreshButton()
         fun showOffsetSeconds(seconds: Int)
         fun setShowGIFLayoutVisibitity(visible: Boolean)
+        fun release()
     }
 
     interface Listener {

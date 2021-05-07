@@ -248,7 +248,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
-    <VideoView
+    <com.google.android.exoplayer2.ui.PlayerView
         android:id="@+id/mp4View"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -257,6 +257,8 @@
         app:layout_constraintBottom_toTopOf="@id/playGIFLayout"
         app:layout_constraintEnd_toStartOf="@id/soundView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar" />
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:surface_type="texture_view"
+        app:use_controller="false" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

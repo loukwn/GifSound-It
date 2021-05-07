@@ -49,6 +49,7 @@ object Config {
             const val cardView = "androidx.cardview:cardview:_"
             const val recyclerView = "androidx.recyclerview:recyclerview:_"
             const val swipeRefreshLayout = "androidx.swiperefreshlayout:swiperefreshlayout:_"
+            const val exoplayer = "com.google.android.exoplayer:exoplayer:_"
 
             object Navigation {
                 const val navigationFragmentKtx = "androidx.navigation:navigation-fragment-ktx:_"

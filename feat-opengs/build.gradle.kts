@@ -80,6 +80,7 @@ dependencies {
     implementation(Config.Libs.Android.coreKtx)
     implementation(Config.Libs.Android.Navigation.navigationFragmentKtx)
     implementation(Config.Libs.Android.constraintLayout)
+    implementation(Config.Libs.Android.exoplayer)
 
     implementation(Config.Libs.glide)
 
