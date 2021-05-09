@@ -236,7 +236,7 @@
             android:textColor="@color/text_color_pill_source"
             app:chipBackgroundColor="@color/bg_pill_source"
             app:chipCornerRadius="20dp"
-            app:chipStrokeColor="@color/colorPrimary"
+            app:chipStrokeColor="@color/stroke_color_chip_source"
             app:chipStrokeWidth="1dp"
             app:rippleColor="@color/colorPrimary" />
 
@@ -249,7 +249,7 @@
             android:textColor="@color/text_color_pill_source"
             app:chipBackgroundColor="@color/bg_pill_source"
             app:chipCornerRadius="20dp"
-            app:chipStrokeColor="@color/colorPrimary"
+            app:chipStrokeColor="@color/stroke_color_chip_source"
             app:chipStrokeWidth="1dp"
             app:rippleColor="@color/colorPrimary" />
 
@@ -262,7 +262,7 @@
             android:textColor="@color/text_color_pill_source"
             app:chipBackgroundColor="@color/bg_pill_source"
             app:chipCornerRadius="20dp"
-            app:chipStrokeColor="@color/colorPrimary"
+            app:chipStrokeColor="@color/stroke_color_chip_source"
             app:chipStrokeWidth="1dp"
             app:rippleColor="@color/colorPrimary" />
 
