@@ -3,21 +3,23 @@
     <string name="app_name">GifSound It</string>
     <string name="intent_filter_label">View GifSound</string>
 
-    <!--Home Fragment -->
+    <!--List Fragment -->
     <string name="list_error_posts">Error fetching posts…</string>
     <string name="list_button_hot">Hot</string>
     <string name="list_button_new">New</string>
-    <string name="list_button_top">Top</string>
     <string name="list_item_button_link">Button to open reddit post</string>
     <string name="list_item_thumbnail">Post thumbnail</string>
-    <string name="list_top_hour">Hour</string>
-    <string name="list_top_day">Day</string>
-    <string name="list_top_week">Week</string>
-    <string name="list_top_month">Month</string>
-    <string name="list_top_year">Year</string>
-    <string name="list_top_all">All</string>
+    <string name="list_top_hour">Top - Hour</string>
+    <string name="list_top_day">Top - Day</string>
+    <string name="list_top_week">Top - Week</string>
+    <string name="list_top_month">Top - Month</string>
+    <string name="list_top_year">Top - Year</string>
+    <string name="list_top_all">Top - All</string>
     <string name="list_selector_title">Select time period</string>
     <string name="list_loading_working">Working…</string>
+    <string name="list_options_save">Save</string>
+    <string name="list_options_filter_title">Filter</string>
+    <string name="list_options_source_title">Source</string>
 
     <!--Open GifSound Fragment -->
     <string name="opengs_sound_error_label">Sound problems? Tap here to play GIF anyway</string>
@@ -35,5 +37,8 @@
     <string name="settings_theme_mode_system">System default</string>
     <string name="settings_theme_mode_battery">Battery Saver</string>
     <string name="settings_title">Settings</string>
+    <string name="list_source_gifsound">r/GifSound</string>
+    <string name="list_source_animegifsound">r/AnimeGifSound</string>
+    <string name="list_source_musicgifstation">r/MusicGifStation</string>
 
 </resources>
