@@ -41,6 +41,7 @@ internal interface ListContract {
 
     interface ViewModel {
         fun setView(view: View)
+        fun onBackPressed(): Boolean
     }
 }
 
@@ -102,5 +103,6 @@ internal sealed class Action {
     object ArrowButtonClicked : Action()
     object SwipedToRefresh : Action()
     object FragmentCreated : Action()
+    object OnBackPressed : Action()
 }
 

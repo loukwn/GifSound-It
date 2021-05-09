@@ -61,6 +61,7 @@ internal class ListStateReducer @Inject constructor() {
                     oldState.copy(optionsLayoutIsOpen = false)
                 }
             }
+            Action.OnBackPressed -> oldState.copy(optionsLayoutIsOpen = false)
         }
     }
 }

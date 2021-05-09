@@ -6,19 +6,11 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.ViewModel
-import com.kostaslou.gifsoundit.common.util.Event
 import com.kostaslou.gifsoundit.list.*
-import com.kostaslou.gifsoundit.list.Action
-import com.kostaslou.gifsoundit.list.FilterType
-import com.kostaslou.gifsoundit.list.ListContract
-import com.kostaslou.gifsoundit.list.SourceType
-import com.kostaslou.gifsoundit.list.State
 import com.kostaslou.gifsoundit.list.util.toDTO
 import com.kostaslou.gifsoundit.list.view.adapter.ListAdapterModel
 import com.loukwn.navigation.Navigator
-import com.loukwn.postdata.FilterTypeDTO
 import com.loukwn.postdata.PostRepository
-import com.loukwn.postdata.TopFilterTypeDTO
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Observable
 import io.reactivex.Scheduler
@@ -141,6 +133,15 @@ internal class ListViewModel @Inject constructor(
 
     override fun setView(view: ListContract.View) {
         this.view = view
+    }
+
+    override fun onBackPressed(): Boolean {
+        return if (currentState.optionsLayoutIsOpen) {
+            actionSubject.onNext(Action.OnBackPressed)
+            true
+        } else {
+            false
+        }
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
