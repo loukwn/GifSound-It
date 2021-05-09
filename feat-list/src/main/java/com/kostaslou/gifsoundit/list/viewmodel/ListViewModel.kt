@@ -119,6 +119,11 @@ internal class ListViewModel @Inject constructor(
         selectedFilterType: FilterType
     ) {
         actionSubject.onNext(Action.SaveButtonClicked(selectedSourceType, selectedFilterType))
+        repository.getPosts(
+            sourceType = selectedSourceType.toDTO(),
+            filterType = selectedFilterType.toDTO(),
+            after = ""
+        )
     }
 
     override fun onArrowButtonClicked() {

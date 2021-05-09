@@ -16,25 +16,28 @@ internal interface AuthApi {
 }
 
 internal interface PostApi {
-    // Hot gifsounds
-    @GET("/r/GifSound/hot?raw_json=1")
+    // Hot posts
+    @GET("/r/{subName}/hot?raw_json=1")
     fun getHotGifSounds(
+        @Path("subName") subName: String,
         @Header("Authorization") tokenData: String,
         @Header("User-Agent") userAgent: String,
         @Query("after") after: String
     ): Single<RedditSubredditResponse>
 
-    // New gifsounds
-    @GET("/r/GifSound/new?raw_json=1")
+    // New posts
+    @GET("/r/{subName}/new?raw_json=1")
     fun getNewGifSounds(
+        @Path("subName") subName: String,
         @Header("Authorization") tokenData: String,
         @Header("User-Agent") userAgent: String,
         @Query("after") after: String
     ): Single<RedditSubredditResponse>
 
-    // Top Gifsounds
-    @GET("/r/GifSound/top?raw_json=1")
+    // Top posts
+    @GET("/r/{subName}/top?raw_json=1")
     fun getTopGifSounds(
+        @Path("subName") subName: String,
         @Header("Authorization") tokenData: String,
         @Header("User-Agent") userAgent: String,
         @Query("after") after: String,

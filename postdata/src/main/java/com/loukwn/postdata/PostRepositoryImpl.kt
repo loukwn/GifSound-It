@@ -24,7 +24,7 @@ internal class PostRepositoryImpl @Inject constructor(
     private val postApi: PostApi,
     private val sharedPrefsHelper: SharedPrefsHelper,
     @Named("io") private val ioScheduler: Scheduler
-): PostRepository {
+) : PostRepository {
     private val postErrorMessage by lazy {
         context.resources.getString(R.string.list_error_posts)
     }
@@ -38,13 +38,13 @@ internal class PostRepositoryImpl @Inject constructor(
 
         postFetchDisposable?.dispose()
         postFetchDisposable = if (authTokenIsValid()) {
-            getPostsFromReddit(filterType, after)
+            getPostsFromReddit(sourceType, filterType, after)
                 .subscribeBy(onError = {
                     postDataObservable.onNext(DataState.Error(it, postErrorMessage))
                 })
         } else {
             getNewAuthTokenObservable()
-                .flatMap { getPostsFromReddit(filterType, after) }
+                .flatMap { getPostsFromReddit(sourceType, filterType, after) }
                 .subscribeBy(onError = {
                     postDataObservable.onNext(DataState.Error(it, postErrorMessage))
                 })
@@ -53,7 +53,7 @@ internal class PostRepositoryImpl @Inject constructor(
 
     override fun refreshAuthTokenIfNeeded() {
         if (!authTokenIsValid()) {
-            authTokenDisposable = getNewAuthTokenObservable().subscribe()
+            authTokenDisposable = getNewAuthTokenObservable().subscribeOn(ioScheduler).subscribe()
         }
     }
 
@@ -69,35 +69,33 @@ internal class PostRepositoryImpl @Inject constructor(
     }
 
     private fun getPostsFromReddit(
+        sourceType: SourceTypeDTO,
         filterType: FilterTypeDTO,
         after: String
     ): Single<RedditSubredditResponse> {
 
         val token = sharedPrefsHelper[SharedPrefsHelper.PREF_KEY_ACCESS_TOKEN, ""]
-//
-//        val request = when (filterType) {
-//            FilterTypeDTO.Hot -> postApi.getHotGifSounds(
-//                "bearer $token",
-//                BuildConfig.RedditUserAgent,
-//                after
-//            )
-//            FilterTypeDTO.New -> postApi.getNewGifSounds(
-//                "bearer $token",
-//                BuildConfig.RedditUserAgent,
-//                after
-//            )
-//            is FilterTypeDTO.Top -> postApi.getTopGifSounds(
-//                "bearer $token",
-//                BuildConfig.RedditUserAgent,
-//                after,
-//                filterType.type.apiLabel
-//            )
-//        }
-        val request = postApi.getHotGifSounds(
-            "bearer $token",
-            BuildConfig.RedditUserAgent,
-            after
-        )
+
+        val request = when (filterType) {
+            FilterTypeDTO.Hot -> postApi.getHotGifSounds(
+                subName = sourceType.apiLabel,
+                tokenData = "bearer $token",
+                userAgent = BuildConfig.RedditUserAgent,
+                after = after
+            )
+            FilterTypeDTO.New -> postApi.getNewGifSounds(
+                subName = sourceType.apiLabel,
+                tokenData = "bearer $token",
+                userAgent = BuildConfig.RedditUserAgent,
+                after = after
+            )
+            is FilterTypeDTO.Top -> postApi.getTopGifSounds(
+                subName = sourceType.apiLabel,
+                tokenData = "bearer $token",
+                userAgent = BuildConfig.RedditUserAgent,
+                after = after
+            )
+        }
 
         return request
             .subscribeOn(ioScheduler)
@@ -109,7 +107,6 @@ internal class PostRepositoryImpl @Inject constructor(
             REDDIT_GRANT_TYPE,
             UUID.randomUUID().toString()
         )
-            .subscribeOn(ioScheduler)
             .doOnSuccess { saveTokenToPrefs(it) }
     }
 
