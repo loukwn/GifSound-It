@@ -7,7 +7,6 @@
     <color name="list_menu_hot">@android:color/holo_orange_dark</color>
     <color name="list_menu_new">@android:color/holo_green_dark</color>
     <color name="list_menu_top">@android:color/holo_blue_dark</color>
-    <color name="list_menu_inactive">@android:color/darker_gray</color>
 
     <color name="text_primary">#000000</color>
     <color name="text_additional">#303030</color>

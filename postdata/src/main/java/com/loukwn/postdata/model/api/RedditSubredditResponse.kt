@@ -3,9 +3,9 @@ package com.loukwn.postdata.model.api
 import com.loukwn.postdata.model.domain.PostModel
 import com.loukwn.postdata.model.domain.PostResponse
 
-class RedditSubredditResponse(val data: RedditSubredditDataResponse)
+internal class RedditSubredditResponse(val data: RedditSubredditDataResponse)
 
-fun RedditSubredditResponse.toDomainData(): PostResponse {
+internal fun RedditSubredditResponse.toDomainData(): PostResponse {
     val postData = data.children.map {
         val item = it.data
 
@@ -29,6 +29,5 @@ fun RedditSubredditResponse.toDomainData(): PostResponse {
         )
     }
 
-    return PostResponse(postData = postData, after = data.after
-    )
+    return PostResponse(postData = postData, after = data.after)
 }

@@ -3,114 +3,64 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg_screen"
     android:fitsSystemWindows="true">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_top"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+    <include
+        android:id="@+id/optionsLayout"
+        android:visibility="gone"
+        layout="@layout/layout_options_screen" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
         android:background="@color/colorPrimary"
-        android:elevation="6dp"
-        android:minHeight="?attr/actionBarSize"
-        app:contentInsetEnd="0dp"
-        app:contentInsetLeft="0dp"
-        app:contentInsetRight="0dp"
-        app:contentInsetStart="0dp"
+        android:elevation="4dp"
+        app:elevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/optionsLayout">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/moreButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="8dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/content_description_list_more"
+            android:soundEffectsEnabled="false"
+            android:src="@drawable/ic_down_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/moreButton"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="8dp"
-                android:contentDescription="@string/content_description_list_more"
-                android:soundEffectsEnabled="false"
-                android:src="@drawable/ic_down_24"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/toolbarTitle"
+            style="@style/TextStyle.Overlock.22.Black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:text="@string/app_name"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/moreButton"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/toolbarTitle"
-                style="@style/TextStyle.Overlock.22.Black"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="12dp"
-                android:text="@string/app_name"
-                android:textColor="@android:color/white"
-                app:layout_constraintStart_toEndOf="@id/moreButton"
-                app:layout_constraintTop_toTopOf="parent" />
+        <ImageView
+            android:id="@+id/settingsBt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/content_description_list_settings_button"
+            android:padding="6dp"
+            android:src="@drawable/ic_settings_24"
+            app:layout_constraintBottom_toBottomOf="@id/toolbarTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/toolbarTitle" />
 
-            <LinearLayout
-                android:id="@+id/filterMenu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/moreButton"
-                app:layout_constraintTop_toBottomOf="@id/toolbarTitle">
-
-                <TextView
-                    android:id="@+id/hotButton"
-                    style="@style/TextStyle.HindSiliguri.18.Bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="15dp"
-                    android:text="@string/list_button_hot"
-                    android:textColor="@color/list_menu_hot"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/newButton"
-                    style="@style/TextStyle.HindSiliguri.18.Bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="15dp"
-                    android:text="@string/list_button_new"
-                    android:textColor="@color/list_menu_inactive" />
-
-                <TextView
-                    android:id="@+id/topButton"
-                    style="@style/TextStyle.HindSiliguri.18.Bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="5dp"
-                    android:text="@string/list_button_top"
-                    android:textColor="@color/list_menu_inactive" />
-            </LinearLayout>
-
-            <ImageView
-                android:id="@+id/settingsBt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="@string/content_description_list_settings_button"
-                android:padding="6dp"
-                android:src="@drawable/ic_settings_24"
-                app:layout_constraintBottom_toBottomOf="@id/toolbarTitle"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/toolbarTitle" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_begin="20dp" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.appcompat.widget.Toolbar>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/mSwipe"
@@ -119,13 +69,12 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="@id/toolbar">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/mainRecycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/bg_screen"
             android:clipToPadding="false"
             android:paddingTop="60dp"
             android:paddingBottom="40dp" />
@@ -140,6 +89,22 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_top" />
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+    <View
+        android:id="@+id/darkOverlay"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:alpha="0.8"
+        android:background="@android:color/black"
+        android:clickable="true"
+        android:elevation="4dp"
+        android:focusable="true"
+        android:visibility="gone"
+        app:elevation="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/optionsLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

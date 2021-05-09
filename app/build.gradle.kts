@@ -38,38 +38,12 @@ android {
                     getDefaultProguardFile("proguard-android-optimize.txt"),
                     "proguard-rules.pro"
             )
-
-            buildConfigField(
-                    type = Config.Types.STRING,
-                    name = Config.BuildConfigFields.REDDIT_CLIENT_ID,
-                    value = properties.getProperty(Config.BuildConfigFields.REDDIT_CLIENT_ID_PROP)
-                            ?: "\"default_client_id_for_ci\""
-            )
-            buildConfigField(
-                    type = Config.Types.STRING,
-                    name = Config.BuildConfigFields.REDDIT_USER_AGENT,
-                    value = properties.getProperty(Config.BuildConfigFields.REDDIT_USER_AGENT_PROP)
-                            ?: "\"default_user_agent_for_ci\""
-            )
         }
 
         getByName("debug") {
             isMinifyEnabled = false
             isShrinkResources = false
             isDebuggable = true
-
-            buildConfigField(
-                    type = Config.Types.STRING,
-                    name = Config.BuildConfigFields.REDDIT_CLIENT_ID,
-                    value = properties.getProperty(Config.BuildConfigFields.REDDIT_CLIENT_ID_PROP)
-                            ?: "\"default_client_id_for_ci\""
-            )
-            buildConfigField(
-                    type = Config.Types.STRING,
-                    name = Config.BuildConfigFields.REDDIT_USER_AGENT,
-                    value = properties.getProperty(Config.BuildConfigFields.REDDIT_USER_AGENT_PROP)
-                            ?: "\"default_user_agent_for_ci\""
-            )
         }
     }
 

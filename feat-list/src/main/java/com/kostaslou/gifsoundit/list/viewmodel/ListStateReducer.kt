@@ -6,8 +6,6 @@ import com.kostaslou.gifsoundit.list.Action
 import com.kostaslou.gifsoundit.list.State
 import com.kostaslou.gifsoundit.list.view.adapter.ListAdapterModel
 import com.kostaslou.gifsoundit.list.view.adapter.toAdapterModel
-import com.loukwn.postdata.FilterType
-import com.loukwn.postdata.RedditConstants
 import javax.inject.Inject
 
 internal class ListStateReducer @Inject constructor() {
@@ -20,7 +18,7 @@ internal class ListStateReducer @Inject constructor() {
                         action.postResponse()?.let { response ->
                             val newData =
                                 ArrayList<ListAdapterModel>(response.postData.map { it.toAdapterModel() }).apply {
-                                    if (this.size == RedditConstants.NUM_OF_POSTS_PER_REQUEST) {
+                                    if (this.size == 25) { // TODO take care of this
                                         add(ListAdapterModel.Loading)
                                     }
                                 }
@@ -43,38 +41,26 @@ internal class ListStateReducer @Inject constructor() {
                     )
                 }
             }
-            Action.HotFilterSelected -> oldState.copy(
-                adapterData = emptyList(),
-                filterType = Event(FilterType.Hot),
-                isLoading = true,
-                errorMessage = null,
-                filterMenuIsVisible = Event(false)
-            )
-            Action.NewFilterSelected -> oldState.copy(
-                adapterData = emptyList(),
-                filterType = Event(FilterType.New),
-                isLoading = true,
-                errorMessage = null,
-                filterMenuIsVisible = Event(false)
-            )
-            is Action.TopFilterSelected -> oldState.copy(
-                adapterData = emptyList(),
-                filterType = Event(FilterType.Top(action.topPeriod)),
-                isLoading = true,
-                errorMessage = null,
-                filterMenuIsVisible = Event(false)
-            )
-            Action.MoreFilterButtonClicked -> oldState.copy(
-                filterMenuIsVisible = Event(!oldState.filterMenuIsVisible.peekContent())
-            )
+            Action.ArrowButtonClicked -> oldState.copy(optionsLayoutIsOpen = !oldState.optionsLayoutIsOpen)
             Action.SwipedToRefresh -> oldState.copy(
                 adapterData = emptyList(),
                 isLoading = true
             )
-            Action.FragmentCreated -> oldState.copy(
-                filterMenuIsVisible = Event(oldState.filterMenuIsVisible.peekContent()),
-                filterType = Event(oldState.filterType.peekContent())
-            )
+            Action.FragmentCreated -> oldState
+            Action.OverlayClicked -> oldState.copy(optionsLayoutIsOpen = false)
+            is Action.SaveButtonClicked -> {
+                if (action.filterType != oldState.filterType || action.sourceType != oldState.sourceType) {
+                    oldState.copy(
+                        adapterData = emptyList(),
+                        isLoading = true,
+                        optionsLayoutIsOpen = false,
+                        filterType = action.filterType,
+                        sourceType = action.sourceType,
+                    )
+                } else {
+                    oldState.copy(optionsLayoutIsOpen = false)
+                }
+            }
         }
     }
 }

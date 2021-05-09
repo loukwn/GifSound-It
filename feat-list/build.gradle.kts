@@ -58,6 +58,7 @@ dependencies {
     implementation(Config.Libs.Android.recyclerView)
     implementation(Config.Libs.Android.Navigation.navigationFragmentKtx)
     implementation(Config.Libs.Android.swipeRefreshLayout)
+    implementation(Config.Libs.Android.material)
 
     implementation(Config.Libs.glide)
 

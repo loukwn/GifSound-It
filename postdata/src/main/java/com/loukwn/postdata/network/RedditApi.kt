@@ -6,7 +6,7 @@ import io.reactivex.Single
 import retrofit2.http.*
 
 // The endpoint interfaces
-interface AuthApi {
+internal interface AuthApi {
     @FormUrlEncoded
     @POST("/api/v1/access_token")
     fun getAuthToken(
@@ -15,7 +15,7 @@ interface AuthApi {
     ): Single<RedditTokenResponse>
 }
 
-interface PostApi {
+internal interface PostApi {
     // Hot gifsounds
     @GET("/r/GifSound/hot?raw_json=1")
     fun getHotGifSounds(

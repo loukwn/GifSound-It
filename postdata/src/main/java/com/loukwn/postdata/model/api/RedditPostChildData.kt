@@ -1,6 +1,6 @@
 package com.loukwn.postdata.model.api
 
-class RedditPostChildData(
+internal class RedditPostChildData(
     val name: String,
     val title: String,
     val permalink: String,

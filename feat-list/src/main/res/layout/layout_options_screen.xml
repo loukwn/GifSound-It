@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/topHiddenLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/filterTitle"
+        style="@style/TextStyle.HindSiliguri.18.Bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Filter"
+        android:textColor="@color/text_primary" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/saveButton"
+        style="@style/Button.Primary"
+        android:text="Save"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="16sp" />
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/filterChipGroup"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/filterTitle"
+        app:selectionRequired="true"
+        app:singleSelection="true"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipHot"
+            style="@style/ChipStyle"
+            app:checkedIcon="@drawable/ic_hot_24"
+            app:checkedIconEnabled="true"
+            app:checkedIconTint="@android:color/white"
+            app:checkedIconVisible="true"
+            app:chipBackgroundColor="@color/bg_pill_hot"
+            app:chipCornerRadius="20dp"
+            app:chipIcon="@drawable/ic_hot_24"
+            app:chipIconEnabled="true"
+            app:chipIconTint="@color/list_menu_hot"
+            app:chipStrokeColor="@color/list_menu_hot"
+            app:chipStrokeWidth="1dp"
+            app:rippleColor="@color/list_menu_hot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/list_button_hot"
+            android:textColor="@color/text_color_pill_hot" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipNew"
+            style="@style/ChipStyle"
+            app:checkedIcon="@drawable/ic_new_24"
+            app:checkedIconEnabled="true"
+            app:checkedIconTint="@android:color/white"
+            app:checkedIconVisible="true"
+            app:chipBackgroundColor="@color/bg_pill_new"
+            app:chipCornerRadius="20dp"
+            app:chipIcon="@drawable/ic_new_24"
+            app:chipIconEnabled="true"
+            app:chipIconTint="@color/list_menu_new"
+            app:chipStrokeColor="@color/list_menu_new"
+            app:chipStrokeWidth="1dp"
+            app:rippleColor="@color/list_menu_new"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/list_button_new"
+            android:textColor="@color/text_color_pill_new" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipTopHour"
+            style="@style/ChipStyle"
+            app:checkedIcon="@drawable/ic_top_24"
+            app:checkedIconEnabled="true"
+            app:checkedIconTint="@android:color/white"
+            app:checkedIconVisible="true"
+            app:chipBackgroundColor="@color/bg_pill_top"
+            app:chipCornerRadius="20dp"
+            app:chipIcon="@drawable/ic_top_24"
+            app:chipIconEnabled="true"
+            app:chipIconTint="@color/list_menu_top"
+            app:chipStrokeColor="@color/list_menu_top"
+            app:chipStrokeWidth="1dp"
+            app:rippleColor="@color/list_menu_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Top - Hour"
+            android:textColor="@color/text_color_pill_top" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipTopDay"
+            style="@style/ChipStyle"
+            app:checkedIcon="@drawable/ic_top_24"
+            app:checkedIconEnabled="true"
+            app:checkedIconTint="@android:color/white"
+            app:checkedIconVisible="true"
+            app:chipBackgroundColor="@color/bg_pill_top"
+            app:chipCornerRadius="20dp"
+            app:chipIcon="@drawable/ic_top_24"
+            app:chipIconEnabled="true"
+            app:chipIconTint="@color/list_menu_top"
+            app:chipStrokeColor="@color/list_menu_top"
+            app:chipStrokeWidth="1dp"
+            app:rippleColor="@color/list_menu_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Top - Day"
+            android:textColor="@color/text_color_pill_top" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipTopWeek"
+            style="@style/ChipStyle"
+            app:checkedIcon="@drawable/ic_top_24"
+            app:checkedIconEnabled="true"
+            app:checkedIconTint="@android:color/white"
+            app:checkedIconVisible="true"
+            app:chipBackgroundColor="@color/bg_pill_top"
+            app:chipCornerRadius="20dp"
+            app:chipIcon="@drawable/ic_top_24"
+            app:chipIconEnabled="true"
+            app:chipIconTint="@color/list_menu_top"
+            app:chipStrokeColor="@color/list_menu_top"
+            app:chipStrokeWidth="1dp"
+            app:rippleColor="@color/list_menu_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Top - Week"
+            android:textColor="@color/text_color_pill_top" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipTopMonth"
+            style="@style/ChipStyle"
+            app:checkedIcon="@drawable/ic_top_24"
+            app:checkedIconEnabled="true"
+            app:checkedIconTint="@android:color/white"
+            app:checkedIconVisible="true"
+            app:chipBackgroundColor="@color/bg_pill_top"
+            app:chipCornerRadius="20dp"
+            app:chipIcon="@drawable/ic_top_24"
+            app:chipIconEnabled="true"
+            app:chipIconTint="@color/list_menu_top"
+            app:chipStrokeColor="@color/list_menu_top"
+            app:chipStrokeWidth="1dp"
+            app:rippleColor="@color/list_menu_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Top - Month"
+            android:textColor="@color/text_color_pill_top" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipTopYear"
+            style="@style/ChipStyle"
+            app:checkedIcon="@drawable/ic_top_24"
+            app:checkedIconEnabled="true"
+            app:checkedIconTint="@android:color/white"
+            app:checkedIconVisible="true"
+            app:chipBackgroundColor="@color/bg_pill_top"
+            app:chipCornerRadius="20dp"
+            app:chipIcon="@drawable/ic_top_24"
+            app:chipIconEnabled="true"
+            app:chipIconTint="@color/list_menu_top"
+            app:chipStrokeColor="@color/list_menu_top"
+            app:chipStrokeWidth="1dp"
+            app:rippleColor="@color/list_menu_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Top - Year"
+            android:textColor="@color/text_color_pill_top" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipTopAll"
+            style="@style/ChipStyle"
+            app:checkedIcon="@drawable/ic_top_24"
+            app:checkedIconEnabled="true"
+            app:checkedIconTint="@android:color/white"
+            app:checkedIconVisible="true"
+            app:chipBackgroundColor="@color/bg_pill_top"
+            app:chipCornerRadius="20dp"
+            app:chipIcon="@drawable/ic_top_24"
+            app:chipIconEnabled="true"
+            app:chipIconTint="@color/list_menu_top"
+            app:chipStrokeColor="@color/list_menu_top"
+            app:chipStrokeWidth="1dp"
+            app:rippleColor="@color/list_menu_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Top - All"
+            android:textColor="@color/text_color_pill_top" />
+
+    </com.google.android.material.chip.ChipGroup>
+
+    <TextView
+        android:id="@+id/sourceTitle"
+        style="@style/TextStyle.HindSiliguri.18.Bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/filterChipGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Source"
+        android:textColor="@color/text_primary" />
+
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/sourceChipGroup"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sourceTitle"
+        app:selectionRequired="true"
+        app:singleSelection="true"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipGifsound"
+            style="@style/ChipStyle"
+            app:chipBackgroundColor="@color/bg_pill_source"
+            app:chipCornerRadius="20dp"
+            app:chipStrokeColor="@color/colorPrimary"
+            app:chipStrokeWidth="1dp"
+            app:rippleColor="@color/colorPrimary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="r/GifSound"
+            android:textColor="@color/text_color_pill_source" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipAnimeGifSound"
+            style="@style/ChipStyle"
+            app:chipBackgroundColor="@color/bg_pill_source"
+            app:chipCornerRadius="20dp"
+            app:chipStrokeColor="@color/colorPrimary"
+            app:chipStrokeWidth="1dp"
+            app:rippleColor="@color/colorPrimary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="r/AnimeGifSound"
+            android:textColor="@color/text_color_pill_source" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipMusicGifStation"
+            style="@style/ChipStyle"
+            app:chipBackgroundColor="@color/bg_pill_source"
+            app:chipCornerRadius="20dp"
+            app:chipStrokeColor="@color/colorPrimary"
+            app:chipStrokeWidth="1dp"
+            app:rippleColor="@color/colorPrimary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="r/MusicGifStation"
+            android:textColor="@color/text_color_pill_source" />
+
+    </com.google.android.material.chip.ChipGroup>
+
+    <Space
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sourceChipGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

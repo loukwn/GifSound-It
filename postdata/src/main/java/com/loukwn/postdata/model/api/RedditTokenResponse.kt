@@ -1,6 +1,6 @@
 package com.loukwn.postdata.model.api
 
-class RedditTokenResponse(
+internal class RedditTokenResponse(
     val access_token: String,
     val expires_in: String
 )

@@ -5,9 +5,9 @@ import com.kostaslou.gifsoundit.list.Action
 import com.kostaslou.gifsoundit.list.ListContract
 import com.kostaslou.gifsoundit.list.State
 import com.loukwn.navigation.Navigator
-import com.loukwn.postdata.FilterType
+import com.loukwn.postdata.FilterTypeDTO
 import com.loukwn.postdata.PostRepository
-import com.loukwn.postdata.TopFilterType
+import com.loukwn.postdata.TopFilterTypeDTO
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
@@ -105,53 +105,53 @@ internal class ListViewModelTest {
 
     @Test
     fun `WHEN onMoreMenuButtonClicked THEN make sure reducer gets the action`() {
-        sut.onMoreMenuButtonClicked()
+        sut.onArrowButtonClicked()
 
-        verify(exactly = 1) { listStateReducer.map(any(), Action.MoreFilterButtonClicked) }
+        verify(exactly = 1) { listStateReducer.map(any(), Action.ArrowButtonClicked) }
     }
 
     @Test
     fun `WHEN onSwipeToRefresh THEN make sure reducer gets the action AND new posts are requested`() {
         every { listStateReducer.map(any(), any()) } returns State.default()
-            .copy(filterType = Event(FilterType.New))
+            .copy(filterType = Event(FilterTypeDTO.New))
 
         sut.onSwipeToRefresh()
 
         verify(exactly = 1) { listStateReducer.map(any(), Action.SwipedToRefresh) }
-        verify(exactly = 1) { repository.getPosts(FilterType.New, "") }
+        verify(exactly = 1) { repository.getPosts(FilterTypeDTO.New, "") }
     }
 
     @Test
     fun `GIVEN fetchAfter is null WHEN onScrolledToBottom THEN do not get any more posts from repo`() {
         every { listStateReducer.map(any(), any()) } returns State.default()
-            .copy(filterType = Event(FilterType.New))
+            .copy(filterType = Event(FilterTypeDTO.New))
 
-        sut.onMoreMenuButtonClicked() // this just sets the state that we need for the actual test
+        sut.onArrowButtonClicked() // this just sets the state that we need for the actual test
         sut.onScrolledToBottom()
 
-        verify(exactly = 0) { repository.getPosts(eq(FilterType.New), any()) }
+        verify(exactly = 0) { repository.getPosts(eq(FilterTypeDTO.New), any()) }
     }
 
     @Test
     fun `GIVEN fetchAfter is not null WHEN onScrolledToBottom THEN do not get any more posts from repo`() {
         every { listStateReducer.map(any(), any()) } returns State.default()
-            .copy(filterType = Event(FilterType.New), fetchAfter = "1")
+            .copy(filterType = Event(FilterTypeDTO.New), fetchAfter = "1")
 
-        sut.onMoreMenuButtonClicked() // this just sets the state that we need for the actual test
+        sut.onArrowButtonClicked() // this just sets the state that we need for the actual test
         sut.onScrolledToBottom()
 
-        verify(exactly = 1) { repository.getPosts(FilterType.New, "1") }
+        verify(exactly = 1) { repository.getPosts(FilterTypeDTO.New, "1") }
     }
 
     @Test
     fun `GIVEN filterType is not hot WHEN onHotFilterSelected THEN get more posts from repo`() {
         every { listStateReducer.map(any(), any()) } returns State.default()
-            .copy(filterType = Event(FilterType.New))
+            .copy(filterType = Event(FilterTypeDTO.New))
 
-        sut.onMoreMenuButtonClicked() // this just sets the state that we need for the actual test
+        sut.onArrowButtonClicked() // this just sets the state that we need for the actual test
         sut.onHotFilterSelected()
 
-        verify(exactly = 2) { repository.getPosts(FilterType.Hot, any()) } // 1 is made during init()
+        verify(exactly = 2) { repository.getPosts(FilterTypeDTO.Hot, any()) } // 1 is made during init()
         verify(exactly = 1) { listStateReducer.map(any(), Action.HotFilterSelected) }
     }
 
@@ -159,7 +159,7 @@ internal class ListViewModelTest {
     fun `GIVEN filterType is hot WHEN onHotFilterSelected THEN do not get more posts from repo`() {
         sut.onHotFilterSelected()
 
-        verify(exactly = 1) { repository.getPosts(FilterType.Hot, any()) } // just the 1 time during init()
+        verify(exactly = 1) { repository.getPosts(FilterTypeDTO.Hot, any()) } // just the 1 time during init()
         verify(exactly = 0) { listStateReducer.map(any(), Action.HotFilterSelected) }
     }
 
@@ -167,52 +167,52 @@ internal class ListViewModelTest {
     fun `GIVEN filterType is not new WHEN onNewFilterSelected THEN get more posts from repo`() {
         sut.onNewFilterSelected()
 
-        verify(exactly = 1) { repository.getPosts(FilterType.New, any()) }
+        verify(exactly = 1) { repository.getPosts(FilterTypeDTO.New, any()) }
         verify(exactly = 1) { listStateReducer.map(any(), Action.NewFilterSelected) }
     }
 
     @Test
     fun `GIVEN filterType is not new WHEN onNewFilterSelected THEN do not get more posts from repo`() {
         every { listStateReducer.map(any(), any()) } returns State.default()
-            .copy(filterType = Event(FilterType.New))
+            .copy(filterType = Event(FilterTypeDTO.New))
 
-        sut.onMoreMenuButtonClicked() // this just sets the state that we need for the actual test
+        sut.onArrowButtonClicked() // this just sets the state that we need for the actual test
         sut.onNewFilterSelected()
 
-        verify(exactly = 0) { repository.getPosts(FilterType.New, any()) }
+        verify(exactly = 0) { repository.getPosts(FilterTypeDTO.New, any()) }
         verify(exactly = 0) { listStateReducer.map(any(), Action.NewFilterSelected) }
     }
 
     @Test
     fun `GIVEN filterType is not top WHEN onTopFilterSelected THEN get more posts from repo`() {
-        sut.onTopFilterSelected(TopFilterType.ALL)
+        sut.onTopFilterSelected(TopFilterTypeDTO.ALL)
 
-        verify(exactly = 1) { repository.getPosts(FilterType.Top(TopFilterType.ALL), any()) }
-        verify(exactly = 1) { listStateReducer.map(any(), Action.TopFilterSelected(TopFilterType.ALL)) }
+        verify(exactly = 1) { repository.getPosts(FilterTypeDTO.Top(TopFilterTypeDTO.ALL), any()) }
+        verify(exactly = 1) { listStateReducer.map(any(), Action.TopFilterSelected(TopFilterTypeDTO.ALL)) }
     }
 
     @Test
     fun `GIVEN filterType is top but of different type to the one requested WHEN onTopFilterSelected THEN get more posts from repo`() {
         every { listStateReducer.map(any(), any()) } returns State.default()
-            .copy(filterType = Event(FilterType.Top(TopFilterType.ALL)))
+            .copy(filterType = Event(FilterTypeDTO.Top(TopFilterTypeDTO.ALL)))
 
-        sut.onMoreMenuButtonClicked() // this just sets the state that we need for the actual test
-        sut.onTopFilterSelected(TopFilterType.YEAR)
+        sut.onArrowButtonClicked() // this just sets the state that we need for the actual test
+        sut.onTopFilterSelected(TopFilterTypeDTO.YEAR)
 
-        verify(exactly = 1) { repository.getPosts(FilterType.Top(TopFilterType.YEAR), any()) }
-        verify(exactly = 1) { listStateReducer.map(any(), Action.TopFilterSelected(TopFilterType.YEAR)) }
+        verify(exactly = 1) { repository.getPosts(FilterTypeDTO.Top(TopFilterTypeDTO.YEAR), any()) }
+        verify(exactly = 1) { listStateReducer.map(any(), Action.TopFilterSelected(TopFilterTypeDTO.YEAR)) }
     }
 
     @Test
     fun `GIVEN filterType is top but of same type to the one requested WHEN onTopFilterSelected THEN do not get more posts from repo`() {
         every { listStateReducer.map(any(), any()) } returns State.default()
-            .copy(filterType = Event(FilterType.Top(TopFilterType.ALL)))
+            .copy(filterType = Event(FilterTypeDTO.Top(TopFilterTypeDTO.ALL)))
 
-        sut.onMoreMenuButtonClicked() // this just sets the state that we need for the actual test
-        sut.onTopFilterSelected(TopFilterType.ALL)
+        sut.onArrowButtonClicked() // this just sets the state that we need for the actual test
+        sut.onTopFilterSelected(TopFilterTypeDTO.ALL)
 
-        verify(exactly = 0) { repository.getPosts(FilterType.Top(TopFilterType.ALL), any()) }
-        verify(exactly = 0) { listStateReducer.map(any(), Action.TopFilterSelected(TopFilterType.ALL)) }
+        verify(exactly = 0) { repository.getPosts(FilterTypeDTO.Top(TopFilterTypeDTO.ALL), any()) }
+        verify(exactly = 0) { listStateReducer.map(any(), Action.TopFilterSelected(TopFilterTypeDTO.ALL)) }
     }
 
     @Test

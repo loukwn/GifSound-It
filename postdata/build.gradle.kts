@@ -77,6 +77,7 @@ dependencies {
     implementation(Config.Libs.Retrofit.retrofit)
     implementation(Config.Libs.Retrofit.adapterRxJava2)
     implementation(Config.Libs.Retrofit.converterMoshi)
+    implementation(Config.Libs.Retrofit.loggingInterceptor)
 
     implementation(Config.Libs.Hilt.hiltAndroid)
     kapt(Config.Libs.Hilt.hiltAndroidCompiler)

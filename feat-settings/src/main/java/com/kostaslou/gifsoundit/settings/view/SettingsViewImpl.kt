@@ -42,6 +42,7 @@ internal class SettingsViewMvcImpl(
         binding.modeSelector.darkOption.isVisible = false
         binding.modeSelector.systemOption.isVisible = false
         binding.modeSelector.batteryOption.isVisible = false
+        binding.modeSelector.bottomSpacer.isVisible = false
 
         binding.modeSelector.settingsThemeMoreButton.rotation = 0f
     }
@@ -51,6 +52,7 @@ internal class SettingsViewMvcImpl(
         binding.modeSelector.darkOption.isVisible = true
         binding.modeSelector.systemOption.isVisible = true
         binding.modeSelector.batteryOption.isVisible = true
+        binding.modeSelector.bottomSpacer.isVisible = true
 
         binding.modeSelector.settingsThemeMoreButton.rotation = 180f
     }

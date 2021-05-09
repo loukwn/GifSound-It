@@ -2,7 +2,6 @@
 <resources>
 
     <style name="Button" parent="Widget.MaterialComponents.Button" >
-        <item name="android:textColor">@android:color/white</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:paddingTop">12dp</item>
@@ -14,5 +13,14 @@
 
     <style name="Button.Primary">
         <item name="android:background">@drawable/ripple_button_primary_20</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:fontFamily">@font/hindsiliguri_medium</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="ChipStyle" parent="@style/Widget.MaterialComponents.Chip.Choice" >
+        <item name="android:fontFamily">@font/hindsiliguri_medium</item>
+        <item name="fontFamily">@font/hindsiliguri_medium</item>
+        <item name="android:textSize">15sp</item>
     </style>
 </resources>

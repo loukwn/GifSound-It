@@ -1,24 +1,25 @@
 package com.kostaslou.gifsoundit.list.view
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.animation.LayoutTransition
 import android.content.Context
-import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
-import androidx.core.content.ContextCompat
+import android.view.animation.OvershootInterpolator
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.kostaslou.gifsoundit.common.util.selector
 import com.kostaslou.gifsoundit.common.util.tintWithColorRes
 import com.kostaslou.gifsoundit.common.util.toast
+import com.kostaslou.gifsoundit.list.FilterType
 import com.kostaslou.gifsoundit.list.ListContract
 import com.kostaslou.gifsoundit.list.R
+import com.kostaslou.gifsoundit.list.SourceType
 import com.kostaslou.gifsoundit.list.databinding.FragmentListBinding
 import com.kostaslou.gifsoundit.list.view.adapter.ListAdapterModel
 import com.kostaslou.gifsoundit.list.view.adapter.ListPostAdapter
-import com.loukwn.postdata.TopFilterType
 
 internal class ListViewImpl(
     private val context: Context,
@@ -35,10 +36,7 @@ internal class ListViewImpl(
 
     init {
         binding.mSwipe.isEnabled = false
-        binding.mSwipe.setOnRefreshListener {
-            listener?.onSwipeToRefresh()
-
-        }
+        binding.mSwipe.setOnRefreshListener { listener?.onSwipeToRefresh() }
         binding.mSwipe.setProgressViewOffset(false, 0, 180)
         binding.loadingScreen.progress.tintWithColorRes(context, R.color.text_primary)
 
@@ -58,33 +56,26 @@ internal class ListViewImpl(
             }
         }
 
-        binding.moreButton.setOnClickListener {
-            if (binding.filterMenu.isVisible) showFilterMenu() else hideFilterMenu()
-            listener?.onMoreMenuButtonClicked()
+        val transition = LayoutTransition().apply {
+            setInterpolator(LayoutTransition.CHANGE_APPEARING, OvershootInterpolator(4f))
+            setInterpolator(LayoutTransition.CHANGE_DISAPPEARING, OvershootInterpolator(4f))
+            setInterpolator(LayoutTransition.APPEARING, OvershootInterpolator(4f))
+            setInterpolator(LayoutTransition.DISAPPEARING, OvershootInterpolator(4f))
+            setDuration(OPTIONS_LAYOUT_SHOW_HIDE_DURATION_MS)
         }
 
-        binding.hotButton.setOnClickListener { listener?.onHotFilterSelected() }
-        binding.newButton.setOnClickListener { listener?.onNewFilterSelected() }
-        binding.topButton.setOnClickListener { showSelectorForTypeOptions() }
+        binding.root.layoutTransition = transition
+
+        binding.moreButton.setOnClickListener { listener?.onArrowButtonClicked() }
+        binding.darkOverlay.setOnClickListener { listener?.onOverlayClicked() }
         binding.settingsBt.setOnClickListener { listener?.onSettingsButtonClicked() }
-    }
+        binding.optionsLayout.saveButton.setOnClickListener {
+            val selectedSourceType = SourceType.values()
+                .first { it.chipId == binding.optionsLayout.sourceChipGroup.checkedChipId }
+            val selectedFilterType = FilterType.values()
+                .first { it.chipId == binding.optionsLayout.filterChipGroup.checkedChipId }
 
-    private fun showSelectorForTypeOptions() {
-        val options = arrayOf(
-            TopFilterType.HOUR,
-            TopFilterType.DAY,
-            TopFilterType.WEEK,
-            TopFilterType.MONTH,
-            TopFilterType.YEAR,
-            TopFilterType.ALL
-        )
-
-        context.selector(
-            title = context.getString(R.string.list_selector_title),
-            options = options.map { context.getString(it.uiLabelRes) }.toTypedArray()
-        ) {
-            // TODO show a toast as well later
-            listener?.onTopFilterSelected(type = options[it])
+            listener?.onSaveButtonClicked(selectedSourceType, selectedFilterType)
         }
     }
 
@@ -130,51 +121,34 @@ internal class ListViewImpl(
         binding.loadingScreen.loadingScreenContainer.isVisible = isVisible
     }
 
-    override fun showFilterMenu() {
-        binding.filterMenu.isVisible = true
-        binding.moreButton.startAnimation(
-            AnimationUtils.loadAnimation(
-                context,
-                R.anim.rotate_180_normal
-            )
-        )
+    override fun showOptionsLayout(sourceType: SourceType, filterType: FilterType) {
+        binding.optionsLayout.sourceChipGroup.check(sourceType.chipId)
+        binding.optionsLayout.filterChipGroup.check(filterType.chipId)
+        binding.optionsLayout.root.isVisible = true
     }
 
-    override fun hideFilterMenu() {
-        binding.filterMenu.isVisible = false
-        binding.moreButton.startAnimation(
-            AnimationUtils.loadAnimation(
-                context,
-                R.anim.rotate_180_reverse
-            )
-        )
+    override fun hideOptionsLayout() {
+        binding.optionsLayout.root.isVisible = false
     }
 
-    override fun setFilterMenuToHot() {
-        binding.hotButton.setTextColor(ContextCompat.getColor(context, R.color.list_menu_hot))
-        binding.hotButton.setTypeface(null, Typeface.BOLD)
-        binding.newButton.setTextColor(ContextCompat.getColor(context, R.color.list_menu_inactive))
-        binding.newButton.setTypeface(null, Typeface.NORMAL)
-        binding.topButton.setTextColor(ContextCompat.getColor(context, R.color.list_menu_inactive))
-        binding.topButton.setTypeface(null, Typeface.NORMAL)
+    override fun showOverlay() {
+        binding.darkOverlay.alpha = 0f
+        binding.darkOverlay.isVisible = true
+        binding.darkOverlay.animate()
+            .alpha(0.8f)
+            .setListener(null)
+            .duration = OPTIONS_LAYOUT_SHOW_HIDE_DURATION_MS
     }
 
-    override fun setFilterMenuToNew() {
-        binding.hotButton.setTextColor(ContextCompat.getColor(context, R.color.list_menu_inactive))
-        binding.hotButton.setTypeface(null, Typeface.NORMAL)
-        binding.newButton.setTextColor(ContextCompat.getColor(context, R.color.list_menu_new))
-        binding.newButton.setTypeface(null, Typeface.BOLD)
-        binding.topButton.setTextColor(ContextCompat.getColor(context, R.color.list_menu_inactive))
-        binding.topButton.setTypeface(null, Typeface.NORMAL)
-    }
-
-    override fun setFilterMenuToTop() {
-        binding.hotButton.setTextColor(ContextCompat.getColor(context, R.color.list_menu_inactive))
-        binding.hotButton.setTypeface(null, Typeface.NORMAL)
-        binding.newButton.setTextColor(ContextCompat.getColor(context, R.color.list_menu_inactive))
-        binding.newButton.setTypeface(null, Typeface.NORMAL)
-        binding.topButton.setTextColor(ContextCompat.getColor(context, R.color.list_menu_top))
-        binding.topButton.setTypeface(null, Typeface.BOLD)
+    override fun hideOverlay() {
+        binding.darkOverlay.animate()
+            .alpha(0f)
+            .setListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator?) {
+                    binding.darkOverlay.isVisible = false
+                }
+            })
+            .duration = OPTIONS_LAYOUT_SHOW_HIDE_DURATION_MS
     }
 
     override fun showErrorToast(errorMessage: String) {
@@ -193,5 +167,6 @@ internal class ListViewImpl(
 
     companion object {
         private const val AMOUNT_OF_VIEWS_TO_INSTA_SCROLL = 60
+        private const val OPTIONS_LAYOUT_SHOW_HIDE_DURATION_MS = 200L
     }
 }

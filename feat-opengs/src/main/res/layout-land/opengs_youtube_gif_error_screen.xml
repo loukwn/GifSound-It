@@ -63,7 +63,6 @@
                 style="@style/Button.Primary"
                 android:layout_marginTop="12dp"
                 android:text="@string/opengs_youtube_gif_error_back"
-                android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/description" />
@@ -74,7 +73,6 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginBottom="12dp"
                 android:text="@string/opengs_youtube_gif_error_view"
-                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

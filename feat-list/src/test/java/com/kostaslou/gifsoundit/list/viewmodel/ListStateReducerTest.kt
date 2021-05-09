@@ -5,9 +5,9 @@ import com.kostaslou.gifsoundit.common.util.Event
 import com.kostaslou.gifsoundit.list.Action
 import com.kostaslou.gifsoundit.list.State
 import com.kostaslou.gifsoundit.list.view.adapter.ListAdapterModel
-import com.loukwn.postdata.FilterType
+import com.loukwn.postdata.FilterTypeDTO
 import com.loukwn.postdata.RedditConstants
-import com.loukwn.postdata.TopFilterType
+import com.loukwn.postdata.TopFilterTypeDTO
 import com.loukwn.postdata.model.domain.PostModel
 import com.loukwn.postdata.model.domain.PostResponse
 import io.mockk.mockk
@@ -116,7 +116,7 @@ internal class ListStateReducerTest {
             newState,
             oldState.copy(
                 adapterData = emptyList(),
-                filterType = Event(FilterType.Hot),
+                filterType = Event(FilterTypeDTO.Hot),
                 isLoading = true,
                 errorMessage = null,
                 filterMenuIsVisible = Event(false)
@@ -135,7 +135,7 @@ internal class ListStateReducerTest {
             newState,
             oldState.copy(
                 adapterData = emptyList(),
-                filterType = Event(FilterType.New),
+                filterType = Event(FilterTypeDTO.New),
                 isLoading = true,
                 errorMessage = null,
                 filterMenuIsVisible = Event(false)
@@ -146,7 +146,7 @@ internal class ListStateReducerTest {
     @Test
     fun `GIVEN action is TopFilterSelected WHEN map THEN update the state accordingly`() {
         val oldState = State.default()
-        val action = Action.TopFilterSelected(topPeriod = TopFilterType.ALL)
+        val action = Action.TopFilterSelected(topPeriod = TopFilterTypeDTO.ALL)
 
         val newState = sut.map(oldState, action)
 
@@ -154,7 +154,7 @@ internal class ListStateReducerTest {
             newState,
             oldState.copy(
                 adapterData = emptyList(),
-                filterType = Event(FilterType.Top(action.topPeriod)),
+                filterType = Event(FilterTypeDTO.Top(action.topPeriod)),
                 isLoading = true,
                 errorMessage = null,
                 filterMenuIsVisible = Event(false)
@@ -165,7 +165,7 @@ internal class ListStateReducerTest {
     @Test
     fun `GIVEN action is MoreFilterButtonClicked WHEN map THEN toggle menu visibility with an event`() {
         val oldState = State.default().copy(filterMenuIsVisible = Event(true))
-        val action = Action.MoreFilterButtonClicked
+        val action = Action.ArrowButtonClicked
 
         val newState = sut.map(oldState, action)
 
@@ -196,7 +196,7 @@ internal class ListStateReducerTest {
     @Test
     fun `GIVEN action is FragmentCreated WHEN map THEN update the filter menu state accordingly`() {
         val oldState = State.default()
-            .copy(filterMenuIsVisible = Event(true), filterType = Event(FilterType.New))
+            .copy(filterMenuIsVisible = Event(true), filterType = Event(FilterTypeDTO.New))
         val action = Action.FragmentCreated
 
         val newState = sut.map(oldState, action)
@@ -205,7 +205,7 @@ internal class ListStateReducerTest {
             newState,
             oldState.copy(
                 filterMenuIsVisible = Event(true),
-                filterType = Event(FilterType.New)
+                filterType = Event(FilterTypeDTO.New)
             )
         )
     }

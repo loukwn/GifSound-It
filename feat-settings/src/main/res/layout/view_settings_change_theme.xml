@@ -17,7 +17,7 @@
         android:paddingTop="16dp"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        android:paddingBottom="32dp">
+        android:paddingBottom="16dp">
 
         <TextView
             style="@style/TextStyle.HindSiliguri.18.Bold"
@@ -103,6 +103,13 @@
             app:sov_icon="@drawable/ic_battery_24"
             app:sov_text="@string/settings_theme_mode_battery" />
 
+        <Space
+            android:id="@+id/bottomSpacer"
+            android:layout_width="wrap_content"
+            android:layout_height="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/batteryOption"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

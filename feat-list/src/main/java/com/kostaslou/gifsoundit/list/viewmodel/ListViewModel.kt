@@ -7,14 +7,18 @@ import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.ViewModel
 import com.kostaslou.gifsoundit.common.util.Event
+import com.kostaslou.gifsoundit.list.*
 import com.kostaslou.gifsoundit.list.Action
+import com.kostaslou.gifsoundit.list.FilterType
 import com.kostaslou.gifsoundit.list.ListContract
+import com.kostaslou.gifsoundit.list.SourceType
 import com.kostaslou.gifsoundit.list.State
+import com.kostaslou.gifsoundit.list.util.toDTO
 import com.kostaslou.gifsoundit.list.view.adapter.ListAdapterModel
 import com.loukwn.navigation.Navigator
-import com.loukwn.postdata.FilterType
+import com.loukwn.postdata.FilterTypeDTO
 import com.loukwn.postdata.PostRepository
-import com.loukwn.postdata.TopFilterType
+import com.loukwn.postdata.TopFilterTypeDTO
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Observable
 import io.reactivex.Scheduler
@@ -50,7 +54,11 @@ internal class ListViewModel @Inject constructor(
     }
 
     init {
-        repository.getPosts(filterType = currentState.filterType.peekContent(), after = "")
+        repository.getPosts(
+            sourceType = currentState.sourceType.toDTO(),
+            filterType = currentState.filterType.toDTO(),
+            after = ""
+        )
 
         disposable = Observable.merge(
             onDataChangedEvent(),
@@ -77,13 +85,18 @@ internal class ListViewModel @Inject constructor(
 
     override fun onSwipeToRefresh() {
         actionSubject.onNext(Action.SwipedToRefresh)
-        repository.getPosts(filterType = currentState.filterType.peekContent(), after = "")
+        repository.getPosts(
+            sourceType = currentState.sourceType.toDTO(),
+            filterType = currentState.filterType.toDTO(),
+            after = ""
+        )
     }
 
     override fun onScrolledToBottom() {
         currentState.fetchAfter?.let {
             repository.getPosts(
-                filterType = currentState.filterType.peekContent(),
+                sourceType = currentState.sourceType.toDTO(),
+                filterType = currentState.filterType.toDTO(),
                 after = it
             )
         }
@@ -101,35 +114,24 @@ internal class ListViewModel @Inject constructor(
         view = null
     }
 
-    override fun onHotFilterSelected() {
-        if (!currentState.filterType.isHot()) {
-            repository.getPosts(filterType = FilterType.Hot, after = "")
-            actionSubject.onNext(Action.HotFilterSelected)
-        }
+    override fun onSaveButtonClicked(
+        selectedSourceType: SourceType,
+        selectedFilterType: FilterType
+    ) {
+        actionSubject.onNext(Action.SaveButtonClicked(selectedSourceType, selectedFilterType))
     }
 
-    override fun onNewFilterSelected() {
-        if (!currentState.filterType.isNew()) {
-            repository.getPosts(filterType = FilterType.New, after = "")
-            actionSubject.onNext(Action.NewFilterSelected)
-        }
-    }
-
-    override fun onTopFilterSelected(type: TopFilterType) {
-        val filterType = currentState.filterType
-        if (filterType.isTopButOfDifferentTypeTo(type) || !filterType.isTop()) {
-            repository.getPosts(filterType = FilterType.Top(type), after = "")
-            actionSubject.onNext(Action.TopFilterSelected(type))
-        }
-    }
-
-    override fun onMoreMenuButtonClicked() {
-        actionSubject.onNext(Action.MoreFilterButtonClicked)
+    override fun onArrowButtonClicked() {
+        actionSubject.onNext(Action.ArrowButtonClicked)
     }
 
     override fun onSettingsButtonClicked() {
         navigator.navigateToSettings()
         view = null
+    }
+
+    override fun onOverlayClicked() {
+        actionSubject.onNext(Action.OverlayClicked)
     }
 
     override fun setView(view: ListContract.View) {
@@ -155,12 +157,4 @@ internal class ListViewModel @Inject constructor(
     fun doOnStop() {
         view?.removeListener(this)
     }
-}
-
-fun Event<FilterType>.isHot(): Boolean = this.peekContent() is FilterType.Hot
-fun Event<FilterType>.isNew(): Boolean = this.peekContent() is FilterType.New
-fun Event<FilterType>.isTop(): Boolean = this.peekContent() is FilterType.Top
-fun Event<FilterType>.isTopButOfDifferentTypeTo(type: TopFilterType): Boolean {
-    val filterType = this.peekContent()
-    return filterType is FilterType.Top && filterType.type != type
 }

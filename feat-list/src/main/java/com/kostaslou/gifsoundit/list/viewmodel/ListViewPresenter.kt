@@ -2,7 +2,6 @@ package com.kostaslou.gifsoundit.list.viewmodel
 
 import com.kostaslou.gifsoundit.list.ListContract
 import com.kostaslou.gifsoundit.list.State
-import com.loukwn.postdata.FilterType
 import javax.inject.Inject
 
 internal class ListViewPresenter @Inject constructor() {
@@ -10,16 +9,12 @@ internal class ListViewPresenter @Inject constructor() {
         view: ListContract.View,
         state: State
     ) {
-        state.filterMenuIsVisible.getContentIfNotHandled()?.let { menuIsVisible ->
-            if (menuIsVisible) view.showFilterMenu() else view.hideFilterMenu()
-        }
-
-        state.filterType.getContentIfNotHandled()?.let { filterType ->
-            when (filterType) {
-                FilterType.Hot -> view.setFilterMenuToHot()
-                FilterType.New -> view.setFilterMenuToNew()
-                is FilterType.Top -> view.setFilterMenuToTop()
-            }
+        if (state.optionsLayoutIsOpen) {
+            view.showOptionsLayout(sourceType = state.sourceType, filterType = state.filterType)
+            view.showOverlay()
+        } else {
+            view.hideOptionsLayout()
+            view.hideOverlay()
         }
 
         state.errorMessage?.getContentIfNotHandled()?.let { error ->

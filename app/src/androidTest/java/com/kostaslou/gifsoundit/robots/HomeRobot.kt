@@ -2,7 +2,7 @@ package com.kostaslou.gifsoundit.robots
 
 import androidx.test.espresso.matcher.ViewMatchers
 import com.kostaslou.gifsoundit.R
-import com.loukwn.postdata.FilterType
+import com.loukwn.postdata.FilterTypeDTO
 
 fun home(func: HomeRobot.() -> Unit) = HomeRobot().apply { func() }
 
@@ -41,19 +41,19 @@ class HomeRobot : BaseRobot() {
         clickButton(buttonText)
     }
 
-    fun textColorsOkWhenPostTypeIs(filterType: FilterType) {
+    fun textColorsOkWhenPostTypeIs(filterType: FilterTypeDTO) {
         when (filterType) {
-            is FilterType.Hot -> {
+            is FilterTypeDTO.Hot -> {
                 matchTextColor(onTextView(R.id.hotButton), R.color.list_menu_hot)
                 matchTextColor(onTextView(R.id.newButton), R.color.list_menu_inactive)
                 matchTextColor(onTextView(R.id.topButton), R.color.list_menu_inactive)
             }
-            is FilterType.New -> {
+            is FilterTypeDTO.New -> {
                 matchTextColor(onTextView(R.id.hotButton), R.color.list_menu_inactive)
                 matchTextColor(onTextView(R.id.newButton), R.color.list_menu_new)
                 matchTextColor(onTextView(R.id.topButton), R.color.list_menu_inactive)
             }
-            is FilterType.Top -> {
+            is FilterTypeDTO.Top -> {
                 matchTextColor(onTextView(R.id.hotButton), R.color.list_menu_inactive)
                 matchTextColor(onTextView(R.id.newButton), R.color.list_menu_inactive)
                 matchTextColor(onTextView(R.id.topButton), R.color.list_menu_top)

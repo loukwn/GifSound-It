@@ -5,8 +5,8 @@ import okhttp3.Interceptor
 import okhttp3.Response
 import java.io.IOException
 
-// interceptor for the userless login
-class BasicRedditAuthInterceptor(user: String, password: String) : Interceptor {
+// Interceptor for the userless login
+internal class BasicRedditAuthInterceptor(user: String, password: String) : Interceptor {
     private val credentials: String = Credentials.basic(user, password)
 
     @Throws(IOException::class)

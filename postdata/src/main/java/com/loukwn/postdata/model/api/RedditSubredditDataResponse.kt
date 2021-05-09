@@ -1,6 +1,6 @@
 package com.loukwn.postdata.model.api
 
-class RedditSubredditDataResponse(
+internal class RedditSubredditDataResponse(
     val children: List<RedditPostChildren>,
     val after: String?
 )

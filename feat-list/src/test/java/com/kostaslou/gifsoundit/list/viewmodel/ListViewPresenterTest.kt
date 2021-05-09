@@ -3,8 +3,8 @@ package com.kostaslou.gifsoundit.list.viewmodel
 import com.kostaslou.gifsoundit.common.util.Event
 import com.kostaslou.gifsoundit.list.ListContract
 import com.kostaslou.gifsoundit.list.State
-import com.loukwn.postdata.FilterType
-import com.loukwn.postdata.TopFilterType
+import com.loukwn.postdata.FilterTypeDTO
+import com.loukwn.postdata.TopFilterTypeDTO
 import io.mockk.mockk
 import io.mockk.verify
 import org.junit.Test
@@ -47,7 +47,7 @@ internal class ListViewPresenterTest {
     @Test
     fun `GIVEN filterType hot AND not handled WHEN updating the view THEN set filter menu to hot`() {
         val view = mockk<ListContract.View>(relaxUnitFun = true)
-        val state = State.default().copy(filterType = Event(FilterType.Hot))
+        val state = State.default().copy(filterType = Event(FilterTypeDTO.Hot))
 
         sut.updateView(view, state)
 
@@ -57,7 +57,7 @@ internal class ListViewPresenterTest {
     @Test
     fun `GIVEN filterType top AND not handled WHEN updating the view THEN set filter menu to top`() {
         val view = mockk<ListContract.View>(relaxUnitFun = true)
-        val state = State.default().copy(filterType = Event(FilterType.Top(TopFilterType.ALL)))
+        val state = State.default().copy(filterType = Event(FilterTypeDTO.Top(TopFilterTypeDTO.ALL)))
 
         sut.updateView(view, state)
 
@@ -67,7 +67,7 @@ internal class ListViewPresenterTest {
     @Test
     fun `GIVEN filterType new AND not handled WHEN updating the view THEN set filter menu to new`() {
         val view = mockk<ListContract.View>(relaxUnitFun = true)
-        val state = State.default().copy(filterType = Event(FilterType.New))
+        val state = State.default().copy(filterType = Event(FilterTypeDTO.New))
 
         sut.updateView(view, state)
 
@@ -77,7 +77,7 @@ internal class ListViewPresenterTest {
     @Test
     fun `GIVEN filterType new AND handled WHEN updating the view THEN do nothing`() {
         val view = mockk<ListContract.View>(relaxUnitFun = true)
-        val event = Event(FilterType.New).apply { getContentIfNotHandled() }
+        val event = Event(FilterTypeDTO.New).apply { getContentIfNotHandled() }
         val state = State.default().copy(filterType = event)
 
         sut.updateView(view, state)
