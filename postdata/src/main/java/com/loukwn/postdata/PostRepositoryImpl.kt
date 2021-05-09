@@ -81,19 +81,20 @@ internal class PostRepositoryImpl @Inject constructor(
                 subName = sourceType.apiLabel,
                 tokenData = "bearer $token",
                 userAgent = BuildConfig.RedditUserAgent,
-                after = after
+                after = after,
             )
             FilterTypeDTO.New -> postApi.getNewGifSounds(
                 subName = sourceType.apiLabel,
                 tokenData = "bearer $token",
                 userAgent = BuildConfig.RedditUserAgent,
-                after = after
+                after = after,
             )
             is FilterTypeDTO.Top -> postApi.getTopGifSounds(
                 subName = sourceType.apiLabel,
                 tokenData = "bearer $token",
                 userAgent = BuildConfig.RedditUserAgent,
-                after = after
+                after = after,
+                time = filterType.type.apiLabel,
             )
         }
 
