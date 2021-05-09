@@ -40,8 +40,22 @@ internal class ListViewImpl(
         binding.mSwipe.setProgressViewOffset(false, 0, 180)
         binding.loadingScreen.progress.tintWithColorRes(context, R.color.text_primary)
 
+        setupOptionLayoutTransition()
         setupRecyclerView()
         setupClickListeners()
+    }
+
+    private fun setupOptionLayoutTransition() {
+        val interpolator = OvershootInterpolator(2f)
+        val transition = LayoutTransition().apply {
+            setInterpolator(LayoutTransition.CHANGE_APPEARING, interpolator)
+            setInterpolator(LayoutTransition.CHANGE_DISAPPEARING, interpolator)
+            setInterpolator(LayoutTransition.APPEARING, interpolator)
+            setInterpolator(LayoutTransition.DISAPPEARING, interpolator)
+            setDuration(OPTIONS_LAYOUT_SHOW_HIDE_DURATION_MS)
+        }
+
+        binding.root.layoutTransition = transition
     }
 
     private fun setupClickListeners() {
@@ -55,16 +69,6 @@ internal class ListViewImpl(
                 }
             }
         }
-
-        val transition = LayoutTransition().apply {
-            setInterpolator(LayoutTransition.CHANGE_APPEARING, OvershootInterpolator(4f))
-            setInterpolator(LayoutTransition.CHANGE_DISAPPEARING, OvershootInterpolator(4f))
-            setInterpolator(LayoutTransition.APPEARING, OvershootInterpolator(4f))
-            setInterpolator(LayoutTransition.DISAPPEARING, OvershootInterpolator(4f))
-            setDuration(OPTIONS_LAYOUT_SHOW_HIDE_DURATION_MS)
-        }
-
-        binding.root.layoutTransition = transition
 
         binding.moreButton.setOnClickListener { listener?.onArrowButtonClicked() }
         binding.darkOverlay.setOnClickListener { listener?.onOverlayClicked() }
@@ -132,23 +136,11 @@ internal class ListViewImpl(
     }
 
     override fun showOverlay() {
-        binding.darkOverlay.alpha = 0f
         binding.darkOverlay.isVisible = true
-        binding.darkOverlay.animate()
-            .alpha(0.8f)
-            .setListener(null)
-            .duration = OPTIONS_LAYOUT_SHOW_HIDE_DURATION_MS
     }
 
     override fun hideOverlay() {
-        binding.darkOverlay.animate()
-            .alpha(0f)
-            .setListener(object : AnimatorListenerAdapter() {
-                override fun onAnimationEnd(animation: Animator?) {
-                    binding.darkOverlay.isVisible = false
-                }
-            })
-            .duration = OPTIONS_LAYOUT_SHOW_HIDE_DURATION_MS
+        binding.darkOverlay.isVisible = false
     }
 
     override fun showErrorToast(errorMessage: String) {
