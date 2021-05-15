@@ -35,27 +35,28 @@ internal class SettingsViewImpl(
         binding.modeSelector.batteryOption.setOnClickListener {
             listener?.onModeSelected(mode = AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY)
         }
+        binding.aboutOption.container.setOnClickListener { listener?.onAboutBgClicked() }
         binding.ossContainer.setOnClickListener { listener?.onOssContainerClicked() }
     }
 
     override fun collapseModeSelector() {
-        binding.modeSelector.lightOption.isVisible = false
-        binding.modeSelector.darkOption.isVisible = false
-        binding.modeSelector.systemOption.isVisible = false
-        binding.modeSelector.batteryOption.isVisible = false
-        binding.modeSelector.bottomSpacer.isVisible = false
-
+        binding.modeSelector.modeSelectorGroup.isVisible = false
         binding.modeSelector.settingsThemeMoreButton.rotation = 0f
     }
 
     override fun expandModeSelector() {
-        binding.modeSelector.lightOption.isVisible = true
-        binding.modeSelector.darkOption.isVisible = true
-        binding.modeSelector.systemOption.isVisible = true
-        binding.modeSelector.batteryOption.isVisible = true
-        binding.modeSelector.bottomSpacer.isVisible = true
-
+        binding.modeSelector.modeSelectorGroup.isVisible = true
         binding.modeSelector.settingsThemeMoreButton.rotation = 180f
+    }
+
+    override fun collapseAbout() {
+        binding.aboutOption.aboutContentGroup.isVisible = false
+        binding.aboutOption.settingsThemeAboutButton.rotation = 0f
+    }
+
+    override fun expandAbout() {
+        binding.aboutOption.aboutContentGroup.isVisible = true
+        binding.aboutOption.settingsThemeAboutButton.rotation = 180f
     }
 
     override fun selectLightMode() {

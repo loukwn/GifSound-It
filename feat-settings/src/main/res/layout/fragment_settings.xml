@@ -67,6 +67,10 @@
                 android:id="@+id/modeSelector"
                 layout="@layout/view_settings_change_theme" />
 
+            <include
+                android:id="@+id/aboutOption"
+                layout="@layout/view_settings_about" />
+
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

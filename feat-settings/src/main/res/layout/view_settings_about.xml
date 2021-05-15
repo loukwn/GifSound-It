@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    android:animateLayoutChanges="true"
+    app:cardCornerRadius="25dp"
+    app:cardElevation="6dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ripple_on_item"
+        android:paddingStart="16dp"
+        android:paddingTop="16dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="16dp">
+
+        <TextView
+            style="@style/TextStyle.HindSiliguri.18.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@string/settings_about_title"
+            android:textColor="@color/text_primary"
+            app:layout_constraintBottom_toBottomOf="@id/settings_theme_about_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/settings_theme_about_button" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/settings_theme_about_button"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:soundEffectsEnabled="false"
+            android:src="@drawable/ic_down_24"
+            android:tint="@color/text_additional"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/aboutContentGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="appLogo, appName, appAuthor, appVersion, description, githubTitle, githubDescription, bottomSpacer" />
+
+        <ImageView
+            android:id="@+id/appLogo"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="16dp"
+            android:importantForAccessibility="no"
+            android:src="@mipmap/ic_launcher"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/settings_theme_about_button" />
+
+        <TextView
+            android:id="@+id/appName"
+            style="@style/TextStyle.Overlock.20.Black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/app_name"
+            android:textColor="@color/text_primary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/appLogo" />
+
+        <TextView
+            android:id="@+id/appAuthor"
+            style="@style/TextStyle.HindSiliguri.18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/settings_about_author_year"
+            android:textColor="@color/text_primary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/appName" />
+
+        <TextView
+            android:id="@+id/appVersion"
+            style="@style/TextStyle.HindSiliguri.18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/settings_about_version"
+            android:textColor="@color/text_primary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/appAuthor" />
+
+        <TextView
+            android:id="@+id/description"
+            style="@style/TextStyle.HindSiliguri.16"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:autoLink="web"
+            android:linksClickable="true"
+            android:padding="8dp"
+            android:text="@string/settings_about_description"
+            android:textColor="@color/text_primary"
+            android:textColorLink="@color/text_additional"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/appVersion" />
+
+        <TextView
+            android:id="@+id/githubTitle"
+            style="@style/TextStyle.HindSiliguri.16.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/settings_about_contribute_title"
+            android:textColor="@color/text_primary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/description" />
+
+
+        <TextView
+            android:id="@+id/githubDescription"
+            style="@style/TextStyle.HindSiliguri.16"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:autoLink="web|email"
+            android:linksClickable="true"
+            android:padding="8dp"
+            android:text="@string/settings_about_contribute_description"
+            android:textColor="@color/text_primary"
+            android:textColorLink="@color/text_additional"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/githubTitle" />
+
+        <Space
+            android:id="@+id/bottomSpacer"
+            android:layout_width="wrap_content"
+            android:layout_height="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/githubDescription" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

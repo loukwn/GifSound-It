@@ -71,6 +71,7 @@ internal class SettingsViewModel @Inject constructor(
     private fun getDefaultState() =
         State(
             modeSelectorCollapsed = true,
+            aboutCollapsed = true,
             currentMode = currentMode
         )
 
@@ -84,6 +85,10 @@ internal class SettingsViewModel @Inject constructor(
 
     override fun onModeSelectorBgClicked() {
         actionSubject.onNext(Action.ModeBgClicked)
+    }
+
+    override fun onAboutBgClicked() {
+        actionSubject.onNext(Action.AboutBgClicked)
     }
 
     override fun onOssContainerClicked() {

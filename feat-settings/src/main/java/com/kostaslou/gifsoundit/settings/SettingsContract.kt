@@ -8,6 +8,8 @@ internal interface SettingsContract {
     interface View : ActionableViewContract<Listener> {
         fun collapseModeSelector()
         fun expandModeSelector()
+        fun collapseAbout()
+        fun expandAbout()
         fun selectLightMode()
         fun selectDarkMode()
         fun selectSystemDefaultMode()
@@ -19,6 +21,7 @@ internal interface SettingsContract {
         fun onBackButtonPressed()
         fun onModeSelected(mode: Int)
         fun onModeSelectorBgClicked()
+        fun onAboutBgClicked()
         fun onOssContainerClicked()
     }
 
@@ -29,11 +32,13 @@ internal interface SettingsContract {
 
 internal data class State(
     val modeSelectorCollapsed: Boolean,
+    val aboutCollapsed: Boolean,
     val currentMode: Int
 )
 
 internal sealed class Action {
     data class ModeSelected(val mode: Int) : Action()
+    object AboutBgClicked : Action()
     object ModeBgClicked : Action()
     object Created : Action()
 }

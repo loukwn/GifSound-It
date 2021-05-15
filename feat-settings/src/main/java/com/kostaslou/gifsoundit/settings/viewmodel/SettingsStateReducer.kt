@@ -9,6 +9,7 @@ internal class SettingsStateReducer @Inject constructor() {
         return when (action) {
             is Action.ModeSelected -> state.copy(currentMode = action.mode)
             Action.ModeBgClicked -> state.copy(modeSelectorCollapsed = !state.modeSelectorCollapsed)
+            Action.AboutBgClicked -> state.copy(aboutCollapsed = !state.aboutCollapsed)
             Action.Created -> state
         }
     }

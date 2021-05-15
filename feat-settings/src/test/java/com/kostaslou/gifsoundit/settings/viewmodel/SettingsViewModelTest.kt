@@ -98,6 +98,16 @@ internal class SettingsViewModelTest {
     }
 
     @Test
+    fun `GIVEN view is set WHEN aboutBgClicked THEN make sure reducer gets the action`() {
+        val view = mockk<SettingsContract.View>(relaxed = true)
+        sut.setView(view)
+
+        sut.onAboutBgClicked()
+
+        verify(exactly = 1) { settingsStateReducer.map(any(), Action.AboutBgClicked) }
+    }
+
+    @Test
     fun `GIVEN view is set WHEN backPressed THEN navigate back`() {
         val view = mockk<SettingsContract.View>(relaxed = true)
         sut.setView(view)
@@ -108,7 +118,7 @@ internal class SettingsViewModelTest {
     }
 
     @Test
-    fun `GIVEN view is set WHEN  ossContainerClickedTHEN navigate back`() {
+    fun `GIVEN view is set WHEN ossContainerClicked THEN navigate back`() {
         val view = mockk<SettingsContract.View>(relaxed = true)
         sut.setView(view)
 

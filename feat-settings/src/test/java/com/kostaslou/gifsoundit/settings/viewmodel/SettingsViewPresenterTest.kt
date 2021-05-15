@@ -23,7 +23,7 @@ internal class SettingsViewPresenterTest {
 
     @Test
     fun `GIVEN state has modeSelectorCollapsed true WHEN map THEN collapse selector in view`() {
-        val state = State(modeSelectorCollapsed = true, currentMode = 1)
+        val state = State(modeSelectorCollapsed = true, currentMode = 1, aboutCollapsed = false)
 
         sut.updateView(view, state)
 
@@ -32,7 +32,7 @@ internal class SettingsViewPresenterTest {
 
     @Test
     fun `GIVEN state has modeSelectorCollapsed false WHEN map THEN expand selector in view`() {
-        val state = State(modeSelectorCollapsed = false, currentMode = 1)
+        val state = State(modeSelectorCollapsed = false, currentMode = 1, aboutCollapsed = false)
 
         sut.updateView(view, state)
 
@@ -40,8 +40,30 @@ internal class SettingsViewPresenterTest {
     }
 
     @Test
+    fun `GIVEN state has aboutCollapsed true WHEN map THEN collapse selector in view`() {
+        val state = State(modeSelectorCollapsed = false, currentMode = 1, aboutCollapsed = true)
+
+        sut.updateView(view, state)
+
+        verify(exactly = 1) { view.collapseAbout() }
+    }
+
+    @Test
+    fun `GIVEN state has aboutCollapsed false WHEN map THEN expand selector in view`() {
+        val state = State(modeSelectorCollapsed = false, currentMode = 1, aboutCollapsed = false)
+
+        sut.updateView(view, state)
+
+        verify(exactly = 1) { view.expandAbout() }
+    }
+
+    @Test
     fun `GIVEN state has MODE_NIGHT_NO as mode WHEN map THEN go with light mode`() {
-        val state = State(modeSelectorCollapsed = false, currentMode = AppCompatDelegate.MODE_NIGHT_NO)
+        val state = State(
+            modeSelectorCollapsed = false,
+            currentMode = AppCompatDelegate.MODE_NIGHT_NO,
+            aboutCollapsed = false
+        )
 
         sut.updateView(view, state)
 
@@ -51,7 +73,11 @@ internal class SettingsViewPresenterTest {
 
     @Test
     fun `GIVEN state has MODE_NIGHT_YES as mode WHEN map THEN go with dark mode`() {
-        val state = State(modeSelectorCollapsed = false, currentMode = AppCompatDelegate.MODE_NIGHT_YES)
+        val state = State(
+            modeSelectorCollapsed = false,
+            currentMode = AppCompatDelegate.MODE_NIGHT_YES,
+            aboutCollapsed = false
+        )
 
         sut.updateView(view, state)
 
@@ -61,7 +87,11 @@ internal class SettingsViewPresenterTest {
 
     @Test
     fun `GIVEN state has MODE_NIGHT_FOLLOW_SYSTEM as mode WHEN map THEN go with system default mode`() {
-        val state = State(modeSelectorCollapsed = false, currentMode = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+        val state = State(
+            modeSelectorCollapsed = false,
+            currentMode = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM,
+            aboutCollapsed = false
+        )
 
         sut.updateView(view, state)
 
@@ -71,7 +101,11 @@ internal class SettingsViewPresenterTest {
 
     @Test
     fun `GIVEN state has MODE_NIGHT_AUTO_BATTERY as mode WHEN map THEN go with battery mode`() {
-        val state = State(modeSelectorCollapsed = false, currentMode = AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY)
+        val state = State(
+            modeSelectorCollapsed = false,
+            currentMode = AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY,
+            aboutCollapsed = false
+        )
 
         sut.updateView(view, state)
 

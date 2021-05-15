@@ -9,6 +9,7 @@ import javax.inject.Inject
 internal class SettingsViewPresenter @Inject constructor() {
     fun updateView(view: SettingsContract.View, state: State) {
         if (state.modeSelectorCollapsed) view.collapseModeSelector() else view.expandModeSelector()
+        if (state.aboutCollapsed) view.collapseAbout() else view.expandAbout()
 
         when (state.currentMode) {
             AppCompatDelegate.MODE_NIGHT_NO -> {
