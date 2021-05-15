@@ -86,6 +86,10 @@ internal class SettingsViewModel @Inject constructor(
         actionSubject.onNext(Action.ModeBgClicked)
     }
 
+    override fun onOssContainerClicked() {
+        navigator.navigateToOssLicenses()
+    }
+
     override fun setView(view: SettingsContract.View) {
         this.view = view
     }

@@ -108,6 +108,16 @@ internal class SettingsViewModelTest {
     }
 
     @Test
+    fun `GIVEN view is set WHEN  ossContainerClickedTHEN navigate back`() {
+        val view = mockk<SettingsContract.View>(relaxed = true)
+        sut.setView(view)
+
+        sut.onOssContainerClicked()
+
+        verify(exactly = 1) { navigator.navigateToOssLicenses() }
+    }
+
+    @Test
     fun `WHEN viewmodel is cleared THEN nothing weird happens`() {
         sut.onCleared()
     }

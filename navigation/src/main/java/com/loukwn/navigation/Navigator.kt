@@ -16,6 +16,8 @@ interface Navigator {
         containerTransitionView: Pair<View, String>? = null
     )
     fun navigateToSettings()
+    fun navigateToOssLicenses()
+
     fun goToOgWebsite(url: String)
 
     companion object {

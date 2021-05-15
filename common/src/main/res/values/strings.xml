@@ -45,5 +45,6 @@
     <string name="settings_theme_mode_system">System default</string>
     <string name="settings_theme_mode_battery">Battery Saver</string>
     <string name="settings_title">Settings</string>
+    <string name="settings_oss_title">Open Source Licenses</string>
 
 </resources>

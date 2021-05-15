@@ -35,6 +35,7 @@ internal class SettingsViewImpl(
         binding.modeSelector.batteryOption.setOnClickListener {
             listener?.onModeSelected(mode = AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY)
         }
+        binding.ossContainer.setOnClickListener { listener?.onOssContainerClicked() }
     }
 
     override fun collapseModeSelector() {

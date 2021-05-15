@@ -10,6 +10,7 @@ import android.view.View
 import androidx.core.content.ContextCompat.startActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.FragmentNavigatorExtras
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.loukwn.navigation.Navigator.Companion.PARAM_OPENGS_FROM_DEEP_LINK
 import com.loukwn.navigation.Navigator.Companion.PARAM_OPENGS_QUERY
 import com.loukwn.navigation.Navigator.Companion.PARAM_OPENGS_TRANSITION_NAME
@@ -76,6 +77,12 @@ internal class NavigatorImpl @Inject constructor() : Navigator {
 
     override fun navigateToSettings() {
         navigateTo(dest = Destination.SETTINGS)
+    }
+
+    override fun navigateToOssLicenses() {
+        context?.let {
+            it.startActivity(Intent(it, OssLicensesMenuActivity::class.java))
+        }
     }
 
     override fun goToOgWebsite(url: String) {

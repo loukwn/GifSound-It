@@ -19,6 +19,7 @@ internal interface SettingsContract {
         fun onBackButtonPressed()
         fun onModeSelected(mode: Int)
         fun onModeSelectorBgClicked()
+        fun onOssContainerClicked()
     }
 
     interface ViewModel {

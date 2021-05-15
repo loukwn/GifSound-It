@@ -38,6 +38,8 @@ dependencies {
     implementation(Config.Libs.Android.Navigation.navigationUiKtx)
     implementation(Config.Libs.Android.Navigation.navigationFragmentKtx)
 
+    implementation(Config.Libs.Android.ossLicenses)
+
     implementation(Config.Libs.Hilt.hiltAndroid)
     kapt(Config.Libs.Hilt.hiltAndroidCompiler)
 }

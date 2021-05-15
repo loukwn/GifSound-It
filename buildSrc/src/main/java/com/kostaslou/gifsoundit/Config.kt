@@ -13,6 +13,7 @@ object Config {
         const val ktlintGradle = "org.jlleitschuh.gradle:ktlint-gradle:_"
         const val firebaseCrashlyticsGradle = "com.google.firebase:firebase-crashlytics-gradle:_"
         const val hiltAndroidGradlePlugin = "com.google.dagger:hilt-android-gradle-plugin:_"
+        const val ossVersionsPlugin = "com.google.android.gms:oss-licenses-plugin:_"
     }
 
     object Android {
@@ -50,6 +51,7 @@ object Config {
             const val recyclerView = "androidx.recyclerview:recyclerview:_"
             const val swipeRefreshLayout = "androidx.swiperefreshlayout:swiperefreshlayout:_"
             const val exoplayer = "com.google.android.exoplayer:exoplayer:_"
+            const val ossLicenses = "com.google.android.gms:play-services-oss-licenses:_"
 
             object Navigation {
                 const val navigationFragmentKtx = "androidx.navigation:navigation-fragment-ktx:_"

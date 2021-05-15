@@ -2,6 +2,7 @@ import java.util.Properties
 
 plugins {
     id("com.android.application")
+    id("com.google.android.gms.oss-licenses-plugin")
     kotlin("android")
     kotlin("kapt")
     id("dagger.hilt.android.plugin")
@@ -71,6 +72,7 @@ dependencies {
     implementation(Config.Libs.Android.appcompat)
     implementation(Config.Libs.Android.Navigation.navigationFragmentKtx)
     implementation(Config.Libs.Android.Navigation.navigationUiKtx)
+    implementation(Config.Libs.Android.ossLicenses)
 
     implementation(Config.Libs.Retrofit.retrofit)
     implementation(Config.Libs.Retrofit.adapterRxJava2)

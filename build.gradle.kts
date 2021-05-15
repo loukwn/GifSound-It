@@ -11,6 +11,7 @@ buildscript {
         classpath(Config.BuildPlugins.ktlintGradle)
         classpath(Config.BuildPlugins.firebaseCrashlyticsGradle)
         classpath(Config.BuildPlugins.hiltAndroidGradlePlugin)
+        classpath(Config.BuildPlugins.ossVersionsPlugin)
     }
 }
 
