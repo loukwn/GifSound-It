@@ -32,7 +32,7 @@ internal data class State(
 )
 
 internal sealed class Action {
-    data class ModeSelected(val mode: Int): Action()
-    object ModeBgClicked: Action()
-    object Created: Action()
+    data class ModeSelected(val mode: Int) : Action()
+    object ModeBgClicked : Action()
+    object Created : Action()
 }

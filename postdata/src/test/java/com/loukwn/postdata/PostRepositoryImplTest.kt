@@ -9,7 +9,7 @@ import io.mockk.verify
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import org.junit.Test
-import java.util.*
+import java.util.Date
 
 internal class PostRepositoryImplTest {
 
@@ -34,7 +34,7 @@ internal class PostRepositoryImplTest {
 
     @Test
     fun `GIVEN token saved in sharedPrefs AND expiresAtDate is later than now WHEN refreshAuthTokenIfNeeded THEN should not refresh token`() {
-        val later = Date().time + 1 * 60 * 1000  // 1 minute from now
+        val later = Date().time + 1 * 60 * 1000 // 1 minute from now
         every { sharedPreferences[SharedPrefsHelper.PREF_KEY_ACCESS_TOKEN, ""] } returns "token"
         every { sharedPreferences[SharedPrefsHelper.PREF_KEY_EXPIRES_AT, any<Long>()] } returns later
         sut.refreshAuthTokenIfNeeded()
@@ -43,7 +43,7 @@ internal class PostRepositoryImplTest {
 
     @Test
     fun `GIVEN token saved in sharedPrefs AND expiresAtDate is before now WHEN refreshAuthTokenIfNeeded THEN should refresh token`() {
-        val later = Date().time - 1 * 60 * 1000  // 1 minute before now
+        val later = Date().time - 1 * 60 * 1000 // 1 minute before now
         every { sharedPreferences[SharedPrefsHelper.PREF_KEY_ACCESS_TOKEN, ""] } returns "token"
         every { sharedPreferences[SharedPrefsHelper.PREF_KEY_EXPIRES_AT, any<Long>()] } returns later
         sut.refreshAuthTokenIfNeeded()
@@ -53,9 +53,11 @@ internal class PostRepositoryImplTest {
     @Test
     fun `GIVEN token is not valid WHEN getPosts() THEN get a new token and then do the request`() {
         every { sharedPreferences[SharedPrefsHelper.PREF_KEY_ACCESS_TOKEN, ""] } returns ""
-        every { authApi.getAuthToken(any(), any()) } returns Single.just(mockk(relaxed = true) {
-            every { expires_in } returns 0L.toString()
-        })
+        every { authApi.getAuthToken(any(), any()) } returns Single.just(
+            mockk(relaxed = true) {
+                every { expires_in } returns 0L.toString()
+            }
+        )
         sut.getPosts(
             sourceType = mockk(relaxed = true),
             filterType = FilterTypeDTO.Hot,
@@ -67,7 +69,7 @@ internal class PostRepositoryImplTest {
 
     @Test
     fun `GIVEN token is valid WHEN getPosts(Hot) THEN just do the post request for hot`() {
-        val later = Date().time + 1 * 60 * 1000  // 1 minute from now
+        val later = Date().time + 1 * 60 * 1000 // 1 minute from now
         every { sharedPreferences[SharedPrefsHelper.PREF_KEY_ACCESS_TOKEN, ""] } returns "token"
         every { sharedPreferences[SharedPrefsHelper.PREF_KEY_EXPIRES_AT, any<Long>()] } returns later
         sut.getPosts(
@@ -81,7 +83,7 @@ internal class PostRepositoryImplTest {
 
     @Test
     fun `GIVEN token is valid WHEN getPosts(New) THEN just do the post request for new`() {
-        val later = Date().time + 1 * 60 * 1000  // 1 minute from now
+        val later = Date().time + 1 * 60 * 1000 // 1 minute from now
         every { sharedPreferences[SharedPrefsHelper.PREF_KEY_ACCESS_TOKEN, ""] } returns "token"
         every { sharedPreferences[SharedPrefsHelper.PREF_KEY_EXPIRES_AT, any<Long>()] } returns later
         sut.getPosts(
@@ -95,7 +97,7 @@ internal class PostRepositoryImplTest {
 
     @Test
     fun `GIVEN token is valid WHEN getPosts(Top) THEN just do the post request for top`() {
-        val later = Date().time + 1 * 60 * 1000  // 1 minute from now
+        val later = Date().time + 1 * 60 * 1000 // 1 minute from now
         every { sharedPreferences[SharedPrefsHelper.PREF_KEY_ACCESS_TOKEN, ""] } returns "token"
         every { sharedPreferences[SharedPrefsHelper.PREF_KEY_EXPIRES_AT, any<Long>()] } returns later
         sut.getPosts(

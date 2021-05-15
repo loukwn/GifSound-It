@@ -2,8 +2,8 @@ package com.kostaslou.gifsoundit.settings.viewmodel
 
 import com.kostaslou.gifsoundit.settings.Action
 import com.kostaslou.gifsoundit.settings.State
-import org.junit.Test
 import org.junit.Assert.assertEquals
+import org.junit.Test
 
 internal class SettingsStateReducerTest {
     private val sut = SettingsStateReducer()

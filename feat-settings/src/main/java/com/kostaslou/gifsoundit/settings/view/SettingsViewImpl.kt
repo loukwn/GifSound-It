@@ -8,7 +8,7 @@ import androidx.core.view.isVisible
 import com.kostaslou.gifsoundit.settings.SettingsContract
 import com.loukwn.feat_settings.databinding.FragmentSettingsBinding
 
-internal class SettingsViewMvcImpl(
+internal class SettingsViewImpl(
     inflater: LayoutInflater,
     container: ViewGroup?
 ) : SettingsContract.View {
@@ -99,5 +99,3 @@ internal class SettingsViewMvcImpl(
 
     override fun getRoot(): View = binding.root
 }
-
-

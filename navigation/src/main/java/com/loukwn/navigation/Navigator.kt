@@ -21,6 +21,6 @@ interface Navigator {
     companion object {
         const val PARAM_OPENGS_QUERY = "Navigator.PARAM_OPENGS_QUERY"
         const val PARAM_OPENGS_FROM_DEEP_LINK = "Navigator.PARAM_OPENGS_FROM_DEEP_LINK"
-        const val PARAM_OPENGS_TRANSITION_NAME = "Navigator.PARAM_OPENGS_FROM_DEEP_LINK"
+        const val PARAM_OPENGS_TRANSITION_NAME = "Navigator.PARAM_OPENGS_TRANSITION_NAME"
     }
 }

@@ -18,11 +18,12 @@ class ExoplayerManager @Inject constructor(
     private var listener: Listener? = null
 
     init {
-        player.addListener(object: Player.EventListener {
+        player.addListener(object : Player.EventListener {
             override fun onPlaybackStateChanged(state: Int) {
                 when (state) {
                     Player.STATE_READY -> listener?.onPrepared()
-                    else -> {}
+                    else -> {
+                    }
                 }
             }
 

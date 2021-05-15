@@ -16,7 +16,6 @@ import com.loukwn.navigation.Navigator.Companion.PARAM_OPENGS_TRANSITION_NAME
 import javax.inject.Inject
 import javax.inject.Singleton
 
-
 @Singleton
 internal class NavigatorImpl @Inject constructor() : Navigator {
 
@@ -81,9 +80,13 @@ internal class NavigatorImpl @Inject constructor() : Navigator {
 
     override fun goToOgWebsite(url: String) {
         context?.let {
-            startActivity(it, Intent(Intent.ACTION_VIEW).apply {
-                data = Uri.parse(url)
-            }, null)
+            startActivity(
+                it,
+                Intent(Intent.ACTION_VIEW).apply {
+                    data = Uri.parse(url)
+                },
+                null
+            )
         }
     }
 

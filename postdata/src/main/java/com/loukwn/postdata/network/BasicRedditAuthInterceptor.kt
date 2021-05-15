@@ -13,7 +13,7 @@ internal class BasicRedditAuthInterceptor(user: String, password: String) : Inte
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
         val authenticatedRequest = request.newBuilder()
-                .header("Authorization", credentials).build()
+            .header("Authorization", credentials).build()
         return chain.proceed(authenticatedRequest)
     }
 }

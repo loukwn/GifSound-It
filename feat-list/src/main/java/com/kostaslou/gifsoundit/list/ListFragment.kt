@@ -38,6 +38,10 @@ class ListFragment : Fragment() {
             .getRoot()
     }
 
+    /**
+     * Sets up a backpressed dispatcher to disallow the activity to dismiss unless
+     * the options layout at the top is not dismissed
+     */
     private fun setUpCustomOnBackPressed() {
         requireActivity().onBackPressedDispatcher.addCallback(
             this,

@@ -1,5 +1,6 @@
 package com.kostaslou.gifsoundit.list.viewmodel
 
+import com.kostaslou.gifsoundit.common.util.Constants
 import com.kostaslou.gifsoundit.common.util.DataState
 import com.kostaslou.gifsoundit.common.util.Event
 import com.kostaslou.gifsoundit.list.Action
@@ -18,7 +19,7 @@ internal class ListStateReducer @Inject constructor() {
                         action.postResponse()?.let { response ->
                             val newData =
                                 ArrayList<ListAdapterModel>(response.postData.map { it.toAdapterModel() }).apply {
-                                    if (this.size == 25) { // TODO take care of this
+                                    if (this.size == Constants.NUM_OF_POSTS_PER_REQUEST) {
                                         add(ListAdapterModel.Loading)
                                     }
                                 }

@@ -64,5 +64,4 @@ class HomeRobot : BaseRobot() {
     fun filterMenuIsGone() {
         checkVisibility(R.id.filterMenu, ViewMatchers.Visibility.GONE)
     }
-
 }

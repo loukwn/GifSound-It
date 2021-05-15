@@ -15,7 +15,7 @@ import javax.inject.Inject
 /**
  * Maps the input query url to the data ready for displaying to the UI (UI model)
  */
-internal class QueryToStateMapper @Inject constructor(){
+internal class QueryToStateMapper @Inject constructor() {
 
     fun getState(query: String, isFromDeepLink: Boolean): State {
         var soundLink: String? = null

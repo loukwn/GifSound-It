@@ -1,5 +1,7 @@
 package com.kostaslou.gifsoundit.opengs
 
+import androidx.annotation.StringRes
+import com.gifsoundit.opengs.R
 import com.kostaslou.gifsoundit.common.contract.ActionableViewContract
 import com.kostaslou.gifsoundit.common.util.Event
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
@@ -39,14 +41,13 @@ internal interface OpenGSContract {
 
     interface ViewModel {
         fun setView(view: View)
-        fun setup(query: String, isFromDeepLink: Boolean)
     }
 }
 
 internal sealed class Action {
-    data class GifStateChanged(val gifState: GifState): Action()
-    data class SoundStateChanged(val soundState: SoundState): Action()
-    data class OnUserAction(val userAction: UserAction): Action()
+    data class GifStateChanged(val gifState: GifState) : Action()
+    data class SoundStateChanged(val soundState: SoundState) : Action()
+    data class OnUserAction(val userAction: UserAction) : Action()
 }
 
 internal enum class UserAction {
@@ -70,12 +71,19 @@ internal enum class PlaybackAction {
     PREPARE, PLAY, RESTART
 }
 
-internal enum class GifState {
-    GIF_INVALID, GIF_ERROR, GIF_LOADING, GIF_OK
+internal enum class GifState(@StringRes val errorTextRes: Int) {
+    GIF_INVALID(R.string.opengs_state_invalid),
+    GIF_ERROR(R.string.opengs_state_error),
+    GIF_LOADING(R.string.opengs_state_loading),
+    GIF_OK(R.string.opengs_state_ready),
 }
 
-internal enum class SoundState {
-    SOUND_INVALID, SOUND_ERROR, SOUND_LOADING, SOUND_OK, SOUND_STARTED
+internal enum class SoundState(@StringRes val errorTextRes: Int) {
+    SOUND_INVALID(R.string.opengs_state_invalid),
+    SOUND_ERROR(R.string.opengs_state_error),
+    SOUND_LOADING(R.string.opengs_state_loading),
+    SOUND_OK(R.string.opengs_state_ready),
+    SOUND_STARTED(R.string.opengs_state_ready),
 }
 
 internal data class GifSource(val gifUrl: String?, val gifType: GifType)

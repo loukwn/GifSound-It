@@ -1,7 +1,5 @@
 package com.kostaslou.gifsoundit.list.view
 
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
 import android.animation.LayoutTransition
 import android.content.Context
 import android.view.LayoutInflater

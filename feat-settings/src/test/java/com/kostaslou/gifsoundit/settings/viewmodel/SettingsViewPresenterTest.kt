@@ -14,7 +14,7 @@ internal class SettingsViewPresenterTest {
     private val sut = SettingsViewPresenter()
 
     @MockK
-    lateinit var view : SettingsContract.View
+    lateinit var view: SettingsContract.View
 
     @Before
     fun setup() {

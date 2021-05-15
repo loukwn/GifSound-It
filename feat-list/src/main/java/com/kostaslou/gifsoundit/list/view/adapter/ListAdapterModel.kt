@@ -17,7 +17,7 @@ sealed class ListAdapterModel {
         val isSelf: Boolean,
     ) : ListAdapterModel()
 
-    object Loading: ListAdapterModel()
+    object Loading : ListAdapterModel()
 }
 
 fun PostModel.toAdapterModel(): ListAdapterModel.Post {

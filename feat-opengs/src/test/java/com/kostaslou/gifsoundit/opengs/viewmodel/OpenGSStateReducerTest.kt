@@ -9,7 +9,7 @@ import com.kostaslou.gifsoundit.opengs.SoundState
 import com.kostaslou.gifsoundit.opengs.State
 import com.kostaslou.gifsoundit.opengs.UserAction
 import com.kostaslou.gifsoundit.opengs.default
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
 import org.junit.Test
 
 internal class OpenGSStateReducerTest {

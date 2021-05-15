@@ -1,13 +1,13 @@
 package com.kostaslou.gifsoundit.list.viewmodel
 
+import com.kostaslou.gifsoundit.common.util.Constants
 import com.kostaslou.gifsoundit.common.util.DataState
 import com.kostaslou.gifsoundit.common.util.Event
 import com.kostaslou.gifsoundit.list.Action
+import com.kostaslou.gifsoundit.list.FilterType
+import com.kostaslou.gifsoundit.list.SourceType
 import com.kostaslou.gifsoundit.list.State
 import com.kostaslou.gifsoundit.list.view.adapter.ListAdapterModel
-import com.loukwn.postdata.FilterTypeDTO
-import com.loukwn.postdata.RedditConstants
-import com.loukwn.postdata.TopFilterTypeDTO
 import com.loukwn.postdata.model.domain.PostModel
 import com.loukwn.postdata.model.domain.PostResponse
 import io.mockk.mockk
@@ -52,7 +52,7 @@ internal class ListStateReducerTest {
     fun `GIVEN action is DataChanged_Data AND response is as big as the max num of posts per request WHEN map THEN add a loading item at the end`() {
         val oldState = State.default().copy(adapterData = listOf(ListAdapterModel.Loading))
         val postData = arrayListOf<PostModel>().apply {
-            for (i in 0 until RedditConstants.NUM_OF_POSTS_PER_REQUEST) {
+            for (i in 0 until Constants.NUM_OF_POSTS_PER_REQUEST) {
                 this.add(mockk(relaxed = true))
             }
         }
@@ -61,7 +61,7 @@ internal class ListStateReducerTest {
         val newState = sut.map(oldState, action)
 
         assertEquals(
-            RedditConstants.NUM_OF_POSTS_PER_REQUEST + 1,
+            Constants.NUM_OF_POSTS_PER_REQUEST + 1,
             newState.adapterData.size
         )
     }
@@ -70,7 +70,7 @@ internal class ListStateReducerTest {
     fun `GIVEN action is DataChanged_Data AND response is less than the max num of posts per request WHEN map THEN do not add a loading item at the end`() {
         val oldState = State.default().copy(adapterData = listOf(ListAdapterModel.Loading))
         val postData = arrayListOf<PostModel>().apply {
-            for (i in 0 until RedditConstants.NUM_OF_POSTS_PER_REQUEST - 1) {
+            for (i in 0 until Constants.NUM_OF_POSTS_PER_REQUEST - 1) {
                 this.add(mockk(relaxed = true))
             }
         }
@@ -79,7 +79,7 @@ internal class ListStateReducerTest {
         val newState = sut.map(oldState, action)
 
         assertEquals(
-            RedditConstants.NUM_OF_POSTS_PER_REQUEST - 1,
+            Constants.NUM_OF_POSTS_PER_REQUEST - 1,
             newState.adapterData.size
         )
     }
@@ -106,75 +106,64 @@ internal class ListStateReducerTest {
     }
 
     @Test
-    fun `GIVEN action is HotFilterSelected WHEN map THEN update the state accordingly`() {
-        val oldState = State.default()
-        val action = Action.HotFilterSelected
+    fun `GIVEN action is SaveButtonClicked AND filterType is different WHEN map THEN close options layout AND switch to that`() {
+        val oldState = State.default().copy(optionsLayoutIsOpen = true, filterType = FilterType.Hot)
+        val action =
+            Action.SaveButtonClicked(sourceType = oldState.sourceType, filterType = FilterType.New)
 
         val newState = sut.map(oldState, action)
 
-        assertEquals(
-            newState,
-            oldState.copy(
-                adapterData = emptyList(),
-                filterType = Event(FilterTypeDTO.Hot),
-                isLoading = true,
-                errorMessage = null,
-                filterMenuIsVisible = Event(false)
-            )
-        )
+        assertEquals(false, newState.optionsLayoutIsOpen)
+        assertEquals(FilterType.New, newState.filterType)
     }
 
     @Test
-    fun `GIVEN action is NewFilterSelected WHEN map THEN update the state accordingly`() {
-        val oldState = State.default()
-        val action = Action.NewFilterSelected
+    fun `GIVEN action is SaveButtonClicked AND sourceType is different WHEN map THEN close options layout AND switch to that`() {
+        val oldState =
+            State.default().copy(optionsLayoutIsOpen = true, sourceType = SourceType.GifSound)
+        val action = Action.SaveButtonClicked(
+            filterType = oldState.filterType,
+            sourceType = SourceType.MusicGifStation
+        )
 
         val newState = sut.map(oldState, action)
 
-        assertEquals(
-            newState,
-            oldState.copy(
-                adapterData = emptyList(),
-                filterType = Event(FilterTypeDTO.New),
-                isLoading = true,
-                errorMessage = null,
-                filterMenuIsVisible = Event(false)
-            )
-        )
+        assertEquals(false, newState.optionsLayoutIsOpen)
+        assertEquals(SourceType.MusicGifStation, newState.sourceType)
     }
 
     @Test
-    fun `GIVEN action is TopFilterSelected WHEN map THEN update the state accordingly`() {
-        val oldState = State.default()
-        val action = Action.TopFilterSelected(topPeriod = TopFilterTypeDTO.ALL)
+    fun `GIVEN action is SaveButtonClicked AND sourceType and filterType are the same WHEN map THEN just close options layout`() {
+        val oldState =
+            State.default().copy(optionsLayoutIsOpen = true, sourceType = SourceType.GifSound)
+        val action = Action.SaveButtonClicked(
+            filterType = oldState.filterType,
+            sourceType = oldState.sourceType
+        )
 
         val newState = sut.map(oldState, action)
 
-        assertEquals(
-            newState,
-            oldState.copy(
-                adapterData = emptyList(),
-                filterType = Event(FilterTypeDTO.Top(action.topPeriod)),
-                isLoading = true,
-                errorMessage = null,
-                filterMenuIsVisible = Event(false)
-            )
-        )
+        assertEquals(oldState.copy(optionsLayoutIsOpen = false), newState)
     }
 
     @Test
-    fun `GIVEN action is MoreFilterButtonClicked WHEN map THEN toggle menu visibility with an event`() {
-        val oldState = State.default().copy(filterMenuIsVisible = Event(true))
+    fun `GIVEN action is OverlayClicked WHEN map THEN reverse options layout state`() {
+        val oldState = State.default().copy(optionsLayoutIsOpen = true)
+        val action = Action.OverlayClicked
+
+        val newState = sut.map(oldState, action)
+
+        assertEquals(false, newState.optionsLayoutIsOpen)
+    }
+
+    @Test
+    fun `GIVEN action is ArrowButtonClicked WHEN map THEN reverse options layout state`() {
+        val oldState = State.default().copy(optionsLayoutIsOpen = true)
         val action = Action.ArrowButtonClicked
 
         val newState = sut.map(oldState, action)
 
-        assertEquals(
-            newState,
-            oldState.copy(
-                filterMenuIsVisible = Event(false)
-            )
-        )
+        assertEquals(false, newState.optionsLayoutIsOpen)
     }
 
     @Test
@@ -194,19 +183,15 @@ internal class ListStateReducerTest {
     }
 
     @Test
-    fun `GIVEN action is FragmentCreated WHEN map THEN update the filter menu state accordingly`() {
-        val oldState = State.default()
-            .copy(filterMenuIsVisible = Event(true), filterType = Event(FilterTypeDTO.New))
-        val action = Action.FragmentCreated
+    fun `GIVEN action is OnBackPressed WHEN map THEN close options layout`() {
+        val oldState = State.default().copy(optionsLayoutIsOpen = true)
+        val action = Action.OnBackPressed
 
         val newState = sut.map(oldState, action)
 
         assertEquals(
-            newState,
-            oldState.copy(
-                filterMenuIsVisible = Event(true),
-                filterType = Event(FilterTypeDTO.New)
-            )
+            false,
+            newState.optionsLayoutIsOpen
         )
     }
 }

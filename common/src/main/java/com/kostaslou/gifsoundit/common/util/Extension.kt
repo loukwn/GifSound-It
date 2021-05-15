@@ -27,4 +27,3 @@ fun ProgressBar.tintWithColorRes(context: Context, @ColorRes colorRes: Int) {
             BlendModeCompat.SRC_ATOP
         )
 }
-

@@ -20,6 +20,9 @@
     <string name="list_options_save">Save</string>
     <string name="list_options_filter_title">Filter</string>
     <string name="list_options_source_title">Source</string>
+    <string name="list_source_gifsound">r/GifSound</string>
+    <string name="list_source_animegifsound">r/AnimeGifSound</string>
+    <string name="list_source_musicgifstation">r/MusicGifStation</string>
 
     <!--Open GifSound Fragment -->
     <string name="opengs_sound_error_label">Sound problems? Tap here to play GIF anyway</string>
@@ -29,6 +32,11 @@
     <string name="opengs_youtube_error_description">It seems like the GIF part of the current GifSound is a video from YouTube. \n\nUnfortunately this is currently not supported as playback of two videos simultaneously cannot be done using the official Android YouTube client.</string>
     <string name="opengs_youtube_gif_error_back">Go Back</string>
     <string name="opengs_youtube_gif_error_view">View on the Website</string>
+    <string name="opengs_state_invalid">invalid</string>
+    <string name="opengs_state_error">errored</string>
+    <string name="opengs_state_loading">loading</string>
+    <string name="opengs_state_ready">ready</string>
+    <string name="opengs_status_message">Gif is %1$s and Sound is %2$s.</string>
 
     <!--Settings Fragment-->
     <string name="settings_theme_mode_title">Theme</string>
@@ -37,8 +45,5 @@
     <string name="settings_theme_mode_system">System default</string>
     <string name="settings_theme_mode_battery">Battery Saver</string>
     <string name="settings_title">Settings</string>
-    <string name="list_source_gifsound">r/GifSound</string>
-    <string name="list_source_animegifsound">r/AnimeGifSound</string>
-    <string name="list_source_musicgifstation">r/MusicGifStation</string>
 
 </resources>

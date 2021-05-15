@@ -19,4 +19,3 @@ class LoadingViewHolder(
         binding.progress.tintWithColorRes(itemView.context, R.color.text_primary)
     }
 }
-

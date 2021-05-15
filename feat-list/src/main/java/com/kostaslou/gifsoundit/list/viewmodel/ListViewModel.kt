@@ -6,7 +6,11 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.ViewModel
-import com.kostaslou.gifsoundit.list.*
+import com.kostaslou.gifsoundit.list.Action
+import com.kostaslou.gifsoundit.list.FilterType
+import com.kostaslou.gifsoundit.list.ListContract
+import com.kostaslou.gifsoundit.list.SourceType
+import com.kostaslou.gifsoundit.list.State
 import com.kostaslou.gifsoundit.list.util.toDTO
 import com.kostaslou.gifsoundit.list.view.adapter.ListAdapterModel
 import com.loukwn.navigation.Navigator
@@ -111,11 +115,13 @@ internal class ListViewModel @Inject constructor(
         selectedFilterType: FilterType
     ) {
         actionSubject.onNext(Action.SaveButtonClicked(selectedSourceType, selectedFilterType))
-        repository.getPosts(
-            sourceType = selectedSourceType.toDTO(),
-            filterType = selectedFilterType.toDTO(),
-            after = ""
-        )
+        if (currentState.filterType != selectedFilterType || currentState.sourceType != selectedSourceType) {
+            repository.getPosts(
+                sourceType = selectedSourceType.toDTO(),
+                filterType = selectedFilterType.toDTO(),
+                after = ""
+            )
+        }
     }
 
     override fun onArrowButtonClicked() {

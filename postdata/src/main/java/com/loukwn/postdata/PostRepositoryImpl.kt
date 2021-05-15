@@ -14,7 +14,8 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.subjects.PublishSubject
 import timber.log.Timber
-import java.util.*
+import java.util.Date
+import java.util.UUID
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -143,4 +144,3 @@ internal class PostRepositoryImpl @Inject constructor(
         private const val REDDIT_GRANT_TYPE = "https://oauth.reddit.com/grants/installed_client"
     }
 }
-

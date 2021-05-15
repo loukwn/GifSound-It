@@ -1,6 +1,5 @@
 package com.kostaslou.gifsoundit.di.modules
 
-import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.Resources
@@ -21,5 +20,4 @@ class ApplicationModule {
     @Provides
     fun provideResources(@ApplicationContext context: Context): Resources =
         context.resources
-
 }

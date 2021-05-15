@@ -45,16 +45,8 @@ class OpenGSFragment : Fragment() {
             exoManager = exoManager,
         ).also {
             viewModel.setView(it)
-            setupViewModel()
             lifecycle.addObserver(it.getSoundYoutubePlayerView())
         }
         return view?.getRoot()
-    }
-
-    private fun setupViewModel() {
-        val query = requireNotNull(requireArguments().getString(Navigator.PARAM_OPENGS_QUERY))
-        val fromDeepLink = requireArguments().getBoolean(Navigator.PARAM_OPENGS_FROM_DEEP_LINK)
-
-        viewModel.setup(query = query, isFromDeepLink = fromDeepLink)
     }
 }

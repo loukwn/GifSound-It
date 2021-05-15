@@ -53,7 +53,7 @@ internal class SettingsViewModelTest {
 
         sut.doOnStart()
 
-        verify (exactly = 1) { view.setListener(sut) }
+        verify(exactly = 1) { view.setListener(sut) }
     }
 
     @Test
@@ -63,7 +63,7 @@ internal class SettingsViewModelTest {
 
         sut.doOnStop()
 
-        verify (exactly = 1) { view.removeListener(sut) }
+        verify(exactly = 1) { view.removeListener(sut) }
     }
 
     @Test
@@ -73,8 +73,8 @@ internal class SettingsViewModelTest {
 
         sut.doOnCreate()
 
-        verify (exactly = 1) { settingsStateReducer.map(any(), Action.Created) }
-        verify (exactly = 1) { settingsViewPresenter.updateView(any(), any()) }
+        verify(exactly = 1) { settingsStateReducer.map(any(), Action.Created) }
+        verify(exactly = 1) { settingsViewPresenter.updateView(any(), any()) }
     }
 
     @Test
@@ -84,7 +84,7 @@ internal class SettingsViewModelTest {
 
         sut.onModeSelected(1)
 
-        verify (exactly = 1) { settingsStateReducer.map(any(), Action.ModeSelected(1)) }
+        verify(exactly = 1) { settingsStateReducer.map(any(), Action.ModeSelected(1)) }
     }
 
     @Test
@@ -94,7 +94,7 @@ internal class SettingsViewModelTest {
 
         sut.onModeSelectorBgClicked()
 
-        verify (exactly = 1) { settingsStateReducer.map(any(), Action.ModeBgClicked) }
+        verify(exactly = 1) { settingsStateReducer.map(any(), Action.ModeBgClicked) }
     }
 
     @Test
@@ -104,7 +104,7 @@ internal class SettingsViewModelTest {
 
         sut.onBackButtonPressed()
 
-        verify (exactly = 1) { navigator.goBack() }
+        verify(exactly = 1) { navigator.goBack() }
     }
 
     @Test

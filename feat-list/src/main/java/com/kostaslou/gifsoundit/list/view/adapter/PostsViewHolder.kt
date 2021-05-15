@@ -44,7 +44,6 @@ class PostsViewHolder(
         }
         postThumb.loadImg(imageUrl, R.drawable.ic_placeholder_24)
 
-
         // title
         postTitle.text = item.title
 

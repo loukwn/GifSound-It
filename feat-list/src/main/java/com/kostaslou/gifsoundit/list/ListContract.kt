@@ -105,4 +105,3 @@ internal sealed class Action {
     object FragmentCreated : Action()
     object OnBackPressed : Action()
 }
-

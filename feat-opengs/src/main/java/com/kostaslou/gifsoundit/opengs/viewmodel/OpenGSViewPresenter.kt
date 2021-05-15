@@ -1,5 +1,7 @@
 package com.kostaslou.gifsoundit.opengs.viewmodel
 
+import android.content.res.Resources
+import com.gifsoundit.opengs.R
 import com.kostaslou.gifsoundit.opengs.GifState
 import com.kostaslou.gifsoundit.opengs.GifType
 import com.kostaslou.gifsoundit.opengs.OpenGSContract
@@ -8,7 +10,9 @@ import com.kostaslou.gifsoundit.opengs.SoundState
 import com.kostaslou.gifsoundit.opengs.State
 import javax.inject.Inject
 
-internal class OpenGSViewPresenter @Inject constructor() {
+internal class OpenGSViewPresenter @Inject constructor(
+    private val resources: Resources,
+) {
     fun updateView(view: OpenGSContract.View, state: State) {
         handleGifEvent(state, view)
         handleSoundEvent(state, view)
@@ -35,8 +39,10 @@ internal class OpenGSViewPresenter @Inject constructor() {
         view: OpenGSContract.View
     ) {
         if (state.gifState == GifState.GIF_OK &&
-            (state.soundState == SoundState.SOUND_ERROR ||
-                state.soundState == SoundState.SOUND_INVALID)
+            (
+                state.soundState == SoundState.SOUND_ERROR ||
+                    state.soundState == SoundState.SOUND_INVALID
+                )
         ) {
             view.setShowGIFLayoutVisibitity(true)
         } else {
@@ -110,21 +116,10 @@ internal class OpenGSViewPresenter @Inject constructor() {
         gifState: GifState,
         soundState: SoundState
     ) {
-        val gifText = when (gifState) {
-            GifState.GIF_INVALID -> "invalid"
-            GifState.GIF_ERROR -> "errored"
-            GifState.GIF_LOADING -> "loading"
-            GifState.GIF_OK -> "ready"
-        }
+        val gifText = resources.getString(gifState.errorTextRes)
+        val soundText = resources.getString(soundState.errorTextRes)
+        val statusMessage = resources.getString(R.string.opengs_status_message, gifText, soundText)
 
-        val soundText = when (soundState) {
-            SoundState.SOUND_INVALID -> "invalid"
-            SoundState.SOUND_ERROR -> "errored"
-            SoundState.SOUND_LOADING -> "loading"
-            SoundState.SOUND_OK,
-            SoundState.SOUND_STARTED -> "ready"
-        }
-
-        view.setStatusMessage("Gif is $gifText and Sound is $soundText.")
+        view.setStatusMessage(statusMessage)
     }
 }

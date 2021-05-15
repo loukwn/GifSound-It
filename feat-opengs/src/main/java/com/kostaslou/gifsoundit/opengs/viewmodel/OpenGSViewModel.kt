@@ -3,8 +3,14 @@ package com.kostaslou.gifsoundit.opengs.viewmodel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import com.kostaslou.gifsoundit.opengs.*
+import com.kostaslou.gifsoundit.opengs.Action
+import com.kostaslou.gifsoundit.opengs.GifState
+import com.kostaslou.gifsoundit.opengs.OpenGSContract
+import com.kostaslou.gifsoundit.opengs.SoundState
+import com.kostaslou.gifsoundit.opengs.State
+import com.kostaslou.gifsoundit.opengs.UserAction
 import com.kostaslou.gifsoundit.opengs.mappers.QueryToStateMapper
 import com.loukwn.navigation.Navigator
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,12 +24,16 @@ import javax.inject.Named
 @HiltViewModel
 internal class OpenGSViewModel @Inject constructor(
     private val navigator: Navigator,
-    private val queryToStateMapper: QueryToStateMapper,
+    queryToStateMapper: QueryToStateMapper,
     @Named("io") private val ioScheduler: Scheduler,
     @Named("ui") private val uiScheduler: Scheduler,
     private val openGSStateReducer: OpenGSStateReducer,
     private val openGSViewPresenter: OpenGSViewPresenter,
+    handle: SavedStateHandle,
 ) : ViewModel(), OpenGSContract.Listener, OpenGSContract.ViewModel, LifecycleObserver {
+
+    private val query = requireNotNull(handle.get<String>(Navigator.PARAM_OPENGS_QUERY))
+    private val isFromDeepLink = handle.get<Boolean>(Navigator.PARAM_OPENGS_FROM_DEEP_LINK) ?: false
 
     private var view: OpenGSContract.View? = null
     private var disposable: Disposable? = null
@@ -31,7 +41,6 @@ internal class OpenGSViewModel @Inject constructor(
     private val actionSubject = PublishSubject.create<Action>()
 
     private var currentState: State? = null
-    private var query: String = ""
 
     override fun onCleared() {
         disposable?.dispose()
@@ -39,8 +48,7 @@ internal class OpenGSViewModel @Inject constructor(
         super.onCleared()
     }
 
-    override fun setup(query: String, isFromDeepLink: Boolean) {
-        this.query = query
+    init {
         val initialState = queryToStateMapper.getState(query, isFromDeepLink)
         currentState = initialState
 
@@ -71,11 +79,7 @@ internal class OpenGSViewModel @Inject constructor(
     }
 
     override fun onShareButtonPressed() {
-        val textToSend = if (query.startsWith("?"))
-            "https://gifsound.com/$query"
-        else
-            "https://gifsound.com/?$query"
-        navigator.openShareScreen(textToSend)
+        navigator.openShareScreen(query)
     }
 
     override fun onPlayGifLabelPressed() {

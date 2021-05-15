@@ -4,7 +4,6 @@ import com.kostaslou.gifsoundit.common.util.DataState
 import com.loukwn.postdata.model.domain.PostResponse
 import io.reactivex.Observable
 
-
 interface PostRepository {
     val postDataObservable: Observable<DataState<PostResponse>>
 
