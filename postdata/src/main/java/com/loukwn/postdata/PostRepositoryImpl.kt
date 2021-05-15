@@ -1,6 +1,5 @@
 package com.loukwn.postdata
 
-import android.app.Application
 import com.kostaslou.gifsoundit.common.disk.SharedPrefsHelper
 import com.kostaslou.gifsoundit.common.util.DataState
 import com.loukwn.postdata.model.api.RedditSubredditResponse
@@ -14,20 +13,17 @@ import io.reactivex.Single
 import io.reactivex.disposables.Disposable
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.subjects.PublishSubject
+import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Named
 
 internal class PostRepositoryImpl @Inject constructor(
-    private val context: Application,
     private val authApi: AuthApi,
     private val postApi: PostApi,
     private val sharedPrefsHelper: SharedPrefsHelper,
     @Named("io") private val ioScheduler: Scheduler
 ) : PostRepository {
-    private val postErrorMessage by lazy {
-        context.resources.getString(R.string.list_error_posts)
-    }
 
     private var postFetchDisposable: Disposable? = null
     private var authTokenDisposable: Disposable? = null
@@ -39,20 +35,39 @@ internal class PostRepositoryImpl @Inject constructor(
         postFetchDisposable?.dispose()
         postFetchDisposable = if (authTokenIsValid()) {
             getPostsFromReddit(sourceType, filterType, after)
-                .subscribeBy(onError = {
-                    postDataObservable.onNext(DataState.Error(it, postErrorMessage))
-                })
+                .subscribeOn(ioScheduler)
+                .subscribeBy(
+                    onSuccess = {
+                        Timber.i("Posts fetched! After=${it.data.after}")
+                    },
+                    onError = {
+                        Timber.i("Posts not fetched! Error: ${it.message}. Stacktrace: ${it.stackTrace}")
+                        postDataObservable.onNext(DataState.Error(it, it.message))
+                    }
+                )
         } else {
             getNewAuthTokenObservable()
-                .flatMap { getPostsFromReddit(sourceType, filterType, after) }
-                .subscribeBy(onError = {
-                    postDataObservable.onNext(DataState.Error(it, postErrorMessage))
-                })
+                .subscribeOn(ioScheduler)
+                .doOnSuccess { saveTokenToPrefs(it) }
+                .flatMap {
+                    getPostsFromReddit(sourceType, filterType, after)
+                        .subscribeOn(ioScheduler)
+                }
+                .subscribeBy(
+                    onSuccess = {
+                        Timber.i("Posts fetched! After=${it.data.after}")
+                    },
+                    onError = {
+                        Timber.i("Posts not fetched! Error: ${it.message}. Stacktrace: ${it.stackTrace}")
+                        postDataObservable.onNext(DataState.Error(it, it.message))
+                    }
+                )
         }
     }
 
     override fun refreshAuthTokenIfNeeded() {
         if (!authTokenIsValid()) {
+            authTokenDisposable?.dispose()
             authTokenDisposable = getNewAuthTokenObservable().subscribeOn(ioScheduler).subscribe()
         }
     }
@@ -103,13 +118,11 @@ internal class PostRepositoryImpl @Inject constructor(
             .doOnSuccess { postDataObservable.onNext(DataState.Data(it.toDomainData())) }
     }
 
-    private fun getNewAuthTokenObservable(): Single<RedditTokenResponse> {
-        return authApi.getAuthToken(
+    private fun getNewAuthTokenObservable(): Single<RedditTokenResponse> =
+        authApi.getAuthToken(
             REDDIT_GRANT_TYPE,
             UUID.randomUUID().toString()
         )
-            .doOnSuccess { saveTokenToPrefs(it) }
-    }
 
     private fun saveTokenToPrefs(r: RedditTokenResponse) {
 

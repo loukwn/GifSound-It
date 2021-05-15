@@ -1,10 +1,14 @@
 package com.kostaslou.gifsoundit.list.viewmodel
 
+import android.content.res.Resources
 import com.kostaslou.gifsoundit.list.ListContract
 import com.kostaslou.gifsoundit.list.State
+import com.loukwn.postdata.R
 import javax.inject.Inject
 
-internal class ListViewPresenter @Inject constructor() {
+internal class ListViewPresenter @Inject constructor(
+    private val resources: Resources,
+) {
     fun updateView(
         view: ListContract.View,
         state: State
@@ -17,8 +21,9 @@ internal class ListViewPresenter @Inject constructor() {
             view.hideOverlay()
         }
 
-        state.errorMessage?.getContentIfNotHandled()?.let { error ->
-            view.showErrorToast(error)
+        state.errorMessage?.getContentIfNotHandled()?.let {
+            val postErrorMessage = resources.getString(R.string.list_error_posts)
+            view.showErrorToast(postErrorMessage)
         }
 
         if (state.isLoading) {

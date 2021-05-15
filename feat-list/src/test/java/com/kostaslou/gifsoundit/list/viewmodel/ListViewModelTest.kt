@@ -216,7 +216,8 @@ internal class ListViewModelTest {
     }
 
     @Test
-    fun `WHEN viewmodel is cleared THEN nothing weird happens`() {
+    fun `WHEN viewmodel is cleared THEN repository is cleared`() {
         sut.onCleared()
+        verify(exactly = 1) { repository.clear() }
     }
 }

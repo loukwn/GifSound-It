@@ -3,9 +3,11 @@ package com.kostaslou.gifsoundit.di.modules
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
+import android.content.res.Resources
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 
 @Module
@@ -13,6 +15,11 @@ import dagger.hilt.components.SingletonComponent
 class ApplicationModule {
 
     @Provides
-    fun provideSharedPreferences(application: Application): SharedPreferences =
-        application.getSharedPreferences("reddit_stuff", Context.MODE_PRIVATE)
+    fun provideSharedPreferences(@ApplicationContext context: Context): SharedPreferences =
+        context.getSharedPreferences("reddit_stuff", Context.MODE_PRIVATE)
+
+    @Provides
+    fun provideResources(@ApplicationContext context: Context): Resources =
+        context.resources
+
 }

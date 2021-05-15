@@ -5,38 +5,38 @@ import androidx.appcompat.app.AppCompatDelegate
 import javax.inject.Inject
 
 // Class that deals with the shared preferences operations
-class SharedPrefsHelper @Inject constructor(private val mSharedPreferences: SharedPreferences) {
+class SharedPrefsHelper @Inject constructor(private val sharedPreferences: SharedPreferences) {
 
     fun put(key: String, value: String) {
-        mSharedPreferences.edit().putString(key, value).apply()
+        sharedPreferences.edit().putString(key, value).apply()
     }
 
     fun put(key: String, value: Long) {
-        mSharedPreferences.edit().putLong(key, value).apply()
+        sharedPreferences.edit().putLong(key, value).apply()
     }
 
     fun put(key: String, value: Int) {
-        mSharedPreferences.edit().putInt(key, value).apply()
+        sharedPreferences.edit().putInt(key, value).apply()
     }
 
     operator fun get(key: String, defaultValue: String): String? {
-        return mSharedPreferences.getString(key, defaultValue)
+        return sharedPreferences.getString(key, defaultValue)
     }
 
     operator fun get(key: String, defaultValue: Int): Int {
-        return mSharedPreferences.getInt(key, defaultValue)
+        return sharedPreferences.getInt(key, defaultValue)
     }
 
     operator fun get(key: String, defaultValue: Float): Float {
-        return mSharedPreferences.getFloat(key, defaultValue)
+        return sharedPreferences.getFloat(key, defaultValue)
     }
 
     operator fun get(key: String, defaultValue: Boolean): Boolean {
-        return mSharedPreferences.getBoolean(key, defaultValue)
+        return sharedPreferences.getBoolean(key, defaultValue)
     }
 
     operator fun get(key: String, defaultValue: Long): Long {
-        return mSharedPreferences.getLong(key, defaultValue)
+        return sharedPreferences.getLong(key, defaultValue)
     }
 
     companion object {
