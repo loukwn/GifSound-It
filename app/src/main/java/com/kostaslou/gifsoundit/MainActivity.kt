@@ -26,7 +26,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun navigateIfDeepLinked(intent: Intent?) {
         intent?.data?.query?.let {
-            if (it.isNotEmpty()) navigator.navigateToOpenGS(query = it, fromDeepLink = true)
+            if (it.isNotEmpty()) {
+                navigator.navigateToOpenGS(
+                    query = "https://gifsound.com/?$it",
+                    fromDeepLink = true
+                )
+            }
         }
     }
 
