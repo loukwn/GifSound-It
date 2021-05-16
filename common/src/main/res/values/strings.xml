@@ -1,6 +1,5 @@
 <resources>
     <!--Application/MainActivity-->
-    <string name="app_name">GifSound It</string>
     <string name="intent_filter_label">View GifSound</string>
 
     <!--List Fragment -->
@@ -48,7 +47,6 @@
     <string name="settings_oss_title">Open Source Licenses</string>
     <string name="settings_about_title">About</string>
     <string name="settings_about_author_year">by loukwn (2021)</string>
-    <string name="settings_about_version">v2.0.0</string>
     <string name="settings_about_description">This app substitutes functionally the gifsound.com website (except for creating GifSounds as of yet).\n\nThe posts that are shown in the list are fetched from various GifSound related subs (like reddit.com/r/GifSound etc.)</string>
     <string name="settings_about_contribute_title">Contribute / Report Issues</string>
     <string name="settings_about_contribute_description">This app is open source and its code can be found at: https://github.com/loukwn/GifSound-It\n\nAnyone is free to check the code, open any PRs for new stuff / bug fixes or report any issues.\n\nYou can also contact me at loukwn@gmail.com as well.</string>

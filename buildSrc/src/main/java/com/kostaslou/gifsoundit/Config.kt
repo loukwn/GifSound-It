@@ -23,7 +23,7 @@ object Config {
         const val compileSdkVersion = 30
         const val applicationId = "com.kostaslou.gifsoundit"
         const val versionCode = 2
-        const val versionName = "1.1.0"
+        const val versionName = "2.0.0"
         const val testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 

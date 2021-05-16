@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name_prod" translatable="false">GifSound It</string>
+
+    <!-- The following two get changed by gradle appropriately -->
+    <string name="app_name" translatable="false">GifSound It</string>
+    <string name="app_version" translatable="false">1.0.0</string>
+</resources>

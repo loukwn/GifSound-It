@@ -20,6 +20,15 @@ android {
         localProperties.inputStream().use { properties.load(it) }
     }
 
+    signingConfigs {
+        create("release") {
+            storeFile = file(properties.getProperty("storeFilePath"))
+            storePassword = properties.getProperty("storePassword")
+            keyPassword = properties.getProperty("keyPassword")
+            keyAlias = properties.getProperty("keyAlias")
+        }
+    }
+
     compileSdkVersion(Config.Android.compileSdkVersion)
 
     defaultConfig {
@@ -32,6 +41,7 @@ android {
     }
     buildTypes {
         getByName("release") {
+            resValue("string", "app_version", "v${Config.Android.versionName}")
             isMinifyEnabled = true
             isShrinkResources = true
             isDebuggable = false
@@ -42,6 +52,8 @@ android {
         }
 
         getByName("debug") {
+            resValue("string", "app_name", "Gifsound It - Dev")
+            resValue("string", "app_version", "v${Config.Android.versionName}")
             isMinifyEnabled = false
             isShrinkResources = false
             isDebuggable = true
