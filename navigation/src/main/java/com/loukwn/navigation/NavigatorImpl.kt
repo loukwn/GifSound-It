@@ -4,10 +4,10 @@ import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent
+import android.content.res.Resources
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
-import androidx.core.content.ContextCompat.startActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
@@ -38,6 +38,10 @@ internal class NavigatorImpl @Inject constructor() : Navigator {
 
     override fun goBack() {
         navController?.navigateUp()
+    }
+
+    override fun clearBackStack() {
+        navController?.popBackStack()
     }
 
     override fun openShareScreen(query: String) {
@@ -86,13 +90,14 @@ internal class NavigatorImpl @Inject constructor() : Navigator {
     }
 
     override fun goToOgWebsite(url: String) {
-        context?.let {
-            startActivity(
-                it,
-                Intent(Intent.ACTION_VIEW).apply {
-                    data = Uri.parse(url)
+        context?.let { ctx ->
+            ctx.launchChooserIntentWithoutThisApp(
+                intentBuilder = {
+                    Intent(Intent.ACTION_VIEW).apply {
+                        data = Uri.parse(url)
+                    }
                 },
-                null
+                chooserTitle = "Go to website",
             )
         }
     }
@@ -126,3 +131,33 @@ private val Context.activityContext: Activity?
         }
         return c as? Activity
     }
+
+private fun Context.launchChooserIntentWithoutThisApp(
+    intentBuilder: () -> Intent,
+    chooserTitle: String
+) {
+    val targetedShareIntents: MutableList<Intent> = ArrayList()
+    val resInfo = this.packageManager.queryIntentActivities(intentBuilder(), 0)
+    if (resInfo.isNotEmpty()) {
+        for (info in resInfo) {
+            val targetedShare = intentBuilder()
+            if (!info.activityInfo.packageName.equals(
+                    this.packageName,
+                    ignoreCase = true
+                )
+            ) {
+                targetedShare.setPackage(info.activityInfo.packageName)
+                targetedShareIntents.add(targetedShare)
+            }
+        }
+        val chooserIntent = Intent.createChooser(
+            targetedShareIntents.removeAt(0),
+            chooserTitle
+        )
+        chooserIntent.putExtra(
+            Intent.EXTRA_INITIAL_INTENTS,
+            targetedShareIntents.toTypedArray()
+        )
+        this.startActivity(chooserIntent)
+    }
+}

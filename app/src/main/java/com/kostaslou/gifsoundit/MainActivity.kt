@@ -8,6 +8,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.loukwn.navigation.Navigator
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -21,18 +22,30 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         navigator.bind(context = this, navController = getNavController())
-        navigateIfDeepLinked(intent)
+        if (savedInstanceState == null) {
+            Timber.d("onCreate null")
+            navigateIfDeepLinked(intent)
+        }
     }
 
     private fun navigateIfDeepLinked(intent: Intent?) {
         intent?.data?.query?.let {
-            if (it.isNotEmpty()) {
+            if (it.isNotEmpty() && intent.action == Intent.ACTION_VIEW) {
                 navigator.navigateToOpenGS(
                     query = "https://gifsound.com/?$it",
                     fromDeepLink = true
                 )
             }
         }
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        Timber.d("onNewIntent")
+
+        navigator.bind(context = this, navController = findNavController(R.id.nav_host_fragment))
+        navigator.clearBackStack()
+        navigateIfDeepLinked(intent)
     }
 
     private fun getNavController(): NavController =

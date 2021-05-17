@@ -9,6 +9,7 @@ interface Navigator {
     fun unbind()
 
     fun goBack()
+    fun clearBackStack()
     fun openShareScreen(query: String)
     fun navigateToOpenGS(
         query: String?,

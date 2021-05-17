@@ -25,8 +25,10 @@ class OpenGSFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sharedElementEnterTransition = MaterialContainerTransform().apply {
-            duration = 300L
+        if (!requireArguments().getBoolean(Navigator.PARAM_OPENGS_FROM_DEEP_LINK)) {
+            sharedElementEnterTransition = MaterialContainerTransform().apply {
+                duration = 300L
+            }
         }
     }
 

@@ -27,6 +27,7 @@
         android:name="com.kostaslou.gifsoundit.opengs.OpenGSFragment"
         android:label="OpenGSFragment"
         tools:layout="@layout/fragment_opengs" />
+
     <fragment
         android:id="@id/fragment_settings_id"
         android:name="com.kostaslou.gifsoundit.settings.SettingsFragment"

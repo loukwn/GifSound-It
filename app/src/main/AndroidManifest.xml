@@ -4,6 +4,7 @@
     package="com.kostaslou.gifsoundit">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
 
     <application
         android:name=".GifSoundItApp"
@@ -14,7 +15,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:allowBackup">
-        <activity android:name=".MainActivity">
+
+        <!-- singleTask because we want to update the activity with onNewIntent instead of
+             having the calling activity (other app) create an instance of it in its task-->
+
+        <activity android:name=".MainActivity"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
