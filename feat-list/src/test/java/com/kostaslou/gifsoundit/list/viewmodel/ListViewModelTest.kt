@@ -14,9 +14,11 @@ import io.mockk.impl.annotations.MockK
 import io.mockk.mockk
 import io.mockk.verify
 import io.reactivex.schedulers.Schedulers
+import io.reactivex.schedulers.TestScheduler
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
+import java.util.concurrent.TimeUnit
 
 internal class ListViewModelTest {
     private lateinit var sut: ListViewModel
@@ -35,17 +37,20 @@ internal class ListViewModelTest {
 
     private val trampolineScheduler = Schedulers.trampoline()
 
+    private val testScheduler = TestScheduler()
+
     @Before
     fun setup() {
         MockKAnnotations.init(this, relaxed = true)
 
         sut = ListViewModel(
-            repository,
-            navigator,
-            listStateReducer,
-            listViewPresenter,
-            trampolineScheduler,
-            trampolineScheduler
+            repository = repository,
+            navigator = navigator,
+            listStateReducer = listStateReducer,
+            listViewPresenter = listViewPresenter,
+            ioScheduler = trampolineScheduler,
+            uiScheduler = trampolineScheduler,
+            computationScheduler = testScheduler,
         )
     }
 
@@ -216,6 +221,19 @@ internal class ListViewModelTest {
         sut.onOverlayClicked()
 
         verify(exactly = 1) { listStateReducer.map(any(), Action.OverlayClicked) }
+    }
+
+    @Test
+    fun `WHEN two navigation actions are dispatched close to each other THEN only allow one to execute`() {
+        sut.onListItemClicked(mockk(relaxed = true), mockk())
+        testScheduler.advanceTimeBy(
+            ListViewModel.THROTTLE_WINDOW_NAVIGATION_ACTION_MS - 1,
+            TimeUnit.MILLISECONDS
+        )
+        sut.onSettingsButtonClicked()
+
+        verify(exactly = 1) { navigator.navigateToOpenGS(any(), any(), any()) }
+        verify(exactly = 0) { navigator.navigateToSettings() }
     }
 
     @Test

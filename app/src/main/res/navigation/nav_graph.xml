@@ -8,19 +8,7 @@
         android:id="@id/fragment_list_id"
         android:name="com.kostaslou.gifsoundit.list.ListFragment"
         android:label="HomeFragment"
-        tools:layout="@layout/fragment_list">
-
-        <action
-            android:id="@id/action_home_to_opengs"
-            app:destination="@id/fragment_opengs_id" />
-
-        <action
-            android:id="@id/action_home_to_settings"
-            app:destination="@id/fragment_settings_id"
-            app:enterAnim="@anim/slide_in_up"
-            app:popEnterAnim="@anim/slide_in_up"
-            app:popExitAnim="@anim/slide_out_down" />
-    </fragment>
+        tools:layout="@layout/fragment_list" />
 
     <fragment
         android:id="@id/fragment_opengs_id"

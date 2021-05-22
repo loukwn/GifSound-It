@@ -20,4 +20,8 @@ class ActivityRetainedModule {
     @Provides
     @Named("ui")
     fun provideUIScheduler(): Scheduler = AndroidSchedulers.mainThread()
+
+    @Provides
+    @Named("computation")
+    fun provideComputationScheduler(): Scheduler = Schedulers.computation()
 }

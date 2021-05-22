@@ -3,7 +3,4 @@
     <item name="fragment_list_id" type="id" />
     <item name="fragment_opengs_id" type="id" />
     <item name="fragment_settings_id" type="id" />
-
-    <item name="action_home_to_opengs" type="id" />
-    <item name="action_home_to_settings" type="id" />
 </resources>

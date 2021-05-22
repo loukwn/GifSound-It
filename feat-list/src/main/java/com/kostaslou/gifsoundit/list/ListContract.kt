@@ -1,5 +1,6 @@
 package com.kostaslou.gifsoundit.list
 
+import android.view.View
 import androidx.annotation.IdRes
 import com.kostaslou.gifsoundit.common.contract.ActionableViewContract
 import com.kostaslou.gifsoundit.common.util.DataState
@@ -85,7 +86,7 @@ internal data class State(
 
     override fun toString(): String {
         return "AdapterList: ${adapterData.size}, isErrored: ${errorMessage?.peekContent()}," +
-            " isLoading: $isLoading, filterType: ${filterType.javaClass.simpleName}"
+                " isLoading: $isLoading, filterType: ${filterType.javaClass.simpleName}"
     }
 }
 
@@ -104,4 +105,13 @@ internal sealed class Action {
     object SwipedToRefresh : Action()
     object FragmentCreated : Action()
     object OnBackPressed : Action()
+}
+
+internal sealed class NavigationAction {
+    data class OpenGs(
+        val query: String,
+        val containerTransitionView: Pair<View, String>
+    ) : NavigationAction()
+
+    object Settings : NavigationAction()
 }

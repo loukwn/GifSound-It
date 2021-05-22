@@ -114,8 +114,8 @@ internal class NavigatorImpl @Inject constructor() : Navigator {
 
     enum class Destination(val id: Int) {
         LIST(R.id.fragment_list_id),
-        OPENGS(R.id.action_home_to_opengs),
-        SETTINGS(R.id.action_home_to_settings),
+        OPENGS(R.id.fragment_opengs_id),
+        SETTINGS(R.id.fragment_settings_id),
     }
 
     companion object {

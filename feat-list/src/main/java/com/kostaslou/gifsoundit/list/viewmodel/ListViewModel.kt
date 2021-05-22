@@ -2,13 +2,16 @@ package com.kostaslou.gifsoundit.list.viewmodel
 
 import android.view.View
 import androidx.annotation.RestrictTo
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.ViewModel
+import com.kostaslou.gifsoundit.list.*
 import com.kostaslou.gifsoundit.list.Action
 import com.kostaslou.gifsoundit.list.FilterType
 import com.kostaslou.gifsoundit.list.ListContract
+import com.kostaslou.gifsoundit.list.NavigationAction
 import com.kostaslou.gifsoundit.list.SourceType
 import com.kostaslou.gifsoundit.list.State
 import com.kostaslou.gifsoundit.list.util.toDTO
@@ -18,9 +21,12 @@ import com.loukwn.postdata.PostRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Observable
 import io.reactivex.Scheduler
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
+import io.reactivex.internal.schedulers.ComputationScheduler
 import io.reactivex.subjects.PublishSubject
 import timber.log.Timber
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -32,10 +38,12 @@ internal class ListViewModel @Inject constructor(
     private val listViewPresenter: ListViewPresenter,
     @Named("io") ioScheduler: Scheduler,
     @Named("ui") uiScheduler: Scheduler,
+    @Named("computation") computationScheduler: Scheduler,
 ) : ViewModel(), LifecycleObserver, ListContract.Listener, ListContract.ViewModel {
 
-    private var disposable: Disposable? = null
+    private var disposable: CompositeDisposable? = null
     private val actionSubject = PublishSubject.create<Action>()
+    private val throttledNavigationActionSubject = PublishSubject.create<NavigationAction>()
 
     private var currentState = State.default()
     private var view: ListContract.View? = null
@@ -56,21 +64,44 @@ internal class ListViewModel @Inject constructor(
             after = ""
         )
 
-        disposable = Observable.merge(
-            onDataChangedEvent(),
-            actionSubject
-        ).scan(State.default()) { state, event ->
-            val newState = listStateReducer.map(state, event)
-            Timber.d("$state + $event = $newState")
-            newState
-        }
-            .subscribeOn(ioScheduler)
-            .observeOn(uiScheduler)
-            .subscribe { state ->
-                // Side effects
-                currentState = state
-                updateView(state)
+        disposable = CompositeDisposable()
+        disposable?.addAll(
+            Observable.merge(
+                onDataChangedEvent(),
+                actionSubject
+            ).scan(State.default()) { state, event ->
+                val newState = listStateReducer.map(state, event)
+                Timber.d("$state + $event = $newState")
+                newState
             }
+                .subscribeOn(ioScheduler)
+                .observeOn(uiScheduler)
+                .subscribe { state ->
+                    // Side effects
+                    currentState = state
+                    updateView(state)
+                },
+
+            throttledNavigationActionSubject
+                .throttleFirst(THROTTLE_WINDOW_NAVIGATION_ACTION_MS, TimeUnit.MILLISECONDS, computationScheduler)
+                .subscribeOn(ioScheduler)
+                .observeOn(uiScheduler)
+                .subscribe { action ->
+                    when (action) {
+                        is NavigationAction.OpenGs -> {
+                            navigator.navigateToOpenGS(
+                                query = action.query,
+                                fromDeepLink = false,
+                                containerTransitionView = action.containerTransitionView
+                            )
+                        }
+                        NavigationAction.Settings -> {
+                            navigator.navigateToSettings()
+                        }
+                    }
+                    view = null
+                }
+        )
     }
 
     private fun updateView(state: State) {
@@ -102,12 +133,12 @@ internal class ListViewModel @Inject constructor(
         post: ListAdapterModel.Post,
         containerTransitionView: Pair<View, String>
     ) {
-        navigator.navigateToOpenGS(
-            query = post.url,
-            fromDeepLink = false,
-            containerTransitionView = containerTransitionView
+        throttledNavigationActionSubject.onNext(
+            NavigationAction.OpenGs(
+                post.url,
+                containerTransitionView
+            )
         )
-        view = null
     }
 
     override fun onSaveButtonClicked(
@@ -129,8 +160,7 @@ internal class ListViewModel @Inject constructor(
     }
 
     override fun onSettingsButtonClicked() {
-        navigator.navigateToSettings()
-        view = null
+        throttledNavigationActionSubject.onNext(NavigationAction.Settings)
     }
 
     override fun onOverlayClicked() {
@@ -168,5 +198,10 @@ internal class ListViewModel @Inject constructor(
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     fun doOnStop() {
         view?.removeListener(this)
+    }
+
+    companion object {
+        @VisibleForTesting
+        internal const val THROTTLE_WINDOW_NAVIGATION_ACTION_MS = 150L
     }
 }
