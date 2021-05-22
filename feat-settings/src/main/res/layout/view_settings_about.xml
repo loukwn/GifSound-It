@@ -43,6 +43,7 @@
             android:id="@+id/aboutContentGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             app:constraint_referenced_ids="appLogo, appName, appAuthor, appVersion, description, githubTitle, githubDescription, bottomSpacer" />
 
         <ImageView
