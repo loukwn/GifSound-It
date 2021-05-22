@@ -55,6 +55,14 @@ internal class ListViewModelTest {
     }
 
     @Test
+    fun `WHEN fragment is recreated THEN send an event to set the state again`() {
+        sut.doOnCreate()
+        sut.doOnCreate() // recreation
+
+        verify(exactly = 1) { listStateReducer.map(any(), Action.FragmentCreated) }
+    }
+
+    @Test
     fun `GIVEN view is set WHEN onStart THEN set view listener to this`() {
         val view = mockk<ListContract.View>(relaxed = true)
         sut.setView(view)

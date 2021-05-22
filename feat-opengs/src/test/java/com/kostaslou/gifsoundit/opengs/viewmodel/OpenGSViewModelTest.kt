@@ -147,4 +147,12 @@ internal class OpenGSViewModelTest {
 
         verify(exactly = 1) { view.release() }
     }
+
+    @Test
+    fun `WHEN fragment is recreated THEN send an event to set the state again`() {
+        sut.doOnCreate()
+        sut.doOnCreate() // recreation
+
+        verify(exactly = 1) { reducer.map(any(), Action.FragmentCreated) }
+    }
 }

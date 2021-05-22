@@ -41,6 +41,7 @@ internal class OpenGSViewModel @Inject constructor(
     private val actionSubject = PublishSubject.create<Action>()
 
     private var currentState: State? = null
+    private var createdOnce = false
 
     override fun onCleared() {
         disposable?.dispose()
@@ -112,6 +113,15 @@ internal class OpenGSViewModel @Inject constructor(
 
     override fun setView(view: OpenGSContract.View) {
         this.view = view
+    }
+
+    @Suppress("unused")
+    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
+    fun doOnCreate() {
+        if (createdOnce) {
+            actionSubject.onNext(Action.FragmentCreated)
+        }
+        createdOnce = true
     }
 
     @Suppress("unused")

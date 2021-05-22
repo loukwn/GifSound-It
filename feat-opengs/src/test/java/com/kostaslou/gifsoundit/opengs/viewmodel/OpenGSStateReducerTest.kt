@@ -182,4 +182,17 @@ internal class OpenGSStateReducerTest {
             newState
         )
     }
+
+    @Test
+    fun `GIVEN action is FragmentCreated WHEN map THEN prepare gif and sound again`() {
+        val action = Action.FragmentCreated
+        val state = State.default(soundAction = Event(PlaybackAction.PLAY), gifAction = Event(PlaybackAction.PLAY))
+
+        val newState = sut.map(state, action)
+
+        assertEquals(
+            state.copy(gifAction = Event(PlaybackAction.PREPARE), soundAction = Event(PlaybackAction.PREPARE)),
+            newState
+        )
+    }
 }

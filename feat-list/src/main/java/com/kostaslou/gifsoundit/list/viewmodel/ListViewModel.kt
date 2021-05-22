@@ -47,6 +47,7 @@ internal class ListViewModel @Inject constructor(
 
     private var currentState = State.default()
     private var view: ListContract.View? = null
+    private var createdOnce = false
 
     @RestrictTo(RestrictTo.Scope.TESTS)
     public override fun onCleared() {
@@ -182,7 +183,10 @@ internal class ListViewModel @Inject constructor(
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun doOnCreate() {
-        actionSubject.onNext(Action.FragmentCreated)
+        if (createdOnce) {
+            actionSubject.onNext(Action.FragmentCreated)
+        }
+        createdOnce = true
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)

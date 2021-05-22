@@ -83,6 +83,10 @@ internal class OpenGSStateReducer @Inject constructor() {
                     }
                 }
             }
+            Action.FragmentCreated -> state.copy(
+                gifAction = Event(PlaybackAction.PREPARE),
+                soundAction = Event(PlaybackAction.PREPARE)
+            )
         }
     }
 }

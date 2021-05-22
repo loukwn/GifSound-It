@@ -67,14 +67,11 @@ internal class SettingsViewModelTest {
     }
 
     @Test
-    fun `GIVEN view is set WHEN onCreate THEN update view for first time`() {
-        val view = mockk<SettingsContract.View>(relaxed = true)
-        sut.setView(view)
-
+    fun `WHEN fragment is recreated THEN send an event to set the state again`() {
         sut.doOnCreate()
+        sut.doOnCreate() // recreation
 
         verify(exactly = 1) { settingsStateReducer.map(any(), Action.Created) }
-        verify(exactly = 1) { settingsViewPresenter.updateView(any(), any()) }
     }
 
     @Test

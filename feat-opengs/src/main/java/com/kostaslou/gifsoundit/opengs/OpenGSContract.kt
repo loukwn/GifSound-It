@@ -48,6 +48,7 @@ internal sealed class Action {
     data class GifStateChanged(val gifState: GifState) : Action()
     data class SoundStateChanged(val soundState: SoundState) : Action()
     data class OnUserAction(val userAction: UserAction) : Action()
+    object FragmentCreated : Action()
 }
 
 internal enum class UserAction {

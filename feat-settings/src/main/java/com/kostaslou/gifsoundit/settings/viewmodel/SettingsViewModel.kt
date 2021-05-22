@@ -33,6 +33,7 @@ internal class SettingsViewModel @Inject constructor(
     private var disposable: Disposable? = null
     private val actionSubject = PublishSubject.create<Action>()
     private var currentMode = sharedPrefsHelper.getDayNightMode()
+    private var createdOnce = false
 
     @RestrictTo(RestrictTo.Scope.TESTS)
     public override fun onCleared() {
@@ -101,7 +102,10 @@ internal class SettingsViewModel @Inject constructor(
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun doOnCreate() {
-        actionSubject.onNext(Action.Created)
+        if (createdOnce) {
+            actionSubject.onNext(Action.Created)
+        }
+        createdOnce = true
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
