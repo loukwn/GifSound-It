@@ -69,7 +69,6 @@ object Config {
         object Hilt {
             const val hiltAndroid = "com.google.dagger:hilt-android:_"
             const val hiltAndroidCompiler = "com.google.dagger:hilt-android-compiler:_"
-            const val hiltLifecycleViewModel = "androidx.hilt:hilt-lifecycle-viewmodel:_"
             const val hiltCompiler = "androidx.hilt:hilt-compiler:_"
         }
 

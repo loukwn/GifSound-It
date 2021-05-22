@@ -88,7 +88,6 @@ dependencies {
 
     implementation(Config.Libs.Hilt.hiltAndroid)
     kapt(Config.Libs.Hilt.hiltAndroidCompiler)
-    implementation(Config.Libs.Hilt.hiltLifecycleViewModel)
     kapt(Config.Libs.Hilt.hiltCompiler)
 
     implementation(Config.Libs.Rx.rxJava2)
