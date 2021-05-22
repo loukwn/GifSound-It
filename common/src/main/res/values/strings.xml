@@ -14,7 +14,6 @@
     <string name="list_top_month">Top - Month</string>
     <string name="list_top_year">Top - Year</string>
     <string name="list_top_all">Top - All</string>
-    <string name="list_selector_title">Select time period</string>
     <string name="list_loading_working">Working…</string>
     <string name="list_options_save">Save</string>
     <string name="list_options_filter_title">Filter</string>
