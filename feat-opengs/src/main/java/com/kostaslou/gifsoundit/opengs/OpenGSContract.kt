@@ -18,6 +18,7 @@ internal interface OpenGSContract {
         fun startGifVideoFromTheStart()
         fun seekAndRestartSound(seekSeconds: Int)
         fun showYoutubeErrorScreen()
+        fun showGifErrorScreen()
         fun setStatusMessage(message: String)
         fun setVideoOffsetControlsEnabled(enabled: Boolean)
         fun showRefreshButton()

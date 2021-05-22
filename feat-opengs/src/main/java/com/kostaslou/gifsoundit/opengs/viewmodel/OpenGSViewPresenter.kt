@@ -17,14 +17,12 @@ internal class OpenGSViewPresenter @Inject constructor(
         handleGifEvent(state, view)
         handleSoundEvent(state, view)
         handleUiControlsState(state, view)
+        handleGifErrorVisibility(state, view)
         handlePlayGifLabelVisibility(state, view)
         updateStatusLabel(view = view, gifState = state.gifState, soundState = state.soundState)
     }
 
-    private fun handleUiControlsState(
-        state: State,
-        view: OpenGSContract.View
-    ) {
+    private fun handleUiControlsState(state: State, view: OpenGSContract.View) {
         if (state.gifState == GifState.GIF_OK && state.soundState == SoundState.SOUND_STARTED) {
             view.setVideoOffsetControlsEnabled(true)
             view.showRefreshButton()
@@ -34,26 +32,19 @@ internal class OpenGSViewPresenter @Inject constructor(
         }
     }
 
-    private fun handlePlayGifLabelVisibility(
-        state: State,
-        view: OpenGSContract.View
-    ) {
-        if (state.gifState == GifState.GIF_OK &&
-            (
-                state.soundState == SoundState.SOUND_ERROR ||
-                    state.soundState == SoundState.SOUND_INVALID
-                )
-        ) {
-            view.setShowGIFLayoutVisibitity(true)
-        } else {
-            view.setShowGIFLayoutVisibitity(false)
-        }
+    private fun handleGifErrorVisibility(state: State, view: OpenGSContract.View) {
+        if (state.gifState == GifState.GIF_ERROR) view.showGifErrorScreen()
     }
 
-    private fun handleSoundEvent(
-        state: State,
-        view: OpenGSContract.View
-    ) {
+    private fun handlePlayGifLabelVisibility(state: State, view: OpenGSContract.View) {
+        val showGifLayout = state.gifState == GifState.GIF_OK &&
+                (state.soundState == SoundState.SOUND_ERROR ||
+                        state.soundState == SoundState.SOUND_INVALID )
+
+        view.setShowGIFLayoutVisibitity(showGifLayout)
+    }
+
+    private fun handleSoundEvent(state: State, view: OpenGSContract.View) {
         state.soundAction.getContentIfNotHandled()?.let { soundAction ->
             val soundUrl = state.soundSource.soundUrl
             val defaultSecondsOffset = state.soundSource.defaultSecondsOffset.toFloat()
@@ -74,10 +65,7 @@ internal class OpenGSViewPresenter @Inject constructor(
         }
     }
 
-    private fun handleGifEvent(
-        state: State,
-        view: OpenGSContract.View
-    ) {
+    private fun handleGifEvent(state: State, view: OpenGSContract.View) {
         state.gifAction.getContentIfNotHandled()?.let { gifAction ->
             val gifType = state.gifSource.gifType
             val gifUrl = state.gifSource.gifUrl

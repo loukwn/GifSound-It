@@ -28,14 +28,16 @@
     <string name="opengs_title">GifSound</string>
     <string name="opengs_sound_offset_label">Sound Offset (sec)</string>
     <string name="opengs_youtube_error_title">Whoops!</string>
-    <string name="opengs_youtube_error_description">It seems like the GIF part of the current GifSound is a video from YouTube. \n\nUnfortunately this is currently not supported as playback of two videos simultaneously cannot be done using the official Android YouTube client.</string>
+    <string name="opengs_youtube_error_description">It seems like the GIF part of this GifSound is a video from YouTube. \n\nUnfortunately this is currently not supported as playback of two videos simultaneously cannot be done using the official Android YouTube client.</string>
     <string name="opengs_youtube_gif_error_back">Go Back</string>
     <string name="opengs_youtube_gif_error_view">View on the Website</string>
     <string name="opengs_state_invalid">invalid</string>
-    <string name="opengs_state_error">errored</string>
+    <string name="opengs_state_error">errored out</string>
     <string name="opengs_state_loading">loading</string>
     <string name="opengs_state_ready">ready</string>
     <string name="opengs_status_message">Gif is %1$s and Sound is %2$s.</string>
+    <string name="opengs_gif_error_title">Error playing GIF…</string>
+    <string name="opengs_gif_error_description">This gif appears to be corrupt or not existing. Playback cannot continue. You can attempt to view it on the website or go back.</string>
 
     <!--Settings Fragment-->
     <string name="settings_theme_mode_title">Theme</string>

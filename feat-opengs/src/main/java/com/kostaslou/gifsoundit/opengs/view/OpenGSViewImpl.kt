@@ -212,6 +212,12 @@ internal class OpenGSViewImpl(
         binding.youtubeErrorScreen.viewBtn.setOnClickListener { listener?.onViewWebsiteButtonPressed() }
     }
 
+    override fun showGifErrorScreen() {
+        binding.gifErrorScreen.root.isVisible = true
+        binding.gifErrorScreen.backBtn.setOnClickListener { listener?.onBackButtonPressed() }
+        binding.gifErrorScreen.viewBtn.setOnClickListener { listener?.onViewWebsiteButtonPressed() }
+    }
+
     override fun setStatusMessage(message: String) {
         binding.statusLabel.text = message
     }
