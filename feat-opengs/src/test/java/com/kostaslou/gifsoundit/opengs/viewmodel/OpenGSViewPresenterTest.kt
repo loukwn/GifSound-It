@@ -299,4 +299,25 @@ internal class OpenGSViewPresenterTest {
         verify(exactly = 1) { resources.getString(state.soundState.errorTextRes) }
         verify(exactly = 1) { resources.getString(R.string.opengs_status_message, any(), any()) }
     }
+
+    @Test
+    fun `WHEN gifState is error THEN show Gif Error Screen`() {
+        val state = State.default(gifState = GifState.GIF_ERROR)
+
+        sut.updateView(view, state)
+
+        verify(exactly = 1) { view.showGifErrorScreen() }
+    }
+
+    @Test
+    fun `WHEN gifState is not error THEN do not show Gif Error Screen`() {
+        var state = State.default(gifState = GifState.GIF_OK)
+        sut.updateView(view, state)
+        state = State.default(gifState = GifState.GIF_INVALID)
+        sut.updateView(view, state)
+        state = State.default(gifState = GifState.GIF_LOADING)
+        sut.updateView(view, state)
+
+        verify(exactly = 0) { view.showGifErrorScreen() }
+    }
 }
