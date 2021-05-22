@@ -15,8 +15,11 @@ android {
     // Reads the local properties for the App secrets and if it cannot find them, it will get them from
     // the empty ones
     val properties = Properties()
-    val localProperties: File = rootProject.file("local.properties")
+    var localProperties: File = rootProject.file("local.properties")
     if (localProperties.exists()) {
+        localProperties.inputStream().use { properties.load(it) }
+    } else {
+        localProperties = rootProject.file("empty.properties")
         localProperties.inputStream().use { properties.load(it) }
     }
 
