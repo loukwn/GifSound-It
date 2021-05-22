@@ -38,8 +38,10 @@ internal class OpenGSViewPresenter @Inject constructor(
 
     private fun handlePlayGifLabelVisibility(state: State, view: OpenGSContract.View) {
         val showGifLayout = state.gifState == GifState.GIF_OK &&
-                (state.soundState == SoundState.SOUND_ERROR ||
-                        state.soundState == SoundState.SOUND_INVALID )
+            (
+                state.soundState == SoundState.SOUND_ERROR ||
+                    state.soundState == SoundState.SOUND_INVALID
+                )
 
         view.setShowGIFLayoutVisibitity(showGifLayout)
     }

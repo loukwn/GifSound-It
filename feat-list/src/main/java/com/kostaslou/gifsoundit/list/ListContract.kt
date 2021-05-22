@@ -86,7 +86,7 @@ internal data class State(
 
     override fun toString(): String {
         return "AdapterList: ${adapterData.size}, isErrored: ${errorMessage?.peekContent()}," +
-                " isLoading: $isLoading, filterType: ${filterType.javaClass.simpleName}"
+            " isLoading: $isLoading, filterType: ${filterType.javaClass.simpleName}"
     }
 }
 

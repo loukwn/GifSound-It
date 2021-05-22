@@ -7,7 +7,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.ViewModel
-import com.kostaslou.gifsoundit.list.*
 import com.kostaslou.gifsoundit.list.Action
 import com.kostaslou.gifsoundit.list.FilterType
 import com.kostaslou.gifsoundit.list.ListContract
@@ -22,8 +21,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
-import io.reactivex.internal.schedulers.ComputationScheduler
 import io.reactivex.subjects.PublishSubject
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
