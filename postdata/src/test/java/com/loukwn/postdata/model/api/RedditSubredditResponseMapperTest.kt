@@ -17,9 +17,11 @@ internal class RedditSubredditResponseMapperTest {
                 children = ArrayList<RedditPostChild>().apply {
                     for (i in 0 until NUM_OF_POSTS_PER_REQUEST) {
                         val isNsfw = i % 2 == 0
-                        add(mockk(relaxed = true) {
-                            every { data.over_18 } returns isNsfw
-                        })
+                        add(
+                            mockk(relaxed = true) {
+                                every { data.over_18 } returns isNsfw
+                            }
+                        )
                     }
                 },
                 after = null
@@ -37,9 +39,11 @@ internal class RedditSubredditResponseMapperTest {
             RedditSubredditDataResponse(
                 children = ArrayList<RedditPostChild>().apply {
                     for (i in 0 until NUM_OF_POSTS_PER_REQUEST) {
-                        add(mockk(relaxed = true) {
-                            every { data.over_18 } returns false
-                        })
+                        add(
+                            mockk(relaxed = true) {
+                                every { data.over_18 } returns false
+                            }
+                        )
                     }
                 },
                 after = null
@@ -86,7 +90,6 @@ internal class RedditSubredditResponseMapperTest {
 
         assertEquals("http://www.reddit.com/r/GifSoundIt", domainResponse.postData[0].url)
     }
-
 
     @Test
     fun `WHEN childs permalink starts with r THEN make it start with the full permalink`() {
