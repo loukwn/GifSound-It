@@ -57,6 +57,19 @@ class QueryToStateMapperTest {
     }
 
     @Test
+    fun `when a gfycat gif gifsound is opened`() {
+
+        // given that the gifsound is opened...
+        val query = "https://www.gifsound.com/?gif=giant.gfycat.com/PowerEmptyBullfrog.gif&v=zHalXjs0cDA&s=286"
+        val uiModel = QueryToStateMapper().getState(query = query, isFromDeepLink = false)
+
+        // ...assert that the gif, sound and seconds (offset) are set accordingly
+        assertEquals(286, uiModel.soundSource.defaultSecondsOffset)
+        assertEquals("zHalXjs0cDA", uiModel.soundSource.soundUrl)
+        assertEquals(GifSource("https://giant.gfycat.com/PowerEmptyBullfrog.mp4", GifType.MP4), uiModel.gifSource)
+    }
+
+    @Test
     fun `when an imgur gifv gifsound is opened`() {
 
         // given that the gifsound is opened...

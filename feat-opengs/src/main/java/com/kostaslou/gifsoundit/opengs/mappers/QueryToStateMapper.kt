@@ -92,19 +92,25 @@ internal class QueryToStateMapper @Inject constructor() {
                 val decoded = URLDecoder.decode(arg.split("=")[1], "UTF-8")
 
                 decoded?.let {
-
-                    if (it.contains("youtu")) {
-                        gifLink = it
-                        gifType = GifType.YOUTUBE
-                    } else {
-                        gifLink = if (it.startsWith("http://")) {
-                            "https://${it.removePrefix("http://")}"
-                        } else if (!it.startsWith("https"))
-                            "https://$it"
-                        else {
-                            it
+                    when {
+                        it.startsWith("giant.gfycat") -> {
+                            gifLink = "https://${it.substringBefore(".gif")}.mp4"
+                            gifType = GifType.MP4
                         }
-                        gifType = GifType.GIF
+                        it.contains("youtu") -> {
+                            gifLink = it
+                            gifType = GifType.YOUTUBE
+                        }
+                        else -> {
+                            gifLink = if (it.startsWith("http://")) {
+                                "https://${it.removePrefix("http://")}"
+                            } else if (!it.startsWith("https"))
+                                "https://$it"
+                            else {
+                                it
+                            }
+                            gifType = GifType.GIF
+                        }
                     }
                 }
 

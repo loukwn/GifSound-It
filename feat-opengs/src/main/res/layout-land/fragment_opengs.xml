@@ -6,22 +6,6 @@
     android:layout_height="match_parent"
     android:background="@color/bg_screen">
 
-    <FrameLayout
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="@id/gifView"
-        app:layout_constraintEnd_toEndOf="@id/gifView"
-        app:layout_constraintStart_toStartOf="@id/gifView"
-        app:layout_constraintTop_toBottomOf="@id/toolbar">
-
-        <include
-            android:id="@+id/gifErrorScreen"
-            layout="@layout/view_error_gif"
-            android:visibility="gone"
-            tools:visibility="visible" />
-
-    </FrameLayout>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/toolbar"
         android:layout_width="0dp"
@@ -266,6 +250,23 @@
         app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:surface_type="texture_view"
         app:use_controller="false" />
+
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/gifView"
+        app:layout_constraintEnd_toEndOf="@id/gifView"
+        app:layout_constraintStart_toStartOf="@id/gifView"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+        <include
+            android:id="@+id/gifErrorScreen"
+            layout="@layout/view_error_gif"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+    </FrameLayout>
+
 
     <FrameLayout
         android:layout_width="0dp"
