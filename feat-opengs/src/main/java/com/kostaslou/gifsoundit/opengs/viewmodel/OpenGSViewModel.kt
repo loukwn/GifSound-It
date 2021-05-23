@@ -54,7 +54,7 @@ internal class OpenGSViewModel @Inject constructor(
         currentState = initialState
 
         disposable = actionSubject.scan(initialState) { state, event ->
-            val newState = openGSStateReducer.map(state, event)
+            val newState = openGSStateReducer.reduce(state, event)
             Timber.d("$state + $event = $newState")
             newState
         }

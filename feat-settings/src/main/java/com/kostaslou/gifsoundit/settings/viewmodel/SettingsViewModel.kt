@@ -46,7 +46,7 @@ internal class SettingsViewModel @Inject constructor(
     init {
         disposable = actionSubject
             .scan(getDefaultState()) { state, event ->
-                settingsStateReducer.map(state, event)
+                settingsStateReducer.reduce(state, event)
             }
             .subscribeOn(ioScheduler)
             .observeOn(uiScheduler)

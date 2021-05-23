@@ -71,7 +71,7 @@ internal class SettingsViewModelTest {
         sut.doOnCreate()
         sut.doOnCreate() // recreation
 
-        verify(exactly = 1) { settingsStateReducer.map(any(), Action.Created) }
+        verify(exactly = 1) { settingsStateReducer.reduce(any(), Action.Created) }
     }
 
     @Test
@@ -81,7 +81,7 @@ internal class SettingsViewModelTest {
 
         sut.onModeSelected(1)
 
-        verify(exactly = 1) { settingsStateReducer.map(any(), Action.ModeSelected(1)) }
+        verify(exactly = 1) { settingsStateReducer.reduce(any(), Action.ModeSelected(1)) }
     }
 
     @Test
@@ -91,7 +91,7 @@ internal class SettingsViewModelTest {
 
         sut.onModeSelectorBgClicked()
 
-        verify(exactly = 1) { settingsStateReducer.map(any(), Action.ModeBgClicked) }
+        verify(exactly = 1) { settingsStateReducer.reduce(any(), Action.ModeBgClicked) }
     }
 
     @Test
@@ -101,7 +101,7 @@ internal class SettingsViewModelTest {
 
         sut.onAboutBgClicked()
 
-        verify(exactly = 1) { settingsStateReducer.map(any(), Action.AboutBgClicked) }
+        verify(exactly = 1) { settingsStateReducer.reduce(any(), Action.AboutBgClicked) }
     }
 
     @Test

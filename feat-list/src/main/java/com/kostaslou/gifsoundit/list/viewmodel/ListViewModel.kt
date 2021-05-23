@@ -68,7 +68,7 @@ internal class ListViewModel @Inject constructor(
                 onDataChangedEvent(),
                 actionSubject
             ).scan(State.default()) { state, event ->
-                val newState = listStateReducer.map(state, event)
+                val newState = listStateReducer.reduce(state, event)
                 Timber.d("$state + $event = $newState")
                 newState
             }

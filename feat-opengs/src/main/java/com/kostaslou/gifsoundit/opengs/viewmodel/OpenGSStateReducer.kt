@@ -10,7 +10,7 @@ import com.kostaslou.gifsoundit.opengs.UserAction
 import javax.inject.Inject
 
 internal class OpenGSStateReducer @Inject constructor() {
-    fun map(state: State, action: Action): State {
+    fun reduce(state: State, action: Action): State {
         return when (action) {
             is Action.GifStateChanged -> {
                 when (action.gifState) {

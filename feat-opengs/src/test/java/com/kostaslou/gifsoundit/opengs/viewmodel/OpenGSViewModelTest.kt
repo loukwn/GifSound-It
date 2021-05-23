@@ -58,7 +58,7 @@ internal class OpenGSViewModelTest {
     @Test
     fun `WHEN onRefreshButtonPressed THEN send action to reducer`() {
         sut.onRefreshButtonPressed()
-        verify(exactly = 1) { reducer.map(any(), Action.OnUserAction(UserAction.ON_REFRESH)) }
+        verify(exactly = 1) { reducer.reduce(any(), Action.OnUserAction(UserAction.ON_REFRESH)) }
     }
 
     @Test
@@ -73,14 +73,14 @@ internal class OpenGSViewModelTest {
     @Test
     fun `WHEN onPlayGifLabelPressed THEN send action to reducer`() {
         sut.onPlayGifLabelPressed()
-        verify(exactly = 1) { reducer.map(any(), Action.OnUserAction(UserAction.ON_PLAYGIFLABEL)) }
+        verify(exactly = 1) { reducer.reduce(any(), Action.OnUserAction(UserAction.ON_PLAYGIFLABEL)) }
     }
 
     @Test
     fun `WHEN onOffsetIncreaseButtonPressed THEN send action to reducer`() {
         sut.onOffsetIncreaseButtonPressed()
         verify(exactly = 1) {
-            reducer.map(
+            reducer.reduce(
                 any(),
                 Action.OnUserAction(UserAction.ON_OFFSET_INCREASE)
             )
@@ -91,7 +91,7 @@ internal class OpenGSViewModelTest {
     fun `WHEN onOffsetDecreaseButtonPressed THEN send action to reducer`() {
         sut.onOffsetDecreaseButtonPressed()
         verify(exactly = 1) {
-            reducer.map(
+            reducer.reduce(
                 any(),
                 Action.OnUserAction(UserAction.ON_OFFSET_DECREASE)
             )
@@ -101,21 +101,21 @@ internal class OpenGSViewModelTest {
     @Test
     fun `WHEN onOffsetResetButtonPressed THEN send action to reducer`() {
         sut.onOffsetResetButtonPressed()
-        verify(exactly = 1) { reducer.map(any(), Action.OnUserAction(UserAction.ON_OFFSET_RESET)) }
+        verify(exactly = 1) { reducer.reduce(any(), Action.OnUserAction(UserAction.ON_OFFSET_RESET)) }
     }
 
     @Test
     fun `WHEN onGifStateChanged THEN send action to reducer`() {
         val gifState = mockk<GifState>()
         sut.onGifStateChanged(gifState)
-        verify(exactly = 1) { reducer.map(any(), Action.GifStateChanged(gifState)) }
+        verify(exactly = 1) { reducer.reduce(any(), Action.GifStateChanged(gifState)) }
     }
 
     @Test
     fun `WHEN onSoundStateChanged THEN send action to reducer`() {
         val soundState = mockk<SoundState>()
         sut.onSoundStateChanged(soundState)
-        verify(exactly = 1) { reducer.map(any(), Action.SoundStateChanged(soundState)) }
+        verify(exactly = 1) { reducer.reduce(any(), Action.SoundStateChanged(soundState)) }
     }
 
     @Test
@@ -153,6 +153,6 @@ internal class OpenGSViewModelTest {
         sut.doOnCreate()
         sut.doOnCreate() // recreation
 
-        verify(exactly = 1) { reducer.map(any(), Action.FragmentCreated) }
+        verify(exactly = 1) { reducer.reduce(any(), Action.FragmentCreated) }
     }
 }

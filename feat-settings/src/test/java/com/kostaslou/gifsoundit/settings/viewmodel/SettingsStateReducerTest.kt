@@ -13,7 +13,7 @@ internal class SettingsStateReducerTest {
         val action = Action.ModeSelected(0)
         val state = State(modeSelectorCollapsed = false, currentMode = 1, aboutCollapsed = true)
 
-        val newState = sut.map(state, action)
+        val newState = sut.reduce(state, action)
 
         assertEquals(0, newState.currentMode)
     }
@@ -23,7 +23,7 @@ internal class SettingsStateReducerTest {
         val action = Action.ModeBgClicked
         val state = State(modeSelectorCollapsed = false, currentMode = 1, aboutCollapsed = true)
 
-        val newState = sut.map(state, action)
+        val newState = sut.reduce(state, action)
 
         assertEquals(true, newState.modeSelectorCollapsed)
     }
@@ -33,7 +33,7 @@ internal class SettingsStateReducerTest {
         val action = Action.AboutBgClicked
         val state = State(aboutCollapsed = false, currentMode = 1, modeSelectorCollapsed = false)
 
-        val newState = sut.map(state, action)
+        val newState = sut.reduce(state, action)
 
         assertEquals(true, newState.aboutCollapsed)
     }
@@ -43,7 +43,7 @@ internal class SettingsStateReducerTest {
         val action = Action.Created
         val state = State(modeSelectorCollapsed = false, currentMode = 1, aboutCollapsed = false)
 
-        val newState = sut.map(state, action)
+        val newState = sut.reduce(state, action)
 
         assert(newState == state)
     }

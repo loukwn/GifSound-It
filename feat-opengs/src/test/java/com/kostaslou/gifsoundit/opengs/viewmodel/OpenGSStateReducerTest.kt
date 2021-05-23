@@ -19,7 +19,7 @@ internal class OpenGSStateReducerTest {
     fun `GIVEN action is GifStateChanged_GIF_INVALID WHEN map THEN update state`() {
         val action = Action.GifStateChanged(GifState.GIF_INVALID)
 
-        val newState = sut.map(State.default(), action)
+        val newState = sut.reduce(State.default(), action)
 
         assertEquals(GifState.GIF_INVALID, newState.gifState)
     }
@@ -28,7 +28,7 @@ internal class OpenGSStateReducerTest {
     fun `GIVEN action is GifStateChanged_GIF_ERROR WHEN map THEN update state`() {
         val action = Action.GifStateChanged(GifState.GIF_ERROR)
 
-        val newState = sut.map(State.default(), action)
+        val newState = sut.reduce(State.default(), action)
 
         assertEquals(GifState.GIF_ERROR, newState.gifState)
     }
@@ -38,7 +38,7 @@ internal class OpenGSStateReducerTest {
         val action = Action.GifStateChanged(GifState.GIF_OK)
         val state = State.default(gifState = GifState.GIF_LOADING, soundState = SoundState.SOUND_OK)
 
-        val newState = sut.map(state, action)
+        val newState = sut.reduce(state, action)
 
         assertEquals(Event(PlaybackAction.PLAY), newState.soundAction)
     }
@@ -52,7 +52,7 @@ internal class OpenGSStateReducerTest {
             soundAction = Event(PlaybackAction.PREPARE)
         )
 
-        val newState = sut.map(state, action)
+        val newState = sut.reduce(state, action)
 
         assertEquals(PlaybackAction.PREPARE, newState.soundAction.peekContent())
     }
@@ -62,7 +62,7 @@ internal class OpenGSStateReducerTest {
         val action = Action.SoundStateChanged(SoundState.SOUND_INVALID)
         val state = State.default()
 
-        val newState = sut.map(state, action)
+        val newState = sut.reduce(state, action)
 
         assertEquals(SoundState.SOUND_INVALID, newState.soundState)
     }
@@ -72,7 +72,7 @@ internal class OpenGSStateReducerTest {
         val action = Action.SoundStateChanged(SoundState.SOUND_ERROR)
         val state = State.default()
 
-        val newState = sut.map(state, action)
+        val newState = sut.reduce(state, action)
 
         assertEquals(SoundState.SOUND_ERROR, newState.soundState)
     }
@@ -82,7 +82,7 @@ internal class OpenGSStateReducerTest {
         val action = Action.SoundStateChanged(SoundState.SOUND_LOADING)
         val state = State.default()
 
-        val newState = sut.map(state, action)
+        val newState = sut.reduce(state, action)
 
         assertEquals(SoundState.SOUND_LOADING, newState.soundState)
     }
@@ -92,7 +92,7 @@ internal class OpenGSStateReducerTest {
         val action = Action.SoundStateChanged(SoundState.SOUND_OK)
         val state = State.default(gifState = GifState.GIF_OK, soundState = SoundState.SOUND_LOADING)
 
-        val newState = sut.map(state, action)
+        val newState = sut.reduce(state, action)
 
         assertEquals(Event(PlaybackAction.PLAY), newState.soundAction)
     }
@@ -106,7 +106,7 @@ internal class OpenGSStateReducerTest {
             soundAction = Event(PlaybackAction.PREPARE)
         )
 
-        val newState = sut.map(state, action)
+        val newState = sut.reduce(state, action)
 
         assertEquals(PlaybackAction.PREPARE, newState.soundAction.peekContent())
     }
@@ -116,7 +116,7 @@ internal class OpenGSStateReducerTest {
         val action = Action.SoundStateChanged(SoundState.SOUND_STARTED)
         val state = State.default()
 
-        val newState = sut.map(state, action)
+        val newState = sut.reduce(state, action)
 
         assertEquals(Event(PlaybackAction.PLAY), newState.gifAction)
     }
@@ -126,7 +126,7 @@ internal class OpenGSStateReducerTest {
         val action = Action.OnUserAction(UserAction.ON_PLAYGIFLABEL)
         val state = State.default()
 
-        val newState = sut.map(state, action)
+        val newState = sut.reduce(state, action)
 
         assertEquals(Event(PlaybackAction.PLAY), newState.gifAction)
     }
@@ -136,7 +136,7 @@ internal class OpenGSStateReducerTest {
         val action = Action.OnUserAction(UserAction.ON_OFFSET_INCREASE)
         val state = State.default(currentSecondsOffset = 1)
 
-        val newState = sut.map(state, action)
+        val newState = sut.reduce(state, action)
 
         assertEquals(
             state.copy(currentSecondsOffset = 2, soundAction = Event(PlaybackAction.RESTART)),
@@ -149,7 +149,7 @@ internal class OpenGSStateReducerTest {
         val action = Action.OnUserAction(UserAction.ON_OFFSET_DECREASE)
         val state = State.default(currentSecondsOffset = 1)
 
-        val newState = sut.map(state, action)
+        val newState = sut.reduce(state, action)
 
         assertEquals(
             state.copy(currentSecondsOffset = 0, soundAction = Event(PlaybackAction.RESTART)),
@@ -162,7 +162,7 @@ internal class OpenGSStateReducerTest {
         val action = Action.OnUserAction(UserAction.ON_OFFSET_RESET)
         val state = State.default(currentSecondsOffset = 5, soundSource = SoundSource("", 4))
 
-        val newState = sut.map(state, action)
+        val newState = sut.reduce(state, action)
 
         assertEquals(
             state.copy(currentSecondsOffset = 4, soundAction = Event(PlaybackAction.RESTART)),
@@ -175,7 +175,7 @@ internal class OpenGSStateReducerTest {
         val action = Action.OnUserAction(UserAction.ON_REFRESH)
         val state = State.default(currentSecondsOffset = 5, soundSource = SoundSource("", 4))
 
-        val newState = sut.map(state, action)
+        val newState = sut.reduce(state, action)
 
         assertEquals(
             state.copy(currentSecondsOffset = 5, soundAction = Event(PlaybackAction.RESTART)),
@@ -188,7 +188,7 @@ internal class OpenGSStateReducerTest {
         val action = Action.FragmentCreated
         val state = State.default(soundAction = Event(PlaybackAction.PLAY), gifAction = Event(PlaybackAction.PLAY))
 
-        val newState = sut.map(state, action)
+        val newState = sut.reduce(state, action)
 
         assertEquals(
             state.copy(gifAction = Event(PlaybackAction.PREPARE), soundAction = Event(PlaybackAction.PREPARE)),

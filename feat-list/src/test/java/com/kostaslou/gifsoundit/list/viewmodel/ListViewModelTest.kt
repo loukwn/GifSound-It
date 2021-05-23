@@ -59,7 +59,7 @@ internal class ListViewModelTest {
         sut.doOnCreate()
         sut.doOnCreate() // recreation
 
-        verify(exactly = 1) { listStateReducer.map(any(), Action.FragmentCreated) }
+        verify(exactly = 1) { listStateReducer.reduce(any(), Action.FragmentCreated) }
     }
 
     @Test
@@ -94,18 +94,18 @@ internal class ListViewModelTest {
 
     @Test
     fun `WHEN onSwipeToRefresh THEN make sure reducer gets the action AND new posts are requested`() {
-        every { listStateReducer.map(any(), any()) } returns State.default()
+        every { listStateReducer.reduce(any(), any()) } returns State.default()
             .copy(filterType = FilterType.New)
 
         sut.onSwipeToRefresh()
 
-        verify(exactly = 1) { listStateReducer.map(any(), Action.SwipedToRefresh) }
+        verify(exactly = 1) { listStateReducer.reduce(any(), Action.SwipedToRefresh) }
         verify(exactly = 1) { repository.getPosts(any(), FilterType.New.toDTO(), "") }
     }
 
     @Test
     fun `GIVEN fetchAfter is not null WHEN onScrolledToBottom THEN new posts are requested`() {
-        every { listStateReducer.map(any(), any()) } returns State.default()
+        every { listStateReducer.reduce(any(), any()) } returns State.default()
             .copy(fetchAfter = "1")
 
         sut.onArrowButtonClicked() // This just sets the state
@@ -116,7 +116,7 @@ internal class ListViewModelTest {
 
     @Test
     fun `GIVEN fetchAfter is null WHEN onScrolledToBottom THEN new posts are requested`() {
-        every { listStateReducer.map(any(), any()) } returns State.default()
+        every { listStateReducer.reduce(any(), any()) } returns State.default()
             .copy(fetchAfter = null)
 
         sut.onArrowButtonClicked() // This just sets the state
@@ -134,7 +134,7 @@ internal class ListViewModelTest {
 
     @Test
     fun `WHEN onSaveButtonClicked AND filterType is different THEN getPosts AND send event to reducer`() {
-        every { listStateReducer.map(any(), any()) } returns State.default()
+        every { listStateReducer.reduce(any(), any()) } returns State.default()
             .copy(filterType = FilterType.New)
 
         sut.onArrowButtonClicked() // This just sets the state
@@ -144,7 +144,7 @@ internal class ListViewModelTest {
         )
 
         verify(exactly = 1) {
-            listStateReducer.map(
+            listStateReducer.reduce(
                 any(),
                 Action.SaveButtonClicked(SourceType.GifSound, FilterType.TopAll),
             )
@@ -160,7 +160,7 @@ internal class ListViewModelTest {
 
     @Test
     fun `WHEN onSaveButtonClicked AND sourceType is different THEN getPosts AND send event to reducer`() {
-        every { listStateReducer.map(any(), any()) } returns State.default()
+        every { listStateReducer.reduce(any(), any()) } returns State.default()
             .copy(sourceType = SourceType.GifSound)
 
         sut.onArrowButtonClicked() // This just sets the state
@@ -170,7 +170,7 @@ internal class ListViewModelTest {
         )
 
         verify(exactly = 1) {
-            listStateReducer.map(
+            listStateReducer.reduce(
                 any(),
                 Action.SaveButtonClicked(SourceType.MusicGifStation, FilterType.Hot)
             )
@@ -186,7 +186,7 @@ internal class ListViewModelTest {
 
     @Test
     fun `WHEN onSaveButtonClicked AND sourceType and filterType are the same THEN just send event to reducer`() {
-        every { listStateReducer.map(any(), any()) } returns State.default()
+        every { listStateReducer.reduce(any(), any()) } returns State.default()
             .copy(sourceType = SourceType.AnimeGifSound, filterType = FilterType.TopAll)
 
         sut.onArrowButtonClicked() // This just sets the state
@@ -196,7 +196,7 @@ internal class ListViewModelTest {
         )
 
         verify(exactly = 1) {
-            listStateReducer.map(
+            listStateReducer.reduce(
                 any(),
                 Action.SaveButtonClicked(SourceType.AnimeGifSound, FilterType.TopAll),
             )
@@ -214,7 +214,7 @@ internal class ListViewModelTest {
     fun `WHEN ArrowButtonClicked THEN make sure reducer gets the action`() {
         sut.onArrowButtonClicked()
 
-        verify(exactly = 1) { listStateReducer.map(any(), Action.ArrowButtonClicked) }
+        verify(exactly = 1) { listStateReducer.reduce(any(), Action.ArrowButtonClicked) }
     }
 
     @Test
@@ -228,7 +228,7 @@ internal class ListViewModelTest {
     fun `WHEN OverlayClicked THEN make sure reducer gets the action`() {
         sut.onOverlayClicked()
 
-        verify(exactly = 1) { listStateReducer.map(any(), Action.OverlayClicked) }
+        verify(exactly = 1) { listStateReducer.reduce(any(), Action.OverlayClicked) }
     }
 
     @Test
@@ -246,7 +246,7 @@ internal class ListViewModelTest {
 
     @Test
     fun `GIVEN optionLayout is open WHEN onBackPressed THEN return true`() {
-        every { listStateReducer.map(any(), any()) } returns State.default()
+        every { listStateReducer.reduce(any(), any()) } returns State.default()
             .copy(optionsLayoutIsOpen = true)
 
         sut.onArrowButtonClicked() // This just sets the state
@@ -257,7 +257,7 @@ internal class ListViewModelTest {
 
     @Test
     fun `GIVEN optionLayout is not open WHEN onBackPressed THEN return true`() {
-        every { listStateReducer.map(any(), any()) } returns State.default()
+        every { listStateReducer.reduce(any(), any()) } returns State.default()
             .copy(optionsLayoutIsOpen = false)
 
         sut.onArrowButtonClicked() // This just sets the state

@@ -22,7 +22,7 @@ internal class ListStateReducerTest {
         val oldState = State.default().copy(adapterData = listOf())
         val action = Action.DataChanged(postResponse = DataState.Loading())
 
-        val newState = sut.map(oldState, action)
+        val newState = sut.reduce(oldState, action)
 
         assertEquals(
             newState,
@@ -38,7 +38,7 @@ internal class ListStateReducerTest {
         val oldState = State.default().copy(adapterData = listOf(mockk()))
         val action = Action.DataChanged(postResponse = DataState.Loading())
 
-        val newState = sut.map(oldState, action)
+        val newState = sut.reduce(oldState, action)
 
         assertEquals(
             newState,
@@ -58,7 +58,7 @@ internal class ListStateReducerTest {
         }
         val action = Action.DataChanged(postResponse = DataState.Data(PostResponse(postData, "")))
 
-        val newState = sut.map(oldState, action)
+        val newState = sut.reduce(oldState, action)
 
         assertEquals(
             Constants.NUM_OF_POSTS_PER_REQUEST + 1,
@@ -76,7 +76,7 @@ internal class ListStateReducerTest {
         }
         val action = Action.DataChanged(postResponse = DataState.Data(PostResponse(postData, "")))
 
-        val newState = sut.map(oldState, action)
+        val newState = sut.reduce(oldState, action)
 
         assertEquals(
             Constants.NUM_OF_POSTS_PER_REQUEST - 1,
@@ -94,7 +94,7 @@ internal class ListStateReducerTest {
             )
         )
 
-        val newState = sut.map(oldState, action)
+        val newState = sut.reduce(oldState, action)
 
         assertEquals(
             newState,
@@ -111,7 +111,7 @@ internal class ListStateReducerTest {
         val action =
             Action.SaveButtonClicked(sourceType = oldState.sourceType, filterType = FilterType.New)
 
-        val newState = sut.map(oldState, action)
+        val newState = sut.reduce(oldState, action)
 
         assertEquals(false, newState.optionsLayoutIsOpen)
         assertEquals(FilterType.New, newState.filterType)
@@ -126,7 +126,7 @@ internal class ListStateReducerTest {
             sourceType = SourceType.MusicGifStation
         )
 
-        val newState = sut.map(oldState, action)
+        val newState = sut.reduce(oldState, action)
 
         assertEquals(false, newState.optionsLayoutIsOpen)
         assertEquals(SourceType.MusicGifStation, newState.sourceType)
@@ -141,7 +141,7 @@ internal class ListStateReducerTest {
             sourceType = oldState.sourceType
         )
 
-        val newState = sut.map(oldState, action)
+        val newState = sut.reduce(oldState, action)
 
         assertEquals(oldState.copy(optionsLayoutIsOpen = false), newState)
     }
@@ -151,7 +151,7 @@ internal class ListStateReducerTest {
         val oldState = State.default().copy(optionsLayoutIsOpen = true)
         val action = Action.OverlayClicked
 
-        val newState = sut.map(oldState, action)
+        val newState = sut.reduce(oldState, action)
 
         assertEquals(false, newState.optionsLayoutIsOpen)
     }
@@ -161,7 +161,7 @@ internal class ListStateReducerTest {
         val oldState = State.default().copy(optionsLayoutIsOpen = true)
         val action = Action.ArrowButtonClicked
 
-        val newState = sut.map(oldState, action)
+        val newState = sut.reduce(oldState, action)
 
         assertEquals(false, newState.optionsLayoutIsOpen)
     }
@@ -171,7 +171,7 @@ internal class ListStateReducerTest {
         val oldState = State.default()
         val action = Action.SwipedToRefresh
 
-        val newState = sut.map(oldState, action)
+        val newState = sut.reduce(oldState, action)
 
         assertEquals(
             newState,
@@ -187,7 +187,7 @@ internal class ListStateReducerTest {
         val oldState = State.default().copy(optionsLayoutIsOpen = true)
         val action = Action.OnBackPressed
 
-        val newState = sut.map(oldState, action)
+        val newState = sut.reduce(oldState, action)
 
         assertEquals(
             false,

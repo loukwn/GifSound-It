@@ -10,7 +10,7 @@ import com.kostaslou.gifsoundit.list.view.adapter.toAdapterModel
 import javax.inject.Inject
 
 internal class ListStateReducer @Inject constructor() {
-    fun map(oldState: State, action: Action): State {
+    fun reduce(oldState: State, action: Action): State {
         return when (action) {
             is Action.DataChanged -> {
                 when (action.postResponse) {
