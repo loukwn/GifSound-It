@@ -3,11 +3,11 @@ name: Android CI perform tests
 on:
   push:
     branches:
-      - play-store
+      - main
       - develop
   pull_request:
     branches:
-      - play-store
+      - main
       - develop
 
 jobs:
