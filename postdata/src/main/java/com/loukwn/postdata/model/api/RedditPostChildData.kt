@@ -8,5 +8,6 @@ internal class RedditPostChildData(
     val is_self: Boolean,
     val created_utc: Long,
     val thumbnail: String,
-    val url: String
+    val url: String,
+    val over_18: Boolean,
 )

@@ -142,5 +142,6 @@ internal class PostRepositoryImpl @Inject constructor(
 
     companion object {
         private const val REDDIT_GRANT_TYPE = "https://oauth.reddit.com/grants/installed_client"
+        internal const val NUM_OF_POSTS_PER_REQUEST = 25
     }
 }

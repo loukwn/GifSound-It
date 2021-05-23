@@ -17,5 +17,6 @@ data class PostModel(
 
 data class PostResponse(
     val postData: List<PostModel>,
+    val canFetchMore: Boolean,
     val after: String?,
 )

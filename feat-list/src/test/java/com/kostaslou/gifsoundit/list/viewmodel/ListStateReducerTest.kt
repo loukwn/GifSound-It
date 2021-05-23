@@ -1,6 +1,5 @@
 package com.kostaslou.gifsoundit.list.viewmodel
 
-import com.kostaslou.gifsoundit.common.util.Constants
 import com.kostaslou.gifsoundit.common.util.DataState
 import com.kostaslou.gifsoundit.common.util.Event
 import com.kostaslou.gifsoundit.list.Action
@@ -49,37 +48,53 @@ internal class ListStateReducerTest {
     }
 
     @Test
-    fun `GIVEN action is DataChanged_Data AND response is as big as the max num of posts per request WHEN map THEN add a loading item at the end`() {
+    fun `GIVEN action is DataChanged_Data AND response says that we can load more WHEN map THEN add a loading item at the end`() {
         val oldState = State.default().copy(adapterData = listOf(ListAdapterModel.Loading))
         val postData = arrayListOf<PostModel>().apply {
-            for (i in 0 until Constants.NUM_OF_POSTS_PER_REQUEST) {
+            for (i in 0..5) {
                 this.add(mockk(relaxed = true))
             }
         }
-        val action = Action.DataChanged(postResponse = DataState.Data(PostResponse(postData, "")))
+        val action = Action.DataChanged(
+            postResponse = DataState.Data(
+                PostResponse(
+                    postData = postData,
+                    canFetchMore = true,
+                    after = ""
+                )
+            )
+        )
 
         val newState = sut.reduce(oldState, action)
 
         assertEquals(
-            Constants.NUM_OF_POSTS_PER_REQUEST + 1,
+            postData.size + 1,
             newState.adapterData.size
         )
     }
 
     @Test
-    fun `GIVEN action is DataChanged_Data AND response is less than the max num of posts per request WHEN map THEN do not add a loading item at the end`() {
+    fun `GIVEN action is DataChanged_Data AND response says that we cannot load more WHEN map THEN do not add a loading item at the end`() {
         val oldState = State.default().copy(adapterData = listOf(ListAdapterModel.Loading))
         val postData = arrayListOf<PostModel>().apply {
-            for (i in 0 until Constants.NUM_OF_POSTS_PER_REQUEST - 1) {
+            for (i in 0..5) {
                 this.add(mockk(relaxed = true))
             }
         }
-        val action = Action.DataChanged(postResponse = DataState.Data(PostResponse(postData, "")))
+        val action = Action.DataChanged(
+            postResponse = DataState.Data(
+                PostResponse(
+                    postData = postData,
+                    canFetchMore = false,
+                    after = ""
+                )
+            )
+        )
 
         val newState = sut.reduce(oldState, action)
 
         assertEquals(
-            Constants.NUM_OF_POSTS_PER_REQUEST - 1,
+            postData.size,
             newState.adapterData.size
         )
     }
