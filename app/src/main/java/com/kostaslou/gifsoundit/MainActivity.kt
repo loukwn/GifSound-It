@@ -31,6 +31,7 @@ class MainActivity : AppCompatActivity() {
     private fun navigateIfDeepLinked(intent: Intent?) {
         intent?.data?.query?.let {
             if (it.isNotEmpty() && intent.action == Intent.ACTION_VIEW) {
+                navigator.clearBackStack()
                 navigator.navigateToOpenGS(
                     query = "https://gifsound.com/?$it",
                     fromDeepLink = true
@@ -44,7 +45,6 @@ class MainActivity : AppCompatActivity() {
         Timber.d("onNewIntent")
 
         navigator.bind(context = this, navController = findNavController(R.id.nav_host_fragment))
-        navigator.clearBackStack()
         navigateIfDeepLinked(intent)
     }
 
