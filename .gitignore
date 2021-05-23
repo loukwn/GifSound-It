@@ -2,6 +2,7 @@
 *.apk
 *.ap_
 *.aab
+output-metadata.json
 
 # files for the dex VM
 *.dex
@@ -38,3 +39,5 @@ obj/
 .externalNativeBuild
 
 app/google-services.json
+
+*.jks

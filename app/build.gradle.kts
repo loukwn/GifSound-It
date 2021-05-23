@@ -1,4 +1,5 @@
 import java.util.Properties
+import java.nio.file.Paths
 
 plugins {
     id("com.android.application")
@@ -41,6 +42,7 @@ android {
         versionCode = Config.Android.versionCode
         versionName = Config.Android.versionName
         testInstrumentationRunner = Config.Android.testInstrumentationRunner
+        signingConfig = signingConfigs.getByName("release")
     }
     buildTypes {
         getByName("release") {
@@ -52,9 +54,11 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("release")
         }
 
         getByName("debug") {
+            applicationIdSuffix = ".debug"
             resValue("string", "app_name", "Gifsound It - Dev")
             resValue("string", "app_version", "v${Config.Android.versionName}")
             isMinifyEnabled = false

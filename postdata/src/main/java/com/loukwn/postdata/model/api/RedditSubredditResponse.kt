@@ -1,9 +1,11 @@
 package com.loukwn.postdata.model.api
 
+import androidx.annotation.Keep
 import com.loukwn.postdata.PostRepositoryImpl.Companion.NUM_OF_POSTS_PER_REQUEST
 import com.loukwn.postdata.model.domain.PostModel
 import com.loukwn.postdata.model.domain.PostResponse
 
+@Keep
 internal class RedditSubredditResponse(val data: RedditSubredditDataResponse)
 
 internal fun RedditSubredditResponse.toDomainData(): PostResponse {
