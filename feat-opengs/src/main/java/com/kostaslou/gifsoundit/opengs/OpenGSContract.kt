@@ -1,9 +1,9 @@
 package com.kostaslou.gifsoundit.opengs
 
 import androidx.annotation.StringRes
-import com.gifsoundit.opengs.R
 import com.kostaslou.gifsoundit.common.contract.ActionableViewContract
 import com.kostaslou.gifsoundit.common.util.Event
+import com.kostaslou.opengs.R
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 
 internal interface OpenGSContract {

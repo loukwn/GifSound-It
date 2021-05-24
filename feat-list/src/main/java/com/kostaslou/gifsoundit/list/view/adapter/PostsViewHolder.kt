@@ -11,8 +11,8 @@ import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.kostaslou.gifsoundit.list.R
-import com.kostaslou.gifsoundit.list.databinding.ItemPostBinding
+import com.kostaslou.list.R
+import com.kostaslou.list.databinding.ItemPostBinding
 
 class PostsViewHolder(
     private val binding: ItemPostBinding,

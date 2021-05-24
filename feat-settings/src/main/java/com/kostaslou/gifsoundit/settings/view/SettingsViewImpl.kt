@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.isVisible
 import com.kostaslou.gifsoundit.settings.SettingsContract
-import com.loukwn.feat_settings.databinding.FragmentSettingsBinding
+import com.kostaslou.settings.databinding.FragmentSettingsBinding
 
 internal class SettingsViewImpl(
     inflater: LayoutInflater,

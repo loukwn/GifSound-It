@@ -6,7 +6,8 @@ import com.kostaslou.gifsoundit.common.contract.ActionableViewContract
 import com.kostaslou.gifsoundit.common.util.DataState
 import com.kostaslou.gifsoundit.common.util.Event
 import com.kostaslou.gifsoundit.list.view.adapter.ListAdapterModel
-import com.loukwn.postdata.model.domain.PostResponse
+import com.kostaslou.gifsoundit.postdata.model.domain.PostResponse
+import com.kostaslou.list.R
 
 internal interface ListContract {
 

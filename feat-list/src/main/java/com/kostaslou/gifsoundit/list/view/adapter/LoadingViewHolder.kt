@@ -4,8 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.kostaslou.gifsoundit.common.util.tintWithColorRes
-import com.kostaslou.gifsoundit.list.R
-import com.kostaslou.gifsoundit.list.databinding.ItemLoadingBinding
+import com.kostaslou.list.R
+import com.kostaslou.list.databinding.ItemLoadingBinding
 
 class LoadingViewHolder(
     binding: ItemLoadingBinding,

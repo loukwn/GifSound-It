@@ -15,8 +15,8 @@ import com.kostaslou.gifsoundit.list.SourceType
 import com.kostaslou.gifsoundit.list.State
 import com.kostaslou.gifsoundit.list.util.toDTO
 import com.kostaslou.gifsoundit.list.view.adapter.ListAdapterModel
-import com.loukwn.navigation.Navigator
-import com.loukwn.postdata.PostRepository
+import com.kostaslou.gifsoundit.navigation.Navigator
+import com.kostaslou.gifsoundit.postdata.PostRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Observable
 import io.reactivex.Scheduler

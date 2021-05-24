@@ -1,6 +1,6 @@
 package com.kostaslou.gifsoundit.list.view.adapter
 
-import com.loukwn.postdata.model.domain.PostModel
+import com.kostaslou.gifsoundit.postdata.model.domain.PostModel
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale

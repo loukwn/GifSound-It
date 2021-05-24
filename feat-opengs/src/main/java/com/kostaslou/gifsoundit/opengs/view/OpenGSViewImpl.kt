@@ -12,11 +12,11 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.gif.GifDrawable
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
-import com.gifsoundit.opengs.databinding.FragmentOpengsBinding
 import com.kostaslou.gifsoundit.opengs.GifState
 import com.kostaslou.gifsoundit.opengs.OpenGSContract
 import com.kostaslou.gifsoundit.opengs.SoundState
 import com.kostaslou.gifsoundit.opengs.managers.ExoplayerManager
+import com.kostaslou.opengs.databinding.FragmentOpengsBinding
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener

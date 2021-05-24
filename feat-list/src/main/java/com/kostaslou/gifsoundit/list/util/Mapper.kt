@@ -2,9 +2,9 @@ package com.kostaslou.gifsoundit.list.util
 
 import com.kostaslou.gifsoundit.list.FilterType
 import com.kostaslou.gifsoundit.list.SourceType
-import com.loukwn.postdata.FilterTypeDTO
-import com.loukwn.postdata.SourceTypeDTO
-import com.loukwn.postdata.TopFilterTypeDTO
+import com.kostaslou.gifsoundit.postdata.FilterTypeDTO
+import com.kostaslou.gifsoundit.postdata.SourceTypeDTO
+import com.kostaslou.gifsoundit.postdata.TopFilterTypeDTO
 
 internal fun FilterType.toDTO(): FilterTypeDTO {
     return when (this) {

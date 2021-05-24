@@ -8,8 +8,8 @@ import android.view.LayoutInflater
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.core.widget.ImageViewCompat
-import com.loukwn.feat_settings.R
-import com.loukwn.feat_settings.databinding.ViewSelectableOptionViewBinding
+import com.kostaslou.settings.R
+import com.kostaslou.settings.databinding.ViewSelectableOptionViewBinding
 
 internal class SelectableOptionView @JvmOverloads constructor(
     context: Context,

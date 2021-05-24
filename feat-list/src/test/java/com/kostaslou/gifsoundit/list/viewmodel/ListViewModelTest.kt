@@ -6,8 +6,8 @@ import com.kostaslou.gifsoundit.list.ListContract
 import com.kostaslou.gifsoundit.list.SourceType
 import com.kostaslou.gifsoundit.list.State
 import com.kostaslou.gifsoundit.list.util.toDTO
-import com.loukwn.navigation.Navigator
-import com.loukwn.postdata.PostRepository
+import com.kostaslou.gifsoundit.navigation.Navigator
+import com.kostaslou.gifsoundit.postdata.PostRepository
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.MockK

@@ -1,13 +1,13 @@
 package com.kostaslou.gifsoundit.opengs.viewmodel
 
 import android.content.res.Resources
-import com.gifsoundit.opengs.R
 import com.kostaslou.gifsoundit.opengs.GifState
 import com.kostaslou.gifsoundit.opengs.GifType
 import com.kostaslou.gifsoundit.opengs.OpenGSContract
 import com.kostaslou.gifsoundit.opengs.PlaybackAction
 import com.kostaslou.gifsoundit.opengs.SoundState
 import com.kostaslou.gifsoundit.opengs.State
+import com.kostaslou.opengs.R
 import javax.inject.Inject
 
 internal class OpenGSViewPresenter @Inject constructor(

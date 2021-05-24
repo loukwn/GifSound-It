@@ -4,7 +4,7 @@ import com.kostaslou.gifsoundit.common.disk.SharedPrefsHelper
 import com.kostaslou.gifsoundit.common.disk.getDayNightMode
 import com.kostaslou.gifsoundit.settings.Action
 import com.kostaslou.gifsoundit.settings.SettingsContract
-import com.loukwn.navigation.Navigator
+import com.kostaslou.gifsoundit.navigation.Navigator
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.MockK

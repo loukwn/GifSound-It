@@ -13,11 +13,11 @@ import com.kostaslou.gifsoundit.common.util.tintWithColorRes
 import com.kostaslou.gifsoundit.common.util.toast
 import com.kostaslou.gifsoundit.list.FilterType
 import com.kostaslou.gifsoundit.list.ListContract
-import com.kostaslou.gifsoundit.list.R
 import com.kostaslou.gifsoundit.list.SourceType
-import com.kostaslou.gifsoundit.list.databinding.FragmentListBinding
 import com.kostaslou.gifsoundit.list.view.adapter.ListAdapterModel
 import com.kostaslou.gifsoundit.list.view.adapter.ListPostAdapter
+import com.kostaslou.list.R
+import com.kostaslou.list.databinding.FragmentListBinding
 
 internal class ListViewImpl(
     private val context: Context,

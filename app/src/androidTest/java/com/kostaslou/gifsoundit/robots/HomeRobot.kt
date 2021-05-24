@@ -2,7 +2,7 @@ package com.kostaslou.gifsoundit.robots
 
 import androidx.test.espresso.matcher.ViewMatchers
 import com.kostaslou.gifsoundit.R
-import com.loukwn.postdata.FilterTypeDTO
+import com.kostaslou.gifsoundit.postdata.FilterTypeDTO
 
 fun home(func: HomeRobot.() -> Unit) = HomeRobot().apply { func() }
 

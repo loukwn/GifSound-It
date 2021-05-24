@@ -3,7 +3,7 @@ package com.kostaslou.gifsoundit.settings.viewmodel
 import androidx.appcompat.app.AppCompatDelegate
 import com.kostaslou.gifsoundit.settings.SettingsContract
 import com.kostaslou.gifsoundit.settings.State
-import com.loukwn.feat_settings.R
+import com.kostaslou.settings.R
 import javax.inject.Inject
 
 internal class SettingsViewPresenter @Inject constructor() {

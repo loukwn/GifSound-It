@@ -12,7 +12,7 @@ import com.kostaslou.gifsoundit.opengs.SoundState
 import com.kostaslou.gifsoundit.opengs.State
 import com.kostaslou.gifsoundit.opengs.UserAction
 import com.kostaslou.gifsoundit.opengs.mappers.QueryToStateMapper
-import com.loukwn.navigation.Navigator
+import com.kostaslou.gifsoundit.navigation.Navigator
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Scheduler
 import io.reactivex.disposables.Disposable

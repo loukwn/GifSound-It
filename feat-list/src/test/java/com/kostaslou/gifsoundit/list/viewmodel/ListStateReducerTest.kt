@@ -7,8 +7,8 @@ import com.kostaslou.gifsoundit.list.FilterType
 import com.kostaslou.gifsoundit.list.SourceType
 import com.kostaslou.gifsoundit.list.State
 import com.kostaslou.gifsoundit.list.view.adapter.ListAdapterModel
-import com.loukwn.postdata.model.domain.PostModel
-import com.loukwn.postdata.model.domain.PostResponse
+import com.kostaslou.gifsoundit.postdata.model.domain.PostModel
+import com.kostaslou.gifsoundit.postdata.model.domain.PostResponse
 import io.mockk.mockk
 import org.junit.Assert.assertEquals
 import org.junit.Test

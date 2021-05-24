@@ -3,7 +3,7 @@ package com.kostaslou.gifsoundit.list.viewmodel
 import android.content.res.Resources
 import com.kostaslou.gifsoundit.list.ListContract
 import com.kostaslou.gifsoundit.list.State
-import com.loukwn.postdata.R
+import com.kostaslou.list.R
 import javax.inject.Inject
 
 internal class ListViewPresenter @Inject constructor(

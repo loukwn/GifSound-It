@@ -1,5 +1,4 @@
 import java.util.Properties
-import java.nio.file.Paths
 
 plugins {
     id("com.android.application")
