@@ -8,10 +8,10 @@ import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.ViewModel
 import com.kostaslou.gifsoundit.common.disk.SharedPrefsHelper
 import com.kostaslou.gifsoundit.common.disk.getDayNightMode
+import com.kostaslou.gifsoundit.navigation.Navigator
 import com.kostaslou.gifsoundit.settings.Action
 import com.kostaslou.gifsoundit.settings.SettingsContract
 import com.kostaslou.gifsoundit.settings.State
-import com.kostaslou.gifsoundit.navigation.Navigator
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Scheduler
 import io.reactivex.disposables.Disposable

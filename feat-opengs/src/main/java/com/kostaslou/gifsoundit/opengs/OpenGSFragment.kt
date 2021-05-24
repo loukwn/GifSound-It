@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.google.android.material.transition.MaterialContainerTransform
+import com.kostaslou.gifsoundit.navigation.Navigator
 import com.kostaslou.gifsoundit.opengs.managers.ExoplayerManager
 import com.kostaslou.gifsoundit.opengs.view.OpenGSViewImpl
 import com.kostaslou.gifsoundit.opengs.viewmodel.OpenGSViewModel
-import com.kostaslou.gifsoundit.navigation.Navigator
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

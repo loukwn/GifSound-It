@@ -3,7 +3,7 @@ package com.kostaslou.gifsoundit.settings.viewmodel
 import androidx.appcompat.app.AppCompatDelegate
 import com.kostaslou.gifsoundit.settings.SettingsContract
 import com.kostaslou.gifsoundit.settings.State
-import com.kostaslou.feat_settings.R
+import com.kostaslou.settings.R
 import io.mockk.MockKAnnotations
 import io.mockk.impl.annotations.MockK
 import io.mockk.verify

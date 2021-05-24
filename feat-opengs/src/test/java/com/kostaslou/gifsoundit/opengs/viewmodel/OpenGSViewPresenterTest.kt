@@ -1,7 +1,6 @@
 package com.kostaslou.gifsoundit.opengs.viewmodel
 
 import android.content.res.Resources
-import com.gifsoundit.opengs.R
 import com.kostaslou.gifsoundit.common.util.Event
 import com.kostaslou.gifsoundit.opengs.GifSource
 import com.kostaslou.gifsoundit.opengs.GifState
@@ -12,6 +11,7 @@ import com.kostaslou.gifsoundit.opengs.SoundSource
 import com.kostaslou.gifsoundit.opengs.SoundState
 import com.kostaslou.gifsoundit.opengs.State
 import com.kostaslou.gifsoundit.opengs.default
+import com.kostaslou.opengs.R
 import io.mockk.mockk
 import io.mockk.verify
 import org.junit.Test

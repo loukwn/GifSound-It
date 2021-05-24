@@ -1,6 +1,7 @@
 package com.kostaslou.gifsoundit.opengs.viewmodel
 
 import androidx.lifecycle.SavedStateHandle
+import com.kostaslou.gifsoundit.navigation.Navigator
 import com.kostaslou.gifsoundit.opengs.Action
 import com.kostaslou.gifsoundit.opengs.GifState
 import com.kostaslou.gifsoundit.opengs.OpenGSContract
@@ -9,7 +10,6 @@ import com.kostaslou.gifsoundit.opengs.State
 import com.kostaslou.gifsoundit.opengs.UserAction
 import com.kostaslou.gifsoundit.opengs.default
 import com.kostaslou.gifsoundit.opengs.mappers.QueryToStateMapper
-import com.kostaslou.gifsoundit.navigation.Navigator
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify

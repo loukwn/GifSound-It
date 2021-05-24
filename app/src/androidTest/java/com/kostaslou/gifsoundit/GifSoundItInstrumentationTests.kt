@@ -2,10 +2,10 @@ package com.kostaslou.gifsoundit
 
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.kostaslou.gifsoundit.robots.TopDialogButton
-import com.kostaslou.gifsoundit.robots.home
 import com.kostaslou.gifsoundit.postdata.FilterTypeDTO
 import com.kostaslou.gifsoundit.postdata.TopFilterTypeDTO
+import com.kostaslou.gifsoundit.robots.TopDialogButton
+import com.kostaslou.gifsoundit.robots.home
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
