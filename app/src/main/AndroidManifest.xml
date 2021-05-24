@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.kostaslou.gifsoundit">
+    package="com.loukwn.gifsoundit">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
 
     <application
-        android:name=".GifSoundItApp"
+        android:name="com.loukwn.gifsoundit.GifSoundItApp"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -19,7 +19,7 @@
         <!-- singleTask because we want to update the activity with onNewIntent instead of
              having the calling activity (other app) create an instance of it in its task-->
 
-        <activity android:name=".MainActivity"
+        <activity android:name="com.loukwn.gifsoundit.MainActivity"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
