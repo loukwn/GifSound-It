@@ -19,8 +19,8 @@ object Config {
     object Android {
         const val buildToolsVersion = "30.0.2"
         const val minSdkVersion = 21
-        const val targetSdkVersion = 30
-        const val compileSdkVersion = 30
+        const val targetSdkVersion = 31
+        const val compileSdkVersion = 31
         const val applicationId = "com.loukwn.gifsoundit"
         const val versionCode = 2
         const val versionName = "2.0.0"

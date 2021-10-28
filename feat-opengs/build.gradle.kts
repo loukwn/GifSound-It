@@ -28,7 +28,6 @@ android {
     buildTypes {
         getByName("release") {
             isMinifyEnabled = true
-            isDebuggable = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -44,7 +43,6 @@ android {
 
         getByName("debug") {
             isMinifyEnabled = false
-            isDebuggable = true
 
             buildConfigField(
                 type = Config.Types.STRING,

@@ -1,7 +1,6 @@
 buildscript {
     repositories {
         google()
-        jcenter()
         maven { url = uri("https://plugins.gradle.org/m2/") }
     }
     dependencies {
@@ -19,6 +18,15 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven { url = uri("https://plugins.gradle.org/m2/") }
+    }
+
+    // This is for a bug with a certain a version of mockk and one of its dependencies
+    // https://github.com/mockk/mockk/issues/281
+    configurations.all {
+        resolutionStrategy {
+            force("org.objenesis:objenesis:2.6")
+        }
     }
 }
 

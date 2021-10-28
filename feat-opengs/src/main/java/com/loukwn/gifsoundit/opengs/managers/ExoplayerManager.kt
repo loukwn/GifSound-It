@@ -2,10 +2,7 @@ package com.loukwn.gifsoundit.opengs.managers
 
 import android.content.Context
 import androidx.annotation.UiThread
-import com.google.android.exoplayer2.ExoPlaybackException
-import com.google.android.exoplayer2.MediaItem
-import com.google.android.exoplayer2.Player
-import com.google.android.exoplayer2.SimpleExoPlayer
+import com.google.android.exoplayer2.*
 import com.google.android.exoplayer2.ui.PlayerView
 import dagger.hilt.android.qualifiers.ActivityContext
 import timber.log.Timber
@@ -18,7 +15,7 @@ class ExoplayerManager @Inject constructor(
     private var listener: Listener? = null
 
     init {
-        player.addListener(object : Player.EventListener {
+        player.addListener(object : Player.Listener {
             override fun onPlaybackStateChanged(state: Int) {
                 when (state) {
                     Player.STATE_READY -> listener?.onPrepared()
@@ -27,7 +24,7 @@ class ExoplayerManager @Inject constructor(
                 }
             }
 
-            override fun onPlayerError(error: ExoPlaybackException) {
+            override fun onPlayerError(error: PlaybackException) {
                 Timber.e("Exoplayer error: ${error.localizedMessage}")
                 listener?.onError(error.localizedMessage ?: "")
             }

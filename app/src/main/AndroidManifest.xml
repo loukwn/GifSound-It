@@ -20,7 +20,8 @@
              having the calling activity (other app) create an instance of it in its task-->
 
         <activity android:name="com.loukwn.gifsoundit.MainActivity"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -32,12 +32,12 @@ android {
         }
     }
 
-    compileSdkVersion(Config.Android.compileSdkVersion)
+    compileSdk = Config.Android.compileSdkVersion
 
     defaultConfig {
         applicationId = Config.Android.applicationId
-        minSdkVersion(Config.Android.minSdkVersion)
-        targetSdkVersion(Config.Android.targetSdkVersion)
+        minSdk = Config.Android.minSdkVersion
+        targetSdk = Config.Android.targetSdkVersion
         versionCode = Config.Android.versionCode
         versionName = Config.Android.versionName
         testInstrumentationRunner = Config.Android.testInstrumentationRunner
@@ -45,10 +45,8 @@ android {
     }
     buildTypes {
         getByName("release") {
-            resValue("string", "app_version", "v${Config.Android.versionName}")
             isMinifyEnabled = true
             isShrinkResources = true
-            isDebuggable = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -59,10 +57,8 @@ android {
         getByName("debug") {
             applicationIdSuffix = ".debug"
             resValue("string", "app_name", "Gifsound It - Dev")
-            resValue("string", "app_version", "v${Config.Android.versionName}")
             isMinifyEnabled = false
             isShrinkResources = false
-            isDebuggable = true
         }
     }
 
@@ -70,11 +66,6 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
-}
-
-repositories {
-    maven { url = uri("https://plugins.gradle.org/m2/") }
-    google()
 }
 
 dependencies {
