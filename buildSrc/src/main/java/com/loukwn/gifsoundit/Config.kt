@@ -57,6 +57,14 @@ object Config {
                 const val navigationFragmentKtx = "androidx.navigation:navigation-fragment-ktx:_"
                 const val navigationUiKtx = "androidx.navigation:navigation-ui-ktx:_"
             }
+
+            object Compose {
+                const val compiler = "androidx.compose.compiler:compiler:_"
+                const val ui = "androidx.compose.ui:ui:_"
+                const val material = "androidx.compose.material:material:_"
+                const val uiTooling = "androidx.compose.ui:ui-tooling:_"
+                const val foundation = "androidx.compose.foundation:foundation:_"
+            }
         }
 
         object Retrofit {
@@ -109,6 +117,7 @@ object Config {
         const val featList = ":feat-list"
         const val featOpenGs = ":feat-opengs"
         const val featSettings = ":feat-settings"
+        const val featCreate = ":feat-create"
         const val postData = ":postdata"
         const val navigation = ":navigation"
     }

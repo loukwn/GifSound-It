@@ -37,6 +37,7 @@ internal interface ListContract {
 
         fun onArrowButtonClicked()
         fun onSettingsButtonClicked()
+        fun onCreateButtonClicked()
         fun onOverlayClicked()
     }
 

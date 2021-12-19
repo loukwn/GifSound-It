@@ -22,4 +22,11 @@
         android:label="SettingsFragment"
         tools:layout="@layout/fragment_settings" />
 
+    <fragment
+        android:id="@id/fragment_create_id"
+        android:name="com.loukwn.gifsoundit.create.CreateFragment"
+        android:label="CreateFragment"
+        tools:layout="@layout/fragment_create" />
+
+
 </navigation>

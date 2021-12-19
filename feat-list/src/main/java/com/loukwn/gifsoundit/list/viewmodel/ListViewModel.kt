@@ -161,6 +161,10 @@ internal class ListViewModel @Inject constructor(
         throttledNavigationActionSubject.onNext(NavigationAction.Settings)
     }
 
+    override fun onCreateButtonClicked() {
+        navigator.navigateToCreate()
+    }
+
     override fun onOverlayClicked() {
         actionSubject.onNext(Action.OverlayClicked)
     }

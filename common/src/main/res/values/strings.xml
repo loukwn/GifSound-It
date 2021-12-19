@@ -52,4 +52,6 @@
     <string name="settings_about_contribute_title">Contribute / Report Issues</string>
     <string name="settings_about_contribute_description">This app is open source and its code can be found at: https://github.com/loukwn/GifSound-It\n\nAnyone is free to check the code, open any PRs for new stuff / bug fixes or report any issues.\n\nYou can also contact me at loukwn@gmail.com as well.</string>
 
+    <!-- Create -->
+    <string name="create_title">Create GifSound It</string>
 </resources>

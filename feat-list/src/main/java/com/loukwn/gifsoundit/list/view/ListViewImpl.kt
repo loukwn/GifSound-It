@@ -79,6 +79,7 @@ internal class ListViewImpl(
 
             listener?.onSaveButtonClicked(selectedSourceType, selectedFilterType)
         }
+        binding.createBt.setOnClickListener { listener?.onCreateButtonClicked() }
     }
 
     private fun setupRecyclerView() {
@@ -135,10 +136,12 @@ internal class ListViewImpl(
 
     override fun showOverlay() {
         binding.darkOverlay.isVisible = true
+        binding.createBt.hide()
     }
 
     override fun hideOverlay() {
         binding.darkOverlay.isVisible = false
+        binding.createBt.show()
     }
 
     override fun showErrorToast(errorMessage: String) {

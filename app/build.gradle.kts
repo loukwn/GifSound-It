@@ -74,6 +74,7 @@ dependencies {
     implementation(project(Config.Modules.featList))
     implementation(project(Config.Modules.featOpenGs))
     implementation(project(Config.Modules.featSettings))
+    implementation(project(Config.Modules.featCreate))
     implementation(project(Config.Modules.common))
     implementation(project(Config.Modules.postData))
     implementation(project(Config.Modules.navigation))

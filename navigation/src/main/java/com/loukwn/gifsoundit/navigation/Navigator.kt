@@ -18,6 +18,7 @@ interface Navigator {
     )
     fun navigateToSettings()
     fun navigateToOssLicenses()
+    fun navigateToCreate()
 
     fun goToOgWebsite(url: String)
 

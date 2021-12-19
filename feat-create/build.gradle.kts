@@ -34,11 +34,16 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.0.4"
+    }
+
     kotlinOptions {
         jvmTarget = "1.8"
     }
 
     buildFeatures {
+        compose = true
         viewBinding = true
     }
 }
@@ -60,9 +65,15 @@ dependencies {
 
     implementation(Config.Libs.Android.appcompat)
     implementation(Config.Libs.Android.Navigation.navigationFragmentKtx)
-    implementation(Config.Libs.Android.Navigation.navigationUiKtx)
-    implementation(Config.Libs.Android.constraintLayout)
+//    implementation(Config.Libs.Android.Navigation.navigationUiKtx)
+//    implementation(Config.Libs.Android.constraintLayout)
     implementation(Config.Libs.Android.material)
+
+    implementation(Config.Libs.Android.Compose.ui)
+    implementation(Config.Libs.Android.Compose.material)
+    implementation(Config.Libs.Android.Compose.foundation)
+    implementation(Config.Libs.Android.Compose.uiTooling)
+    implementation(Config.Libs.Android.Compose.compiler)
 
     testImplementation(Config.TestLibs.jUnit)
     testImplementation(Config.TestLibs.mockk)

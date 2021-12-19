@@ -3,4 +3,5 @@
     <item name="fragment_list_id" type="id" />
     <item name="fragment_opengs_id" type="id" />
     <item name="fragment_settings_id" type="id" />
+    <item name="fragment_create_id" type="id" />
 </resources>

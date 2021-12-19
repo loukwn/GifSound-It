@@ -1,6 +1,9 @@
 import de.fayard.refreshVersions.bootstrapRefreshVersions
 import de.fayard.refreshVersions.migrateRefreshVersionsIfNeeded
 
+include(":feat-create")
+
+
 buildscript {
     repositories { gradlePluginPortal() }
     dependencies.classpath("de.fayard.refreshVersions:refreshVersions:0.9.7")

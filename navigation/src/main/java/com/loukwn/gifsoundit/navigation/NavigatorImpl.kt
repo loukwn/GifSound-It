@@ -89,6 +89,10 @@ internal class NavigatorImpl @Inject constructor() : Navigator {
         }
     }
 
+    override fun navigateToCreate() {
+        navigateTo(dest = Destination.CREATE)
+    }
+
     override fun goToOgWebsite(url: String) {
         context?.let { ctx ->
             ctx.launchChooserIntentWithoutThisApp(
@@ -116,6 +120,7 @@ internal class NavigatorImpl @Inject constructor() : Navigator {
         LIST(R.id.fragment_list_id),
         OPENGS(R.id.fragment_opengs_id),
         SETTINGS(R.id.fragment_settings_id),
+        CREATE(R.id.fragment_create_id),
     }
 
     companion object {
