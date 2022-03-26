@@ -18,12 +18,12 @@ android {
         localProperties.inputStream().use { properties.load(it) }
     }
 
-    compileSdkVersion(Config.Android.compileSdkVersion)
-    buildToolsVersion(Config.Android.buildToolsVersion)
+    compileSdk = Config.Android.compileSdkVersion
+    buildToolsVersion = Config.Android.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion(Config.Android.minSdkVersion)
-        targetSdkVersion(Config.Android.targetSdkVersion)
+        minSdk = Config.Android.minSdkVersion
+        targetSdk = Config.Android.targetSdkVersion
     }
 
     buildTypes {
