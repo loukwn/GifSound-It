@@ -91,13 +91,10 @@ internal class NavigatorImpl @Inject constructor() : Navigator {
 
     override fun goToOgWebsite(url: String) {
         context?.let { ctx ->
-            ctx.launchChooserIntentWithoutThisApp(
-                intentBuilder = {
-                    Intent(Intent.ACTION_VIEW).apply {
-                        data = Uri.parse(url)
-                    }
-                },
-                chooserTitle = "Go to website",
+            ctx.startActivity(
+                Intent(Intent.ACTION_VIEW).apply {
+                    data = Uri.parse(url)
+                }
             )
         }
     }
