@@ -63,7 +63,7 @@ internal class OpenGSViewModelTest {
 
     @Test
     fun `WHEN onShareButtonPressed THEN navigate to share sheet with correct query`() {
-        handle.set<String>(Navigator.PARAM_OPENGS_QUERY, "query")
+        handle[Navigator.PARAM_OPENGS_QUERY] = "query"
 
         sut.onShareButtonPressed()
 
