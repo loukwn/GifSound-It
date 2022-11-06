@@ -1,50 +1,171 @@
 package com.loukwn.gifsoundit.create
 
+import android.content.res.Resources
+import androidx.annotation.VisibleForTesting
+import androidx.annotation.WorkerThread
+import androidx.compose.runtime.Immutable
 import androidx.lifecycle.ViewModel
-import com.loukwn.gifsoundit.common.util.DataState
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.emptyFlow
+import kotlinx.coroutines.flow.internal.ChannelFlow
+import kotlinx.coroutines.launch
+import org.jsoup.Jsoup
 import javax.inject.Inject
 
 @HiltViewModel
-class CreateViewModel @Inject constructor() : ViewModel() {
-    private val _uiModelFlow = MutableStateFlow(UiModel.default())
-    val uiModelFlow: StateFlow<UiModel> = _uiModelFlow
+internal class CreateViewModel @Inject constructor(
+    private val resources: Resources,
+) : ViewModel(), CreateContract.ViewModel {
+    override val uiModelFlow = MutableStateFlow(CreateContract.UiModel())
+    override val events = MutableSharedFlow<CreateContract.Event>()
 
-    fun goPressed() {
-//        val newVisibility = !_uiModelFlow.value.youtubeSelected
-//        _uiModelFlow.value = _uiModelFlow.value.copy(youtubeSelected = newVisibility)
+    private var gifLink: String? = null
+    private var soundLink: String? = null
+    private var soundSecondOffset: Int? = null
+
+    private var fetchPreviewJob: Job? = null
+
+    override fun onBackButtonClicked() {
+        events.tryEmit(CreateContract.Event.Close)
     }
-}
 
-data class UiModel(
-    val soundPreview: SoundPreviewModel,
-) {
-    companion object {
-        fun default(): UiModel = UiModel(
-            soundPreview = SoundPreviewModel.default(),
+    override fun onGifSelected(link: String) {
+        val trimmedLink = link.trim().ifEmpty { null }
+        if (trimmedLink != gifLink) {
+            gifLink = link
+            uiModelFlow.tryEmit(
+                uiModelFlow.value.copy(gifSelected = trimmedLink)
+            )
+        }
+    }
+
+    override fun onDismissGifClicked() {
+        gifLink = null
+        uiModelFlow.tryEmit(
+            uiModelFlow.value.copy(gifSelected = null)
         )
     }
-}
 
+    override fun onSoundSelected(link: String, secondOffset: Int?) {
+        val trimmedLink = link.trim().ifEmpty { null }
+        if (!trimmedLink.isNullOrEmpty()) {
+            soundSecondOffset = secondOffset
 
-data class SoundPreviewModel(
-    val visible: Boolean,
-    val state: DataState<SoundPreviewState>?
-) {
-    companion object {
-        fun default(): SoundPreviewModel = SoundPreviewModel(
-            visible = false,
-            state = null,
+            if (trimmedLink != soundLink) {
+                soundLink = link
+                uiModelFlow.tryEmit(
+                    uiModelFlow.value.copy(
+                        soundModel = CreateContract.SoundModel(
+                            selectedLink = YoutubeVideoIdExtractor.getId(trimmedLink),
+                            soundPreviewModel = CreateContract.SoundPreviewModel.NoData(
+                                text = resources.getString(R.string.create_sound_preview_loading)
+                            )
+                        )
+                    )
+                )
+
+                fetchSoundLinkPreview(trimmedLink)
+            }
+        } else {
+            clearSound()
+        }
+    }
+
+    override fun onDismissSoundClicked() {
+        clearSound()
+    }
+
+    private fun clearSound() {
+        soundLink = null
+        soundSecondOffset = null
+        uiModelFlow.tryEmit(
+            uiModelFlow.value.copy(soundModel = CreateContract.SoundModel())
         )
+    }
+
+    private fun fetchSoundLinkPreview(link: String) {
+        fetchPreviewJob?.cancel()
+        fetchPreviewJob = viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val id = YoutubeVideoIdExtractor.getId(link)
+
+                val imageUrl = "https://img.youtube.com/vi/$id/mqdefault.jpg"
+
+                val document = Jsoup.connect(link).get()
+                val metaTags = document.getElementsByTag("meta")
+                val title = metaTags
+                    .firstOrNull { it.attr("name") == "title" }
+                    ?.attr("content")
+                    ?: ""
+
+                val currentValue = uiModelFlow.value
+                uiModelFlow.emit(
+                    currentValue.copy(
+                        soundModel = currentValue.soundModel.copy(
+                            soundPreviewModel = CreateContract.SoundPreviewModel.Data(
+                                CreateContract.SoundPreviewState(
+                                    imageUrl, title
+                                )
+                            )
+                        )
+                    )
+                )
+            } catch (e: Exception) {
+                val errorMessage = when (e) {
+                    is UndeterminedVideoIdException -> {
+                        "Could not determine video id..."
+                    }
+                    else -> "An error occured"
+                }
+
+                val currentValue = uiModelFlow.value
+                uiModelFlow.emit(
+                    currentValue.copy(
+                        soundModel = currentValue.soundModel.copy(
+                            soundPreviewModel = CreateContract.SoundPreviewModel.NoData(
+                                errorMessage
+                            )
+                        )
+                    )
+                )
+            }
+        }
+    }
+
+    override fun onCreateClicked() {
+        if (gifLink != null && soundLink != null) {
+
+        }
     }
 }
 
-data class SoundPreviewState(
-    val imageUrl: String,
-    val title: String,
-    val subtitle: String,
-)
+class UndeterminedVideoIdException(val id: String) : Exception()
+
+internal object YoutubeVideoIdExtractor {
+    @Throws(UndeterminedVideoIdException::class)
+    fun getId(link: String): String {
+        return try {
+            when {
+                link.contains("youtu.be/") -> {
+                    link.split("youtu.be/")[1].split("?")[0]
+                }
+                link.contains("youtube.me/") -> {
+                    link.split("youtube.me/")[1].split("?")[0]
+                }
+                link.contains("youtube.com") -> {
+                    link.split("?v=")[1].split("&")[0]
+                }
+                else -> ""
+            }
+        } catch (e: Exception) {
+            throw UndeterminedVideoIdException(link)
+        }
+    }
+}

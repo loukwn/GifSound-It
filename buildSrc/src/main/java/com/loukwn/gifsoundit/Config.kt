@@ -19,11 +19,12 @@ object Config {
     object Android {
         const val buildToolsVersion = "30.0.3"
         const val minSdkVersion = 21
-        const val targetSdkVersion = 31
-        const val compileSdkVersion = 31
+        const val targetSdkVersion = 33
+        const val compileSdkVersion = 33
         const val applicationId = "com.loukwn.gifsoundit"
         const val versionCode = 2
         const val versionName = "2.0.0"
+        const val composeCompilerVersion = "1.3.2"
         const val testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -41,6 +42,8 @@ object Config {
         const val glide = "com.github.bumptech.glide:glide:_"
         const val youtubePlayer = "com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.3"
         const val leakCanary = "com.squareup.leakcanary:leakcanary-android:_"
+        const val coil = "io.coil-kt:coil-compose:_"
+        const val jsoup = "org.jsoup:jsoup:_"
 
         object Android {
             const val appcompat = "androidx.appcompat:appcompat:_"

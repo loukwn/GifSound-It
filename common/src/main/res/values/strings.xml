@@ -47,11 +47,26 @@
     <string name="settings_title">Settings</string>
     <string name="settings_oss_title">Open Source Licenses</string>
     <string name="settings_about_title">About</string>
-    <string name="settings_about_author_year">by loukwn (2021)</string>
+    <string name="settings_about_author_year">by loukwn (2022)</string>
     <string name="settings_about_description">This app substitutes functionally the gifsound.com website (except for creating GifSounds as of yet).\n\nThe posts that are shown in the list are fetched from various GifSound related subs (like reddit.com/r/GifSound etc.)</string>
     <string name="settings_about_contribute_title">Contribute / Report Issues</string>
     <string name="settings_about_contribute_description">This app is open source and its code can be found at: https://github.com/loukwn/GifSound-It\n\nAnyone is free to check the code, open any PRs for new stuff / bug fixes or report any issues.\n\nYou can also contact me at loukwn@gmail.com as well.</string>
 
     <!-- Create -->
     <string name="create_title">Create GifSound It</string>
+    <string name="create_gif_title">Gif</string>
+    <string name="create_gif_placeholder">Gif Link</string>
+    <string name="create_gif_selected">Selected: %1$s</string>
+    <string name="create_sound_title">Sound</string>
+    <string name="create_sound_placeholder">Youtube Link</string>
+    <string name="create_sound_selected">Selected: %1$s</string>
+    <string name="create_sound_offset">Second Offset: </string>
+    <string name="create_sound_offset_placeholder">sec</string>
+    <string name="create_sound_preview_loading">Preview loading…</string>
+    <string name="create_sound_preview_error">Error loading preview…</string>
+    <string name="create_button">Create</string>
+
+    <!-- Common -->
+    <string name="common_go">Go</string>
+
 </resources>

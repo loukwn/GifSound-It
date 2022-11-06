@@ -35,7 +35,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.1.1"
+        kotlinCompilerExtensionVersion = Config.Android.composeCompilerVersion
     }
 
     kotlinOptions {
@@ -68,6 +68,9 @@ dependencies {
 //    implementation(Config.Libs.Android.Navigation.navigationUiKtx)
 //    implementation(Config.Libs.Android.constraintLayout)
     implementation(Config.Libs.Android.material)
+
+    implementation(Config.Libs.coil)
+    implementation(Config.Libs.jsoup)
 
     implementation(Config.Libs.Android.Compose.ui)
     implementation(Config.Libs.Android.Compose.material)
