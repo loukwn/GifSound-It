@@ -95,13 +95,10 @@ internal class NavigatorImpl @Inject constructor() : Navigator {
 
     override fun goToOgWebsite(url: String) {
         context?.let { ctx ->
-            ctx.launchChooserIntentWithoutThisApp(
-                intentBuilder = {
-                    Intent(Intent.ACTION_VIEW).apply {
-                        data = Uri.parse(url)
-                    }
-                },
-                chooserTitle = "Go to website",
+            ctx.startActivity(
+                Intent(Intent.ACTION_VIEW).apply {
+                    data = Uri.parse(url)
+                }
             )
         }
     }
@@ -136,33 +133,3 @@ private val Context.activityContext: Activity?
         }
         return c as? Activity
     }
-
-private fun Context.launchChooserIntentWithoutThisApp(
-    intentBuilder: () -> Intent,
-    chooserTitle: String
-) {
-    val targetedShareIntents: MutableList<Intent> = ArrayList()
-    val resInfo = this.packageManager.queryIntentActivities(intentBuilder(), 0)
-    if (resInfo.isNotEmpty()) {
-        for (info in resInfo) {
-            val targetedShare = intentBuilder()
-            if (!info.activityInfo.packageName.equals(
-                    this.packageName,
-                    ignoreCase = true
-                )
-            ) {
-                targetedShare.setPackage(info.activityInfo.packageName)
-                targetedShareIntents.add(targetedShare)
-            }
-        }
-        val chooserIntent = Intent.createChooser(
-            targetedShareIntents.removeAt(0),
-            chooserTitle
-        )
-        chooserIntent.putExtra(
-            Intent.EXTRA_INITIAL_INTENTS,
-            targetedShareIntents.toTypedArray()
-        )
-        this.startActivity(chooserIntent)
-    }
-}

@@ -66,6 +66,13 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+
+    packagingOptions {
+        resources.pickFirsts.apply {
+            add("META-INF/LICENSE.md")
+            add("META-INF/LICENSE-notice.md")
+        }
+    }
 }
 
 dependencies {

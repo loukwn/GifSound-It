@@ -1,4 +1,4 @@
-<!-- <a href='https://play.google.com/store/apps/details?id=com.kostaslou.gifsoundit&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img align="right" alt='Get it on Google Play' src='/screenshots/google-play-badge.png' width="200"/></a> -->
+<a href='https://play.google.com/store/apps/details?id=com.loukwn.gifsoundit'><img align="right" alt='Get it on Google Play' src='/screenshots/google-play-badge.png' width="200"/></a>
 
 # GifSound-It
 My Android / Kotlin workspace. For more check the [wiki](https://github.com/loukwn/GifSound-It/wiki).

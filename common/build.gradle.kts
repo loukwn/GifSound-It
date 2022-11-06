@@ -1,9 +1,9 @@
 plugins {
     id("com.android.library")
     kotlin("android")
-    kotlin("kapt")
     id("dagger.hilt.android.plugin")
     id("org.jlleitschuh.gradle.ktlint")
+    kotlin("kapt")
 }
 
 android {

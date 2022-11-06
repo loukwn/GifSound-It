@@ -23,7 +23,7 @@ class ListPostAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (val item = getItem(position)) {
             is ListAdapterModel.Post -> (holder as PostsViewHolder).bind(item)
-            else -> {}
+            ListAdapterModel.Loading -> {}
         }
     }
 

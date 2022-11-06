@@ -1,5 +1,6 @@
 plugins {
-    id("de.fayard.refreshVersions") version "0.40.1"
+    // See https://jmfayard.github.io/refreshVersions
+    id("de.fayard.refreshVersions") version "0.50.2"
 }
 
 include(
@@ -10,5 +11,5 @@ include(
     ":postdata",
     ":navigation",
     ":feat-settings",
-    ":feat-create"
+    ":feat-create",
 )
