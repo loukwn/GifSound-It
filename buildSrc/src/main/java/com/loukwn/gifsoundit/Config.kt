@@ -22,9 +22,9 @@ object Config {
         const val targetSdkVersion = 33
         const val compileSdkVersion = 33
         const val applicationId = "com.loukwn.gifsoundit"
-        const val versionCode = 2
-        const val versionName = "2.0.0"
-        const val composeCompilerVersion = "1.3.2"
+        const val versionCode = 4
+        const val versionName = "2.0.2"
+        const val composeCompilerVersion = "1.4.0"
         const val testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
