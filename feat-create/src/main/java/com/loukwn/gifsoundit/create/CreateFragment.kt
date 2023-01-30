@@ -16,6 +16,9 @@ import com.google.android.material.transition.MaterialSharedAxis
 import com.loukwn.gifsoundit.create.databinding.FragmentCreateBinding
 import com.loukwn.gifsoundit.navigation.Navigator
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.consumeAsFlow
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -35,9 +38,12 @@ class CreateFragment : Fragment() {
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.events.collect {
+                viewModel.events.receiveAsFlow().collectLatest {
                     when (it) {
                         CreateContract.Event.Close -> navigator.goBack()
+                        is CreateContract.Event.OpenGs -> {
+                            navigator.navigateToOpenGS(it.url, false)
+                        }
                     }
                 }
             }
@@ -49,7 +55,9 @@ class CreateFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val composeView = ComposeView(requireContext())
+        val composeView = ComposeView(requireContext()).apply {
+            isTransitionGroup = true
+        }
         composeView.setContent {
             val uiModel = viewModel.uiModelFlow.collectAsState(CreateContract.UiModel())
 

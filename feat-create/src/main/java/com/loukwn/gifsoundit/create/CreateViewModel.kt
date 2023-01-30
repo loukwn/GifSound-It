@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.internal.ChannelFlow
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import org.jsoup.Jsoup
 import javax.inject.Inject
@@ -22,9 +23,10 @@ import javax.inject.Inject
 @HiltViewModel
 internal class CreateViewModel @Inject constructor(
     private val resources: Resources,
+    private val linkMapper: GifSoundPartToLinkMapper,
 ) : ViewModel(), CreateContract.ViewModel {
     override val uiModelFlow = MutableStateFlow(CreateContract.UiModel())
-    override val events = MutableSharedFlow<CreateContract.Event>()
+    override val events = Channel<CreateContract.Event>(capacity = Channel.UNLIMITED)
 
     private var gifLink: String? = null
     private var soundLink: String? = null
@@ -33,7 +35,7 @@ internal class CreateViewModel @Inject constructor(
     private var fetchPreviewJob: Job? = null
 
     override fun onBackButtonClicked() {
-        events.tryEmit(CreateContract.Event.Close)
+        events.trySend(CreateContract.Event.Close)
     }
 
     override fun onGifSelected(link: String) {
@@ -140,9 +142,12 @@ internal class CreateViewModel @Inject constructor(
     }
 
     override fun onCreateClicked() {
-        if (gifLink != null && soundLink != null) {
+        val gif = gifLink ?: return
+        val sound = soundLink ?: return
+        val seconds = soundSecondOffset ?: 0
+        val finalUrl = linkMapper.map(gif, sound, seconds)
 
-        }
+        events.trySend(CreateContract.Event.OpenGs(finalUrl))
     }
 }
 

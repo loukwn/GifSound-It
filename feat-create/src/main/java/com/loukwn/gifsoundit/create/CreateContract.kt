@@ -18,7 +18,7 @@ internal interface CreateContract {
 
     interface ViewModel: Listener {
         val uiModelFlow: Flow<UiModel>
-        val events: Flow<Event>
+        val events: Channel<Event>
     }
 
     data class UiModel(
@@ -44,5 +44,6 @@ internal interface CreateContract {
 
     sealed class Event {
         object Close: Event()
+        data class OpenGs(val url: String): Event()
     }
 }
