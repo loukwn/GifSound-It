@@ -22,8 +22,9 @@ object Config {
         const val targetSdkVersion = 33
         const val compileSdkVersion = 33
         const val applicationId = "com.loukwn.gifsoundit"
-        const val versionCode = 2
-        const val versionName = "2.0.0"
+        const val versionCode = 4
+        const val versionName = "2.0.2"
+        const val composeCompilerVersion = "1.4.0"
         const val testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -41,6 +42,8 @@ object Config {
         const val glide = "com.github.bumptech.glide:glide:_"
         const val youtubePlayer = "com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.3"
         const val leakCanary = "com.squareup.leakcanary:leakcanary-android:_"
+        const val coil = "io.coil-kt:coil-compose:_"
+        const val jsoup = "org.jsoup:jsoup:_"
 
         object Android {
             const val appcompat = "androidx.appcompat:appcompat:_"
@@ -56,6 +59,14 @@ object Config {
             object Navigation {
                 const val navigationFragmentKtx = "androidx.navigation:navigation-fragment-ktx:_"
                 const val navigationUiKtx = "androidx.navigation:navigation-ui-ktx:_"
+            }
+
+            object Compose {
+                const val compiler = "androidx.compose.compiler:compiler:_"
+                const val ui = "androidx.compose.ui:ui:_"
+                const val material = "androidx.compose.material:material:_"
+                const val uiTooling = "androidx.compose.ui:ui-tooling:_"
+                const val foundation = "androidx.compose.foundation:foundation:_"
             }
         }
 
@@ -109,6 +120,7 @@ object Config {
         const val featList = ":feat-list"
         const val featOpenGs = ":feat-opengs"
         const val featSettings = ":feat-settings"
+        const val featCreate = ":feat-create"
         const val postData = ":postdata"
         const val navigation = ":navigation"
     }

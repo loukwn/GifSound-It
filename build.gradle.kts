@@ -11,13 +11,13 @@ buildscript {
         classpath(Config.BuildPlugins.firebaseCrashlyticsGradle)
         classpath(Config.BuildPlugins.hiltAndroidGradlePlugin)
         classpath(Config.BuildPlugins.ossVersionsPlugin)
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.10")
     }
 }
 
 allprojects {
     repositories {
         google()
-        jcenter()
         maven { url = uri("https://plugins.gradle.org/m2/") }
     }
 

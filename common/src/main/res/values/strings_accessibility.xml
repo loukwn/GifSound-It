@@ -18,4 +18,7 @@
     <!-- Settings -->
     <string name="content_description_settings_back">Button to go back</string>
 
+    <!-- Create -->
+    <string name="content_description_settings_down">Button to go back</string>
+
 </resources>

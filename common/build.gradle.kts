@@ -7,12 +7,12 @@ plugins {
 }
 
 android {
-    compileSdkVersion(Config.Android.compileSdkVersion)
-    buildToolsVersion(Config.Android.buildToolsVersion)
+    compileSdk = Config.Android.compileSdkVersion
+    buildToolsVersion = Config.Android.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion(Config.Android.minSdkVersion)
-        targetSdkVersion(Config.Android.targetSdkVersion)
+        minSdk = Config.Android.minSdkVersion
+        targetSdk = Config.Android.targetSdkVersion
     }
 
     buildTypes {
@@ -28,6 +28,14 @@ android {
             isMinifyEnabled = false
         }
     }
+
+    buildFeatures {
+        compose = true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = Config.Android.composeCompilerVersion
+    }
 }
 
 dependencies {
@@ -35,6 +43,12 @@ dependencies {
 
     implementation(Config.Libs.Android.appcompat)
     implementation(Config.Libs.Android.material)
+
+    implementation(Config.Libs.Android.Compose.ui)
+    implementation(Config.Libs.Android.Compose.material)
+    implementation(Config.Libs.Android.Compose.foundation)
+    implementation(Config.Libs.Android.Compose.uiTooling)
+    implementation(Config.Libs.Android.Compose.compiler)
 
     implementation(Config.Libs.Hilt.hiltAndroid)
     kapt(Config.Libs.Hilt.hiltAndroidCompiler)

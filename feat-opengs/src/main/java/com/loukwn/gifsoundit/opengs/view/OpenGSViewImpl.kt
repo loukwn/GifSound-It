@@ -1,6 +1,7 @@
 package com.loukwn.gifsoundit.opengs.view
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -88,13 +89,22 @@ internal class OpenGSViewImpl(
         }
 
         Glide.with(context)
-            .asGif()
             .load(gifImageUrl)
-            .listener(object : RequestListener<GifDrawable> {
-                override fun onResourceReady(
-                    resource: GifDrawable?,
+            .listener(object: RequestListener<Drawable> {
+                override fun onLoadFailed(
+                    e: GlideException?,
                     model: Any?,
-                    target: Target<GifDrawable>?,
+                    target: Target<Drawable>?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    listener?.onGifStateChanged(GifState.GIF_ERROR)
+                    return false
+                }
+
+                override fun onResourceReady(
+                    resource: Drawable?,
+                    model: Any?,
+                    target: Target<Drawable>?,
                     dataSource: DataSource?,
                     isFirstResource: Boolean
                 ): Boolean {
@@ -102,15 +112,6 @@ internal class OpenGSViewImpl(
                     return false
                 }
 
-                override fun onLoadFailed(
-                    p0: GlideException?,
-                    p1: Any?,
-                    p2: Target<GifDrawable>?,
-                    p3: Boolean
-                ): Boolean {
-                    listener?.onGifStateChanged(GifState.GIF_ERROR)
-                    return false
-                }
             })
             .into(binding.gifView)
     }

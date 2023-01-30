@@ -10,5 +10,6 @@ include(
     ":common",
     ":postdata",
     ":navigation",
-    ":feat-settings"
+    ":feat-settings",
+    ":feat-create",
 )
