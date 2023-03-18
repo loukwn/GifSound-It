@@ -9,8 +9,10 @@ dependencies {
     implementation(project(Config.Modules.featOpenGs))
     implementation(project(Config.Modules.featSettings))
     implementation(project(Config.Modules.featCreate))
-    implementation(project(Config.Modules.common))
+    implementation(project(Config.Modules.presentationCommon))
     implementation(project(Config.Modules.postData))
+    implementation(project(Config.Modules.data))
+    implementation(project(Config.Modules.domain))
     implementation(project(Config.Modules.navigation))
 
     implementation(Config.Libs.Android.appcompat)

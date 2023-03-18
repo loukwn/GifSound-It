@@ -116,7 +116,9 @@ object Config {
     }
 
     object Modules {
-        const val common = ":common"
+        const val presentationCommon = ":presentation:common"
+        const val data = ":data"
+        const val domain = ":domain"
         const val featList = ":feat-list"
         const val featOpenGs = ":feat-opengs"
         const val featSettings = ":feat-settings"

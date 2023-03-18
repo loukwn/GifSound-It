@@ -7,9 +7,11 @@ include(
     ":app",
     ":feat-opengs",
     ":feat-list",
-    ":common",
     ":postdata",
     ":navigation",
     ":feat-settings",
     ":feat-create",
+    ":presentation:common",
+    ":data",
+    ":domain",
 )

@@ -5,7 +5,8 @@ plugins {
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
-    implementation(project(Config.Modules.common))
+    implementation(project(Config.Modules.data))
+    implementation(project(Config.Modules.presentationCommon))
     implementation(project(Config.Modules.navigation))
 
     implementation(Config.Libs.Hilt.hiltAndroid)

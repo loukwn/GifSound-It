@@ -6,7 +6,8 @@ plugins {
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
-    implementation(project(Config.Modules.common))
+    implementation(project(Config.Modules.data))
+    implementation(project(Config.Modules.domain))
 
     implementation(Config.Libs.Retrofit.retrofit)
     implementation(Config.Libs.Retrofit.adapterRxJava2)

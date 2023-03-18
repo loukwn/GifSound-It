@@ -81,6 +81,13 @@ abstract class GsGradlePlugin(private val type: GsGradlePluginType) : Plugin<Pro
                 }
             }
 
+//            val namespaceToSet = if (type is GsGradlePluginType.Application) {
+//                Config.Android.applicationId
+//            } else {
+//                "${Config.Android.applicationId}${path.replace(":", ".")}"
+//            }
+//            namespace = namespaceToSet
+
             compileSdk = Config.Android.compileSdkVersion
             if (type.isAndroidLibrary) {
                 buildToolsVersion = Config.Android.buildToolsVersion
