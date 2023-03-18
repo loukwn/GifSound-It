@@ -5,13 +5,13 @@ plugins {
 
 include(
     ":app",
-    ":feat-opengs",
-    ":feat-list",
-    ":postdata",
-    ":navigation",
-    ":feat-settings",
-    ":feat-create",
-    ":presentation:common",
     ":data",
     ":domain",
+    ":navigation",
+    ":postdata",
+    ":presentation:common",
+    ":presentation:create",
+    ":presentation:list",
+    ":presentation:opengs",
+    ":presentation:settings",
 )
